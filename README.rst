@@ -6,7 +6,7 @@ This is the documentation repository for
 `SpinalHDL <https://github.com/SpinalHDL/VexiiRiscv>`_.
 
 It is published on
-`spinalhdl.github.io/SpinalDoc-RTD <https://spinalhdl.github.io/VexiiRiscv-RTD/master/index.html>`_.
+`spinalhdl.github.io/VexiiRiscv-RTD <https://spinalhdl.github.io/VexiiRiscv-RTD/master/index.html>`_.
 
 How to build this documentation
 ===============================

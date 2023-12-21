@@ -12,7 +12,7 @@ How to build this documentation
 ===============================
 
 With venv
----------
+----------
 
 Requirements (system)
 

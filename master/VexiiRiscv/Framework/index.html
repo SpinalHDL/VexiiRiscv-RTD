@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Framework &mdash; VexiiRiscv  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/gh-fork-ribbon.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/vexiiriscv.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/logo3_32x32.png"/>
+    <link rel="canonical" href="https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Framework/index.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/wavedrom/2.6.8/skins/default.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/wavedrom/2.6.8/wavedrom.min.js"></script>
+        <script src="../../_static/dialog.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Fetch" href="../Fetch/index.html" />
+    <link rel="prev" title="About VexiiRiscv" href="../Introduction/VexiiRiscv.html" />
+     
+    <!-- source/_templates/layout.html -->
+    
+    
+    
+
+</head>
+
+<body class="wy-body-for-nav">
+     
+    
+    
+    
+    <div class="div-svg-github-corner github-corner-abs">
+    <a href="https://github.com/SpinalHDL/VexiiRiscv-RTD/blob/master/source/VexiiRiscv/Framework/index.rst" class="github-corner github-fork-ribbon" aria-label="Edit on GitHub" data-ribbon="Edit on GitHub" title="Edit on GitHub">
+      <object id="svg-github-corner" data="../../_static/github-corner-right.svg" class="svg-github-corner github-corner-abs" width="80" height="80"></object>
+    </a>
+    </div>
+    
+    
+    
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            VexiiRiscv
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction/index.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/VexiiRiscv.html">About VexiiRiscv</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Framework</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#scala-spinalhdl">Scala / SpinalHDL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#plugin">Plugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#simple-all-in-one-example">Simple all-in-one example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#negociation-example">Negociation example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#database">Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pipeline-api">Pipeline API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Fetch/index.html">Fetch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#fetchpipelineplugin">FetchPipelinePlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#pcplugin">PcPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#fetchcachelessplugin">FetchCachelessPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#btbplugin">BtbPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#gshareplugin">GSharePlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#historyplugin">HistoryPlugin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Decode/index.html">Decode</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#decodepipelineplugin">DecodePipelinePlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#alignerplugin">AlignerPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#decoderplugin">DecoderPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#decodepredictionplugin">DecodePredictionPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#dispatchplugin">DispatchPlugin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Execute/index.html">Execute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/index.html#executepipelineplugin">ExecutePipelinePlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/index.html#executelaneplugin">ExecuteLanePlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/index.html#regfileplugin">RegFilePlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/index.html#srcplugin">SrcPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/index.html#rsunsignedplugin">RsUnsignedPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/index.html#intformatplugin">IntFormatPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/index.html#writebackplugin">WriteBackPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/index.html#learnplugin">LearnPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/index.html#intaluplugin">IntAluPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/index.html#barrelshifterplugin">BarrelShifterPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/index.html#branchplugin">BranchPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/index.html#mulplugin">MulPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/index.html#divplugin">DivPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/index.html#lsucachelessplugin">LsuCachelessPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/index.html#csraccessplugin">CsrAccessPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/index.html#csrramplugin">CsrRamPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/index.html#privilegedplugin">PrivilegedPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/index.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/index.html#envplugin">EnvPlugin</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">VexiiRiscv</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Framework</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/SpinalHDL/VexiiRiscv-RTD/blob/master/source/VexiiRiscv/Framework/index.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             <dialog id="doc-dialog-version" role="dialog" class="collapse-once" aria-modal="false" data-default-state="close" data-current-version="master" data-latest-version="master">
+<p class="doc-version-warning-banner">
+  <strong>
+    
+    You're reading an pre-release version of this documentation.<br/>
+    For the latest stable release version, please have a look at <a href="index.html">master</a>.
+    
+  </strong>
+  <div>
+    <form>
+      <button formmethod="dialog" type="submit" class="doc-dialog-dismiss" aria-label="close">Dismiss</button>
+    </form>
+  </div>
+</p>
+</dialog>
+
+
+
+
+  <section id="framework">
+<h1>Framework<a class="headerlink" href="#framework" title="Permalink to this heading"></a></h1>
+<section id="dependencies">
+<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading"></a></h2>
+<p>VexRiscv is based on a few tools / API</p>
+<ul class="simple">
+<li><p>Scala : Which will take care of the elaboration</p></li>
+<li><p>SpinalHDL : Which provide a hardware description API</p></li>
+<li><p>Plugin : Which are used to inject hardware in the CPU</p></li>
+<li><p>Fiber : Which allows to define elaboration threads in the plugins</p></li>
+<li><p>Retainer : Which allows to block the execution of the elaboration threads waiting on it</p></li>
+<li><p>Database : Which specify a shared scope for all the plugins to share elaboration time stuff</p></li>
+<li><p>spinal.lib.misc.pipeline : Which allow to pipeline things in a very dynamic manner.</p></li>
+<li><p>spinal.lib.logic : Which provide Quine McCluskey to generate logic decoders from the elaboration time specifications</p></li>
+</ul>
+</section>
+<section id="scala-spinalhdl">
+<h2>Scala / SpinalHDL<a class="headerlink" href="#scala-spinalhdl" title="Permalink to this heading"></a></h2>
+<p>This combination alows to goes way behond what regular HDL alows in terms of hardware description capabilities.
+You can find some documentation about SpinalHDL here :</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://spinalhdl.github.io/SpinalDoc-RTD/master/index.html">https://spinalhdl.github.io/SpinalDoc-RTD/master/index.html</a></p></li>
+</ul>
+</section>
+<section id="plugin">
+<h2>Plugin<a class="headerlink" href="#plugin" title="Permalink to this heading"></a></h2>
+<p>One main design aspect of VexiiRiscv is that all its hardware is defined inside plugins. When you want to instanciate a VexiiRiscv CPU, you “only” need to provide a list of plugins as parameters. So, plugins can be seen as both parameters and hardware definition from a VexiiRiscv perspective.</p>
+<p>So it is quite different from the regular HDL component/module paradigm. Here are the adventages of this aproache :</p>
+<ul class="simple">
+<li><p>The CPU can be extended without modifying its core source code, just add a new plugin in the parameters</p></li>
+<li><p>You can swap a specific implementation for another just by swapping plugin in the parameter list. (ex branch prediction, mul/div, …)</p></li>
+<li><p>It is decentralised by nature, you don’t have a fat toplevel of doom, software interface between plugins can be used to negociate things durring elaboration time.</p></li>
+</ul>
+<p>The plugins can fork elaboration threads which cover 2 phases :</p>
+<ul class="simple">
+<li><p>setup phase : where plugins can aquire elaboration locks on each others</p></li>
+<li><p>build phase : where plugins can negociate between each others and generate hardware</p></li>
+</ul>
+<section id="simple-all-in-one-example">
+<h3>Simple all-in-one example<a class="headerlink" href="#simple-all-in-one-example" title="Permalink to this heading"></a></h3>
+<p>Here is a simple example :</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="nn">spinal</span><span class="p">.</span><span class="nn">core</span><span class="p">.</span><span class="n">_</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">spinal</span><span class="p">.</span><span class="nn">lib</span><span class="p">.</span><span class="nn">misc</span><span class="p">.</span><span class="nn">plugin</span><span class="p">.</span><span class="n">_</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">vexiiriscv</span><span class="p">.</span><span class="n">_</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">scala</span><span class="p">.</span><span class="nn">collection</span><span class="p">.</span><span class="nn">mutable</span><span class="p">.</span><span class="nc">ArrayBuffer</span>
+
+<span class="c1">// Define a new plugin kind</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FixedOutputPlugin</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">FiberPlugin</span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Define a build phase elaboration thread</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="w"> </span><span class="n">bits</span><span class="p">)</span>
+<span class="w">    </span><span class="n">port</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">42</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">object</span><span class="w"> </span><span class="nc">Gen</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">App</span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Generate the verilog</span>
+<span class="w">  </span><span class="nc">SpinalVerilog</span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">plugins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ArrayBuffer</span><span class="p">[</span><span class="nc">FiberPlugin</span><span class="p">]()</span>
+<span class="w">    </span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">FixedOutputPlugin</span><span class="p">()</span>
+<span class="w">    </span><span class="nc">VexiiRiscv</span><span class="p">(</span><span class="n">plugins</span><span class="p">)</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Will generate</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span><span class="w"> </span><span class="n">VexiiRiscv</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">output</span><span class="w"> </span><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">FixedOutputPlugin_logic_port</span>
+<span class="p">);</span>
+
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">FixedOutputPlugin_logic_port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8&#39;h42</span><span class="p">;</span>
+
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+</section>
+<section id="negociation-example">
+<h3>Negociation example<a class="headerlink" href="#negociation-example" title="Permalink to this heading"></a></h3>
+<p>Here is a example where there a plugin which count the number of hardware event comming from other plugins :</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="nn">spinal</span><span class="p">.</span><span class="nn">core</span><span class="p">.</span><span class="n">_</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">spinal</span><span class="p">.</span><span class="nn">core</span><span class="p">.</span><span class="nn">fiber</span><span class="p">.</span><span class="nc">Retainer</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">spinal</span><span class="p">.</span><span class="nn">lib</span><span class="p">.</span><span class="nn">misc</span><span class="p">.</span><span class="nn">plugin</span><span class="p">.</span><span class="n">_</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">spinal</span><span class="p">.</span><span class="nn">lib</span><span class="p">.</span><span class="nc">CountOne</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">vexiiriscv</span><span class="p">.</span><span class="n">_</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">scala</span><span class="p">.</span><span class="nn">collection</span><span class="p">.</span><span class="nn">mutable</span><span class="p">.</span><span class="nc">ArrayBuffer</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">EventCounterPlugin</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">FiberPlugin</span><span class="p">{</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">lock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Retainer</span><span class="p">()</span><span class="w"> </span><span class="c1">// Will allow other plugins to block the elaboration of &quot;logic&quot; thread</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">events</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ArrayBuffer</span><span class="p">[</span><span class="nc">Bool</span><span class="p">]()</span><span class="w"> </span><span class="c1">// Will allow other plugins to add event sources</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="p">{</span>
+<span class="w">    </span><span class="n">lock</span><span class="p">.</span><span class="n">await</span><span class="p">()</span><span class="w"> </span><span class="c1">// Active blocking</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Reg</span><span class="p">(</span><span class="nc">UInt</span><span class="p">(</span><span class="mi">32</span><span class="w"> </span><span class="n">bits</span><span class="p">))</span><span class="w"> </span><span class="n">init</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="w">    </span><span class="n">counter</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nc">CountOne</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+
+<span class="c1">//For the demo we want to be able to instanciate this plugin multiple times, so we add a prefix parameter</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">EventSourcePlugin</span><span class="p">(</span><span class="n">prefix</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nc">String</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">FiberPlugin</span><span class="p">{</span>
+<span class="w">  </span><span class="n">withPrefix</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span>
+
+<span class="w">  </span><span class="c1">// Create a thread starting from the setup phase (this allow to run some code before the build phase, and so lock some other plugins retainers)</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">setup</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">ecp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">host</span><span class="p">[</span><span class="nc">EventCounterPlugin</span><span class="p">]</span><span class="w"> </span><span class="c1">// Search for the single instance of EventCounterPlugin in the plugin pool</span>
+<span class="w">    </span><span class="c1">// Generate a lock to prevent the EventCounterPlugin elaboration until we release it.</span>
+<span class="w">    </span><span class="c1">// this will allow us to add our localEvent to the ecp.events list</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">ecpLocker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ecp</span><span class="p">.</span><span class="n">lock</span><span class="p">()</span>
+
+<span class="w">    </span><span class="c1">// Wait for the build phase before generating any hardware</span>
+<span class="w">    </span><span class="n">awaitBuild</span><span class="p">()</span>
+
+<span class="w">    </span><span class="c1">// Here the local event is a input of the VexiiRiscv toplevel (just for the demo)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">localEvent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="nc">Bool</span><span class="p">()</span>
+<span class="w">    </span><span class="n">ecp</span><span class="p">.</span><span class="n">events</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">localEvent</span>
+
+<span class="w">    </span><span class="c1">// As everything is done, we now allow the ecp to elaborate itself</span>
+<span class="w">    </span><span class="n">ecpLocker</span><span class="p">.</span><span class="n">release</span><span class="p">()</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">object</span><span class="w"> </span><span class="nc">Gen</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">App</span><span class="p">{</span>
+<span class="w">  </span><span class="nc">SpinalVerilog</span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">plugins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ArrayBuffer</span><span class="p">[</span><span class="nc">FiberPlugin</span><span class="p">]()</span>
+<span class="w">    </span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">EventCounterPlugin</span><span class="p">()</span>
+<span class="w">    </span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">EventSourcePlugin</span><span class="p">(</span><span class="s">&quot;lane0&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">EventSourcePlugin</span><span class="p">(</span><span class="s">&quot;lane1&quot;</span><span class="p">)</span>
+<span class="w">    </span><span class="nc">VexiiRiscv</span><span class="p">(</span><span class="n">plugins</span><span class="p">)</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span><span class="w"> </span><span class="n">VexiiRiscv</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w">          </span><span class="n">lane0_EventSourcePlugin_logic_localEvent</span><span class="p">,</span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w">          </span><span class="n">lane1_EventSourcePlugin_logic_localEvent</span><span class="p">,</span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w">          </span><span class="n">clk</span><span class="p">,</span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w">          </span><span class="n">reset</span>
+<span class="p">);</span>
+
+<span class="w">  </span><span class="kt">wire</span><span class="w">       </span><span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">   </span><span class="n">_zz_EventCounterPlugin_logic_counter</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">reg</span><span class="w">        </span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">_zz_EventCounterPlugin_logic_counter_1</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">wire</span><span class="w">       </span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">_zz_EventCounterPlugin_logic_counter_2</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">reg</span><span class="w">        </span><span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">   </span><span class="n">EventCounterPlugin_logic_counter</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">_zz_EventCounterPlugin_logic_counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mh">30</span><span class="mi">&#39;d0</span><span class="p">,</span><span class="w"> </span><span class="n">_zz_EventCounterPlugin_logic_counter_1</span><span class="p">};</span>
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">_zz_EventCounterPlugin_logic_counter_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">lane1_EventSourcePlugin_logic_localEvent</span><span class="p">,</span><span class="n">lane0_EventSourcePlugin_logic_localEvent</span><span class="p">};</span>
+<span class="w">  </span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">    </span><span class="k">case</span><span class="p">(</span><span class="n">_zz_EventCounterPlugin_logic_counter_2</span><span class="p">)</span>
+<span class="w">      </span><span class="mh">2</span><span class="mb">&#39;b00</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">_zz_EventCounterPlugin_logic_counter_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b00</span><span class="p">;</span>
+<span class="w">      </span><span class="mh">2</span><span class="mb">&#39;b01</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">_zz_EventCounterPlugin_logic_counter_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b01</span><span class="p">;</span>
+<span class="w">      </span><span class="mh">2</span><span class="mb">&#39;b10</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">_zz_EventCounterPlugin_logic_counter_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b01</span><span class="p">;</span>
+<span class="w">      </span><span class="k">default</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">_zz_EventCounterPlugin_logic_counter_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b10</span><span class="p">;</span>
+<span class="w">    </span><span class="k">endcase</span>
+<span class="w">  </span><span class="k">end</span>
+
+<span class="w">  </span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">posedge</span><span class="w"> </span><span class="n">reset</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">reset</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">      </span><span class="n">EventCounterPlugin_logic_counter</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">32&#39;h00000000</span><span class="p">;</span>
+<span class="w">    </span><span class="k">end</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">      </span><span class="n">EventCounterPlugin_logic_counter</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="p">(</span><span class="n">EventCounterPlugin_logic_counter</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">_zz_EventCounterPlugin_logic_counter</span><span class="p">);</span>
+<span class="w">    </span><span class="k">end</span>
+<span class="w">  </span><span class="k">end</span>
+
+
+<span class="k">endmodule</span>
+</pre></div>
+</div>
+</section>
+</section>
+<section id="database">
+<h2>Database<a class="headerlink" href="#database" title="Permalink to this heading"></a></h2>
+<p>Quite a few things behave kinda like variable specific for each VexiiRiscv instance. For instance XLEN, PC_WIDTH, INSTRUCTION_WIDTH, …</p>
+<p>So they are end up with things that we would like to share between plugins of a given VexiiRiscv instance with the minimum code possible to keep things slim. For that, a “database” was added.
+You can see it in the VexRiscv toplevel :</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">VexiiRiscv</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Component</span><span class="p">{</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">database</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Database</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">database</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="nc">PluginHost</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>What it does is that all the plugin thread will run in the context of that database. Allowing the following patterns :</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="nn">spinal</span><span class="p">.</span><span class="nn">core</span><span class="p">.</span><span class="n">_</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">spinal</span><span class="p">.</span><span class="nn">lib</span><span class="p">.</span><span class="nn">misc</span><span class="p">.</span><span class="nn">plugin</span><span class="p">.</span><span class="n">_</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">spinal</span><span class="p">.</span><span class="nn">lib</span><span class="p">.</span><span class="nn">misc</span><span class="p">.</span><span class="nn">database</span><span class="p">.</span><span class="nc">Database</span><span class="p">.</span><span class="n">blocking</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">vexiiriscv</span><span class="p">.</span><span class="n">_</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">scala</span><span class="p">.</span><span class="nn">collection</span><span class="p">.</span><span class="nn">mutable</span><span class="p">.</span><span class="nc">ArrayBuffer</span>
+
+<span class="k">object</span><span class="w"> </span><span class="nc">Global</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">AreaObject</span><span class="p">{</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="nc">VIRTUAL_WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">blocking</span><span class="p">[</span><span class="nc">Int</span><span class="p">]</span><span class="w"> </span><span class="c1">// If accessed while before being set, it will actively block (until set by another thread)</span>
+<span class="p">}</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">LoadStorePlugin</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">FiberPlugin</span><span class="p">{</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">register</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Reg</span><span class="p">(</span><span class="nc">UInt</span><span class="p">(</span><span class="nc">Global</span><span class="p">.</span><span class="nc">VIRTUAL_WIDTH</span><span class="w"> </span><span class="n">bits</span><span class="p">))</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">MmuPlugin</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">FiberPlugin</span><span class="p">{</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="p">{</span>
+<span class="w">    </span><span class="nc">Global</span><span class="p">.</span><span class="nc">VIRTUAL_WIDTH</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="mi">39</span><span class="p">)</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+
+<span class="k">object</span><span class="w"> </span><span class="nc">Gen</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">App</span><span class="p">{</span>
+<span class="w">  </span><span class="nc">SpinalVerilog</span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">plugins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ArrayBuffer</span><span class="p">[</span><span class="nc">FiberPlugin</span><span class="p">]()</span>
+<span class="w">    </span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">LoadStorePlugin</span><span class="p">()</span>
+<span class="w">    </span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">MmuPlugin</span><span class="p">()</span>
+<span class="w">    </span><span class="nc">VexiiRiscv</span><span class="p">(</span><span class="n">plugins</span><span class="p">)</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+</section>
+<section id="pipeline-api">
+<h2>Pipeline API<a class="headerlink" href="#pipeline-api" title="Permalink to this heading"></a></h2>
+<p>In short the design use a pipeline API in order to :</p>
+<ul class="simple">
+<li><p>Allow moving things around with no paine (retiming)</p></li>
+<li><p>Reduce boiler plate code</p></li>
+</ul>
+<p>More documentation about it in <a class="reference external" href="https://github.com/SpinalHDL/SpinalDoc-RTD/pull/226">https://github.com/SpinalHDL/SpinalDoc-RTD/pull/226</a></p>
+</section>
+</section>
+
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../Introduction/VexiiRiscv.html" class="btn btn-neutral float-left" title="About VexiiRiscv" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../Fetch/index.html" class="btn btn-neutral float-right" title="Fetch" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023 - 2023, VexiiRiscv.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+     
+    <!-- source/_templates/footer.html -->
+    
+    <div class="doc-footer-current-version"><p>
+    Version: master git~d4ea2c5 2023-12-31
+    </p></div>
+    
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: master
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+       <dt>Languages</dt>
+       <dd class="rtd-current-item">
+         <a href="#">en</a>
+       </dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="index.html">master</a></dd>
+    </dl>
+    <dl>
+      <dt>Downloads</dt>
+      <dd><a href="../../artefacts/VexiiRiscv_docs-master.">HTML</a></dd>
+      <dd><a href="../../artefacts/VexiiRiscv_docs-master-SingleHTML.zip">SingleHTML</a></dd>
+      <dd><a href="../../artefacts/VexiiRiscv_docs-master.pdf">PDF</a></dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

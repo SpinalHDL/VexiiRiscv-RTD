@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Introduction &mdash; VexiiRiscv  documentation</title>
+  <title>Fetch &mdash; VexiiRiscv  documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
@@ -12,7 +12,7 @@
       <link rel="stylesheet" href="../../_static/gh-fork-ribbon.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/vexiiriscv.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/logo3_32x32.png"/>
-    <link rel="canonical" href="https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Introduction/index.html" />
+    <link rel="canonical" href="https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Fetch/index.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -31,8 +31,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="About VexiiRiscv" href="VexiiRiscv.html" />
-    <link rel="prev" title="VexiiRiscv" href="../../index.html" />
+    <link rel="next" title="Decode" href="../Decode/index.html" />
+    <link rel="prev" title="Framework" href="../Framework/index.html" />
      
     <!-- source/_templates/layout.html -->
     
@@ -47,7 +47,7 @@
     
     
     <div class="div-svg-github-corner github-corner-abs">
-    <a href="https://github.com/SpinalHDL/VexiiRiscv-RTD/blob/master/source/VexiiRiscv/Introduction/index.rst" class="github-corner github-fork-ribbon" aria-label="Edit on GitHub" data-ribbon="Edit on GitHub" title="Edit on GitHub">
+    <a href="https://github.com/SpinalHDL/VexiiRiscv-RTD/blob/master/source/VexiiRiscv/Fetch/index.rst" class="github-corner github-fork-ribbon" aria-label="Edit on GitHub" data-ribbon="Edit on GitHub" title="Edit on GitHub">
       <object id="svg-github-corner" data="../../_static/github-corner-right.svg" class="svg-github-corner github-corner-abs" width="80" height="80"></object>
     </a>
     </div>
@@ -74,8 +74,8 @@
 </div>
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="VexiiRiscv.html">About VexiiRiscv</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Introduction/index.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/VexiiRiscv.html">About VexiiRiscv</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Framework/index.html">Framework</a><ul>
@@ -90,13 +90,13 @@
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#pipeline-api">Pipeline API</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../Fetch/index.html">Fetch</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#fetchpipelineplugin">FetchPipelinePlugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#pcplugin">PcPlugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#fetchcachelessplugin">FetchCachelessPlugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#btbplugin">BtbPlugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#gshareplugin">GSharePlugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#historyplugin">HistoryPlugin</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Fetch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#fetchpipelineplugin">FetchPipelinePlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#pcplugin">PcPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fetchcachelessplugin">FetchCachelessPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#btbplugin">BtbPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gshareplugin">GSharePlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#historyplugin">HistoryPlugin</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Decode/index.html">Decode</a><ul>
@@ -145,9 +145,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Introduction</li>
+      <li class="breadcrumb-item active">Fetch</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/SpinalHDL/VexiiRiscv-RTD/blob/master/source/VexiiRiscv/Introduction/index.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/SpinalHDL/VexiiRiscv-RTD/blob/master/source/VexiiRiscv/Fetch/index.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -173,14 +173,74 @@
 
 
 
-  <section id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h1>
-<p>Miaouuu</p>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="VexiiRiscv.html">About VexiiRiscv</a></li>
+  <section id="fetch">
+<h1>Fetch<a class="headerlink" href="#fetch" title="Permalink to this heading"></a></h1>
+<p>A few plugins operate in the fetch stage :</p>
+<ul class="simple">
+<li><p>FetchPipelinePlugin</p></li>
+<li><p>PcPlugin</p></li>
+<li><p>FetchCachelessPlugin</p></li>
+<li><p>BtbPlugin</p></li>
+<li><p>GSharePlugin</p></li>
+<li><p>HistoryPlugin</p></li>
 </ul>
-</div>
+<section id="fetchpipelineplugin">
+<h2>FetchPipelinePlugin<a class="headerlink" href="#fetchpipelineplugin" title="Permalink to this heading"></a></h2>
+<p>Provide the pipeline framework for all the fetch related hardware. It use the native spinal.lib.misc.pipeline API without any restriction.</p>
+</section>
+<section id="pcplugin">
+<h2>PcPlugin<a class="headerlink" href="#pcplugin" title="Permalink to this heading"></a></h2>
+<p>Will :</p>
+<ul class="simple">
+<li><p>implement the fetch program counter register</p></li>
+<li><p>inject the program counter in the first fetch stage</p></li>
+<li><p>allow other plugin to create “jump” interface allowing to override the PC value</p></li>
+</ul>
+<p>Jump interfaces will impact the PC value injected in the fetch stage in a combinatorial manner to reduce latency.</p>
+</section>
+<section id="fetchcachelessplugin">
+<h2>FetchCachelessPlugin<a class="headerlink" href="#fetchcachelessplugin" title="Permalink to this heading"></a></h2>
+<p>Will :</p>
+<ul class="simple">
+<li><p>Generate a fetch memory bus</p></li>
+<li><p>Connect that memory bus to the fetch pipeline with a response buffer</p></li>
+<li><p>Allow out of order memory bus responses (for maximal compatibility)</p></li>
+<li><p>Always generate aligned memory accesses</p></li>
+</ul>
+</section>
+<section id="btbplugin">
+<h2>BtbPlugin<a class="headerlink" href="#btbplugin" title="Permalink to this heading"></a></h2>
+<p>Will :</p>
+<ul class="simple">
+<li><p>Implement a branch target buffer in the fetch pipeline</p></li>
+<li><p>Implement a return address stack buffer</p></li>
+<li><p>Predict which slices of the fetched word are the last slice of a branch/jump</p></li>
+<li><p>Predict the branch/ĵump target</p></li>
+<li><p>Use the FetchConditionalPrediction plugin (GSharePlugin) to  know if branch should be taken</p></li>
+<li><p>Apply the prediction (flush + pc update + history update)</p></li>
+<li><p>Learn using the LearnPlugin interface</p></li>
+<li><p>Implement “ways” named chunks which are staticaly assigned to groups of word’s slices, allowing to predict multiple branch/jump present in the same word</p></li>
+</ul>
+</section>
+<section id="gshareplugin">
+<h2>GSharePlugin<a class="headerlink" href="#gshareplugin" title="Permalink to this heading"></a></h2>
+<p>Will :</p>
+<ul class="simple">
+<li><p>Implement a FetchConditionalPrediction (GShare flavor)</p></li>
+<li><p>Learn using the LearnPlugin interface</p></li>
+<li><p>Will not apply the prediction via flush / pc change, another plugin will do that</p></li>
+</ul>
+</section>
+<section id="historyplugin">
+<h2>HistoryPlugin<a class="headerlink" href="#historyplugin" title="Permalink to this heading"></a></h2>
+<p>Will :</p>
+<ul class="simple">
+<li><p>implement the branch history register</p></li>
+<li><p>inject the branch history in the first fetch stage</p></li>
+<li><p>allow other plugin to create interface to override the branch history value (on branch prediction / execution)</p></li>
+</ul>
+<p>branch history interfaces will impact the branch history value injected in the fetch stage in a combinatorial manner to reduce latency.</p>
+</section>
 </section>
 
     <script type="text/javascript">
@@ -194,8 +254,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../../index.html" class="btn btn-neutral float-left" title="VexiiRiscv" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="VexiiRiscv.html" class="btn btn-neutral float-right" title="About VexiiRiscv" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Framework/index.html" class="btn btn-neutral float-left" title="Framework" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../Decode/index.html" class="btn btn-neutral float-right" title="Decode" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

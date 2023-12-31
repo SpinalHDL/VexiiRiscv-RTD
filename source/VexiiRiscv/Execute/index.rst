@@ -139,7 +139,7 @@ PrivilegedPlugin
 - Use the CsrRamPlugin to implement various CSR as MTVAL, MTVEC, MEPC, MSCRATCH, ...
 
 PerformanceCounterPlugin
------------------------
+--------------------------------
 
 - Implement the privileged performance counters in a very FPGA way
 - Use the CsrRamPlugin to store most of the counter bits

@@ -1,7 +1,6 @@
 Introduction
 ============
 
-Miaouuu
 
 .. toctree::
    :maxdepth: 1

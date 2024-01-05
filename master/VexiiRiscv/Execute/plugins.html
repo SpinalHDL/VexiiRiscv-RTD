@@ -1,0 +1,405 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plugins &mdash; VexiiRiscv  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/gh-fork-ribbon.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/vexiiriscv.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/logo3_32x32.png"/>
+    <link rel="canonical" href="https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Execute/plugins.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/wavedrom/2.6.8/skins/default.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/wavedrom/2.6.8/wavedrom.min.js"></script>
+        <script src="../../_static/dialog.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Custom instruction" href="custom.html" />
+    <link rel="prev" title="Execute" href="index.html" />
+     
+    <!-- source/_templates/layout.html -->
+    
+    
+    
+
+</head>
+
+<body class="wy-body-for-nav">
+     
+    
+    
+    
+    <div class="div-svg-github-corner github-corner-abs">
+    <a href="https://github.com/SpinalHDL/VexiiRiscv-RTD/blob/master/source/VexiiRiscv/Execute/plugins.rst" class="github-corner github-fork-ribbon" aria-label="Edit on GitHub" data-ribbon="Edit on GitHub" title="Edit on GitHub">
+      <object id="svg-github-corner" data="../../_static/github-corner-right.svg" class="svg-github-corner github-corner-abs" width="80" height="80"></object>
+    </a>
+    </div>
+    
+    
+    
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            VexiiRiscv
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction/index.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/VexiiRiscv.html">About VexiiRiscv</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Framework/index.html">Framework</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#scala-spinalhdl">Scala / SpinalHDL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#plugin">Plugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#simple-all-in-one-example">Simple all-in-one example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#negociation-example">Negociation example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#database">Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#pipeline-api">Pipeline API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Fetch/index.html">Fetch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#fetchpipelineplugin">FetchPipelinePlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#pcplugin">PcPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#fetchcachelessplugin">FetchCachelessPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#btbplugin">BtbPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#gshareplugin">GSharePlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#historyplugin">HistoryPlugin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Decode/index.html">Decode</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#decodepipelineplugin">DecodePipelinePlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#alignerplugin">AlignerPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#decoderplugin">DecoderPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#decodepredictionplugin">DecodePredictionPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#dispatchplugin">DispatchPlugin</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">Execute</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Plugins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#infrastructures">infrastructures</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#executepipelineplugin">ExecutePipelinePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#executelaneplugin">ExecuteLanePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#regfileplugin">RegFilePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#srcplugin">SrcPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rsunsignedplugin">RsUnsignedPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#intformatplugin">IntFormatPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#writebackplugin">WriteBackPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#learnplugin">LearnPlugin</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#instructions">Instructions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#intaluplugin">IntAluPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#barrelshifterplugin">BarrelShifterPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#branchplugin">BranchPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mulplugin">MulPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#divplugin">DivPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lsucachelessplugin">LsuCachelessPlugin</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#special">Special</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#csraccessplugin">CsrAccessPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csrramplugin">CsrRamPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#privilegedplugin">PrivilegedPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#performancecounterplugin">PerformanceCounterPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#envplugin">EnvPlugin</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="custom.html">Custom instruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="custom.html#simd-add">SIMD add</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="custom.html#plugin-implementation">Plugin implementation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="custom.html#vexiiriscv-generation">VexiiRiscv generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="custom.html#software-test">Software test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="custom.html#simulation">Simulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="custom.html#conclusion">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">VexiiRiscv</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+          <li class="breadcrumb-item"><a href="index.html">Execute</a></li>
+      <li class="breadcrumb-item active">Plugins</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/SpinalHDL/VexiiRiscv-RTD/blob/master/source/VexiiRiscv/Execute/plugins.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             <dialog id="doc-dialog-version" role="dialog" class="collapse-once" aria-modal="false" data-default-state="close" data-current-version="master" data-latest-version="master">
+<p class="doc-version-warning-banner">
+  <strong>
+    
+    You're reading an pre-release version of this documentation.<br/>
+    For the latest stable release version, please have a look at <a href="plugins.html">master</a>.
+    
+  </strong>
+  <div>
+    <form>
+      <button formmethod="dialog" type="submit" class="doc-dialog-dismiss" aria-label="close">Dismiss</button>
+    </form>
+  </div>
+</p>
+</dialog>
+
+
+
+
+  <section id="plugins">
+<h1>Plugins<a class="headerlink" href="#plugins" title="Permalink to this heading"></a></h1>
+<section id="infrastructures">
+<h2>infrastructures<a class="headerlink" href="#infrastructures" title="Permalink to this heading"></a></h2>
+<p>Many plugins operate in the fetch stage. Some provide infrastructures :</p>
+<section id="executepipelineplugin">
+<h3>ExecutePipelinePlugin<a class="headerlink" href="#executepipelineplugin" title="Permalink to this heading"></a></h3>
+<p>Provide the pipeline framework for all the execute related hardware with the following specificities :</p>
+<ul class="simple">
+<li><p>It is based on the spinal.lib.misc.pipeline API and can host multiple “lanes” in it.</p></li>
+<li><p>For flow control, the lanes can only freeze the whole pipeline</p></li>
+<li><p>The pipeline do not collapse bubbles (empty stages)</p></li>
+</ul>
+</section>
+<section id="executelaneplugin">
+<h3>ExecuteLanePlugin<a class="headerlink" href="#executelaneplugin" title="Permalink to this heading"></a></h3>
+<p>Implement an execution lane in the ExecutePipelinePlugin</p>
+</section>
+<section id="regfileplugin">
+<h3>RegFilePlugin<a class="headerlink" href="#regfileplugin" title="Permalink to this heading"></a></h3>
+<p>Implement one register file, with the possibility to create new read / write port on demande</p>
+</section>
+<section id="srcplugin">
+<h3>SrcPlugin<a class="headerlink" href="#srcplugin" title="Permalink to this heading"></a></h3>
+<p>Provide some early integer values which can mux between RS1/RS2 and multiple RISC-V instruction’s literal values</p>
+</section>
+<section id="rsunsignedplugin">
+<h3>RsUnsignedPlugin<a class="headerlink" href="#rsunsignedplugin" title="Permalink to this heading"></a></h3>
+<p>Used by mul/div in order to get an unsigned RS1/RS2 value early in the pipeline</p>
+</section>
+<section id="intformatplugin">
+<h3>IntFormatPlugin<a class="headerlink" href="#intformatplugin" title="Permalink to this heading"></a></h3>
+<p>Alows plugins to write integer values back to the register file through a optional sign extender.
+It uses WriteBackPlugin as value backend.</p>
+</section>
+<section id="writebackplugin">
+<h3>WriteBackPlugin<a class="headerlink" href="#writebackplugin" title="Permalink to this heading"></a></h3>
+<p>Used by plugins to provide the RD value to write back to the register file</p>
+</section>
+<section id="learnplugin">
+<h3>LearnPlugin<a class="headerlink" href="#learnplugin" title="Permalink to this heading"></a></h3>
+<p>Will collect all interface which provide jump/branch learning interfaces to aggregate them into a single one, which will then be used by branch prediction plugins to learn.</p>
+</section>
+</section>
+<section id="instructions">
+<h2>Instructions<a class="headerlink" href="#instructions" title="Permalink to this heading"></a></h2>
+<p>Some implement regular instructions</p>
+<section id="intaluplugin">
+<h3>IntAluPlugin<a class="headerlink" href="#intaluplugin" title="Permalink to this heading"></a></h3>
+<p>Implement the arithmetic, binary and literal instructions (ADD, SUB, AND, OR, LUI, …)</p>
+</section>
+<section id="barrelshifterplugin">
+<h3>BarrelShifterPlugin<a class="headerlink" href="#barrelshifterplugin" title="Permalink to this heading"></a></h3>
+<p>Implement the shift instructions in a non-blocking way (no iterations). Fast but “heavy”.</p>
+</section>
+<section id="branchplugin">
+<h3>BranchPlugin<a class="headerlink" href="#branchplugin" title="Permalink to this heading"></a></h3>
+<p>Will :</p>
+<ul class="simple">
+<li><p>Implement branch/jump instruction</p></li>
+<li><p>Correct the PC / History in the case the branch prediction was wrong</p></li>
+<li><p>Provide a learn interface to the LearnPlugin</p></li>
+</ul>
+</section>
+<section id="mulplugin">
+<h3>MulPlugin<a class="headerlink" href="#mulplugin" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Implement multiplication operation using partial multiplications and then summing their result</p></li>
+<li><p>Done over multiple stage</p></li>
+<li><p>Can optionaly extends the last stage for one cycle in order to buffer the MULH bits</p></li>
+</ul>
+</section>
+<section id="divplugin">
+<h3>DivPlugin<a class="headerlink" href="#divplugin" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Implement the division/remain</p></li>
+<li><p>2 bits per cycle are solved.</p></li>
+<li><p>When it start, it scan for the numerator leading bits for 0, and can skip dividing them (can skip blocks of XLEN/4)</p></li>
+</ul>
+</section>
+<section id="lsucachelessplugin">
+<h3>LsuCachelessPlugin<a class="headerlink" href="#lsucachelessplugin" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Implement load / store through a cacheless memory bus</p></li>
+<li><p>Will fork the cmd as soon as fork stage is valid (with no flush)</p></li>
+<li><p>Handle backpresure by using a little fifo on the response data</p></li>
+</ul>
+</section>
+</section>
+<section id="special">
+<h2>Special<a class="headerlink" href="#special" title="Permalink to this heading"></a></h2>
+<p>Some implement CSR, privileges and special instructions</p>
+<section id="csraccessplugin">
+<h3>CsrAccessPlugin<a class="headerlink" href="#csraccessplugin" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Implement the CSR instruction</p></li>
+<li><p>Provide an API for other plugins to specify its hardware mapping</p></li>
+</ul>
+</section>
+<section id="csrramplugin">
+<h3>CsrRamPlugin<a class="headerlink" href="#csrramplugin" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Implement a shared on chip ram</p></li>
+<li><p>Provide an API which allows to staticaly allocate space on it</p></li>
+<li><p>Provide an API to create read / write ports on it</p></li>
+<li><p>Used by various plugins to store the CSR contents in a FPGA efficient way</p></li>
+</ul>
+</section>
+<section id="privilegedplugin">
+<h3>PrivilegedPlugin<a class="headerlink" href="#privilegedplugin" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Implement the RISCV privileged spec</p></li>
+<li><p>Implement the trap buffer / FSM</p></li>
+<li><p>Use the CsrRamPlugin to implement various CSR as MTVAL, MTVEC, MEPC, MSCRATCH, …</p></li>
+</ul>
+</section>
+<section id="performancecounterplugin">
+<h3>PerformanceCounterPlugin<a class="headerlink" href="#performancecounterplugin" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Implement the privileged performance counters in a very FPGA way</p></li>
+<li><p>Use the CsrRamPlugin to store most of the counter bits</p></li>
+<li><p>Use a dedicated 7 bits hardware register per counter</p></li>
+<li><p>Once that 7 bits register MSB is set, a FSM will flush it into the CsrRamPlugin</p></li>
+</ul>
+</section>
+<section id="envplugin">
+<h3>EnvPlugin<a class="headerlink" href="#envplugin" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Implement a few instructions as MRET, SRET, ECALL, EBREAK</p></li>
+</ul>
+</section>
+</section>
+</section>
+
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="index.html" class="btn btn-neutral float-left" title="Execute" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="custom.html" class="btn btn-neutral float-right" title="Custom instruction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023 - 2024, VexiiRiscv.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+     
+    <!-- source/_templates/footer.html -->
+    
+    <div class="doc-footer-current-version"><p>
+    Version: master git~fd8f3bc 2024-01-05
+    </p></div>
+    
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: master
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+       <dt>Languages</dt>
+       <dd class="rtd-current-item">
+         <a href="#">en</a>
+       </dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="plugins.html">master</a></dd>
+    </dl>
+    <dl>
+      <dt>Downloads</dt>
+      <dd><a href="../../artefacts/VexiiRiscv_docs-master.">HTML</a></dd>
+      <dd><a href="../../artefacts/VexiiRiscv_docs-master-SingleHTML.zip">SingleHTML</a></dd>
+      <dd><a href="../../artefacts/VexiiRiscv_docs-master.pdf">PDF</a></dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

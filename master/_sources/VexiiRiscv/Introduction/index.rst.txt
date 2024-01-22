@@ -35,3 +35,5 @@ Here are a few key / typical code examples :
 - A cpu configuration generator : dev/src/main/scala/vexiiriscv/Param.scala
 - Some globaly shared definitions : src/main/scala/vexiiriscv/Global.scala
 - Integer ALU plugin ; src/main/scala/vexiiriscv/execute/IntAluPlugin.scala
+
+Also on quite important one is to use a text editor / IDE which support curly brace folding and to start with them fully folded, as the code extensively used nested structures.

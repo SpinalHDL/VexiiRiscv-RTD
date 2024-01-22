@@ -6,15 +6,15 @@ It is still very early in the developement, but here are some metrics :
 Note those are done without data cache. A data cache would likely improve the performance quite a bit by allowing more speculative load/store (not talking about data miss / hit, but realy execution hazard / interlock)
 
 +---------------+----------------+
-| Name          | Max perf       |
+| Name          | Max IPC        |
 +---------------+----------------+
 | Issue         | 2              |
 +---------------+----------------+
-| Late ALU      | X              |
+| Late ALU      | 2              |
 +---------------+----------------+
-| BTB / RAS     | X              |
+| BTB / RAS     | 512 / 4        |
 +---------------+----------------+
-| GShare        | X              |
+| GShare        | 4KB            |
 +---------------+----------------+
 | Dhrystone/MHz | 2.24           |
 +---------------+----------------+

@@ -75,7 +75,8 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../Introduction/index.html">Introduction</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Introduction/VexiiRiscv.html">About VexiiRiscv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#about-vexiiriscv">About VexiiRiscv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#navigating-the-code">Navigating the code</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Framework/index.html">Framework</a><ul>
@@ -108,6 +109,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Execute/index.html">Execute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/introduction.html">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Execute/plugins.html">Plugins</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../Execute/plugins.html#infrastructures">infrastructures</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#executepipelineplugin">ExecutePipelinePlugin</a></li>
@@ -150,6 +152,21 @@
 </li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../BranchPrediction/index.html">Branch Prediction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#btbplugin">BtbPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#gshareplugin">GSharePlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#decodepredictionplugin">DecodePredictionPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#branchplugin">BranchPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#learnplugin">LearnPlugin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../HowToUse/index.html">How to use</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#repo-setup">Repo setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#generate-verilog">Generate verilog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#run-a-simulation">Run a simulation</a></li>
 </ul>
 </li>
 </ul>
@@ -233,26 +250,11 @@
 </section>
 <section id="btbplugin">
 <h2>BtbPlugin<a class="headerlink" href="#btbplugin" title="Permalink to this heading"></a></h2>
-<p>Will :</p>
-<ul class="simple">
-<li><p>Implement a branch target buffer in the fetch pipeline</p></li>
-<li><p>Implement a return address stack buffer</p></li>
-<li><p>Predict which slices of the fetched word are the last slice of a branch/jump</p></li>
-<li><p>Predict the branch/ĵump target</p></li>
-<li><p>Use the FetchConditionalPrediction plugin (GSharePlugin) to  know if branch should be taken</p></li>
-<li><p>Apply the prediction (flush + pc update + history update)</p></li>
-<li><p>Learn using the LearnPlugin interface</p></li>
-<li><p>Implement “ways” named chunks which are staticaly assigned to groups of word’s slices, allowing to predict multiple branch/jump present in the same word</p></li>
-</ul>
+<p>See more in the Branch prediction chapter</p>
 </section>
 <section id="gshareplugin">
 <h2>GSharePlugin<a class="headerlink" href="#gshareplugin" title="Permalink to this heading"></a></h2>
-<p>Will :</p>
-<ul class="simple">
-<li><p>Implement a FetchConditionalPrediction (GShare flavor)</p></li>
-<li><p>Learn using the LearnPlugin interface</p></li>
-<li><p>Will not apply the prediction via flush / pc change, another plugin will do that</p></li>
-</ul>
+<p>See more in the Branch prediction chapter</p>
 </section>
 <section id="historyplugin">
 <h2>HistoryPlugin<a class="headerlink" href="#historyplugin" title="Permalink to this heading"></a></h2>
@@ -295,7 +297,7 @@
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~fd8f3bc 2024-01-05
+    Version: master git~e6be50f 2024-01-22
     </p></div>
     
 

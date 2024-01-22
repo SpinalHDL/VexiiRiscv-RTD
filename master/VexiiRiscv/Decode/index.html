@@ -75,7 +75,8 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../Introduction/index.html">Introduction</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Introduction/VexiiRiscv.html">About VexiiRiscv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#about-vexiiriscv">About VexiiRiscv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#navigating-the-code">Navigating the code</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Framework/index.html">Framework</a><ul>
@@ -108,6 +109,7 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Execute/index.html">Execute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/introduction.html">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Execute/plugins.html">Plugins</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../Execute/plugins.html#infrastructures">infrastructures</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#executepipelineplugin">ExecutePipelinePlugin</a></li>
@@ -150,6 +152,21 @@
 </li>
 </ul>
 </li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../BranchPrediction/index.html">Branch Prediction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#btbplugin">BtbPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#gshareplugin">GSharePlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#decodepredictionplugin">DecodePredictionPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#branchplugin">BranchPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#learnplugin">LearnPlugin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../HowToUse/index.html">How to use</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#repo-setup">Repo setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#generate-verilog">Generate verilog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#run-a-simulation">Run a simulation</a></li>
 </ul>
 </li>
 </ul>
@@ -213,7 +230,19 @@ It use the spinal.lib.misc.pipeline API but implement multiple “lanes” in it
 </section>
 <section id="alignerplugin">
 <h2>AlignerPlugin<a class="headerlink" href="#alignerplugin" title="Permalink to this heading"></a></h2>
-<p>Decode the words froms the fetch pipeline into aligned instructions in the decode pipeline</p>
+<p>Decode the words froms the fetch pipeline into aligned instructions in the decode pipeline. Its complexity mostly come from the necessity to support having RVC [and BTB], mostly by adding additional cases to handle.</p>
+<ol class="arabic simple">
+<li><p>RVC allows 32 bits instruction to be unaligned, meaning they can cross between 2 fetched words, so it need to have some internal buffer / states to work.</p></li>
+<li><p>The BTB may have predicted (falsly) a jump instruction where there is none, which may cut the fetch of an 32 bits instruction in the middle.</p></li>
+</ol>
+<p>The AlignerPlugin is designed as following :</p>
+<ul class="simple">
+<li><p>Has a internal fetch word buffer in oder to support 32 bits instruction with RVC</p></li>
+<li><p>First it scan at every possible instruction position, ex : RVC with 64 bits fetch words =&gt; 2x64/16 scanners. Extracting the instruction length, presence of all the instruction data (slices) and necessity to redo the fetch because of a bad BTB prediction.</p></li>
+<li><p>Then it has one extractor per decoding lane. They will check the scanner for the firsts valid instructions.</p></li>
+<li><p>Then each extractor is feeded into the decoder pipeline.</p></li>
+</ul>
+<img alt="../../_images/aligner.png" src="../../_images/aligner.png" />
 </section>
 <section id="decoderplugin">
 <h2>DecoderPlugin<a class="headerlink" href="#decoderplugin" title="Permalink to this heading"></a></h2>
@@ -228,6 +257,7 @@ It use the spinal.lib.misc.pipeline API but implement multiple “lanes” in it
 <h2>DecodePredictionPlugin<a class="headerlink" href="#decodepredictionplugin" title="Permalink to this heading"></a></h2>
 <p>The purpose of this plugin is to ensure that no branch/jump prediction was made for non branch/jump instructions.
 In case this is detected, the plugin will just flush the pipeline and set the fetch PC to redo everything, but this time with a “first prediction skip”</p>
+<p>See more in the Branch prediction chapter</p>
 </section>
 <section id="dispatchplugin">
 <h2>DispatchPlugin<a class="headerlink" href="#dispatchplugin" title="Permalink to this heading"></a></h2>
@@ -275,7 +305,7 @@ In case this is detected, the plugin will just flush the pipeline and set the fe
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~fd8f3bc 2024-01-05
+    Version: master git~e6be50f 2024-01-22
     </p></div>
     
 

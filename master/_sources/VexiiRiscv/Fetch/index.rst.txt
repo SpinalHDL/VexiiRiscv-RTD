@@ -1,3 +1,4 @@
+
 Fetch
 ============
 
@@ -9,6 +10,8 @@ A few plugins operate in the fetch stage :
 - BtbPlugin
 - GSharePlugin
 - HistoryPlugin
+
+
 
 FetchPipelinePlugin
 -------------------------
@@ -40,25 +43,12 @@ Will :
 BtbPlugin
 -------------------------
 
-Will :
-
-- Implement a branch target buffer in the fetch pipeline
-- Implement a return address stack buffer
-- Predict which slices of the fetched word are the last slice of a branch/jump
-- Predict the branch/ĵump target
-- Use the FetchConditionalPrediction plugin (GSharePlugin) to  know if branch should be taken
-- Apply the prediction (flush + pc update + history update)
-- Learn using the LearnPlugin interface
-- Implement "ways" named chunks which are staticaly assigned to groups of word's slices, allowing to predict multiple branch/jump present in the same word
+See more in the Branch prediction chapter
 
 GSharePlugin
 -------------------------
 
-Will : 
-
-- Implement a FetchConditionalPrediction (GShare flavor)
-- Learn using the LearnPlugin interface
-- Will not apply the prediction via flush / pc change, another plugin will do that
+See more in the Branch prediction chapter
 
 HistoryPlugin
 -------------------------

@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Execute &mdash; VexiiRiscv  documentation</title>
+  <title>Branch Prediction &mdash; VexiiRiscv  documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
@@ -12,7 +12,7 @@
       <link rel="stylesheet" href="../../_static/gh-fork-ribbon.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/vexiiriscv.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/logo3_32x32.png"/>
-    <link rel="canonical" href="https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Execute/index.html" />
+    <link rel="canonical" href="https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/BranchPrediction/index.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -31,8 +31,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Introduction" href="introduction.html" />
-    <link rel="prev" title="Decode" href="../Decode/index.html" />
+    <link rel="next" title="How to use" href="../HowToUse/index.html" />
+    <link rel="prev" title="Custom instruction" href="../Execute/custom.html" />
      
     <!-- source/_templates/layout.html -->
     
@@ -47,7 +47,7 @@
     
     
     <div class="div-svg-github-corner github-corner-abs">
-    <a href="https://github.com/SpinalHDL/VexiiRiscv-RTD/blob/master/source/VexiiRiscv/Execute/index.rst" class="github-corner github-fork-ribbon" aria-label="Edit on GitHub" data-ribbon="Edit on GitHub" title="Edit on GitHub">
+    <a href="https://github.com/SpinalHDL/VexiiRiscv-RTD/blob/master/source/VexiiRiscv/BranchPrediction/index.rst" class="github-corner github-fork-ribbon" aria-label="Edit on GitHub" data-ribbon="Edit on GitHub" title="Edit on GitHub">
       <object id="svg-github-corner" data="../../_static/github-corner-right.svg" class="svg-github-corner github-corner-abs" width="80" height="80"></object>
     </a>
     </div>
@@ -108,58 +108,58 @@
 <li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#dispatchplugin">DispatchPlugin</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Execute</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plugins.html">Plugins</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="plugins.html#infrastructures">infrastructures</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#executepipelineplugin">ExecutePipelinePlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#executelaneplugin">ExecuteLanePlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#regfileplugin">RegFilePlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#srcplugin">SrcPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#rsunsignedplugin">RsUnsignedPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#intformatplugin">IntFormatPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#writebackplugin">WriteBackPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#learnplugin">LearnPlugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Execute/index.html">Execute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/plugins.html">Plugins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/plugins.html#infrastructures">infrastructures</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#executepipelineplugin">ExecutePipelinePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#executelaneplugin">ExecuteLanePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#regfileplugin">RegFilePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#srcplugin">SrcPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#rsunsignedplugin">RsUnsignedPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#intformatplugin">IntFormatPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#writebackplugin">WriteBackPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#learnplugin">LearnPlugin</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="plugins.html#instructions">Instructions</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#intaluplugin">IntAluPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#barrelshifterplugin">BarrelShifterPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#branchplugin">BranchPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#mulplugin">MulPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#divplugin">DivPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#lsucachelessplugin">LsuCachelessPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/plugins.html#instructions">Instructions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#intaluplugin">IntAluPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#barrelshifterplugin">BarrelShifterPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#branchplugin">BranchPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#mulplugin">MulPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#divplugin">DivPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#lsucachelessplugin">LsuCachelessPlugin</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="plugins.html#special">Special</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#csraccessplugin">CsrAccessPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#csrramplugin">CsrRamPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#privilegedplugin">PrivilegedPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#envplugin">EnvPlugin</a></li>
-</ul>
-</li>
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="custom.html">Custom instruction</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="custom.html#simd-add">SIMD add</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="custom.html#plugin-implementation">Plugin implementation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="custom.html#vexiiriscv-generation">VexiiRiscv generation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="custom.html#software-test">Software test</a></li>
-<li class="toctree-l4"><a class="reference internal" href="custom.html#simulation">Simulation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="custom.html#conclusion">Conclusion</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/plugins.html#special">Special</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#csraccessplugin">CsrAccessPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#csrramplugin">CsrRamPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#privilegedplugin">PrivilegedPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#envplugin">EnvPlugin</a></li>
 </ul>
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/custom.html">Custom instruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/custom.html#simd-add">SIMD add</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/custom.html#plugin-implementation">Plugin implementation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/custom.html#vexiiriscv-generation">VexiiRiscv generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/custom.html#software-test">Software test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/custom.html#simulation">Simulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/custom.html#conclusion">Conclusion</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../BranchPrediction/index.html">Branch Prediction</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#btbplugin">BtbPlugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#gshareplugin">GSharePlugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#decodepredictionplugin">DecodePredictionPlugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#branchplugin">BranchPlugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#learnplugin">LearnPlugin</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Branch Prediction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#btbplugin">BtbPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#gshareplugin">GSharePlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#decodepredictionplugin">DecodePredictionPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#branchplugin">BranchPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#learnplugin">LearnPlugin</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../HowToUse/index.html">How to use</a><ul>
@@ -185,9 +185,9 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Execute</li>
+      <li class="breadcrumb-item active">Branch Prediction</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/SpinalHDL/VexiiRiscv-RTD/blob/master/source/VexiiRiscv/Execute/index.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/SpinalHDL/VexiiRiscv-RTD/blob/master/source/VexiiRiscv/BranchPrediction/index.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -213,23 +213,53 @@
 
 
 
-  <section id="execute">
-<h1>Execute<a class="headerlink" href="#execute" title="Permalink to this heading"></a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="plugins.html#infrastructures">infrastructures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plugins.html#instructions">Instructions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plugins.html#special">Special</a></li>
+  <section id="branch-prediction">
+<h1>Branch Prediction<a class="headerlink" href="#branch-prediction" title="Permalink to this heading"></a></h1>
+<p>The branch prediction is implemented as follow :</p>
+<ul class="simple">
+<li><p>During fetch, a BTB, GShare, RAS memory is used to provide an early branch prediction (BtbPlugin / GSharePlugin)</p></li>
+<li><p>In Decode, the DecodePredictionPlugin will ensure that no “none jump/branch instruction”” predicted as a jump/branch continues down the pipeline.</p></li>
+<li><p>In Execute, the prediction made is checked and eventualy corrected. Also a stream of data is generated to feed the BTB / GShare memories with good data to learn.</p></li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="custom.html">Custom instruction</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="custom.html#simd-add">SIMD add</a></li>
+<p>Here is a diagram of the whole architecture :</p>
+<img alt="../../_images/branch_prediction.png" src="../../_images/branch_prediction.png" />
+<p>While it would have been possible in the decode stage to correct some miss prediction from the BTB / RAS, it isn’t done to improve timings and reduce Area.</p>
+<section id="btbplugin">
+<h2>BtbPlugin<a class="headerlink" href="#btbplugin" title="Permalink to this heading"></a></h2>
+<p>Will :</p>
+<ul class="simple">
+<li><p>Implement a branch target buffer in the fetch pipeline</p></li>
+<li><p>Implement a return address stack buffer</p></li>
+<li><p>Predict which slices of the fetched word are the last slice of a branch/jump</p></li>
+<li><p>Predict the branch/ĵump target</p></li>
+<li><p>Use the FetchConditionalPrediction plugin (GSharePlugin) to  know if branch should be taken</p></li>
+<li><p>Apply the prediction (flush + pc update + history update)</p></li>
+<li><p>Learn using the LearnPlugin interface. Only learn on missprediction. To avoid write to read hazard, the fetch stage is blocked when it learn.</p></li>
+<li><p>Implement “ways” named chunks which are staticaly assigned to groups of word’s slices, allowing to predict multiple branch/jump present in the same word</p></li>
 </ul>
-</li>
+</section>
+<section id="gshareplugin">
+<h2>GSharePlugin<a class="headerlink" href="#gshareplugin" title="Permalink to this heading"></a></h2>
+<p>Will :</p>
+<ul class="simple">
+<li><p>Implement a FetchConditionalPrediction (GShare flavor)</p></li>
+<li><p>Learn using the LearnPlugin interface. Write to read hazard are handled via a bypass</p></li>
+<li><p>Will not apply the prediction via flush / pc change, another plugin will do that</p></li>
 </ul>
-</div>
+</section>
+<section id="decodepredictionplugin">
+<h2>DecodePredictionPlugin<a class="headerlink" href="#decodepredictionplugin" title="Permalink to this heading"></a></h2>
+<p>The purpose of this plugin is to ensure that no branch/jump prediction was made for non branch/jump instructions.
+In case this is detected, the plugin will just flush the pipeline and set the fetch PC to redo everything, but this time with a “first prediction skip”</p>
+</section>
+<section id="branchplugin">
+<h2>BranchPlugin<a class="headerlink" href="#branchplugin" title="Permalink to this heading"></a></h2>
+<p>Placed in the execute pipeline, it will ensure that the branch prediction was correct, else it correct it. It also generate a learn interface.</p>
+</section>
+<section id="learnplugin">
+<h2>LearnPlugin<a class="headerlink" href="#learnplugin" title="Permalink to this heading"></a></h2>
+<p>This plugin will collect all the learn interface (generated by the BranchPlugin) and produce a single stream of learn interface for the BtbPlugin / GShare plugin to use.</p>
+</section>
 </section>
 
     <script type="text/javascript">
@@ -243,8 +273,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../Decode/index.html" class="btn btn-neutral float-left" title="Decode" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="introduction.html" class="btn btn-neutral float-right" title="Introduction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Execute/custom.html" class="btn btn-neutral float-left" title="Custom instruction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../HowToUse/index.html" class="btn btn-neutral float-right" title="How to use" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>

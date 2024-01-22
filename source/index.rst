@@ -14,5 +14,6 @@ Welcome to VexiiRiscv's documentation!
    VexiiRiscv/Execute/index
    VexiiRiscv/BranchPrediction/index
    VexiiRiscv/HowToUse/index
+   VexiiRiscv/Performance/index
 
 

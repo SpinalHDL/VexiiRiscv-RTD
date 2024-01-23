@@ -234,10 +234,11 @@ What it does is that all the plugin thread will run in the context of that datab
 Pipeline API
 --------------------
 
-In short the design use a pipeline API in order to : 
+In short, the design use a pipeline API in order to : 
 
-- Allow moving things around with no paine (retiming)
+- Propagate data into the pipeline automaticaly
+- Allow design space exploration with less paine (retiming, moving around the architecture)
 - Reduce boiler plate code
 
-More documentation about it in https://github.com/SpinalHDL/SpinalDoc-RTD/pull/226
+More documentation about it in https://spinalhdl.github.io/SpinalDoc-RTD/master/SpinalHDL/Libraries/Pipeline/index.html
 

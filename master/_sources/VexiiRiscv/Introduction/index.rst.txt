@@ -26,6 +26,10 @@ On this date (22/01/2024) the status is :
 - MMU SV32/SV39 supported
 - can run linux/buildroot in simulation
 
+Here is a diagram with 2 issue / early+late alu / 6 stages configuration (note that the pipeline structure can vary a lot):
+
+.. image:: /asset/picture/architecture_all_1.png
+
 Navigating the code
 ----------------------------------
 

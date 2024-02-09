@@ -77,6 +77,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#about-vexiiriscv">About VexiiRiscv</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#navigating-the-code">Navigating the code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#check-list">Check list</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Framework/index.html">Framework</a><ul>
@@ -170,6 +171,10 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Performance/index.html">Performance / Area / FMax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Soc/index.html">SoC</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Soc/index.html#microsoc">MicroSoc</a></li>
+</ul>
+</li>
 </ul>
 
         </div>
@@ -253,6 +258,15 @@
 </ul>
 <p>Also on quite important one is to use a text editor / IDE which support curly brace folding and to start with them fully folded, as the code extensively used nested structures.</p>
 </section>
+<section id="check-list">
+<h2>Check list<a class="headerlink" href="#check-list" title="Permalink to this heading"></a></h2>
+<p>Here is a list of important assumptions and things to know about :</p>
+<ul class="simple">
+<li><p>trap/flush/pc request from the pipeline, once asserted one cycle can not be undone. This also mean that while a given instruction is stuck somewere, if that instruction did raised on of those request, nothing should change the execution path. For instance, a sudden cache line refill completion should not lift the request from the LSU asking a redo (due to cache refill hazard).</p></li>
+<li><p>In the execute pipeline, stage.up(RS1/RS2) is the value to be used, while stage.down(RS1/RS2) should not be used, as it implement the bypassing for the next stage</p></li>
+<li><p>Fetch.ctrl(0) isn’t persistant.</p></li>
+</ul>
+</section>
 </section>
 
     <script type="text/javascript">
@@ -284,7 +298,7 @@
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~555433c 2024-02-07
+    Version: master git~f3b71a8 2024-02-09
     </p></div>
     
 

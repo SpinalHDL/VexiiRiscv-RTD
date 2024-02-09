@@ -41,3 +41,12 @@ Here are a few key / typical code examples :
 - Integer ALU plugin ; src/main/scala/vexiiriscv/execute/IntAluPlugin.scala
 
 Also on quite important one is to use a text editor / IDE which support curly brace folding and to start with them fully folded, as the code extensively used nested structures.
+
+Check list
+-----------------------
+
+Here is a list of important assumptions and things to know about : 
+
+- trap/flush/pc request from the pipeline, once asserted one cycle can not be undone. This also mean that while a given instruction is stuck somewere, if that instruction did raised on of those request, nothing should change the execution path. For instance, a sudden cache line refill completion should not lift the request from the LSU asking a redo (due to cache refill hazard).
+- In the execute pipeline, stage.up(RS1/RS2) is the value to be used, while stage.down(RS1/RS2) should not be used, as it implement the bypassing for the next stage
+- Fetch.ctrl(0) isn't persistant.

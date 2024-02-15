@@ -18,8 +18,8 @@ VexiiRiscv is a from scratch second iteration of VexRiscv, with the following go
 
 On this date (22/01/2024) the status is : 
 
-- rv 32/64 imacsu supported
-- Can run baremetal benchmarks (2.24 dhrystone/mhz, 4.66 coremark/mhz)
+- rv 32/64 imacsu supported 
+- Can run baremetal benchmarks (2.46 dhrystone/mhz, 4.80 coremark/mhz)
 - single/dual issue supported
 - late-alu supported
 - BTB/RAS/GShare branch prediction supported

@@ -16,11 +16,11 @@ Note those are done without data cache. A data cache would likely improve the pe
 +---------------+----------------+
 | GShare        | 4KB            |
 +---------------+----------------+
-| Dhrystone/MHz | 2.24           |
+| Dhrystone/MHz | 2.46           |
 +---------------+----------------+
-| Coremark/MHz  | 4.66           |
+| Coremark/MHz  | 4.80           |
 +---------------+----------------+
-| EmBench       | 1.47           |
+| EmBench       | 1.59           |
 +---------------+----------------+
 
 It is too early for area / fmax metric, there is a lot of design space exploration to do which will trade IPC against FMax / Area.

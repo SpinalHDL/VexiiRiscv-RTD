@@ -3,8 +3,6 @@ Performance / Area / FMax
 
 It is still very early in the developement, but here are some metrics :
 
-Note those are done without data cache. A data cache would likely improve the performance quite a bit by allowing more speculative load/store (not talking about data miss / hit, but realy execution hazard / interlock)
-
 +---------------+----------------+
 | Name          | Max IPC        |
 +---------------+----------------+
@@ -18,7 +16,7 @@ Note those are done without data cache. A data cache would likely improve the pe
 +---------------+----------------+
 | Dhrystone/MHz | 2.46           |
 +---------------+----------------+
-| Coremark/MHz  | 4.80           |
+| Coremark/MHz  | 5.13           |
 +---------------+----------------+
 | EmBench       | 1.59           |
 +---------------+----------------+

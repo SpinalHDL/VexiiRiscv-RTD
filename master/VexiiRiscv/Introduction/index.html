@@ -78,6 +78,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#about-vexiiriscv">About VexiiRiscv</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#navigating-the-code">Navigating the code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#check-list">Check list</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#about-vexriscv-not-vexiiriscv">About VexRiscv (not VexiiRiscv)</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Framework/index.html">Framework</a><ul>
@@ -234,7 +235,7 @@
 <li><p>Proper branch prediction</p></li>
 <li><p>…</p></li>
 </ul>
-<p>On this date (22/01/2024) the status is :</p>
+<p>On this date (08/03/2024) the status is :</p>
 <ul class="simple">
 <li><p>rv 32/64 imacsu supported</p></li>
 <li><p>Can run baremetal benchmarks (2.50 dhrystone/mhz, 5.24 coremark/mhz)</p></li>
@@ -243,6 +244,7 @@
 <li><p>BTB/RAS/GShare branch prediction supported</p></li>
 <li><p>MMU SV32/SV39 supported</p></li>
 <li><p>can run linux/buildroot in simulation</p></li>
+<li><p>LSU store buffer supported</p></li>
 </ul>
 <p>Here is a diagram with 2 issue / early+late alu / 6 stages configuration (note that the pipeline structure can vary a lot):</p>
 <img alt="../../_images/architecture_all_1.png" src="../../_images/architecture_all_1.png" />
@@ -266,6 +268,20 @@
 <li><p>In the execute pipeline, stage.up(RS1/RS2) is the value to be used, while stage.down(RS1/RS2) should not be used, as it implement the bypassing for the next stage</p></li>
 <li><p>Fetch.ctrl(0) isn’t persistant.</p></li>
 </ul>
+</section>
+<section id="about-vexriscv-not-vexiiriscv">
+<h2>About VexRiscv (not VexiiRiscv)<a class="headerlink" href="#about-vexriscv-not-vexiiriscv" title="Permalink to this heading"></a></h2>
+<p>There is few reasons why VexiiRiscv exists instead of doing incremental upgrade on VexRiscv</p>
+<ul class="simple">
+<li><p>Mostly, all the VexRiscv parts could be subject for upgrades</p></li>
+<li><p>VexRiscv frontend / branch prediction is quite messy</p></li>
+<li><p>The whole VexRiscv pipeline would have need a complete overhaul in oder to support multiple issue / late-alu</p></li>
+<li><p>The VexRiscv plugin system has hits some limits</p></li>
+<li><p>VexRiscv accumulated quite a bit of technical debt over time (2017)</p></li>
+<li><p>The VexRiscv data cache being write though start to create issues the faster the frequency goes (DRAM can’t follow)</p></li>
+<li><p>The VexRiscv verification infrastructure based on its own golden model isn’t great.</p></li>
+</ul>
+<p>So, enough is enough, it was time to start fresh :D</p>
 </section>
 </section>
 
@@ -298,7 +314,7 @@
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~9c16c5c 2024-02-22
+    Version: master git~56d94ba 2024-03-08
     </p></div>
     
 

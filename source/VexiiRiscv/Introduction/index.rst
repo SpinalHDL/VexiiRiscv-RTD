@@ -1,7 +1,7 @@
 Introduction
 ============
 
-VexiiRiscv is the next generation of VexRiscv, enabling things which are not possible with the current VexRisc framework.  The new VexiiRiscv framework: 
+VexiiRiscv is the next generation of VexRiscv, enabling things which are not possible with the current VexRiscv framework.  The new VexiiRiscv framework: 
 
 - Supports both the 32 bit and the 64 bit Risc-V Instruction sets. 
 - Supports more parallelism with optional: 
@@ -12,7 +12,8 @@ VexiiRiscv is the next generation of VexRiscv, enabling things which are not pos
 - Has a more flexible plugin system.
 - Has a much better verification approach. 
 - Works better with DRAM at higher frequencies.  
-- Could be as small as VexRiscv, but could scale further in performance.
+- Could be as small as the smallest VexRiscv, but 
+- can also be much faster than the fastest VexRiscv.
 
 On this date (08/03/2024) the status is : 
 

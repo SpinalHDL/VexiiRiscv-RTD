@@ -52,17 +52,31 @@ Here is a list of important assumptions and things to know about :
 - In the execute pipeline, stage.up(RS1/RS2) is the value to be used, while stage.down(RS1/RS2) should not be used, as it implement the bypassing for the next stage
 - Fetch.ctrl(0) isn't persistant.
 
-About VexRiscv (not VexiiRiscv)
+Why a New Design? 
 ------------------------------------
 
-There is few reasons why VexiiRiscv exists instead of doing incremental upgrade on VexRiscv
+The original VexRiscv is a successful design.  But we have reached the limits of what it can accomplish, and in the process of improving it, we added too much complexity.   We now have a newer and better abstraction.   Specifically the new VexiiRiscv abstraction: 
 
-- Mostly, all the VexRiscv parts could be subject for upgrades
-- VexRiscv frontend / branch prediction is quite messy
-- The whole VexRiscv pipeline would have need a complete overhaul in oder to support multiple issue / late-alu
-- The VexRiscv plugin system has hits some limits
-- VexRiscv accumulated quite a bit of technical debt over time (2017)
-- The VexRiscv data cache being write though start to create issues the faster the frequency goes (DRAM can't follow)
-- The VexRiscv verification infrastructure based on its own golden model isn't great.
+- Supports more parallelism with optionally multiple issues and multiple early and late alus.  
+- Has a much cleaner frontend / branch prediction design.
+- Has a more flexible plugin system.
+- Has a much better verification approach. 
+- Works better with DDRAM than the existing write through data cache.   
+
+Really almost the whole VexRiscv system would need to rewritten, so it is better to start anew.  This can be done faster than carrying around the old baggage. 
+
+What was Wrong with the Old Design?
+------------------------------------
+
+There are a few reasons why we are creating a new VexiiRiscv instead of doing incremental upgrade on VexRiscv:
+
+- Almost all of the VexRiscv parts need to be upgraded.
+- VexRiscv front end amd branch prediction is quite messy.
+- The whole VexRiscv pipeline would have need a complete overhaul in oder to support multiple issue / late-alu.
+- The VexRiscv plugin system has hits some limits.
+- VexRiscv accumulated quite a bit of technical debt since it was introduced in 2017.
+- The VexRiscv data cache being write though starts to have issues as frequency increases (DRAM can't follow).
+- The VexRiscv verification infrastructure being based on its own golden model isn't great.
 
 So, enough is enough, it was time to start fresh :D
+

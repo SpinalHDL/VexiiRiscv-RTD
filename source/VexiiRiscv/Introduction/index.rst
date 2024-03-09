@@ -52,17 +52,17 @@ Here is a list of important assumptions and things to know about :
 - In the execute pipeline, stage.up(RS1/RS2) is the value to be used, while stage.down(RS1/RS2) should not be used, as it implement the bypassing for the next stage
 - Fetch.ctrl(0) isn't persistant.
 
-About VexRiscv (not VexiiRiscv)
+Why are we developing VexiiRiscv?
 ------------------------------------
 
-There is few reasons why VexiiRiscv exists instead of doing incremental upgrade on VexRiscv
+The original VexRiscv was an award winning software abstraction for Risc-V chips.  But we have 
+reached the limits of what it can accomplish, and we now have a newer and better abstraction.  
+Specificaly the new VexiiRiscv abstractions 
 
-- Mostly, all the VexRiscv parts could be subject for upgrades
-- VexRiscv frontend / branch prediction is quite messy
-- The whole VexRiscv pipeline would have need a complete overhaul in oder to support multiple issue / late-alu
-- The VexRiscv plugin system has hits some limits
-- VexRiscv accumulated quite a bit of technical debt over time (2017)
-- The VexRiscv data cache being write though start to create issues the faster the frequency goes (DRAM can't follow)
-- The VexRiscv verification infrastructure based on its own golden model isn't great.
+- Can support higher frequencies than the existing write through data cache. 
+- Supports more parallelism with multiple issues and an early and late alu.  
+- Has a much cleaner frontend / branch prediction design.
+- Has a more flexible plugin system.
+- Has a much better verificaton approach. 
 
-So, enough is enough, it was time to start fresh :D
+Really almost the whole VexRiscv system would need to rewritten, so it is better to start from scratch.  This approach is not only a lot more fun, it is also be completed faster, which is better for the customers. 

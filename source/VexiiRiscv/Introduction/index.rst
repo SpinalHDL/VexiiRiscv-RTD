@@ -1,20 +1,18 @@
 Introduction
 ============
 
+VexiiRiscv is the next generation of VexRiscv, enabling things which are not possible with the current VexRisc framework.  The new VexiiRiscv framework: 
 
-About VexiiRiscv
-------------------------------
-
-VexiiRiscv is a from scratch second iteration of VexRiscv, with the following goals : 
-
-- RISCV 32/64 bits IMAFDC
-- Could start around as small as VexRiscv, but could scale further in performance
-- Optional late-alu
-- Optional multi issue
-- Optional multi threading
-- Providing a cleaner implementation, getting ride of the technical debt, especially the frontend
-- Proper branch prediction
-- ...
+- Supports both the 32 bit and the 64 bit Risc-V Instruction sets. 
+- Supports more parallelism with optional: 
+         - multithreading, 
+         - multiple issues and 
+         - multiple early and late alus.  
+- Has a much cleaner frontend / branch prediction design.
+- Has a more flexible plugin system.
+- Has a much better verification approach. 
+- Works better with DRAM at higher frequencies.  
+- Could be as small as VexRiscv, but could scale further in performance.
 
 On this date (08/03/2024) the status is : 
 

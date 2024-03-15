@@ -333,7 +333,7 @@ make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</s
 <p>Note that Vexiiriscv use mostly an opt-in configuration. So, most performance related configuration are disabled by default.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sbt
 compile
-Test/runMain<span class="w"> </span>vexiiriscv.tester.TestBench<span class="w"> </span>--load-elf<span class="w"> </span>ext/NaxSoftware/baremetal/dhrystone/build/rv32ima/dhrystone.elf<span class="w"> </span>--trace-all
+Test/runMain<span class="w"> </span>vexiiriscv.tester.TestBench<span class="w"> </span>--with-mul<span class="w"> </span>--with-div<span class="w"> </span>--load-elf<span class="w"> </span>ext/NaxSoftware/baremetal/dhrystone/build/rv32ima/dhrystone.elf<span class="w"> </span>--trace-all
 </pre></div>
 </div>
 <p>This will generate a simWorkspace/VexiiRiscv/test folder which contains :</p>
@@ -343,6 +343,10 @@ Test/runMain<span class="w"> </span>vexiiriscv.tester.TestBench<span class="w"> 
 <li><p>spike.log : The execution logs of Spike (golden model)</p></li>
 <li><p>tracer.log : The execution logs of VexRiscv (Simulation model)</p></li>
 </ul>
+<p>Here is an example of the additional argument you can use to improve the IPC :</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>--with-btb<span class="w"> </span>--with-gshare<span class="w"> </span>--with-ras<span class="w"> </span>--decoders<span class="w"> </span><span class="m">2</span><span class="w"> </span>--lanes<span class="w"> </span><span class="m">2</span><span class="w"> </span>--with-aligner-buffer<span class="w"> </span>--with-dispatcher-buffer<span class="w"> </span>--with-late-alu<span class="w"> </span>--regfile-async<span class="w"> </span>--allow-bypass-from<span class="w"> </span><span class="m">0</span><span class="w"> </span>--div-radix<span class="w"> </span><span class="m">4</span>
+</pre></div>
+</div>
 <p>Here is a screen shot of a cache-less VexiiRiscv booting linux :</p>
 <img alt="../../_images/konata.png" src="../../_images/konata.png" />
 </section>
@@ -377,7 +381,7 @@ Test/runMain<span class="w"> </span>vexiiriscv.tester.TestBench<span class="w"> 
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~56d94ba 2024-03-08
+    Version: master git~75d79e6 2024-03-15
     </p></div>
     
 

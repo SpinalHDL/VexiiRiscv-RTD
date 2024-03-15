@@ -125,7 +125,7 @@ Note that Vexiiriscv use mostly an opt-in configuration. So, most performance re
 
     sbt
     compile
-    Test/runMain vexiiriscv.tester.TestBench --load-elf ext/NaxSoftware/baremetal/dhrystone/build/rv32ima/dhrystone.elf --trace-all
+    Test/runMain vexiiriscv.tester.TestBench --with-mul --with-div --load-elf ext/NaxSoftware/baremetal/dhrystone/build/rv32ima/dhrystone.elf --trace-all
 
 
 This will generate a simWorkspace/VexiiRiscv/test folder which contains :
@@ -134,6 +134,13 @@ This will generate a simWorkspace/VexiiRiscv/test folder which contains :
 - konata.log : A wave file which can be open with https://github.com/shioyadan/Konata, it shows the pipeline behaviour of the CPU
 - spike.log : The execution logs of Spike (golden model)
 - tracer.log : The execution logs of VexRiscv (Simulation model)
+
+Here is an example of the additional argument you can use to improve the IPC : 
+
+.. code-block:: bash
+
+   --with-btb --with-gshare --with-ras --decoders 2 --lanes 2 --with-aligner-buffer --with-dispatcher-buffer --with-late-alu --regfile-async --allow-bypass-from 0 --div-radix 4
+
 
 Here is a screen shot of a cache-less VexiiRiscv booting linux : 
 

@@ -255,13 +255,17 @@
 <span class="o">}</span><span class="p">;</span>
 </pre></div>
 </div>
+<p>Then you can convert the linux.dts into linux.dtb via :</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>dtc<span class="w"> </span>-O<span class="w"> </span>dtb<span class="w"> </span>-o<span class="w"> </span>build/linux.dtb<span class="w"> </span>build/linux.dts
+</pre></div>
+</div>
 <p>To run debian, you would need to change the dts boot device to your block device, aswell as removing the initrd from the dts. You can find more information about how to setup the debian images on <a class="reference external" href="https://github.com/SpinalHDL/NaxSoftware/tree/main/debian_litex">https://github.com/SpinalHDL/NaxSoftware/tree/main/debian_litex</a></p>
-<p>But note that for opensbi, use instead the following (official upstream opensbi using the generic platform):</p>
+<p>But note that for opensbi, use instead the following (official upstream opensbi using the generic platform, which will also contains the dtb):</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/riscv-software-src/opensbi.git
 <span class="nb">cd</span><span class="w"> </span>opensbi
 make<span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span>riscv-none-embed-<span class="w"> </span><span class="se">\</span>
 <span class="w">     </span><span class="nv">PLATFORM</span><span class="o">=</span>generic<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="nv">FW_FDT_PATH</span><span class="o">=</span>../linux.dtb<span class="w"> </span><span class="se">\</span>
+<span class="w">     </span><span class="nv">FW_FDT_PATH</span><span class="o">=</span>../build/linux.dtb<span class="w"> </span><span class="se">\</span>
 <span class="w">     </span><span class="nv">FW_JUMP_ADDR</span><span class="o">=</span>0x41000000<span class="w">  </span><span class="se">\</span>
 <span class="w">     </span><span class="nv">FW_JUMP_FDT_ADDR</span><span class="o">=</span>0x46000000
 </pre></div>
@@ -296,7 +300,7 @@ make<span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o"
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~36a87c6 2024-05-28
+    Version: master git~1700bcc 2024-05-28
     </p></div>
     
 

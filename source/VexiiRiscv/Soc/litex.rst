@@ -43,9 +43,15 @@ That linux.dts will miss the CLINT definition (used by opensbi), so you need to 
     };
 	    
 
+Then you can convert the linux.dts into linux.dtb via : 
+
+.. code:: shell
+
+    dtc -O dtb -o build/linux.dtb build/linux.dts
+
 To run debian, you would need to change the dts boot device to your block device, aswell as removing the initrd from the dts. You can find more information about how to setup the debian images on https://github.com/SpinalHDL/NaxSoftware/tree/main/debian_litex
 
-But note that for opensbi, use instead the following (official upstream opensbi using the generic platform): 
+But note that for opensbi, use instead the following (official upstream opensbi using the generic platform, which will also contains the dtb): 
 
 .. code:: shell
 
@@ -53,7 +59,7 @@ But note that for opensbi, use instead the following (official upstream opensbi 
     cd opensbi
     make CROSS_COMPILE=riscv-none-embed- \
          PLATFORM=generic \
-         FW_FDT_PATH=../linux.dtb \
+         FW_FDT_PATH=../build/linux.dtb \
          FW_JUMP_ADDR=0x41000000  \
          FW_JUMP_FDT_ADDR=0x46000000
 

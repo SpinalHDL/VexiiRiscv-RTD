@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Execute &mdash; VexiiRiscv  documentation</title>
+  <title>SoC &mdash; VexiiRiscv  documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
@@ -12,7 +12,7 @@
       <link rel="stylesheet" href="../../_static/gh-fork-ribbon.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/vexiiriscv.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/logo3_32x32.png"/>
-    <link rel="canonical" href="https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Execute/index.html" />
+    <link rel="canonical" href="https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Soc/microsoc.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -31,8 +31,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Introduction" href="introduction.html" />
-    <link rel="prev" title="Decode" href="../Decode/index.html" />
+    <link rel="next" title="Litex" href="litex.html" />
+    <link rel="prev" title="SoC" href="index.html" />
      
     <!-- source/_templates/layout.html -->
     
@@ -47,7 +47,7 @@
     
     
     <div class="div-svg-github-corner github-corner-abs">
-    <a href="https://github.com/SpinalHDL/VexiiRiscv-RTD/blob/master/source/VexiiRiscv/Execute/index.rst" class="github-corner github-fork-ribbon" aria-label="Edit on GitHub" data-ribbon="Edit on GitHub" title="Edit on GitHub">
+    <a href="https://github.com/SpinalHDL/VexiiRiscv-RTD/blob/master/source/VexiiRiscv/Soc/microsoc.rst" class="github-corner github-fork-ribbon" aria-label="Edit on GitHub" data-ribbon="Edit on GitHub" title="Edit on GitHub">
       <object id="svg-github-corner" data="../../_static/github-corner-right.svg" class="svg-github-corner github-corner-abs" width="80" height="80"></object>
     </a>
     </div>
@@ -110,46 +110,46 @@
 <li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#dispatchplugin">DispatchPlugin</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Execute</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plugins.html">Plugins</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="plugins.html#infrastructures">infrastructures</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#executepipelineplugin">ExecutePipelinePlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#executelaneplugin">ExecuteLanePlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#regfileplugin">RegFilePlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#srcplugin">SrcPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#rsunsignedplugin">RsUnsignedPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#intformatplugin">IntFormatPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#writebackplugin">WriteBackPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#learnplugin">LearnPlugin</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Execute/index.html">Execute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/plugins.html">Plugins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/plugins.html#infrastructures">infrastructures</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#executepipelineplugin">ExecutePipelinePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#executelaneplugin">ExecuteLanePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#regfileplugin">RegFilePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#srcplugin">SrcPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#rsunsignedplugin">RsUnsignedPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#intformatplugin">IntFormatPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#writebackplugin">WriteBackPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#learnplugin">LearnPlugin</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="plugins.html#instructions">Instructions</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#intaluplugin">IntAluPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#barrelshifterplugin">BarrelShifterPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#branchplugin">BranchPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#mulplugin">MulPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#divplugin">DivPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#lsucachelessplugin">LsuCachelessPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/plugins.html#instructions">Instructions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#intaluplugin">IntAluPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#barrelshifterplugin">BarrelShifterPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#branchplugin">BranchPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#mulplugin">MulPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#divplugin">DivPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#lsucachelessplugin">LsuCachelessPlugin</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="plugins.html#special">Special</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#csraccessplugin">CsrAccessPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#csrramplugin">CsrRamPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#privilegedplugin">PrivilegedPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#envplugin">EnvPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/plugins.html#special">Special</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#csraccessplugin">CsrAccessPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#csrramplugin">CsrRamPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#privilegedplugin">PrivilegedPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#envplugin">EnvPlugin</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="custom.html">Custom instruction</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="custom.html#simd-add">SIMD add</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="custom.html#plugin-implementation">Plugin implementation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="custom.html#vexiiriscv-generation">VexiiRiscv generation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="custom.html#software-test">Software test</a></li>
-<li class="toctree-l4"><a class="reference internal" href="custom.html#simulation">Simulation</a></li>
-<li class="toctree-l4"><a class="reference internal" href="custom.html#conclusion">Conclusion</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/custom.html">Custom instruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/custom.html#simd-add">SIMD add</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/custom.html#plugin-implementation">Plugin implementation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/custom.html#vexiiriscv-generation">VexiiRiscv generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/custom.html#software-test">Software test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/custom.html#simulation">Simulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/custom.html#conclusion">Conclusion</a></li>
 </ul>
 </li>
 </ul>
@@ -172,12 +172,12 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Performance/index.html">Performance / Area / FMax</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../Soc/index.html">SoC</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Soc/microsoc.html">SoC</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../Soc/microsoc.html#microsoc">MicroSoc</a></li>
+<li class="toctree-l1 current"><a class="reference internal" href="index.html">SoC</a><ul class="current">
+<li class="toctree-l2 current"><a class="current reference internal" href="#">SoC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#microsoc">MicroSoc</a></li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../Soc/litex.html">Litex</a></li>
+<li class="toctree-l2"><a class="reference internal" href="litex.html">Litex</a></li>
 </ul>
 </li>
 </ul>
@@ -196,9 +196,10 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Execute</li>
+          <li class="breadcrumb-item"><a href="index.html">SoC</a></li>
+      <li class="breadcrumb-item active">SoC</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/SpinalHDL/VexiiRiscv-RTD/blob/master/source/VexiiRiscv/Execute/index.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/SpinalHDL/VexiiRiscv-RTD/blob/master/source/VexiiRiscv/Soc/microsoc.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -210,7 +211,7 @@
   <strong>
     
     You're reading an pre-release version of this documentation.<br/>
-    For the latest stable release version, please have a look at <a href="index.html">master</a>.
+    For the latest stable release version, please have a look at <a href="microsoc.html">master</a>.
     
   </strong>
   <div>
@@ -224,23 +225,29 @@
 
 
 
-  <section id="execute">
-<h1>Execute<a class="headerlink" href="#execute" title="Permalink to this heading"></a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="introduction.html">Introduction</a></li>
-<li class="toctree-l1"><a class="reference internal" href="plugins.html">Plugins</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="plugins.html#infrastructures">infrastructures</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plugins.html#instructions">Instructions</a></li>
-<li class="toctree-l2"><a class="reference internal" href="plugins.html#special">Special</a></li>
+  <section id="soc">
+<h1>SoC<a class="headerlink" href="#soc" title="Permalink to this heading"></a></h1>
+<p>This is currently WIP.</p>
+<section id="microsoc">
+<h2>MicroSoc<a class="headerlink" href="#microsoc" title="Permalink to this heading"></a></h2>
+<p>MicroSoC is a little SoC based on VexiiRiscv and a tilelink interconnect.</p>
+<img alt="../../_images/microsoc.png" src="../../_images/microsoc.png" />
+<p>Here you can see the default vexiiriscv architecture for this SoC :</p>
+<img alt="../../_images/microsoc_vexii.png" src="../../_images/microsoc_vexii.png" />
+<p>Its goals are :</p>
+<ul class="simple">
+<li><p>Provide a simple reference design</p></li>
+<li><p>To be a simple and light FPGA SoC</p></li>
+<li><p>Target a high frequency of operation, but not a high IPC (by default)</p></li>
 </ul>
-</li>
-<li class="toctree-l1"><a class="reference internal" href="custom.html">Custom instruction</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="custom.html#simd-add">SIMD add</a></li>
+<p>You can find its implementation here <a class="reference external" href="https://github.com/SpinalHDL/VexiiRiscv/blob/dev/src/main/scala/vexiiriscv/soc/demo/MicroSoc.scala">https://github.com/SpinalHDL/VexiiRiscv/blob/dev/src/main/scala/vexiiriscv/soc/demo/MicroSoc.scala</a></p>
+<ul class="simple">
+<li><p><cite>class MicroSoc</cite> is the SoC toplevel</p></li>
+<li><p><cite>object MicroSocGen</cite> is a scala main which can be used to generate the hardware</p></li>
+<li><p><cite>object MicroSocSim</cite> is a simple testbench which integrate the UART, konata tracer, rvls CPU checker.</p></li>
 </ul>
-</li>
-</ul>
-</div>
+<p>This SoC is WIP, mainly it need more stuff as a rom, jtag, software and a lot more doc.</p>
+</section>
 </section>
 
     <script type="text/javascript">
@@ -254,8 +261,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../Decode/index.html" class="btn btn-neutral float-left" title="Decode" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="introduction.html" class="btn btn-neutral float-right" title="Introduction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="index.html" class="btn btn-neutral float-left" title="SoC" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="litex.html" class="btn btn-neutral float-right" title="Litex" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -298,7 +305,7 @@
     </dl>
     <dl>
       <dt>Branches</dt>
-      <dd><a href="index.html">master</a></dd>
+      <dd><a href="microsoc.html">master</a></dd>
     </dl>
     <dl>
       <dt>Downloads</dt>

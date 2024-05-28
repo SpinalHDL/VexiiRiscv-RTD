@@ -31,6 +31,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="SoC" href="microsoc.html" />
     <link rel="prev" title="Performance / Area / FMax" href="../Performance/index.html" />
      
     <!-- source/_templates/layout.html -->
@@ -172,7 +173,11 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Performance/index.html">Performance / Area / FMax</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">SoC</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#microsoc">MicroSoc</a></li>
+<li class="toctree-l2"><a class="reference internal" href="microsoc.html">SoC</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="microsoc.html#microsoc">MicroSoc</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="litex.html">Litex</a></li>
 </ul>
 </li>
 </ul>
@@ -222,26 +227,15 @@
   <section id="soc">
 <h1>SoC<a class="headerlink" href="#soc" title="Permalink to this heading"></a></h1>
 <p>This is currently WIP.</p>
-<section id="microsoc">
-<h2>MicroSoc<a class="headerlink" href="#microsoc" title="Permalink to this heading"></a></h2>
-<p>MicroSoC is a little SoC based on VexiiRiscv and a tilelink interconnect.</p>
-<img alt="../../_images/microsoc.png" src="../../_images/microsoc.png" />
-<p>Here you can see the default vexiiriscv architecture for this SoC :</p>
-<img alt="../../_images/microsoc_vexii.png" src="../../_images/microsoc_vexii.png" />
-<p>Its goals are :</p>
-<ul class="simple">
-<li><p>Provide a simple reference design</p></li>
-<li><p>To be a simple and light FPGA SoC</p></li>
-<li><p>Target a high frequency of operation, but not a high IPC (by default)</p></li>
+<div class="toctree-wrapper compound">
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="microsoc.html">SoC</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="microsoc.html#microsoc">MicroSoc</a></li>
 </ul>
-<p>You can find its implementation here <a class="reference external" href="https://github.com/SpinalHDL/VexiiRiscv/blob/dev/src/main/scala/vexiiriscv/soc/demo/MicroSoc.scala">https://github.com/SpinalHDL/VexiiRiscv/blob/dev/src/main/scala/vexiiriscv/soc/demo/MicroSoc.scala</a></p>
-<ul class="simple">
-<li><p><cite>class MicroSoc</cite> is the SoC toplevel</p></li>
-<li><p><cite>object MicroSocGen</cite> is a scala main which can be used to generate the hardware</p></li>
-<li><p><cite>object MicroSocSim</cite> is a simple testbench which integrate the UART, konata tracer, rvls CPU checker.</p></li>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="litex.html">Litex</a></li>
 </ul>
-<p>This SoC is WIP, mainly it need more stuff as a rom, jtag, software and a lot more doc.</p>
-</section>
+</div>
 </section>
 
     <script type="text/javascript">
@@ -256,6 +250,7 @@
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="../Performance/index.html" class="btn btn-neutral float-left" title="Performance / Area / FMax" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="microsoc.html" class="btn btn-neutral float-right" title="SoC" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -272,7 +267,7 @@
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~75d79e6 2024-03-15
+    Version: master git~36a87c6 2024-05-28
     </p></div>
     
 

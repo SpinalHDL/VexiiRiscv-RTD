@@ -1,20 +1,19 @@
 Introduction
 ============
 
+VexiiRiscv is the next generation of VexRiscv, enabling things which are not possible with the current VexRiscv framework.  The new VexiiRiscv framework: 
 
-About VexiiRiscv
-------------------------------
-
-VexiiRiscv is a from scratch second iteration of VexRiscv, with the following goals : 
-
-- RISCV 32/64 bits IMAFDC
-- Could start around as small as VexRiscv, but could scale further in performance
-- Optional late-alu
-- Optional multi issue
-- Optional multi threading
-- Providing a cleaner implementation, getting ride of the technical debt, especially the frontend
-- Proper branch prediction
-- ...
+- Supports both the 32 bit and the 64 bit Risc-V Instruction sets. 
+- Supports more parallelism with optional: 
+         - multithreading, 
+         - multiple issues and 
+         - multiple early and late alus.  
+- Has a much cleaner frontend / branch prediction design.
+- Has a more flexible plugin system.
+- Has a much better verification approach. 
+- Works better with DRAM at higher frequencies.  
+- Could be as small as the smallest VexRiscv, but 
+- can also be much faster than the fastest VexRiscv.
 
 On this date (08/03/2024) the status is : 
 
@@ -52,17 +51,31 @@ Here is a list of important assumptions and things to know about :
 - In the execute pipeline, stage.up(RS1/RS2) is the value to be used, while stage.down(RS1/RS2) should not be used, as it implement the bypassing for the next stage
 - Fetch.ctrl(0) isn't persistant.
 
-About VexRiscv (not VexiiRiscv)
+Why VexiiRiscv? 
 ------------------------------------
 
-There is few reasons why VexiiRiscv exists instead of doing incremental upgrade on VexRiscv
+The original VexRiscv is a successful design.  But we have reached the limits of what it can accomplish, and in the process of improving it, we added too much complexity.   We now have a newer and better framework.   Specifically the new VexiiRiscv framework: 
 
-- Mostly, all the VexRiscv parts could be subject for upgrades
-- VexRiscv frontend / branch prediction is quite messy
-- The whole VexRiscv pipeline would have need a complete overhaul in oder to support multiple issue / late-alu
-- The VexRiscv plugin system has hits some limits
-- VexRiscv accumulated quite a bit of technical debt over time (2017)
-- The VexRiscv data cache being write though start to create issues the faster the frequency goes (DRAM can't follow)
-- The VexRiscv verification infrastructure based on its own golden model isn't great.
+- Supports more parallelism with optionally multiple issues and multiple early and late alus.  
+- Has a much cleaner frontend / branch prediction design.
+- Has a more flexible plugin system.
+- Has a much better verification approach. 
+- Works better with DRAM at higher frequencies.   
+
+Really almost the whole VexRiscv system would need to rewritten, so it is better to start anew.  This can be done faster than carrying around the old baggage. 
+
+What was Wrong with VexRiscv?
+------------------------------------
+
+There are a few reasons why we are creating a new VexiiRiscv instead of doing incremental upgrade on VexRiscv:
+
+- Almost all of the VexRiscv parts need to be migrated to the new framework.
+- VexRiscv front end amd branch prediction is quite messy.
+- The whole VexRiscv pipeline would have need a complete overhaul in oder to support multiple issue / late-alu.
+- The VexRiscv plugin system has hits some limits.
+- VexRiscv accumulated quite a bit of technical debt since it was introduced in 2017.
+- The VexRiscv data cache being write though starts to have issues as frequency increases (DRAM can't follow).
+- The VexRiscv verification infrastructure being based on its own golden model isn't great.
 
 So, enough is enough, it was time to start fresh :D
+

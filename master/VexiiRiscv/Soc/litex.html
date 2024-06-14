@@ -31,7 +31,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="prev" title="SoC" href="microsoc.html" />
+    <link rel="prev" title="MicroSoc" href="microsoc.html" />
      
     <!-- source/_templates/layout.html -->
     
@@ -172,10 +172,7 @@
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Performance/index.html">Performance / Area / FMax</a></li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">SoC</a><ul class="current">
-<li class="toctree-l2"><a class="reference internal" href="microsoc.html">SoC</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="microsoc.html#microsoc">MicroSoc</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="microsoc.html">MicroSoc</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Litex</a></li>
 </ul>
 </li>
@@ -227,6 +224,10 @@
   <section id="litex">
 <h1>Litex<a class="headerlink" href="#litex" title="Permalink to this heading"></a></h1>
 <p>VexiiRiscv can also be deployed using Litex.</p>
+<p>You can find some fully self contained example about how to generate the software and hardware files to run buildroot and debian here :</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://github.com/SpinalHDL/VexiiRiscv/tree/dev/doc/litex">https://github.com/SpinalHDL/VexiiRiscv/tree/dev/doc/litex</a></p></li>
+</ul>
 <p>For instance, you can run the following litex command to generate a linux capable SoC on the digilent_nexys_video dev kit (RV32IMA):</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>litex_boards.targets.digilent_nexys_video<span class="w"> </span>--cpu-type<span class="o">=</span>vexiiriscv<span class="w"> </span>--cpu-variant<span class="o">=</span>linux<span class="w"> </span>--cpu-count<span class="o">=</span><span class="m">1</span><span class="w"> </span>--build<span class="w"> </span>--load
 </pre></div>
@@ -283,7 +284,7 @@ make<span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o"
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="microsoc.html" class="btn btn-neutral float-left" title="SoC" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="microsoc.html" class="btn btn-neutral float-left" title="MicroSoc" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
     </div>
 
   <hr/>
@@ -300,7 +301,7 @@ make<span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o"
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~1700bcc 2024-05-28
+    Version: master git~7da1b79 2024-06-14
     </p></div>
     
 

@@ -4,6 +4,10 @@ Litex
 
 VexiiRiscv can also be deployed using Litex.
 
+You can find some fully self contained example about how to generate the software and hardware files to run buildroot and debian here : 
+
+- https://github.com/SpinalHDL/VexiiRiscv/tree/dev/doc/litex
+
 For instance, you can run the following litex command to generate a linux capable SoC on the digilent_nexys_video dev kit (RV32IMA): 
 
 .. code:: shell

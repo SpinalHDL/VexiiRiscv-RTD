@@ -1,5 +1,3 @@
-SoC
-============
 
 This is currently WIP.
 

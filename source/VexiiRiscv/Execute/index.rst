@@ -8,3 +8,4 @@ Execute
    introduction
    plugins
    custom
+   lsu

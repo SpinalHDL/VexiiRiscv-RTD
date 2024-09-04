@@ -1,31 +1,41 @@
 Introduction
 ============
 
+In a few words, VexiiRiscv :
 
-About VexiiRiscv
+- Is an hardware CPU project
+- Implements the RISC-V instruction set
+- Is free / open-source
+- Should fit well on FPGA and ASIC
+
+
+Technicalities
 ------------------------------
 
 VexiiRiscv is a from scratch second iteration of VexRiscv, with the following goals : 
 
-- RISCV 32/64 bits IMAFDC
+- To imlement RISC-V 32/64 bits IMAFDCSU
 - Could start around as small as VexRiscv, but could scale further in performance
 - Optional late-alu
 - Optional multi issue
-- Optional multi threading
 - Providing a cleaner implementation, getting ride of the technical debt, especially the frontend
+- Scale well at higher frequencies via its hardware prefetching and non blocking write-back D$
 - Proper branch prediction
 - ...
 
-On this date (08/03/2024) the status is : 
+On this date (09/08/2024) the status is : 
 
-- rv 32/64 imacsu supported 
-- Can run baremetal benchmarks (2.50 dhrystone/mhz, 5.24 coremark/mhz)
+- RISC-V 32/64 IMAFDCSU supported (Multiply / Atomic / Float / Double / Supervisor / User)
+- Can run baremetal applications (2.50 dhrystone/mhz, 5.24 coremark/mhz)
+- Can run linux/buildroot/debian on FPGA hardware (via litex)
 - single/dual issue supported
 - late-alu supported
 - BTB/RAS/GShare branch prediction supported
 - MMU SV32/SV39 supported
-- can run linux/buildroot in simulation
 - LSU store buffer supported
+- Non-blocking I$ D$ supported
+- Hardware/Software D$ prefetcher supported
+- Hardware I$ prefetcher supported
 
 Here is a diagram with 2 issue / early+late alu / 6 stages configuration (note that the pipeline structure can vary a lot):
 

@@ -75,7 +75,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#about-vexiiriscv">About VexiiRiscv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#technicalities">Technicalities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#navigating-the-code">Navigating the code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#check-list">Check list</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#about-vexriscv-not-vexiiriscv">About VexRiscv (not VexiiRiscv)</a></li>
@@ -154,6 +154,37 @@
 </li>
 </ul>
 </li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/lsu.html">Plugins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#infrastructures">infrastructures</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#executepipelineplugin">ExecutePipelinePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#executelaneplugin">ExecuteLanePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#regfileplugin">RegFilePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#srcplugin">SrcPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#rsunsignedplugin">RsUnsignedPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#intformatplugin">IntFormatPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#writebackplugin">WriteBackPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#learnplugin">LearnPlugin</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#instructions">Instructions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#intaluplugin">IntAluPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#barrelshifterplugin">BarrelShifterPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#branchplugin">BranchPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#mulplugin">MulPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#divplugin">DivPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#lsucachelessplugin">LsuCachelessPlugin</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#special">Special</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#csraccessplugin">CsrAccessPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#csrramplugin">CsrRamPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#privilegedplugin">PrivilegedPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#envplugin">EnvPlugin</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../BranchPrediction/index.html">Branch Prediction</a><ul>
@@ -223,29 +254,39 @@
 
   <section id="introduction">
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h1>
-<section id="about-vexiiriscv">
-<h2>About VexiiRiscv<a class="headerlink" href="#about-vexiiriscv" title="Permalink to this heading"></a></h2>
+<p>In a few words, VexiiRiscv :</p>
+<ul class="simple">
+<li><p>Is an hardware CPU project</p></li>
+<li><p>Implements the RISC-V instruction set</p></li>
+<li><p>Is free / open-source</p></li>
+<li><p>Should fit well on FPGA and ASIC</p></li>
+</ul>
+<section id="technicalities">
+<h2>Technicalities<a class="headerlink" href="#technicalities" title="Permalink to this heading"></a></h2>
 <p>VexiiRiscv is a from scratch second iteration of VexRiscv, with the following goals :</p>
 <ul class="simple">
-<li><p>RISCV 32/64 bits IMAFDC</p></li>
+<li><p>To imlement RISC-V 32/64 bits IMAFDCSU</p></li>
 <li><p>Could start around as small as VexRiscv, but could scale further in performance</p></li>
 <li><p>Optional late-alu</p></li>
 <li><p>Optional multi issue</p></li>
-<li><p>Optional multi threading</p></li>
 <li><p>Providing a cleaner implementation, getting ride of the technical debt, especially the frontend</p></li>
+<li><p>Scale well at higher frequencies via its hardware prefetching and non blocking write-back D$</p></li>
 <li><p>Proper branch prediction</p></li>
 <li><p>…</p></li>
 </ul>
-<p>On this date (08/03/2024) the status is :</p>
+<p>On this date (09/08/2024) the status is :</p>
 <ul class="simple">
-<li><p>rv 32/64 imacsu supported</p></li>
-<li><p>Can run baremetal benchmarks (2.50 dhrystone/mhz, 5.24 coremark/mhz)</p></li>
+<li><p>RISC-V 32/64 IMAFDCSU supported (Multiply / Atomic / Float / Double / Supervisor / User)</p></li>
+<li><p>Can run baremetal applications (2.50 dhrystone/mhz, 5.24 coremark/mhz)</p></li>
+<li><p>Can run linux/buildroot/debian on FPGA hardware (via litex)</p></li>
 <li><p>single/dual issue supported</p></li>
 <li><p>late-alu supported</p></li>
 <li><p>BTB/RAS/GShare branch prediction supported</p></li>
 <li><p>MMU SV32/SV39 supported</p></li>
-<li><p>can run linux/buildroot in simulation</p></li>
 <li><p>LSU store buffer supported</p></li>
+<li><p>Non-blocking I$ D$ supported</p></li>
+<li><p>Hardware/Software D$ prefetcher supported</p></li>
+<li><p>Hardware I$ prefetcher supported</p></li>
 </ul>
 <p>Here is a diagram with 2 issue / early+late alu / 6 stages configuration (note that the pipeline structure can vary a lot):</p>
 <img alt="../../_images/architecture_all_1.png" src="../../_images/architecture_all_1.png" />
@@ -315,7 +356,7 @@
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~1b75aab 2024-08-07
+    Version: master git~74779a7 2024-09-04
     </p></div>
     
 

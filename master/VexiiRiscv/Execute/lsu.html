@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Introduction &mdash; VexiiRiscv  documentation</title>
+  <title>Plugins &mdash; VexiiRiscv  documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
@@ -12,7 +12,7 @@
       <link rel="stylesheet" href="../../_static/gh-fork-ribbon.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/vexiiriscv.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/logo3_32x32.png"/>
-    <link rel="canonical" href="https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Execute/introduction.html" />
+    <link rel="canonical" href="https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Execute/lsu.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -31,8 +31,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Plugins" href="plugins.html" />
-    <link rel="prev" title="Execute" href="index.html" />
+    <link rel="next" title="Branch Prediction" href="../BranchPrediction/index.html" />
+    <link rel="prev" title="Custom instruction" href="custom.html" />
      
     <!-- source/_templates/layout.html -->
     
@@ -47,7 +47,7 @@
     
     
     <div class="div-svg-github-corner github-corner-abs">
-    <a href="https://github.com/SpinalHDL/VexiiRiscv-RTD/blob/master/source/VexiiRiscv/Execute/introduction.rst" class="github-corner github-fork-ribbon" aria-label="Edit on GitHub" data-ribbon="Edit on GitHub" title="Edit on GitHub">
+    <a href="https://github.com/SpinalHDL/VexiiRiscv-RTD/blob/master/source/VexiiRiscv/Execute/lsu.rst" class="github-corner github-fork-ribbon" aria-label="Edit on GitHub" data-ribbon="Edit on GitHub" title="Edit on GitHub">
       <object id="svg-github-corner" data="../../_static/github-corner-right.svg" class="svg-github-corner github-corner-abs" width="80" height="80"></object>
     </a>
     </div>
@@ -111,7 +111,7 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Execute</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plugins.html">Plugins</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="plugins.html#infrastructures">infrastructures</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="plugins.html#executepipelineplugin">ExecutePipelinePlugin</a></li>
@@ -154,33 +154,33 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="lsu.html">Plugins</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="lsu.html#infrastructures">infrastructures</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="lsu.html#executepipelineplugin">ExecutePipelinePlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lsu.html#executelaneplugin">ExecuteLanePlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lsu.html#regfileplugin">RegFilePlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lsu.html#srcplugin">SrcPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lsu.html#rsunsignedplugin">RsUnsignedPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lsu.html#intformatplugin">IntFormatPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lsu.html#writebackplugin">WriteBackPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lsu.html#learnplugin">LearnPlugin</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">Plugins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#infrastructures">infrastructures</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#executepipelineplugin">ExecutePipelinePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#executelaneplugin">ExecuteLanePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#regfileplugin">RegFilePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#srcplugin">SrcPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#rsunsignedplugin">RsUnsignedPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#intformatplugin">IntFormatPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#writebackplugin">WriteBackPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#learnplugin">LearnPlugin</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="lsu.html#instructions">Instructions</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="lsu.html#intaluplugin">IntAluPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lsu.html#barrelshifterplugin">BarrelShifterPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lsu.html#branchplugin">BranchPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lsu.html#mulplugin">MulPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lsu.html#divplugin">DivPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lsu.html#lsucachelessplugin">LsuCachelessPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#instructions">Instructions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#intaluplugin">IntAluPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#barrelshifterplugin">BarrelShifterPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#branchplugin">BranchPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#mulplugin">MulPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#divplugin">DivPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lsucachelessplugin">LsuCachelessPlugin</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="lsu.html#special">Special</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="lsu.html#csraccessplugin">CsrAccessPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lsu.html#csrramplugin">CsrRamPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lsu.html#privilegedplugin">PrivilegedPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lsu.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lsu.html#envplugin">EnvPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#special">Special</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#csraccessplugin">CsrAccessPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#csrramplugin">CsrRamPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#privilegedplugin">PrivilegedPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#performancecounterplugin">PerformanceCounterPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#envplugin">EnvPlugin</a></li>
 </ul>
 </li>
 </ul>
@@ -225,9 +225,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">Execute</a></li>
-      <li class="breadcrumb-item active">Introduction</li>
+      <li class="breadcrumb-item active">Plugins</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/SpinalHDL/VexiiRiscv-RTD/blob/master/source/VexiiRiscv/Execute/introduction.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/SpinalHDL/VexiiRiscv-RTD/blob/master/source/VexiiRiscv/Execute/lsu.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -239,7 +239,7 @@
   <strong>
     
     You're reading an pre-release version of this documentation.<br/>
-    For the latest stable release version, please have a look at <a href="introduction.html">master</a>.
+    For the latest stable release version, please have a look at <a href="lsu.html">master</a>.
     
   </strong>
   <div>
@@ -253,29 +253,138 @@
 
 
 
-  <section id="introduction">
-<h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h1>
-<p>The execute pipeline has the following properties :</p>
+  <section id="plugins">
+<h1>Plugins<a class="headerlink" href="#plugins" title="Permalink to this heading"></a></h1>
+<section id="infrastructures">
+<h2>infrastructures<a class="headerlink" href="#infrastructures" title="Permalink to this heading"></a></h2>
+<p>Many plugins operate in the fetch stage. Some provide infrastructures :</p>
+<section id="executepipelineplugin">
+<h3>ExecutePipelinePlugin<a class="headerlink" href="#executepipelineplugin" title="Permalink to this heading"></a></h3>
+<p>Provide the pipeline framework for all the execute related hardware with the following specificities :</p>
 <ul class="simple">
-<li><p>Support multiple lane of execution.</p></li>
-<li><p>Support multiple implementation of the same instruction on the same lane (late-alu) via the concept of “layer”</p></li>
-<li><p>each layer is owned by a given lane</p></li>
-<li><p>each layer can implement multiple instructions and store a data model of their requirements.</p></li>
-<li><p>The whole pipeline never collapse bubbles, all lanes of every stage move forward together as one.</p></li>
-<li><p>Elements of the pipeline are allowed to stop the whole pipeline via a shared freeze interface.</p></li>
+<li><p>It is based on the spinal.lib.misc.pipeline API and can host multiple “lanes” in it.</p></li>
+<li><p>For flow control, the lanes can only freeze the whole pipeline</p></li>
+<li><p>The pipeline do not collapse bubbles (empty stages)</p></li>
 </ul>
-<p>Here is a class diagram :</p>
-<img alt="../../_images/execute_structure.png" src="../../_images/execute_structure.png" />
-<p>The main thing about it is that for every uop implementation in the pipeline, there is the elaboration time information for :</p>
+</section>
+<section id="executelaneplugin">
+<h3>ExecuteLanePlugin<a class="headerlink" href="#executelaneplugin" title="Permalink to this heading"></a></h3>
+<p>Implement an execution lane in the ExecutePipelinePlugin</p>
+</section>
+<section id="regfileplugin">
+<h3>RegFilePlugin<a class="headerlink" href="#regfileplugin" title="Permalink to this heading"></a></h3>
+<p>Implement one register file, with the possibility to create new read / write port on demande</p>
+</section>
+<section id="srcplugin">
+<h3>SrcPlugin<a class="headerlink" href="#srcplugin" title="Permalink to this heading"></a></h3>
+<p>Provide some early integer values which can mux between RS1/RS2 and multiple RISC-V instruction’s literal values</p>
+</section>
+<section id="rsunsignedplugin">
+<h3>RsUnsignedPlugin<a class="headerlink" href="#rsunsignedplugin" title="Permalink to this heading"></a></h3>
+<p>Used by mul/div in order to get an unsigned RS1/RS2 value early in the pipeline</p>
+</section>
+<section id="intformatplugin">
+<h3>IntFormatPlugin<a class="headerlink" href="#intformatplugin" title="Permalink to this heading"></a></h3>
+<p>Alows plugins to write integer values back to the register file through a optional sign extender.
+It uses WriteBackPlugin as value backend.</p>
+</section>
+<section id="writebackplugin">
+<h3>WriteBackPlugin<a class="headerlink" href="#writebackplugin" title="Permalink to this heading"></a></h3>
+<p>Used by plugins to provide the RD value to write back to the register file</p>
+</section>
+<section id="learnplugin">
+<h3>LearnPlugin<a class="headerlink" href="#learnplugin" title="Permalink to this heading"></a></h3>
+<p>Will collect all interface which provide jump/branch learning interfaces to aggregate them into a single one, which will then be used by branch prediction plugins to learn.</p>
+</section>
+</section>
+<section id="instructions">
+<h2>Instructions<a class="headerlink" href="#instructions" title="Permalink to this heading"></a></h2>
+<p>Some implement regular instructions</p>
+<section id="intaluplugin">
+<h3>IntAluPlugin<a class="headerlink" href="#intaluplugin" title="Permalink to this heading"></a></h3>
+<p>Implement the arithmetic, binary and literal instructions (ADD, SUB, AND, OR, LUI, …)</p>
+</section>
+<section id="barrelshifterplugin">
+<h3>BarrelShifterPlugin<a class="headerlink" href="#barrelshifterplugin" title="Permalink to this heading"></a></h3>
+<p>Implement the shift instructions in a non-blocking way (no iterations). Fast but “heavy”.</p>
+</section>
+<section id="branchplugin">
+<h3>BranchPlugin<a class="headerlink" href="#branchplugin" title="Permalink to this heading"></a></h3>
+<p>Will :</p>
 <ul class="simple">
-<li><p>How/where to retreive the result of the instruction (rd)</p></li>
-<li><p>From which point in the pipeline it use which register file (rs)</p></li>
-<li><p>From which point in the pipleine the instruction can be considered as done (completion)</p></li>
-<li><p>Until which point in the pipeline the instruction may flush younger instructions (mayFlushUpTo)</p></li>
-<li><p>From which point in the pipeline the instruction should not be flushed anymore because it already had produced side effects (dontFlushFrom)</p></li>
-<li><p>The list of decoded signals/values that the instruction is using (decodings)</p></li>
+<li><p>Implement branch/jump instruction</p></li>
+<li><p>Correct the PC / History in the case the branch prediction was wrong</p></li>
+<li><p>Provide a learn interface to the LearnPlugin</p></li>
 </ul>
-<p>The idea is that with all those information, the ExecuteLanePlugin and DispatchPlugin DecodePlugin are able to generate the proper logics to generate a functional pipeline / dispatch / decoder with no hand written hardcoded hardware.</p>
+</section>
+<section id="mulplugin">
+<h3>MulPlugin<a class="headerlink" href="#mulplugin" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Implement multiplication operation using partial multiplications and then summing their result</p></li>
+<li><p>Done over multiple stage</p></li>
+<li><p>Can optionaly extends the last stage for one cycle in order to buffer the MULH bits</p></li>
+</ul>
+</section>
+<section id="divplugin">
+<h3>DivPlugin<a class="headerlink" href="#divplugin" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Implement the division/remain</p></li>
+<li><p>2 bits per cycle are solved.</p></li>
+<li><p>When it start, it scan for the numerator leading bits for 0, and can skip dividing them (can skip blocks of XLEN/4)</p></li>
+</ul>
+</section>
+<section id="lsucachelessplugin">
+<h3>LsuCachelessPlugin<a class="headerlink" href="#lsucachelessplugin" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Implement load / store through a cacheless memory bus</p></li>
+<li><p>Will fork the cmd as soon as fork stage is valid (with no flush)</p></li>
+<li><p>Handle backpresure by using a little fifo on the response data</p></li>
+</ul>
+</section>
+</section>
+<section id="special">
+<h2>Special<a class="headerlink" href="#special" title="Permalink to this heading"></a></h2>
+<p>Some implement CSR, privileges and special instructions</p>
+<section id="csraccessplugin">
+<h3>CsrAccessPlugin<a class="headerlink" href="#csraccessplugin" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Implement the CSR instruction</p></li>
+<li><p>Provide an API for other plugins to specify its hardware mapping</p></li>
+</ul>
+</section>
+<section id="csrramplugin">
+<h3>CsrRamPlugin<a class="headerlink" href="#csrramplugin" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Implement a shared on chip ram</p></li>
+<li><p>Provide an API which allows to staticaly allocate space on it</p></li>
+<li><p>Provide an API to create read / write ports on it</p></li>
+<li><p>Used by various plugins to store the CSR contents in a FPGA efficient way</p></li>
+</ul>
+</section>
+<section id="privilegedplugin">
+<h3>PrivilegedPlugin<a class="headerlink" href="#privilegedplugin" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Implement the RISCV privileged spec</p></li>
+<li><p>Implement the trap buffer / FSM</p></li>
+<li><p>Use the CsrRamPlugin to implement various CSR as MTVAL, MTVEC, MEPC, MSCRATCH, …</p></li>
+</ul>
+</section>
+<section id="performancecounterplugin">
+<h3>PerformanceCounterPlugin<a class="headerlink" href="#performancecounterplugin" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Implement the privileged performance counters in a very FPGA way</p></li>
+<li><p>Use the CsrRamPlugin to store most of the counter bits</p></li>
+<li><p>Use a dedicated 7 bits hardware register per counter</p></li>
+<li><p>Once that 7 bits register MSB is set, a FSM will flush it into the CsrRamPlugin</p></li>
+</ul>
+</section>
+<section id="envplugin">
+<h3>EnvPlugin<a class="headerlink" href="#envplugin" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Implement a few instructions as MRET, SRET, ECALL, EBREAK</p></li>
+</ul>
+</section>
+</section>
 </section>
 
     <script type="text/javascript">
@@ -289,8 +398,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="index.html" class="btn btn-neutral float-left" title="Execute" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="plugins.html" class="btn btn-neutral float-right" title="Plugins" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="custom.html" class="btn btn-neutral float-left" title="Custom instruction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../BranchPrediction/index.html" class="btn btn-neutral float-right" title="Branch Prediction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -333,7 +442,7 @@
     </dl>
     <dl>
       <dt>Branches</dt>
-      <dd><a href="introduction.html">master</a></dd>
+      <dd><a href="lsu.html">master</a></dd>
     </dl>
     <dl>
       <dt>Downloads</dt>

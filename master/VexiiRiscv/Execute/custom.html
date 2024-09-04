@@ -31,7 +31,7 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Branch Prediction" href="../BranchPrediction/index.html" />
+    <link rel="next" title="Plugins" href="lsu.html" />
     <link rel="prev" title="Plugins" href="plugins.html" />
      
     <!-- source/_templates/layout.html -->
@@ -75,7 +75,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../Introduction/index.html">Introduction</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#about-vexiiriscv">About VexiiRiscv</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#technicalities">Technicalities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#navigating-the-code">Navigating the code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#check-list">Check list</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#about-vexriscv-not-vexiiriscv">About VexRiscv (not VexiiRiscv)</a></li>
@@ -150,6 +150,37 @@
 <li class="toctree-l4"><a class="reference internal" href="#software-test">Software test</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#simulation">Simulation</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#conclusion">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="lsu.html">Plugins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lsu.html#infrastructures">infrastructures</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lsu.html#executepipelineplugin">ExecutePipelinePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lsu.html#executelaneplugin">ExecuteLanePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lsu.html#regfileplugin">RegFilePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lsu.html#srcplugin">SrcPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lsu.html#rsunsignedplugin">RsUnsignedPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lsu.html#intformatplugin">IntFormatPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lsu.html#writebackplugin">WriteBackPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lsu.html#learnplugin">LearnPlugin</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lsu.html#instructions">Instructions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lsu.html#intaluplugin">IntAluPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lsu.html#barrelshifterplugin">BarrelShifterPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lsu.html#branchplugin">BranchPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lsu.html#mulplugin">MulPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lsu.html#divplugin">DivPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lsu.html#lsucachelessplugin">LsuCachelessPlugin</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="lsu.html#special">Special</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lsu.html#csraccessplugin">CsrAccessPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lsu.html#csrramplugin">CsrRamPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lsu.html#privilegedplugin">PrivilegedPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lsu.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="lsu.html#envplugin">EnvPlugin</a></li>
 </ul>
 </li>
 </ul>
@@ -451,7 +482,7 @@ But you can take a look in the IntAluPlugin, ShiftPlugin, DivPlugin, MulPlugin a
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
         <a href="plugins.html" class="btn btn-neutral float-left" title="Plugins" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../BranchPrediction/index.html" class="btn btn-neutral float-right" title="Branch Prediction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="lsu.html" class="btn btn-neutral float-right" title="Plugins" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -468,7 +499,7 @@ But you can take a look in the IntAluPlugin, ShiftPlugin, DivPlugin, MulPlugin a
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~1b75aab 2024-08-07
+    Version: master git~74779a7 2024-09-04
     </p></div>
     
 

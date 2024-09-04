@@ -8,6 +8,15 @@ In a few words, VexiiRiscv :
 - Is free / open-source
 - Should fit well on FPGA and ASIC
 
+Other doc / media / talks
+--------------------------
+
+Here is a list of links to ressources which present or document VexiiRiscv : 
+
+- FSiC 2024   : https://wiki.f-si.org/index.php?title=Moving_toward_VexiiRiscv
+- COSCUP 2024 : https://coscup.org/2024/en/session/PVAHAS
+- ORConf 2024 : https://fossi-foundation.org/orconf/2024#vexiiriscv--a-debian-demonstration
+
 
 Technicalities
 ------------------------------

@@ -75,6 +75,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#other-doc-media-talks">Other doc / media / talks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#technicalities">Technicalities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#navigating-the-code">Navigating the code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#check-list">Check list</a></li>
@@ -97,6 +98,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#fetchpipelineplugin">FetchPipelinePlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#pcplugin">PcPlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#fetchcachelessplugin">FetchCachelessPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#fetchl1plugin">FetchL1Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#prefetchernextlineplugin">PrefetcherNextLinePlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#btbplugin">BtbPlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#gshareplugin">GSharePlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#historyplugin">HistoryPlugin</a></li>
@@ -154,35 +157,20 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../Execute/lsu.html">Plugins</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#infrastructures">infrastructures</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#executepipelineplugin">ExecutePipelinePlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#executelaneplugin">ExecuteLanePlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#regfileplugin">RegFilePlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#srcplugin">SrcPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#rsunsignedplugin">RsUnsignedPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#intformatplugin">IntFormatPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#writebackplugin">WriteBackPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#learnplugin">LearnPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/lsu.html">Load Store Unit (LSU)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#without-l1">Without L1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#with-l1">With L1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#memory-coherency">Memory coherency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#prefetching">Prefetching</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#prefetchrptplugin">PrefetchRptPlugin</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#instructions">Instructions</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#intaluplugin">IntAluPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#barrelshifterplugin">BarrelShifterPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#branchplugin">BranchPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#mulplugin">MulPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#divplugin">DivPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#lsucachelessplugin">LsuCachelessPlugin</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#special">Special</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#csraccessplugin">CsrAccessPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#csrramplugin">CsrRamPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#privilegedplugin">PrivilegedPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#envplugin">EnvPlugin</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/fpu.html">FPU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/fpu.html#plugins-architecture">Plugins architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/fpu.html#area-timings-options">Area / Timings options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/fpu.html#optimized-software">Optimized software</a></li>
 </ul>
 </li>
 </ul>
@@ -195,14 +183,22 @@
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#learnplugin">LearnPlugin</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../Debug/index.html">Execute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Debug/jtag.html">JTAG</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../HowToUse/index.html">How to use</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#dependencies">Dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#repo-setup">Repo setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#generate-verilog">Generate verilog</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#run-a-simulation">Run a simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#synthesis-inferation">Synthesis / Inferation</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../Performance/index.html">Performance / Area / FMax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Performance/index.html">Performance / Area / FMax</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Performance/index.html#tuning">Tuning</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../Soc/index.html">SoC</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../Soc/microsoc.html">MicroSoc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Soc/litex.html">Litex</a></li>
@@ -261,6 +257,15 @@
 <li><p>Is free / open-source</p></li>
 <li><p>Should fit well on FPGA and ASIC</p></li>
 </ul>
+<section id="other-doc-media-talks">
+<h2>Other doc / media / talks<a class="headerlink" href="#other-doc-media-talks" title="Permalink to this heading"></a></h2>
+<p>Here is a list of links to ressources which present or document VexiiRiscv :</p>
+<ul class="simple">
+<li><p>FSiC 2024   : <a class="reference external" href="https://wiki.f-si.org/index.php?title=Moving_toward_VexiiRiscv">https://wiki.f-si.org/index.php?title=Moving_toward_VexiiRiscv</a></p></li>
+<li><p>COSCUP 2024 : <a class="reference external" href="https://coscup.org/2024/en/session/PVAHAS">https://coscup.org/2024/en/session/PVAHAS</a></p></li>
+<li><p>ORConf 2024 : <a class="reference external" href="https://fossi-foundation.org/orconf/2024#vexiiriscv--a-debian-demonstration">https://fossi-foundation.org/orconf/2024#vexiiriscv–a-debian-demonstration</a></p></li>
+</ul>
+</section>
 <section id="technicalities">
 <h2>Technicalities<a class="headerlink" href="#technicalities" title="Permalink to this heading"></a></h2>
 <p>VexiiRiscv is a from scratch second iteration of VexRiscv, with the following goals :</p>
@@ -356,7 +361,7 @@
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~74779a7 2024-09-04
+    Version: master git~15b4453 2024-09-04
     </p></div>
     
 

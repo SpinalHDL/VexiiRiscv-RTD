@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Load Store Unit (LSU) &mdash; VexiiRiscv  documentation</title>
+  <title>FPU &mdash; VexiiRiscv  documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
@@ -12,7 +12,7 @@
       <link rel="stylesheet" href="../../_static/gh-fork-ribbon.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/vexiiriscv.css" type="text/css" />
     <link rel="shortcut icon" href="../../_static/logo3_32x32.png"/>
-    <link rel="canonical" href="https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Execute/lsu.html" />
+    <link rel="canonical" href="https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Execute/fpu.html" />
   <!--[if lt IE 9]>
     <script src="../../_static/js/html5shiv.min.js"></script>
   <![endif]-->
@@ -31,8 +31,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="FPU" href="fpu.html" />
-    <link rel="prev" title="Custom instruction" href="custom.html" />
+    <link rel="next" title="Branch Prediction" href="../BranchPrediction/index.html" />
+    <link rel="prev" title="Load Store Unit (LSU)" href="lsu.html" />
      
     <!-- source/_templates/layout.html -->
     
@@ -47,7 +47,7 @@
     
     
     <div class="div-svg-github-corner github-corner-abs">
-    <a href="https://github.com/SpinalHDL/VexiiRiscv-RTD/blob/master/source/VexiiRiscv/Execute/lsu.rst" class="github-corner github-fork-ribbon" aria-label="Edit on GitHub" data-ribbon="Edit on GitHub" title="Edit on GitHub">
+    <a href="https://github.com/SpinalHDL/VexiiRiscv-RTD/blob/master/source/VexiiRiscv/Execute/fpu.rst" class="github-corner github-fork-ribbon" aria-label="Edit on GitHub" data-ribbon="Edit on GitHub" title="Edit on GitHub">
       <object id="svg-github-corner" data="../../_static/github-corner-right.svg" class="svg-github-corner github-corner-abs" width="80" height="80"></object>
     </a>
     </div>
@@ -157,20 +157,20 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2 current"><a class="current reference internal" href="#">Load Store Unit (LSU)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#without-l1">Without L1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#with-l1">With L1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#memory-coherency">Memory coherency</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#prefetching">Prefetching</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="#prefetchrptplugin">PrefetchRptPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="lsu.html">Load Store Unit (LSU)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="lsu.html#without-l1">Without L1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lsu.html#with-l1">With L1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lsu.html#memory-coherency">Memory coherency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="lsu.html#prefetching">Prefetching</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="lsu.html#prefetchrptplugin">PrefetchRptPlugin</a></li>
 </ul>
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="fpu.html">FPU</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="fpu.html#plugins-architecture">Plugins architecture</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fpu.html#area-timings-options">Area / Timings options</a></li>
-<li class="toctree-l3"><a class="reference internal" href="fpu.html#optimized-software">Optimized software</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">FPU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#plugins-architecture">Plugins architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#area-timings-options">Area / Timings options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#optimized-software">Optimized software</a></li>
 </ul>
 </li>
 </ul>
@@ -221,9 +221,9 @@
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
           <li class="breadcrumb-item"><a href="index.html">Execute</a></li>
-      <li class="breadcrumb-item active">Load Store Unit (LSU)</li>
+      <li class="breadcrumb-item active">FPU</li>
       <li class="wy-breadcrumbs-aside">
-              <a href="https://github.com/SpinalHDL/VexiiRiscv-RTD/blob/master/source/VexiiRiscv/Execute/lsu.rst" class="fa fa-github"> Edit on GitHub</a>
+              <a href="https://github.com/SpinalHDL/VexiiRiscv-RTD/blob/master/source/VexiiRiscv/Execute/fpu.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
   </ul>
   <hr/>
@@ -235,7 +235,7 @@
   <strong>
     
     You're reading an pre-release version of this documentation.<br/>
-    For the latest stable release version, please have a look at <a href="lsu.html">master</a>.
+    For the latest stable release version, please have a look at <a href="fpu.html">master</a>.
     
   </strong>
   <div>
@@ -249,134 +249,56 @@
 
 
 
-  <section id="load-store-unit-lsu">
-<h1>Load Store Unit (LSU)<a class="headerlink" href="#load-store-unit-lsu" title="Permalink to this heading"></a></h1>
-<p>VexiiRiscv has 2 implementions of LSU :</p>
+  <section id="fpu">
+<h1>FPU<a class="headerlink" href="#fpu" title="Permalink to this heading"></a></h1>
+<p>The VexiiRiscv FPU has the following caracteristics :</p>
 <ul class="simple">
-<li><p>LsuCachelessPlugin for microcontrollers, which doesn’t implement any cache</p></li>
-<li><p>LsuPlugin / LsuL1Plugin which can work together to implement load and store through an L1 cache</p></li>
+<li><p>By default, It is fully compliant with the IEEE-754 spec (subnormal, rounding, exception flags, ..)</p></li>
+<li><p>There is options to reduce its footprint at the cost of compliance (reduced FMA accuracy, and drop subnormal support)</p></li>
+<li><p>It isn’t a single chunky module, instead it is composed of many plugins in the same ways than the rest of the CPU.</p></li>
+<li><p>It is thightly coupled to the execute pipeline</p></li>
+<li><p>All operations can be issued at the rate of 1 instruction per cycle, excepted for FDIV/FSQRT/Subnormals</p></li>
+<li><p>By default, it is deeply pipelined to help with FPGA timings (10 stages FMA)</p></li>
+<li><p>Multiple hardware ressources are sharred between multiple instruction (ex rounding, adder (FMA+FADD)</p></li>
+<li><p>The VexiiRiscv scheduler take care to not schedule an instruction which would use the same ressource than an older instruction</p></li>
+<li><p>FDIV and FMUL reuse the integer pipeline DIV and MUL hardware</p></li>
+<li><p>Subnormal numbers are handled by recoding/encoding them on operands and results of math instructions. This will trigger some little state machines which will halt the CPU a few cycles (2-3 cycles)</p></li>
 </ul>
-<section id="without-l1">
-<h2>Without L1<a class="headerlink" href="#without-l1" title="Permalink to this heading"></a></h2>
-<p>Implemented by the LsuCachelessPlugin, it should be noted that to
-reach good frequencies on FPGA SoC, forking the memory request at
-execute stage 1 seems to provide the best results (instead of execute stage 0),
-as it relax the AGU timings aswell as the PMA (Physical Memory Attributes) checks.</p>
-<img alt="../../_images/lsu_nol1.png" src="../../_images/lsu_nol1.png" />
+<section id="plugins-architecture">
+<h2>Plugins architecture<a class="headerlink" href="#plugins-architecture" title="Permalink to this heading"></a></h2>
+<p>There is a few fundation plugins that compose the FPU :</p>
+<ul class="simple">
+<li><p>FpuUnpackPlugin : Will decode the RS1/2/3 operands (isZero, isInfinit, ..) aswell as recode them in a floating point format which simplify subnormals into regular floating point values</p></li>
+<li><p>FpuPackPlugin : Will apply rounding to floating point results, recode them into IEEE-754 (including subnormal) before sending those to the WriteBackPlugin(float)</p></li>
+<li><p>WriteBackPlugin(float) : Allows to write values back to the register file (it is the same implementation as the WriteBackPlugin(integer)</p></li>
+<li><p>FpuFlagsWriteback ; Allows instruction to set FPU exception flags</p></li>
+</ul>
+<img alt="../../_images/fpu.png" src="../../_images/fpu.png" />
 </section>
-<section id="with-l1">
-<h2>With L1<a class="headerlink" href="#with-l1" title="Permalink to this heading"></a></h2>
-<p>This configuration supports :</p>
-<ul class="simple">
-<li><p>N ways (limited to 4 KB per way if the MMU is enabled)</p></li>
-<li><p>Non-blocking design, able to handle multiple cache line refill and writeback</p></li>
-<li><p>Hardware and software prefetching (RPT design)</p></li>
-</ul>
-<img alt="../../_images/lsu_l1.png" src="../../_images/lsu_l1.png" />
-<p>This LSU implementation is partitionned between 2 plugins :</p>
-<p>The LsuPlugin :</p>
-<ul class="simple">
-<li><p>Implement AGU (Address Generation Unit)</p></li>
-<li><p>Arbitrate all the different sources of memory request (AGU, store queue, prefetch, MMU refill)</p></li>
-<li><p>Provide the memory request to the LsuL1Plugin</p></li>
-<li><p>Bind the MMU translation port</p></li>
-<li><p>Handle the exceptions and hazard recovery</p></li>
-<li><p>Handle the atomic operations (ALU + locking of the given cache line)</p></li>
-<li><p>Handle IO memory accesses</p></li>
-<li><p>Implement the store queue to handle store misses in a non-blocking way</p></li>
-<li><p>Feed the hardware prefetcher with load/store execution traces</p></li>
-</ul>
-<p>The LsuL1Plugin :</p>
-<ul class="simple">
-<li><p>Implement the L1 tags and data storage</p></li>
-<li><p>Implement the cache line refill and writeback slots (non-blocking)</p></li>
-<li><p>Implement the store to load bypasses</p></li>
-<li><p>Implement the memory coherency interface</p></li>
-<li><p>Is integrated in the execute pipeline (to save area and improve timings)</p></li>
-</ul>
-<p>For multiple reasons (ease of implementation, FMax, hardware usage), VexiiRiscv LSU can hit hazards situations :</p>
-<ul class="simple">
-<li><p>Cache miss, MMU miss</p></li>
-<li><p>Refill / Writeback aliasing (4KB)</p></li>
-<li><p>Unreaded data bank durring load (ex : load durring data bank refill)</p></li>
-<li><p>Load which hit the store queue</p></li>
-<li><p>Store miss while the store queue is full</p></li>
-<li><p>…</p></li>
-</ul>
-<p>In those situation, the LsuPlugin will trigger an “hardware trap”
-which will flush the pipeline and reschedule the failed instruction to the fetch unit.</p>
+<section id="area-timings-options">
+<h2>Area / Timings options<a class="headerlink" href="#area-timings-options" title="Permalink to this heading"></a></h2>
+<p>To improve the FPU area and timings (especialy on FPGA), there is currently two main options implemented.</p>
+<p>The first option is to reduce the FMA (Float Multiply Add instruction A*B+C) accuracy.
+The reason is that the mantissa result of the multiply operation (for 64 bits float) is 2x(52+1)=106 bits, then we need to take those bits and implement the floating point adder against the third opperand. So, instead of having to do a 52 bits + 52 bits floating point adder, we need to do a 106 bits + 52 bits floating point adder, which is quite heavy, increase the timings and latencies while being (very likely) overkilled.
+So this option throw away about half of the multiplication mantissa result.</p>
+<p>The second option is to disable subnormal support, and instead consider those value as normal floating point numbers.
+This reduce the area by not having to handle subnormals (it removes big barrels shifters)
+, aswell as improving timings.
+The down side is that the floating point value range is slightly reduced,
+and if the user provide floating point constants which are subnormals number,
+they will be considered as 2^exp_subnormal numbers.</p>
+<p>In practice those two option do not seems to creates issues (for regular use cases),
+as it was tested by running debian with various software and graphical environnements.</p>
 </section>
-<section id="memory-coherency">
-<h2>Memory coherency<a class="headerlink" href="#memory-coherency" title="Permalink to this heading"></a></h2>
-<p>Memory coherency (L1) with other memory agents (CPU, DMA, ..) is supported though a MESI implementation which can be bridged to a tilelink memory bus.</p>
-<p>So, the L1 cache will have the following stream interfaces :</p>
-<ul class="simple">
-<li><p>read_cmd : To send memory block aquire requests (invalid/shared -&gt; shared/exclusive)</p></li>
-<li><p>read_rsp : For responses of the above requests</p></li>
-<li><p>read_ack : To send aquire requests completion</p></li>
-<li><p>write_cmd : To send release a memory block permition (shared/exclusive -&gt; invalid)</p></li>
-<li><p>write_rsp : For responses of the above requests</p></li>
-<li><p>probe_cmd : To receive probe requests (toInvalid/toShared/toUnique)</p></li>
-<li><p>probe_rsp : to send responses from the above requests (isInvalid/isShared/isUnique)</p></li>
-</ul>
-<p>PICTURE</p>
-</section>
-<section id="prefetching">
-<h2>Prefetching<a class="headerlink" href="#prefetching" title="Permalink to this heading"></a></h2>
-<p>Currently there is two implementation of prefetching</p>
-<ul class="simple">
-<li><p>PrefetchNextLinePlugin : As its name indicates, on each cache miss it will prefetch the next cache line</p></li>
-<li><p>PrefetchRptPlugin : Enable prefetching for instruction which have a constant stride between accesses</p></li>
-</ul>
-<section id="prefetchrptplugin">
-<h3>PrefetchRptPlugin<a class="headerlink" href="#prefetchrptplugin" title="Permalink to this heading"></a></h3>
-<p>This prefetcher is capable of reconizing instructions which have a constant stride between their
-own previous accesses in order to prefetch multiple strides ahead.</p>
-<ul class="simple">
-<li><p>Will learn memory accesses patterns from the LsuPlugin traces</p></li>
-<li><p>Patterns need to have a constant stride in order to be reconized</p></li>
-<li><p>By default, can keep of the access patterns up to 128 instructions (1 way * 128 sets, pc indexed)</p></li>
-</ul>
-<img alt="../../_images/lsu_prefetch.png" src="../../_images/lsu_prefetch.png" />
-<p>This can improve performance dramasticaly (for some use cases).
-For instance, on a 100 Mhz SoC in a FPGA, equipied of a 16x800 MT/s DDR3,
-the load bandwidth went from 112 MB/s to 449  MB/s. (sequencial load)</p>
-<p>Here is a description of the table fields :</p>
-<p>“Tag” : Allows to get a better idea if the given instruction (PC) is the one owning
-the table entry by comparing more PC’s MSB bits.
-An entry is “owned” by an instruction if its tag match the given instruction PC’s msb bits.</p>
-<p>“Address” : Previous virtual address generated by the instruction</p>
-<p>“stride” : Number of bytes expected between memory accesses</p>
-<p>“Score” : Allows to know if the given entry is usefull or not. Each time
-the instruction is keeping the same stride, the score increase, else it decrease.
-If another instruction (with another tag) want to use an entry,
-the score field has to be low enough.</p>
-<p>“Advance” : Allows to keep track how far the prefetching for the given
-instruction already went. This field is cleared when a entry switch
-to a new instruction</p>
-<p>“Missed” : This field was added in order to reduce the spam of
-redundant prefetch request which were happening for load/store intensive code.
-For instance, for a deeply unrolled memory clear loop will generate (x16),
-as each store instruction PC will be tracked individualy,
-and as each execution of a given instruction will stride over a full cache line,
-this will generate one hardware prefetch request on each store instruction every
-time, spamming the LSU pipeline with redundant requests
-and reducing overall performances.</p>
-<p>This “missed” field works as following :</p>
-<ul class="simple">
-<li><p>It is cleared when a stride disruption happens (ex new memcopy execution)</p></li>
-<li><p>It is set on cache miss (set win over clear)</p></li>
-<li><p>An instruction will only trigger a prefetch if it miss or
-if its “missed” field is already set.</p></li>
-</ul>
-<p>For example, in a hardware simulation test
-(RV64, 20 cycles memory latency, 16xload loop), this addition increased
-the memory read memory bandwidth from 3.6 bytes/cycle to 6.8 bytes per cycle.</p>
-<p>Note that if you want to take full advantage of this prefetcher, you need to
-have enough hardware refill/writeback slots in the LsuL1Plugin.</p>
-<p>Also, prefetch which fail (ex : because of hazards in L1) aren’t replayed.</p>
-<p>The prefetcher can be turned off by setting the CSR 0x7FF bit 1.</p>
-</section>
+<section id="optimized-software">
+<h2>Optimized software<a class="headerlink" href="#optimized-software" title="Permalink to this heading"></a></h2>
+<p>If you used the default FPU configuration (deeply pipelined), and you want to achieve a high FPU bandwidth,
+your software need to be carefull about dependencies between instruction.
+For instance, a FMA instruction will have around 10 cycle latency before providing its results,
+so if you want for instance to multipliy 1000 values against some constants
+and accumulate the results together, you will need to accumulate things using multiple accumulators and then, only at the end, aggregate the accumulators together.</p>
+<p>So think about code pipelining. GCC will not necessarly do a got job about it,
+as it may assume assume that the FPU has a much lower latency, or just optimize for code size.</p>
 </section>
 </section>
 
@@ -391,8 +313,8 @@ have enough hardware refill/writeback slots in the LsuL1Plugin.</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="custom.html" class="btn btn-neutral float-left" title="Custom instruction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="fpu.html" class="btn btn-neutral float-right" title="FPU" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="lsu.html" class="btn btn-neutral float-left" title="Load Store Unit (LSU)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../BranchPrediction/index.html" class="btn btn-neutral float-right" title="Branch Prediction" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -435,7 +357,7 @@ have enough hardware refill/writeback slots in the LsuL1Plugin.</p>
     </dl>
     <dl>
       <dt>Branches</dt>
-      <dd><a href="lsu.html">master</a></dd>
+      <dd><a href="fpu.html">master</a></dd>
     </dl>
     <dl>
       <dt>Downloads</dt>

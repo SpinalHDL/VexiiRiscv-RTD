@@ -75,6 +75,7 @@
         </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
               <ul class="current">
 <li class="toctree-l1"><a class="reference internal" href="../Introduction/index.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#other-doc-media-talks">Other doc / media / talks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#technicalities">Technicalities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#navigating-the-code">Navigating the code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#check-list">Check list</a></li>
@@ -97,6 +98,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#fetchpipelineplugin">FetchPipelinePlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pcplugin">PcPlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#fetchcachelessplugin">FetchCachelessPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#fetchl1plugin">FetchL1Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#prefetchernextlineplugin">PrefetcherNextLinePlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#btbplugin">BtbPlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#gshareplugin">GSharePlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#historyplugin">HistoryPlugin</a></li>
@@ -154,35 +157,20 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../Execute/lsu.html">Plugins</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#infrastructures">infrastructures</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#executepipelineplugin">ExecutePipelinePlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#executelaneplugin">ExecuteLanePlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#regfileplugin">RegFilePlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#srcplugin">SrcPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#rsunsignedplugin">RsUnsignedPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#intformatplugin">IntFormatPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#writebackplugin">WriteBackPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#learnplugin">LearnPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/lsu.html">Load Store Unit (LSU)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#without-l1">Without L1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#with-l1">With L1</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#memory-coherency">Memory coherency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#prefetching">Prefetching</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#prefetchrptplugin">PrefetchRptPlugin</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#instructions">Instructions</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#intaluplugin">IntAluPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#barrelshifterplugin">BarrelShifterPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#branchplugin">BranchPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#mulplugin">MulPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#divplugin">DivPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#lsucachelessplugin">LsuCachelessPlugin</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#special">Special</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#csraccessplugin">CsrAccessPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#csrramplugin">CsrRamPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#privilegedplugin">PrivilegedPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#envplugin">EnvPlugin</a></li>
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/fpu.html">FPU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/fpu.html#plugins-architecture">Plugins architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/fpu.html#area-timings-options">Area / Timings options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/fpu.html#optimized-software">Optimized software</a></li>
 </ul>
 </li>
 </ul>
@@ -195,14 +183,22 @@
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#learnplugin">LearnPlugin</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../Debug/index.html">Execute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Debug/jtag.html">JTAG</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../HowToUse/index.html">How to use</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#dependencies">Dependencies</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#repo-setup">Repo setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#generate-verilog">Generate verilog</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#run-a-simulation">Run a simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#synthesis-inferation">Synthesis / Inferation</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../Performance/index.html">Performance / Area / FMax</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Performance/index.html">Performance / Area / FMax</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Performance/index.html#tuning">Tuning</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../Soc/index.html">SoC</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../Soc/microsoc.html">MicroSoc</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Soc/litex.html">Litex</a></li>
@@ -259,6 +255,7 @@
 <li><p>FetchPipelinePlugin</p></li>
 <li><p>PcPlugin</p></li>
 <li><p>FetchCachelessPlugin</p></li>
+<li><p>FetchL1Plugin</p></li>
 <li><p>BtbPlugin</p></li>
 <li><p>GSharePlugin</p></li>
 <li><p>HistoryPlugin</p></li>
@@ -286,6 +283,30 @@
 <li><p>Allow out of order memory bus responses (for maximal compatibility)</p></li>
 <li><p>Always generate aligned memory accesses</p></li>
 </ul>
+</section>
+<section id="fetchl1plugin">
+<h2>FetchL1Plugin<a class="headerlink" href="#fetchl1plugin" title="Permalink to this heading"></a></h2>
+<p>Will :</p>
+<ul class="simple">
+<li><p>Implement a L1 fetch cache (non-blocking)</p></li>
+<li><p>Generate a fetch memory bus for the SoC interconnect</p></li>
+<li><p>Check for the presence of a fetch.PrefetcherPlugin to bind it to the L1</p></li>
+</ul>
+</section>
+<section id="prefetchernextlineplugin">
+<h2>PrefetcherNextLinePlugin<a class="headerlink" href="#prefetchernextlineplugin" title="Permalink to this heading"></a></h2>
+<p>Currently, there is one instruction L1 prefetcher implementation (PrefetchNextLinePlugin).</p>
+<p>It is a very simple implementation :</p>
+<ul class="simple">
+<li><p>On L1 access miss, it trigger the prefetching of the next cache line</p></li>
+<li><p>On L1 access hit, if the cache line accessed is the same than the last prefetch, is trigger the prefetching of the next cache line</p></li>
+</ul>
+<p>In short it can only prefetch one cache block ahead and assume that if there was a cache miss on a block,
+then the following blocks are likely worth prefetching aswell.</p>
+<img alt="../../_images/fetch_prefetch_nl.png" src="../../_images/fetch_prefetch_nl.png" />
+<p>Note, for the best results, the FetchL1Plugin need to have
+2 hardware refill slots instead of 1 (default).</p>
+<p>The prefetcher can be turned off by setting the CSR 0x7FF bit 0.</p>
 </section>
 <section id="btbplugin">
 <h2>BtbPlugin<a class="headerlink" href="#btbplugin" title="Permalink to this heading"></a></h2>
@@ -336,7 +357,7 @@
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~74779a7 2024-09-04
+    Version: master git~15b4453 2024-09-04
     </p></div>
     
 

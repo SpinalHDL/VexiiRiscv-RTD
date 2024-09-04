@@ -146,3 +146,26 @@ Here is a screen shot of a cache-less VexiiRiscv booting linux :
 
 .. image:: /asset/picture/konata.png
 
+
+
+
+Synthesis / Inferation
+-----------------------
+
+VexiiRiscv is designed in a way which should make it easy to deploy on all FPGA.
+including the ones without support for asyncronous memory read 
+(LUT ram / distributed ram / MLAB).
+The one exception is the MMU, but if configured to only read the memory on cycle 0
+(no tag hit), then the synthesis tool should be capable of inferring that asyncronus 
+read into a syncronous one (RAM block, work on Efinix FPGA)
+
+By default SpinalHDL will generate memories in a Verilog/VHDL inferable way.
+Otherwise, for ASIC, you likely want to enable the automatic memory blackboxing, 
+which will instead replace all memories defined in the design by a consistant blackbox 
+module/component, the user having then to provide those blackbox implementation.
+
+Currently all memories used are "simple dual port ram". While this is the best for FPGA usages,
+on ASIC maybe some of those could be redesigned to be single port rams instead (todo).
+
+
+

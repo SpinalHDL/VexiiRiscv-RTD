@@ -1,140 +1,150 @@
-Plugins
-============
+Load Store Unit (LSU)
+========================
 
+VexiiRiscv has 2 implementions of LSU :
 
-infrastructures
--------------------
+- LsuCachelessPlugin for microcontrollers, which doesn't implement any cache
+- LsuPlugin / LsuL1Plugin which can work together to implement load and store through an L1 cache
 
-Many plugins operate in the fetch stage. Some provide infrastructures : 
+Without L1
+----------------
 
-ExecutePipelinePlugin
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Implemented by the LsuCachelessPlugin, it should be noted that to 
+reach good frequencies on FPGA SoC, forking the memory request at 
+execute stage 1 seems to provide the best results (instead of execute stage 0), 
+as it relax the AGU timings aswell as the PMA (Physical Memory Attributes) checks.
 
-Provide the pipeline framework for all the execute related hardware with the following specificities : 
+.. image:: /asset/picture/lsu_nol1.png
 
-- It is based on the spinal.lib.misc.pipeline API and can host multiple "lanes" in it.
-- For flow control, the lanes can only freeze the whole pipeline
-- The pipeline do not collapse bubbles (empty stages)
+With L1
+----------------
 
+This configuration supports : 
 
-ExecuteLanePlugin
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+- N ways (limited to 4 KB per way if the MMU is enabled)
+- Non-blocking design, able to handle multiple cache line refill and writeback
+- Hardware and software prefetching (RPT design)
 
-Implement an execution lane in the ExecutePipelinePlugin
+.. image:: /asset/picture/lsu_l1.png
 
-RegFilePlugin
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+This LSU implementation is partitionned between 2 plugins : 
 
-Implement one register file, with the possibility to create new read / write port on demande
+The LsuPlugin :
 
-SrcPlugin
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+- Implement AGU (Address Generation Unit)
+- Arbitrate all the different sources of memory request (AGU, store queue, prefetch, MMU refill)
+- Provide the memory request to the LsuL1Plugin
+- Bind the MMU translation port
+- Handle the exceptions and hazard recovery
+- Handle the atomic operations (ALU + locking of the given cache line)
+- Handle IO memory accesses
+- Implement the store queue to handle store misses in a non-blocking way
+- Feed the hardware prefetcher with load/store execution traces
 
-Provide some early integer values which can mux between RS1/RS2 and multiple RISC-V instruction's literal values
+The LsuL1Plugin :
 
-RsUnsignedPlugin
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+- Implement the L1 tags and data storage
+- Implement the cache line refill and writeback slots (non-blocking)
+- Implement the store to load bypasses
+- Implement the memory coherency interface
+- Is integrated in the execute pipeline (to save area and improve timings)
 
-Used by mul/div in order to get an unsigned RS1/RS2 value early in the pipeline
+For multiple reasons (ease of implementation, FMax, hardware usage), VexiiRiscv LSU can hit hazards situations :
 
-IntFormatPlugin
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+- Cache miss, MMU miss
+- Refill / Writeback aliasing (4KB)
+- Unreaded data bank durring load (ex : load durring data bank refill)
+- Load which hit the store queue 
+- Store miss while the store queue is full
+- ...
 
-Alows plugins to write integer values back to the register file through a optional sign extender.
-It uses WriteBackPlugin as value backend.
+In those situation, the LsuPlugin will trigger an "hardware trap" 
+which will flush the pipeline and reschedule the failed instruction to the fetch unit.
 
-WriteBackPlugin
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Memory coherency
+------------------
 
-Used by plugins to provide the RD value to write back to the register file
+Memory coherency (L1) with other memory agents (CPU, DMA, ..) is supported though a MESI implementation which can be bridged to a tilelink memory bus.
+ 
+So, the L1 cache will have the following stream interfaces :
 
-LearnPlugin
-^^^^^^^^^^^^^^^^^^^^^^^^
+- read_cmd : To send memory block aquire requests (invalid/shared -> shared/exclusive)
+- read_rsp : For responses of the above requests
+- read_ack : To send aquire requests completion
+- write_cmd : To send release a memory block permition (shared/exclusive -> invalid)
+- write_rsp : For responses of the above requests
+- probe_cmd : To receive probe requests (toInvalid/toShared/toUnique)
+- probe_rsp : to send responses from the above requests (isInvalid/isShared/isUnique)
 
-Will collect all interface which provide jump/branch learning interfaces to aggregate them into a single one, which will then be used by branch prediction plugins to learn.
+PICTURE
 
-Instructions
--------------------
+Prefetching
+--------------
 
-Some implement regular instructions 
+Currently there is two implementation of prefetching
 
-IntAluPlugin
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+- PrefetchNextLinePlugin : As its name indicates, on each cache miss it will prefetch the next cache line
+- PrefetchRptPlugin : Enable prefetching for instruction which have a constant stride between accesses
 
-Implement the arithmetic, binary and literal instructions (ADD, SUB, AND, OR, LUI, ...)
+PrefetchRptPlugin
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-BarrelShifterPlugin
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+This prefetcher is capable of reconizing instructions which have a constant stride between their 
+own previous accesses in order to prefetch multiple strides ahead.
 
-Implement the shift instructions in a non-blocking way (no iterations). Fast but "heavy".
+- Will learn memory accesses patterns from the LsuPlugin traces
+- Patterns need to have a constant stride in order to be reconized
+- By default, can keep of the access patterns up to 128 instructions (1 way * 128 sets, pc indexed)
 
-BranchPlugin
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+.. image:: /asset/picture/lsu_prefetch.png
 
-Will : 
+This can improve performance dramasticaly (for some use cases). 
+For instance, on a 100 Mhz SoC in a FPGA, equipied of a 16x800 MT/s DDR3, 
+the load bandwidth went from 112 MB/s to 449  MB/s. (sequencial load)
 
-- Implement branch/jump instruction
-- Correct the PC / History in the case the branch prediction was wrong
-- Provide a learn interface to the LearnPlugin
+Here is a description of the table fields : 
 
+"Tag" : Allows to get a better idea if the given instruction (PC) is the one owning 
+the table entry by comparing more PC's MSB bits. 
+An entry is "owned" by an instruction if its tag match the given instruction PC's msb bits.
 
-MulPlugin
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"Address" : Previous virtual address generated by the instruction
 
-- Implement multiplication operation using partial multiplications and then summing their result
-- Done over multiple stage
-- Can optionaly extends the last stage for one cycle in order to buffer the MULH bits
+"stride" : Number of bytes expected between memory accesses
 
-DivPlugin
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"Score" : Allows to know if the given entry is usefull or not. Each time 
+the instruction is keeping the same stride, the score increase, else it decrease.
+If another instruction (with another tag) want to use an entry, 
+the score field has to be low enough.
 
-- Implement the division/remain 
-- 2 bits per cycle are solved.
-- When it start, it scan for the numerator leading bits for 0, and can skip dividing them (can skip blocks of XLEN/4)
+"Advance" : Allows to keep track how far the prefetching for the given 
+instruction already went. This field is cleared when a entry switch 
+to a new instruction
 
-LsuCachelessPlugin
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+"Missed" : This field was added in order to reduce the spam of 
+redundant prefetch request which were happening for load/store intensive code.
+For instance, for a deeply unrolled memory clear loop will generate (x16), 
+as each store instruction PC will be tracked individualy, 
+and as each execution of a given instruction will stride over a full cache line, 
+this will generate one hardware prefetch request on each store instruction every 
+time, spamming the LSU pipeline with redundant requests 
+and reducing overall performances.
 
-- Implement load / store through a cacheless memory bus
-- Will fork the cmd as soon as fork stage is valid (with no flush)
-- Handle backpresure by using a little fifo on the response data
+This "missed" field works as following :
 
-Special
--------------------
+- It is cleared when a stride disruption happens (ex new memcopy execution)
+- It is set on cache miss (set win over clear)
+- An instruction will only trigger a prefetch if it miss or 
+  if its "missed" field is already set.
 
-Some implement CSR, privileges and special instructions
+For example, in a hardware simulation test 
+(RV64, 20 cycles memory latency, 16xload loop), this addition increased 
+the memory read memory bandwidth from 3.6 bytes/cycle to 6.8 bytes per cycle.
 
-CsrAccessPlugin
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Note that if you want to take full advantage of this prefetcher, you need to 
+have enough hardware refill/writeback slots in the LsuL1Plugin. 
 
-- Implement the CSR instruction
-- Provide an API for other plugins to specify its hardware mapping
+Also, prefetch which fail (ex : because of hazards in L1) aren't replayed.
 
-CsrRamPlugin
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+The prefetcher can be turned off by setting the CSR 0x7FF bit 1.
 
-- Implement a shared on chip ram
-- Provide an API which allows to staticaly allocate space on it
-- Provide an API to create read / write ports on it
-- Used by various plugins to store the CSR contents in a FPGA efficient way 
-
-PrivilegedPlugin
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-- Implement the RISCV privileged spec
-- Implement the trap buffer / FSM
-- Use the CsrRamPlugin to implement various CSR as MTVAL, MTVEC, MEPC, MSCRATCH, ...
-
-PerformanceCounterPlugin
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-- Implement the privileged performance counters in a very FPGA way
-- Use the CsrRamPlugin to store most of the counter bits
-- Use a dedicated 7 bits hardware register per counter
-- Once that 7 bits register MSB is set, a FSM will flush it into the CsrRamPlugin
-
-
-EnvPlugin
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
-
-- Implement a few instructions as MRET, SRET, ECALL, EBREAK

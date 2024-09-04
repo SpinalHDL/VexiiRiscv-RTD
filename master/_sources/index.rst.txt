@@ -13,6 +13,7 @@ Welcome to VexiiRiscv's documentation!
    VexiiRiscv/Decode/index
    VexiiRiscv/Execute/index
    VexiiRiscv/BranchPrediction/index
+   VexiiRiscv/Debug/index
    VexiiRiscv/HowToUse/index
    VexiiRiscv/Performance/index
    VexiiRiscv/Soc/index

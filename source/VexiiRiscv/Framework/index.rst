@@ -1,9 +1,9 @@
 Framework
-============
+=========
 
 
 Dependencies
-------------------------------
+------------
 
 VexRiscv is based on a few tools / API
 
@@ -18,33 +18,35 @@ VexRiscv is based on a few tools / API
 
 
 Scala / SpinalHDL
-------------------------------
+-----------------
 
-This combination alows to goes way behond what regular HDL alows in terms of hardware description capabilities.
-You can find some documentation about SpinalHDL here : 
+This combination allows to goes way beyond what regular HDL allows in terms of hardware description capabilities.
+You can find some documentation about SpinalHDL here :
 
 - https://spinalhdl.github.io/SpinalDoc-RTD/master/index.html
 
 Plugin
--------------------------
+------
 
-One main design aspect of VexiiRiscv is that all its hardware is defined inside plugins. When you want to instanciate a VexiiRiscv CPU, you "only" need to provide a list of plugins as parameters. So, plugins can be seen as both parameters and hardware definition from a VexiiRiscv perspective.
+One main design aspect of VexiiRiscv is that all its hardware is defined inside plugins.
+When you want to instantiate a VexiiRiscv CPU, you "only" need to provide a list of plugins as parameters.
+So, plugins can be seen as both parameters and hardware definition from a VexiiRiscv perspective.
 
-So it is quite different from the regular HDL component/module paradigm. Here are the adventages of this aproache : 
+So it is quite different from the regular HDL component/module paradigm. Here are the advantagesof this approach :
 
 - The CPU can be extended without modifying its core source code, just add a new plugin in the parameters
 - You can swap a specific implementation for another just by swapping plugin in the parameter list. (ex branch prediction, mul/div, ...)
-- It is decentralised by nature, you don't have a fat toplevel of doom, software interface between plugins can be used to negociate things durring elaboration time.
+- It is decentralized by nature, you don't have a fat toplevel of doom, software interface between plugins can be used to negotiate things during elaboration time.
 
-The plugins can fork elaboration threads which cover 2 phases : 
+The plugins can fork elaboration threads which cover 2 phases :
 
-- setup phase : where plugins can aquire elaboration locks on each others
-- build phase : where plugins can negociate between each others and generate hardware
+- setup phase : where plugins can acquire elaboration locks on each others
+- build phase : where plugins can negotiate between each others and generate hardware
 
 Simple all-in-one example
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Here is a simple example : 
+Here is a simple example :
 
 .. code-block:: scala
 
@@ -63,7 +65,7 @@ Here is a simple example :
   }
 
   object Gen extends App{
-    // Generate the verilog 
+    // Generate the verilog
     SpinalVerilog{
       val plugins = ArrayBuffer[FiberPlugin]()
       plugins += new FixedOutputPlugin()
@@ -72,7 +74,7 @@ Here is a simple example :
   }
 
 
-Will generate 
+Will generate
 
 .. code-block:: verilog
 
@@ -86,10 +88,10 @@ Will generate
 
 
 
-Negociation example
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Negotiation example
+^^^^^^^^^^^^^^^^^^^
 
-Here is a example where there a plugin which count the number of hardware event comming from other plugins : 
+Here is a example where there a plugin which count the number of hardware event coming from other plugins :
 
 .. code-block:: scala
 
@@ -99,34 +101,34 @@ Here is a example where there a plugin which count the number of hardware event 
   import spinal.lib.CountOne
   import vexiiriscv._
   import scala.collection.mutable.ArrayBuffer
-  
+
   class EventCounterPlugin extends FiberPlugin{
     val lock = Retainer() // Will allow other plugins to block the elaboration of "logic" thread
     val events = ArrayBuffer[Bool]() // Will allow other plugins to add event sources
-    val logic = during build new Area{
-      lock.await() // Active blocking 
+    val logic = during build new Area {
+      lock.await() // Active blocking
       val counter = Reg(UInt(32 bits)) init(0)
       counter := counter + CountOne(events)
     }
   }
 
 
-  //For the demo we want to be able to instanciate this plugin multiple times, so we add a prefix parameter
+  // For the demo we want to be able to instantiate this plugin multiple times, so we add a prefix parameter
   class EventSourcePlugin(prefix : String) extends FiberPlugin{
     withPrefix(prefix)
 
     // Create a thread starting from the setup phase (this allow to run some code before the build phase, and so lock some other plugins retainers)
-    val logic = during setup new Area{
+    val logic = during setup new Area {
       val ecp = host[EventCounterPlugin] // Search for the single instance of EventCounterPlugin in the plugin pool
       // Generate a lock to prevent the EventCounterPlugin elaboration until we release it.
-      // this will allow us to add our localEvent to the ecp.events list 
-      val ecpLocker = ecp.lock() 
-      
+      // this will allow us to add our localEvent to the ecp.events list
+      val ecpLocker = ecp.lock()
+
       // Wait for the build phase before generating any hardware
       awaitBuild()
 
       // Here the local event is a input of the VexiiRiscv toplevel (just for the demo)
-      val localEvent = in Bool() 
+      val localEvent = in Bool()
       ecp.events += localEvent
 
       // As everything is done, we now allow the ecp to elaborate itself
@@ -134,8 +136,8 @@ Here is a example where there a plugin which count the number of hardware event 
     }
   }
 
-  object Gen extends App{  
-    SpinalVerilog{
+  object Gen extends App {
+    SpinalVerilog {
       val plugins = ArrayBuffer[FiberPlugin]()
       plugins += new EventCounterPlugin()
       plugins += new EventSourcePlugin("lane0")
@@ -182,12 +184,12 @@ Here is a example where there a plugin which count the number of hardware event 
 
 
 Database
---------------------
+--------
 
 Quite a few things behave kinda like variable specific for each VexiiRiscv instance. For instance XLEN, PC_WIDTH, INSTRUCTION_WIDTH, ...
 
 So they are end up with things that we would like to share between plugins of a given VexiiRiscv instance with the minimum code possible to keep things slim. For that, a "database" was added.
-You can see it in the VexRiscv toplevel : 
+You can see it in the VexRiscv toplevel :
 
 .. code-block:: scala
 
@@ -221,22 +223,22 @@ What it does is that all the plugin thread will run in the context of that datab
       Global.VIRTUAL_WIDTH.set(39)
     }
   }
-  
-  object Gen extends App{  
+
+  object Gen extends App{
     SpinalVerilog{
       val plugins = ArrayBuffer[FiberPlugin]()
       plugins += new LoadStorePlugin()
       plugins += new MmuPlugin()
       VexiiRiscv(plugins)
     }
-  } 
+  }
 
 Pipeline API
---------------------
+------------
 
-In short, the design use a pipeline API in order to : 
+In short, the design use a pipeline API in order to :
 
-- Propagate data into the pipeline automaticaly
+- Propagate data into the pipeline automatically
 - Allow design space exploration with less paine (retiming, moving around the architecture)
 - Reduce boiler plate code
 

@@ -87,7 +87,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#scala-spinalhdl">Scala / SpinalHDL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#plugin">Plugin</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#simple-all-in-one-example">Simple all-in-one example</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#negociation-example">Negociation example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#negotiation-example">Negotiation example</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#database">Database</a></li>
@@ -250,7 +250,7 @@
 
   <section id="performance-area-fmax">
 <h1>Performance / Area / FMax<a class="headerlink" href="#performance-area-fmax" title="Permalink to this heading"></a></h1>
-<p>It is still very early in the developement, but here are some metrics :</p>
+<p>It is still very early in the development, but here are some metrics :</p>
 <table class="docutils align-default">
 <tbody>
 <tr class="row-odd"><td><p>Name</p></td>
@@ -268,7 +268,7 @@
 <tr class="row-odd"><td><p>GShare</p></td>
 <td><p>4KB</p></td>
 </tr>
-<tr class="row-even"><td><p>Dhrystone/MHz</p></td>
+<tr class="row-even"><td><p>Drystone/MHz</p></td>
 <td><p>2.50</p></td>
 </tr>
 <tr class="row-odd"><td><p>Coremark/MHz</p></td>
@@ -289,7 +289,7 @@
 <li><p>–relaxed-btb : When the BTB is enabled, by default it is implemented as a single cycle predictor,
 This can be easily be the first critical path to appear.
 This option make the BTB implementation spread over 2 cycles,
-which relax the timings at the cost of 1 cycle penality on every successfull branch predictions.</p></li>
+which relax the timings at the cost of 1 cycle penalty on every successful branch predictions.</p></li>
 <li><p>–relaxed-branch : By default, the BranchPlugin will flush/setPc in the same stage
 than its own ALU. This is good for IPC but can easily be a critical path.
 This option will add one cycle latency between the ALU and the side effects (flush/setPc)
@@ -330,7 +330,7 @@ at the cost of accuracy</p></li>
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~867f372 2024-09-05
+    Version: master git~d07b8dd 2024-09-08
     </p></div>
     
 

@@ -1,5 +1,5 @@
 JTAG
-==============================
+====
 
 VexiiRiscv support debugging by implementing the official RISC-V debug spec.
 

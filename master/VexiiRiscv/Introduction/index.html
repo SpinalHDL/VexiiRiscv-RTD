@@ -87,7 +87,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#scala-spinalhdl">Scala / SpinalHDL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#plugin">Plugin</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#simple-all-in-one-example">Simple all-in-one example</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#negociation-example">Negociation example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#negotiation-example">Negotiation example</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#database">Database</a></li>
@@ -259,7 +259,7 @@
 </ul>
 <section id="other-doc-media-talks">
 <h2>Other doc / media / talks<a class="headerlink" href="#other-doc-media-talks" title="Permalink to this heading"></a></h2>
-<p>Here is a list of links to ressources which present or document VexiiRiscv :</p>
+<p>Here is a list of links to resources which present or document VexiiRiscv :</p>
 <ul class="simple">
 <li><p>FSiC 2024   : <a class="reference external" href="https://wiki.f-si.org/index.php?title=Moving_toward_VexiiRiscv">https://wiki.f-si.org/index.php?title=Moving_toward_VexiiRiscv</a></p></li>
 <li><p>COSCUP 2024 : <a class="reference external" href="https://coscup.org/2024/en/session/PVAHAS">https://coscup.org/2024/en/session/PVAHAS</a></p></li>
@@ -270,7 +270,7 @@
 <h2>Technicalities<a class="headerlink" href="#technicalities" title="Permalink to this heading"></a></h2>
 <p>VexiiRiscv is a from scratch second iteration of VexRiscv, with the following goals :</p>
 <ul class="simple">
-<li><p>To imlement RISC-V 32/64 bits IMAFDCSU</p></li>
+<li><p>To implement RISC-V 32/64 bits IMAFDCSU</p></li>
 <li><p>Could start around as small as VexRiscv, but could scale further in performance</p></li>
 <li><p>Optional late-alu</p></li>
 <li><p>Optional multi issue</p></li>
@@ -282,7 +282,7 @@
 <p>On this date (09/08/2024) the status is :</p>
 <ul class="simple">
 <li><p>RISC-V 32/64 IMAFDCSU supported (Multiply / Atomic / Float / Double / Supervisor / User)</p></li>
-<li><p>Can run baremetal applications (2.50 dhrystone/mhz, 5.24 coremark/mhz)</p></li>
+<li><p>Can run baremetal applications (2.50 dhrystone/MHz, 5.24 coremark/MHz)</p></li>
 <li><p>Can run linux/buildroot/debian on FPGA hardware (via litex)</p></li>
 <li><p>single/dual issue supported</p></li>
 <li><p>late-alu supported</p></li>
@@ -302,7 +302,7 @@
 <ul class="simple">
 <li><p>The CPU toplevel src/main/scala/vexiiriscv/VexiiRiscv.scala</p></li>
 <li><p>A cpu configuration generator : dev/src/main/scala/vexiiriscv/Param.scala</p></li>
-<li><p>Some globaly shared definitions : src/main/scala/vexiiriscv/Global.scala</p></li>
+<li><p>Some globally shared definitions : src/main/scala/vexiiriscv/Global.scala</p></li>
 <li><p>Integer ALU plugin ; src/main/scala/vexiiriscv/execute/IntAluPlugin.scala</p></li>
 </ul>
 <p>Also on quite important one is to use a text editor / IDE which support curly brace folding and to start with them fully folded, as the code extensively used nested structures.</p>
@@ -311,9 +311,9 @@
 <h2>Check list<a class="headerlink" href="#check-list" title="Permalink to this heading"></a></h2>
 <p>Here is a list of important assumptions and things to know about :</p>
 <ul class="simple">
-<li><p>trap/flush/pc request from the pipeline, once asserted one cycle can not be undone. This also mean that while a given instruction is stuck somewere, if that instruction did raised on of those request, nothing should change the execution path. For instance, a sudden cache line refill completion should not lift the request from the LSU asking a redo (due to cache refill hazard).</p></li>
+<li><p>trap/flush/pc request from the pipeline, once asserted one cycle can not be undone. This also mean that while a given instruction is stuck somewhere, if that instruction did raised on of those request, nothing should change the execution path. For instance, a sudden cache line refill completion should not lift the request from the LSU asking a redo (due to cache refill hazard).</p></li>
 <li><p>In the execute pipeline, stage.up(RS1/RS2) is the value to be used, while stage.down(RS1/RS2) should not be used, as it implement the bypassing for the next stage</p></li>
-<li><p>Fetch.ctrl(0) isn’t persistant.</p></li>
+<li><p>Fetch.ctrl(0) isn’t persistent.</p></li>
 </ul>
 </section>
 <section id="about-vexriscv-not-vexiiriscv">
@@ -361,7 +361,7 @@
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~867f372 2024-09-05
+    Version: master git~d07b8dd 2024-09-08
     </p></div>
     
 

@@ -87,7 +87,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#scala-spinalhdl">Scala / SpinalHDL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#plugin">Plugin</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#simple-all-in-one-example">Simple all-in-one example</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#negociation-example">Negociation example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#negotiation-example">Negotiation example</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#database">Database</a></li>
@@ -269,7 +269,7 @@
 </section>
 <section id="regfileplugin">
 <h3>RegFilePlugin<a class="headerlink" href="#regfileplugin" title="Permalink to this heading"></a></h3>
-<p>Implement one register file, with the possibility to create new read / write port on demande</p>
+<p>Implement one register file, with the possibility to create new read / write port on demand</p>
 </section>
 <section id="srcplugin">
 <h3>SrcPlugin<a class="headerlink" href="#srcplugin" title="Permalink to this heading"></a></h3>
@@ -281,7 +281,7 @@
 </section>
 <section id="intformatplugin">
 <h3>IntFormatPlugin<a class="headerlink" href="#intformatplugin" title="Permalink to this heading"></a></h3>
-<p>Alows plugins to write integer values back to the register file through a optional sign extender.
+<p>Allows plugins to write integer values back to the register file through a optional sign extender.
 It uses WriteBackPlugin as value backend.</p>
 </section>
 <section id="writebackplugin">
@@ -318,7 +318,7 @@ It uses WriteBackPlugin as value backend.</p>
 <ul class="simple">
 <li><p>Implement multiplication operation using partial multiplications and then summing their result</p></li>
 <li><p>Done over multiple stage</p></li>
-<li><p>Can optionaly extends the last stage for one cycle in order to buffer the MULH bits</p></li>
+<li><p>Can optionally extends the last stage for one cycle in order to buffer the MULH bits</p></li>
 </ul>
 </section>
 <section id="divplugin">
@@ -334,7 +334,7 @@ It uses WriteBackPlugin as value backend.</p>
 <ul class="simple">
 <li><p>Implement load / store through a cacheless memory bus</p></li>
 <li><p>Will fork the cmd as soon as fork stage is valid (with no flush)</p></li>
-<li><p>Handle backpresure by using a little fifo on the response data</p></li>
+<li><p>Handle backpressure by using a little fifo on the response data</p></li>
 </ul>
 </section>
 </section>
@@ -352,7 +352,7 @@ It uses WriteBackPlugin as value backend.</p>
 <h3>CsrRamPlugin<a class="headerlink" href="#csrramplugin" title="Permalink to this heading"></a></h3>
 <ul class="simple">
 <li><p>Implement a shared on chip ram</p></li>
-<li><p>Provide an API which allows to staticaly allocate space on it</p></li>
+<li><p>Provide an API which allows to statically allocate space on it</p></li>
 <li><p>Provide an API to create read / write ports on it</p></li>
 <li><p>Used by various plugins to store the CSR contents in a FPGA efficient way</p></li>
 </ul>
@@ -412,7 +412,7 @@ It uses WriteBackPlugin as value backend.</p>
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~867f372 2024-09-05
+    Version: master git~d07b8dd 2024-09-08
     </p></div>
     
 

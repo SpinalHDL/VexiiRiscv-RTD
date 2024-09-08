@@ -87,7 +87,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#scala-spinalhdl">Scala / SpinalHDL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#plugin">Plugin</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#simple-all-in-one-example">Simple all-in-one example</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#negociation-example">Negociation example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#negotiation-example">Negotiation example</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#database">Database</a></li>
@@ -367,7 +367,7 @@ Test/runMain<span class="w"> </span>vexiiriscv.tester.TestBench<span class="w"> 
 <p>This will generate a simWorkspace/VexiiRiscv/test folder which contains :</p>
 <ul class="simple">
 <li><p>test.fst : A wave file which can be open with gtkwave. It shows all the CPU signals</p></li>
-<li><p>konata.log : A wave file which can be open with <a class="reference external" href="https://github.com/shioyadan/Konata">https://github.com/shioyadan/Konata</a>, it shows the pipeline behaviour of the CPU</p></li>
+<li><p>konata.log : A wave file which can be open with <a class="reference external" href="https://github.com/shioyadan/Konata">https://github.com/shioyadan/Konata</a>, it shows the pipeline behavior of the CPU</p></li>
 <li><p>spike.log : The execution logs of Spike (golden model)</p></li>
 <li><p>tracer.log : The execution logs of VexRiscv (Simulation model)</p></li>
 </ul>
@@ -381,14 +381,14 @@ Test/runMain<span class="w"> </span>vexiiriscv.tester.TestBench<span class="w"> 
 <section id="synthesis-inferation">
 <h2>Synthesis / Inferation<a class="headerlink" href="#synthesis-inferation" title="Permalink to this heading"></a></h2>
 <p>VexiiRiscv is designed in a way which should make it easy to deploy on all FPGA.
-including the ones without support for asyncronous memory read
+including the ones without support for asynchronous memory read
 (LUT ram / distributed ram / MLAB).
 The one exception is the MMU, but if configured to only read the memory on cycle 0
-(no tag hit), then the synthesis tool should be capable of inferring that asyncronus
-read into a syncronous one (RAM block, work on Efinix FPGA)</p>
+(no tag hit), then the synthesis tool should be capable of inferring that asynchronous
+read into a synchronous one (RAM block, work on Efinix FPGA)</p>
 <p>By default SpinalHDL will generate memories in a Verilog/VHDL inferable way.
 Otherwise, for ASIC, you likely want to enable the automatic memory blackboxing,
-which will instead replace all memories defined in the design by a consistant blackbox
+which will instead replace all memories defined in the design by a consistent blackbox
 module/component, the user having then to provide those blackbox implementation.</p>
 <p>Currently all memories used are “simple dual port ram”. While this is the best for FPGA usages,
 on ASIC maybe some of those could be redesigned to be single port rams instead (todo).</p>
@@ -424,7 +424,7 @@ on ASIC maybe some of those could be redesigned to be single port rams instead (
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~867f372 2024-09-05
+    Version: master git~d07b8dd 2024-09-08
     </p></div>
     
 

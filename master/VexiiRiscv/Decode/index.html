@@ -87,7 +87,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#scala-spinalhdl">Scala / SpinalHDL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#plugin">Plugin</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#simple-all-in-one-example">Simple all-in-one example</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#negociation-example">Negociation example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#negotiation-example">Negotiation example</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#database">Database</a></li>
@@ -265,17 +265,17 @@ It use the spinal.lib.misc.pipeline API but implement multiple “lanes” in it
 </section>
 <section id="alignerplugin">
 <h2>AlignerPlugin<a class="headerlink" href="#alignerplugin" title="Permalink to this heading"></a></h2>
-<p>Decode the words froms the fetch pipeline into aligned instructions in the decode pipeline. Its complexity mostly come from the necessity to support having RVC [and BTB], mostly by adding additional cases to handle.</p>
+<p>Decode the words from the fetch pipeline into aligned instructions in the decode pipeline. Its complexity mostly come from the necessity to support having RVC [and BTB], mostly by adding additional cases to handle.</p>
 <ol class="arabic simple">
 <li><p>RVC allows 32 bits instruction to be unaligned, meaning they can cross between 2 fetched words, so it need to have some internal buffer / states to work.</p></li>
-<li><p>The BTB may have predicted (falsly) a jump instruction where there is none, which may cut the fetch of an 32 bits instruction in the middle.</p></li>
+<li><p>The BTB may have predicted (falsely) a jump instruction where there is none, which may cut the fetch of an 32 bits instruction in the middle.</p></li>
 </ol>
 <p>The AlignerPlugin is designed as following :</p>
 <ul class="simple">
 <li><p>Has a internal fetch word buffer in oder to support 32 bits instruction with RVC</p></li>
 <li><p>First it scan at every possible instruction position, ex : RVC with 64 bits fetch words =&gt; 2x64/16 scanners. Extracting the instruction length, presence of all the instruction data (slices) and necessity to redo the fetch because of a bad BTB prediction.</p></li>
 <li><p>Then it has one extractor per decoding lane. They will check the scanner for the firsts valid instructions.</p></li>
-<li><p>Then each extractor is feeded into the decoder pipeline.</p></li>
+<li><p>Then each extractor is fed into the decoder pipeline.</p></li>
 </ul>
 <img alt="../../_images/aligner.png" src="../../_images/aligner.png" />
 </section>
@@ -284,7 +284,7 @@ It use the spinal.lib.misc.pipeline API but implement multiple “lanes” in it
 <p>Will :</p>
 <ul class="simple">
 <li><p>Decode instruction</p></li>
-<li><p>Generate ilegal instruction exception</p></li>
+<li><p>Generate illegal instruction exception</p></li>
 <li><p>Generate “interrupt” instruction</p></li>
 </ul>
 </section>
@@ -301,13 +301,13 @@ In case this is detected, the plugin will just flush the pipeline and set the fe
 <li><p>Collect instruction from the end of the decode pipeline</p></li>
 <li><p>Try to dispatch them ASAP on the multiple “layers” available</p></li>
 </ul>
-<p>Here is a few explenation about execute lanes and layers :</p>
+<p>Here is a few explanation about execute lanes and layers :</p>
 <ul class="simple">
 <li><p>A execute lane represent a path toward which an instruction can be executed.</p></li>
 <li><p>A execute lane can have one or many layers, which can be used to implement things as early ALU / late ALU</p></li>
 <li><p>Each layer will have static a scheduling priority</p></li>
 </ul>
-<p>The DispatchPlugin doesn’t require lanes or layers to be symetric in any way.</p>
+<p>The DispatchPlugin doesn’t require lanes or layers to be symmetric in any way.</p>
 </section>
 </section>
 
@@ -340,7 +340,7 @@ In case this is detected, the plugin will just flush the pipeline and set the fe
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~867f372 2024-09-05
+    Version: master git~d07b8dd 2024-09-08
     </p></div>
     
 

@@ -2,18 +2,18 @@
 This is currently WIP.
 
 MicroSoc
-------------------------------
+--------
 
 MicroSoC is a little SoC based on VexiiRiscv and a tilelink interconnect.
 
 .. image:: /asset/picture/microsoc.png
 
 
-Here you can see the default vexiiriscv architecture for this SoC : 
+Here you can see the default vexiiriscv architecture for this SoC :
 
 .. image:: /asset/picture/microsoc_vexii.png
 
-Its goals are : 
+Its goals are :
 
 - Provide a simple reference design
 - To be a simple and light FPGA SoC

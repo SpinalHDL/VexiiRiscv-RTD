@@ -87,7 +87,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#scala-spinalhdl">Scala / SpinalHDL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#plugin">Plugin</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#simple-all-in-one-example">Simple all-in-one example</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#negociation-example">Negociation example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#negotiation-example">Negotiation example</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#database">Database</a></li>
@@ -251,7 +251,7 @@
 
   <section id="load-store-unit-lsu">
 <h1>Load Store Unit (LSU)<a class="headerlink" href="#load-store-unit-lsu" title="Permalink to this heading"></a></h1>
-<p>VexiiRiscv has 2 implementions of LSU :</p>
+<p>VexiiRiscv has 2 implementations of LSU :</p>
 <ul class="simple">
 <li><p>LsuCachelessPlugin for microcontrollers, which doesn’t implement any cache</p></li>
 <li><p>LsuPlugin / LsuL1Plugin which can work together to implement load and store through an L1 cache</p></li>
@@ -261,7 +261,7 @@
 <p>Implemented by the LsuCachelessPlugin, it should be noted that to
 reach good frequencies on FPGA SoC, forking the memory request at
 execute stage 1 seems to provide the best results (instead of execute stage 0),
-as it relax the AGU timings aswell as the PMA (Physical Memory Attributes) checks.</p>
+as it relax the AGU timings as well as the PMA (Physical Memory Attributes) checks.</p>
 <img alt="../../_images/lsu_nol1.png" src="../../_images/lsu_nol1.png" />
 </section>
 <section id="with-l1">
@@ -273,7 +273,7 @@ as it relax the AGU timings aswell as the PMA (Physical Memory Attributes) check
 <li><p>Hardware and software prefetching (RPT design)</p></li>
 </ul>
 <img alt="../../_images/lsu_l1.png" src="../../_images/lsu_l1.png" />
-<p>This LSU implementation is partitionned between 2 plugins :</p>
+<p>This LSU implementation is partitioned between 2 plugins :</p>
 <p>The LsuPlugin :</p>
 <ul class="simple">
 <li><p>Implement AGU (Address Generation Unit)</p></li>
@@ -298,7 +298,7 @@ as it relax the AGU timings aswell as the PMA (Physical Memory Attributes) check
 <ul class="simple">
 <li><p>Cache miss, MMU miss</p></li>
 <li><p>Refill / Writeback aliasing (4KB)</p></li>
-<li><p>Unreaded data bank durring load (ex : load durring data bank refill)</p></li>
+<li><p>Unread data bank during load (ex : load during data bank refill)</p></li>
 <li><p>Load which hit the store queue</p></li>
 <li><p>Store miss while the store queue is full</p></li>
 <li><p>…</p></li>
@@ -311,10 +311,10 @@ which will flush the pipeline and reschedule the failed instruction to the fetch
 <p>Memory coherency (L1) with other memory agents (CPU, DMA, ..) is supported though a MESI implementation which can be bridged to a tilelink memory bus.</p>
 <p>So, the L1 cache will have the following stream interfaces :</p>
 <ul class="simple">
-<li><p>read_cmd : To send memory block aquire requests (invalid/shared -&gt; shared/exclusive)</p></li>
+<li><p>read_cmd : To send memory block acquire requests (invalid/shared -&gt; shared/exclusive)</p></li>
 <li><p>read_rsp : For responses of the above requests</p></li>
-<li><p>read_ack : To send aquire requests completion</p></li>
-<li><p>write_cmd : To send release a memory block permition (shared/exclusive -&gt; invalid)</p></li>
+<li><p>read_ack : To send acquire requests completion</p></li>
+<li><p>write_cmd : To send release a memory block permission (shared/exclusive -&gt; invalid)</p></li>
 <li><p>write_rsp : For responses of the above requests</p></li>
 <li><p>probe_cmd : To receive probe requests (toInvalid/toShared/toUnique)</p></li>
 <li><p>probe_rsp : to send responses from the above requests (isInvalid/isShared/isUnique)</p></li>
@@ -330,24 +330,24 @@ which will flush the pipeline and reschedule the failed instruction to the fetch
 </ul>
 <section id="prefetchrptplugin">
 <h3>PrefetchRptPlugin<a class="headerlink" href="#prefetchrptplugin" title="Permalink to this heading"></a></h3>
-<p>This prefetcher is capable of reconizing instructions which have a constant stride between their
+<p>This prefetcher is capable of recognizing instructions which have a constant stride between their
 own previous accesses in order to prefetch multiple strides ahead.</p>
 <ul class="simple">
 <li><p>Will learn memory accesses patterns from the LsuPlugin traces</p></li>
-<li><p>Patterns need to have a constant stride in order to be reconized</p></li>
+<li><p>Patterns need to have a constant stride in order to be recognized</p></li>
 <li><p>By default, can keep of the access patterns up to 128 instructions (1 way * 128 sets, pc indexed)</p></li>
 </ul>
 <img alt="../../_images/lsu_prefetch.png" src="../../_images/lsu_prefetch.png" />
-<p>This can improve performance dramasticaly (for some use cases).
-For instance, on a 100 Mhz SoC in a FPGA, equipied of a 16x800 MT/s DDR3,
-the load bandwidth went from 112 MB/s to 449  MB/s. (sequencial load)</p>
+<p>This can improve performance dramatically (for some use cases).
+For instance, on a 100 MHz SoC in a FPGA, equipped of a 16x800 MT/s DDR3,
+the load bandwidth went from 112 MB/s to 449  MB/s. (sequential load)</p>
 <p>Here is a description of the table fields :</p>
 <p>“Tag” : Allows to get a better idea if the given instruction (PC) is the one owning
 the table entry by comparing more PC’s MSB bits.
 An entry is “owned” by an instruction if its tag match the given instruction PC’s msb bits.</p>
 <p>“Address” : Previous virtual address generated by the instruction</p>
 <p>“stride” : Number of bytes expected between memory accesses</p>
-<p>“Score” : Allows to know if the given entry is usefull or not. Each time
+<p>“Score” : Allows to know if the given entry is useful or not. Each time
 the instruction is keeping the same stride, the score increase, else it decrease.
 If another instruction (with another tag) want to use an entry,
 the score field has to be low enough.</p>
@@ -357,7 +357,7 @@ to a new instruction</p>
 <p>“Missed” : This field was added in order to reduce the spam of
 redundant prefetch request which were happening for load/store intensive code.
 For instance, for a deeply unrolled memory clear loop will generate (x16),
-as each store instruction PC will be tracked individualy,
+as each store instruction PC will be tracked individually,
 and as each execution of a given instruction will stride over a full cache line,
 this will generate one hardware prefetch request on each store instruction every
 time, spamming the LSU pipeline with redundant requests
@@ -409,7 +409,7 @@ have enough hardware refill/writeback slots in the LsuL1Plugin.</p>
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~867f372 2024-09-05
+    Version: master git~d07b8dd 2024-09-08
     </p></div>
     
 

@@ -87,7 +87,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#scala-spinalhdl">Scala / SpinalHDL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#plugin">Plugin</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#simple-all-in-one-example">Simple all-in-one example</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#negociation-example">Negociation example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#negotiation-example">Negotiation example</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#database">Database</a></li>
@@ -266,7 +266,7 @@
 </section>
 <section id="scala-spinalhdl">
 <h2>Scala / SpinalHDL<a class="headerlink" href="#scala-spinalhdl" title="Permalink to this heading"></a></h2>
-<p>This combination alows to goes way behond what regular HDL alows in terms of hardware description capabilities.
+<p>This combination allows to goes way beyond what regular HDL allows in terms of hardware description capabilities.
 You can find some documentation about SpinalHDL here :</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://spinalhdl.github.io/SpinalDoc-RTD/master/index.html">https://spinalhdl.github.io/SpinalDoc-RTD/master/index.html</a></p></li>
@@ -274,17 +274,19 @@ You can find some documentation about SpinalHDL here :</p>
 </section>
 <section id="plugin">
 <h2>Plugin<a class="headerlink" href="#plugin" title="Permalink to this heading"></a></h2>
-<p>One main design aspect of VexiiRiscv is that all its hardware is defined inside plugins. When you want to instanciate a VexiiRiscv CPU, you “only” need to provide a list of plugins as parameters. So, plugins can be seen as both parameters and hardware definition from a VexiiRiscv perspective.</p>
-<p>So it is quite different from the regular HDL component/module paradigm. Here are the adventages of this aproache :</p>
+<p>One main design aspect of VexiiRiscv is that all its hardware is defined inside plugins.
+When you want to instantiate a VexiiRiscv CPU, you “only” need to provide a list of plugins as parameters.
+So, plugins can be seen as both parameters and hardware definition from a VexiiRiscv perspective.</p>
+<p>So it is quite different from the regular HDL component/module paradigm. Here are the advantagesof this approach :</p>
 <ul class="simple">
 <li><p>The CPU can be extended without modifying its core source code, just add a new plugin in the parameters</p></li>
 <li><p>You can swap a specific implementation for another just by swapping plugin in the parameter list. (ex branch prediction, mul/div, …)</p></li>
-<li><p>It is decentralised by nature, you don’t have a fat toplevel of doom, software interface between plugins can be used to negociate things durring elaboration time.</p></li>
+<li><p>It is decentralized by nature, you don’t have a fat toplevel of doom, software interface between plugins can be used to negotiate things during elaboration time.</p></li>
 </ul>
 <p>The plugins can fork elaboration threads which cover 2 phases :</p>
 <ul class="simple">
-<li><p>setup phase : where plugins can aquire elaboration locks on each others</p></li>
-<li><p>build phase : where plugins can negociate between each others and generate hardware</p></li>
+<li><p>setup phase : where plugins can acquire elaboration locks on each others</p></li>
+<li><p>build phase : where plugins can negotiate between each others and generate hardware</p></li>
 </ul>
 <section id="simple-all-in-one-example">
 <h3>Simple all-in-one example<a class="headerlink" href="#simple-all-in-one-example" title="Permalink to this heading"></a></h3>
@@ -324,9 +326,9 @@ You can find some documentation about SpinalHDL here :</p>
 </pre></div>
 </div>
 </section>
-<section id="negociation-example">
-<h3>Negociation example<a class="headerlink" href="#negociation-example" title="Permalink to this heading"></a></h3>
-<p>Here is a example where there a plugin which count the number of hardware event comming from other plugins :</p>
+<section id="negotiation-example">
+<h3>Negotiation example<a class="headerlink" href="#negotiation-example" title="Permalink to this heading"></a></h3>
+<p>Here is a example where there a plugin which count the number of hardware event coming from other plugins :</p>
 <div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="nn">spinal</span><span class="p">.</span><span class="nn">core</span><span class="p">.</span><span class="n">_</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">spinal</span><span class="p">.</span><span class="nn">core</span><span class="p">.</span><span class="nn">fiber</span><span class="p">.</span><span class="nc">Retainer</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">spinal</span><span class="p">.</span><span class="nn">lib</span><span class="p">.</span><span class="nn">misc</span><span class="p">.</span><span class="nn">plugin</span><span class="p">.</span><span class="n">_</span>
@@ -337,7 +339,7 @@ You can find some documentation about SpinalHDL here :</p>
 <span class="k">class</span><span class="w"> </span><span class="nc">EventCounterPlugin</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">FiberPlugin</span><span class="p">{</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">lock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Retainer</span><span class="p">()</span><span class="w"> </span><span class="c1">// Will allow other plugins to block the elaboration of &quot;logic&quot; thread</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">events</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ArrayBuffer</span><span class="p">[</span><span class="nc">Bool</span><span class="p">]()</span><span class="w"> </span><span class="c1">// Will allow other plugins to add event sources</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="p">{</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="n">lock</span><span class="p">.</span><span class="n">await</span><span class="p">()</span><span class="w"> </span><span class="c1">// Active blocking</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Reg</span><span class="p">(</span><span class="nc">UInt</span><span class="p">(</span><span class="mi">32</span><span class="w"> </span><span class="n">bits</span><span class="p">))</span><span class="w"> </span><span class="n">init</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
 <span class="w">    </span><span class="n">counter</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nc">CountOne</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
@@ -345,12 +347,12 @@ You can find some documentation about SpinalHDL here :</p>
 <span class="p">}</span>
 
 
-<span class="c1">//For the demo we want to be able to instanciate this plugin multiple times, so we add a prefix parameter</span>
+<span class="c1">// For the demo we want to be able to instantiate this plugin multiple times, so we add a prefix parameter</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">EventSourcePlugin</span><span class="p">(</span><span class="n">prefix</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nc">String</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">FiberPlugin</span><span class="p">{</span>
 <span class="w">  </span><span class="n">withPrefix</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span>
 
 <span class="w">  </span><span class="c1">// Create a thread starting from the setup phase (this allow to run some code before the build phase, and so lock some other plugins retainers)</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">setup</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="p">{</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">setup</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">ecp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">host</span><span class="p">[</span><span class="nc">EventCounterPlugin</span><span class="p">]</span><span class="w"> </span><span class="c1">// Search for the single instance of EventCounterPlugin in the plugin pool</span>
 <span class="w">    </span><span class="c1">// Generate a lock to prevent the EventCounterPlugin elaboration until we release it.</span>
 <span class="w">    </span><span class="c1">// this will allow us to add our localEvent to the ecp.events list</span>
@@ -368,8 +370,8 @@ You can find some documentation about SpinalHDL here :</p>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 
-<span class="k">object</span><span class="w"> </span><span class="nc">Gen</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">App</span><span class="p">{</span>
-<span class="w">  </span><span class="nc">SpinalVerilog</span><span class="p">{</span>
+<span class="k">object</span><span class="w"> </span><span class="nc">Gen</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">App</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="nc">SpinalVerilog</span><span class="w"> </span><span class="p">{</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">plugins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ArrayBuffer</span><span class="p">[</span><span class="nc">FiberPlugin</span><span class="p">]()</span>
 <span class="w">    </span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">EventCounterPlugin</span><span class="p">()</span>
 <span class="w">    </span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">EventSourcePlugin</span><span class="p">(</span><span class="s">&quot;lane0&quot;</span><span class="p">)</span>
@@ -465,7 +467,7 @@ You can see it in the VexRiscv toplevel :</p>
 <h2>Pipeline API<a class="headerlink" href="#pipeline-api" title="Permalink to this heading"></a></h2>
 <p>In short, the design use a pipeline API in order to :</p>
 <ul class="simple">
-<li><p>Propagate data into the pipeline automaticaly</p></li>
+<li><p>Propagate data into the pipeline automatically</p></li>
 <li><p>Allow design space exploration with less paine (retiming, moving around the architecture)</p></li>
 <li><p>Reduce boiler plate code</p></li>
 </ul>
@@ -502,7 +504,7 @@ You can see it in the VexRiscv toplevel :</p>
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~867f372 2024-09-05
+    Version: master git~d07b8dd 2024-09-08
     </p></div>
     
 

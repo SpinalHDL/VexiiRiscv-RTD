@@ -87,7 +87,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#scala-spinalhdl">Scala / SpinalHDL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#plugin">Plugin</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#simple-all-in-one-example">Simple all-in-one example</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#negociation-example">Negociation example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#negotiation-example">Negotiation example</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#database">Database</a></li>
@@ -254,7 +254,7 @@
 <ul class="simple">
 <li><p>During fetch, a BTB, GShare, RAS memory is used to provide an early branch prediction (BtbPlugin / GSharePlugin)</p></li>
 <li><p>In Decode, the DecodePredictionPlugin will ensure that no “none jump/branch instruction”” predicted as a jump/branch continues down the pipeline.</p></li>
-<li><p>In Execute, the prediction made is checked and eventualy corrected. Also a stream of data is generated to feed the BTB / GShare memories with good data to learn.</p></li>
+<li><p>In Execute, the prediction made is checked and eventually corrected. Also a stream of data is generated to feed the BTB / GShare memories with good data to learn.</p></li>
 </ul>
 <p>Here is a diagram of the whole architecture :</p>
 <img alt="../../_images/branch_prediction.png" src="../../_images/branch_prediction.png" />
@@ -266,11 +266,11 @@
 <li><p>Implement a branch target buffer in the fetch pipeline</p></li>
 <li><p>Implement a return address stack buffer</p></li>
 <li><p>Predict which slices of the fetched word are the last slice of a branch/jump</p></li>
-<li><p>Predict the branch/ĵump target</p></li>
+<li><p>Predict the branch/jump target</p></li>
 <li><p>Use the FetchConditionalPrediction plugin (GSharePlugin) to  know if branch should be taken</p></li>
 <li><p>Apply the prediction (flush + pc update + history update)</p></li>
-<li><p>Learn using the LearnPlugin interface. Only learn on missprediction. To avoid write to read hazard, the fetch stage is blocked when it learn.</p></li>
-<li><p>Implement “ways” named chunks which are staticaly assigned to groups of word’s slices, allowing to predict multiple branch/jump present in the same word</p></li>
+<li><p>Learn using the LearnPlugin interface. Only learn on misprediction. To avoid write to read hazard, the fetch stage is blocked when it learn.</p></li>
+<li><p>Implement “ways” named chunks which are statically assigned to groups of word’s slices, allowing to predict multiple branch/jump present in the same word</p></li>
 </ul>
 </section>
 <section id="gshareplugin">
@@ -326,7 +326,7 @@ In case this is detected, the plugin will just flush the pipeline and set the fe
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~867f372 2024-09-05
+    Version: master git~d07b8dd 2024-09-08
     </p></div>
     
 

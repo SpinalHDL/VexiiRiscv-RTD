@@ -86,7 +86,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#scala-spinalhdl">Scala / SpinalHDL</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#plugin">Plugin</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#simple-all-in-one-example">Simple all-in-one example</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#negociation-example">Negociation example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#negotiation-example">Negotiation example</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#database">Database</a></li>
@@ -263,11 +263,11 @@
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>litex_boards.targets.digilent_nexys_video<span class="w"> </span>--cpu-type<span class="o">=</span>vexiiriscv<span class="w"> </span>--cpu-variant<span class="o">=</span>debian<span class="w">  </span>--cpu-count<span class="o">=</span><span class="m">2</span><span class="w"> </span>--with-video-framebuffer<span class="w"> </span>--with-sdcard<span class="w"> </span>--with-ethernet<span class="w"> </span>--with-coherent-dma<span class="w"> </span>--l2-byte<span class="o">=</span><span class="m">262144</span><span class="w"> </span>--build<span class="w"> </span>--load
 </pre></div>
 </div>
-<p>Additional arguements can be provided to customize the VexiiRiscv configuration, for instance the following will enable the PMU, 0 cycle latency register file, multiple outstanding D$ refill/writeback and store buffer:</p>
+<p>Additional arguments can be provided to customize the VexiiRiscv configuration, for instance the following will enable the PMU, 0 cycle latency register file, multiple outstanding D$ refill/writeback and store buffer:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>--vexii-args<span class="o">=</span><span class="s2">&quot;--performance-counters 9 --regfile-async --lsu-l1-refill-count 2 --lsu-l1-writeback-count 2 --lsu-l1-store-buffer-ops=32 --lsu-l1-store-buffer-slots=2&quot;</span>
 </pre></div>
 </div>
-<p>To generate a DTS, i recommand adding <cite>–soc-json build/csr.json</cite> to the command line, and then running :</p>
+<p>To generate a DTS, I recommend adding <cite>–soc-json build/csr.json</cite> to the command line, and then running :</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>litex.tools.litex_json2dts_linux<span class="w"> </span>build/csr.json<span class="w"> </span>&gt;<span class="w"> </span>build/linux.dts
 </pre></div>
 </div>
@@ -287,7 +287,7 @@
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>dtc<span class="w"> </span>-O<span class="w"> </span>dtb<span class="w"> </span>-o<span class="w"> </span>build/linux.dtb<span class="w"> </span>build/linux.dts
 </pre></div>
 </div>
-<p>To run debian, you would need to change the dts boot device to your block device, aswell as removing the initrd from the dts. You can find more information about how to setup the debian images on <a class="reference external" href="https://github.com/SpinalHDL/NaxSoftware/tree/main/debian_litex">https://github.com/SpinalHDL/NaxSoftware/tree/main/debian_litex</a></p>
+<p>To run debian, you would need to change the dts boot device to your block device, as well as removing the initrd from the dts. You can find more information about how to setup the debian images on <a class="reference external" href="https://github.com/SpinalHDL/NaxSoftware/tree/main/debian_litex">https://github.com/SpinalHDL/NaxSoftware/tree/main/debian_litex</a></p>
 <p>But note that for opensbi, use instead the following (official upstream opensbi using the generic platform, which will also contains the dtb):</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/riscv-software-src/opensbi.git
 <span class="nb">cd</span><span class="w"> </span>opensbi
@@ -328,7 +328,7 @@ make<span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o"
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~867f372 2024-09-05
+    Version: master git~d07b8dd 2024-09-08
     </p></div>
     
 

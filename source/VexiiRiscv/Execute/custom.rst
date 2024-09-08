@@ -1,10 +1,10 @@
 Custom instruction
-==============================
+==================
 
 There are multiple ways you can add custom instructions into VexiiRiscv. The following chapter will provide some demo.
 
 SIMD add
------------
+--------
 
 Let's define a plugin which will implement a SIMD add (4x8bits adder), working on the integer register file.
 
@@ -22,7 +22,7 @@ For instance the Plugin configuration could be :
     plugins += new SimdAddPlugin(early0) // <- We will implement this plugin
 
 Plugin implementation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^
 
 Here is a example how this plugin could be implemented :
 
@@ -40,69 +40,69 @@ Here is a example how this plugin could be implemented :
     import vexiiriscv.compat.MultiPortWritesSymplifier
     import vexiiriscv.riscv.{IntRegFile, RS1, RS2, Riscv}
 
-    //This plugin example will add a new instruction named SIMD_ADD which do the following :
+    // This plugin example will add a new instruction named SIMD_ADD which do the following :
     //
-    //RD : Regfile Destination, RS : Regfile Source
-    //RD( 7 downto  0) = RS1( 7 downto  0) + RS2( 7 downto  0)
-    //RD(16 downto  8) = RS1(16 downto  8) + RS2(16 downto  8)
-    //RD(23 downto 16) = RS1(23 downto 16) + RS2(23 downto 16)
-    //RD(31 downto 24) = RS1(31 downto 24) + RS2(31 downto 24)
+    // RD : Regfile Destination, RS : Regfile Source
+    // RD( 7 downto  0) = RS1( 7 downto  0) + RS2( 7 downto  0)
+    // RD(16 downto  8) = RS1(16 downto  8) + RS2(16 downto  8)
+    // RD(23 downto 16) = RS1(23 downto 16) + RS2(23 downto 16)
+    // RD(31 downto 24) = RS1(31 downto 24) + RS2(31 downto 24)
     //
-    //Instruction encoding :
-    //0000000----------000-----0001011   <- Custom0 func3=0 func7=0
-    //       |RS2||RS1|   |RD |
+    // Instruction encoding :
+    // 0000000----------000-----0001011   <- Custom0 func3=0 func7=0
+    //        |RS2||RS1|   |RD |
     //
-    //Note :  RS1, RS2, RD positions follow the RISC-V spec and are common for all instruction of the ISA
+    // Note :  RS1, RS2, RD positions follow the RISC-V spec and are common for all instruction of the ISA
 
 
     object SimdAddPlugin{
-      //Define the instruction type and encoding that we wll use
+      // Define the instruction type and encoding that we wll use
       val ADD4 = IntRegFile.TypeR(M"0000000----------000-----0001011")
     }
 
-    //ExecutionUnitElementSimple is a plugin base class which will integrate itself in a execute lane layer
-    //It provide quite a few utilities to ease the implementation of custom instruction.
-    //Here we will implement a plugin which provide SIMD add on the register file.
-    class SimdAddPlugin(val layer : LaneLayer) extends ExecutionUnitElementSimple(layer)  {
+    // ExecutionUnitElementSimple is a plugin base class which will integrate itself in a execute lane layer
+    // It provide quite a few utilities to ease the implementation of custom instruction.
+    // Here we will implement a plugin which provide SIMD add on the register file.
+    class SimdAddPlugin(val layer : LaneLayer) extends ExecutionUnitElementSimple(layer) {
 
-      //Here we create an elaboration thread. The Logic class is provided by ExecutionUnitElementSimple to provide functionalities
+      // Here we create an elaboration thread. The Logic class is provided by ExecutionUnitElementSimple to provide functionalities
       val logic = during setup new Logic {
-        //Here we could have lock the elaboration of some other plugins (ex CSR), but here we don't need any of that
-        //as all is already sorted out in the Logic base class.
-        //So we just wait for the build phase
+        // Here we could have lock the elaboration of some other plugins (ex CSR), but here we don't need any of that
+        // as all is already sorted out in the Logic base class.
+        // So we just wait for the build phase
         awaitBuild()
 
-        //Let's assume we only support RV32 for now
+        // Let's assume we only support RV32 for now
         assert(Riscv.XLEN.get == 32)
 
-        //Let's get the hardware interface that we will use to provide the result of our custom instruction
+        // Let's get the hardware interface that we will use to provide the result of our custom instruction
         val wb = newWriteback(ifp, 0)
-        
-        //Specify that the current plugin will implement the ADD4 instruction
+
+        // Specify that the current plugin will implement the ADD4 instruction
         val add4 = add(SimdAddPlugin.ADD4).spec
 
-        //We need to specify on which stage we start using the register file values
+        // We need to specify on which stage we start using the register file values
         add4.addRsSpec(RS1, executeAt = 0)
         add4.addRsSpec(RS2, executeAt = 0)
 
-        //Now that we are done specifying everything about the instructions, we can release the Logic.uopRetainer
-        //This will allow a few other plugins to continue their elaboration (ex : decoder, dispatcher, ...)
+        // Now that we are done specifying everything about the instructions, we can release the Logic.uopRetainer
+        // This will allow a few other plugins to continue their elaboration (ex : decoder, dispatcher, ...)
         uopRetainer.release()
 
-        //Let's define some logic in the execute lane [0]
+        // Let's define some logic in the execute lane [0]
         val process = new el.Execute(id = 0) {
-          //Get the RISC-V RS1/RS2 values from the register file
+          // Get the RISC-V RS1/RS2 values from the register file
           val rs1 = el(IntRegFile, RS1).asUInt
           val rs2 = el(IntRegFile, RS2).asUInt
 
-          //Do some computation
+          // Do some computation
           val rd = UInt(32 bits)
           rd( 7 downto  0) := rs1( 7 downto  0) + rs2( 7 downto  0)
           rd(16 downto  8) := rs1(16 downto  8) + rs2(16 downto  8)
           rd(23 downto 16) := rs1(23 downto 16) + rs2(23 downto 16)
           rd(31 downto 24) := rs1(31 downto 24) + rs2(31 downto 24)
 
-          //Provide the computation value for the writeback
+          // Provide the computation value for the writeback
           wb.valid := SEL
           wb.payload := rd.asBits
         }
@@ -111,7 +111,7 @@ Here is a example how this plugin could be implemented :
 
 
 VexiiRiscv generation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^
 
 Then, to generate a VexiiRiscv with this new plugin, we could run the following App :
 
@@ -144,7 +144,7 @@ To run this App, you can go to the NaxRiscv directory and run :
     sbt "runMain vexiiriscv.execute.VexiiSimdAddGen"
 
 Software test
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^
 
 Then let's write some assembly test code : (https://github.com/SpinalHDL/NaxSoftware/tree/849679c70b238ceee021bdfd18eb2e9809e7bdd0/baremetal/simdAdd)
 
@@ -157,16 +157,16 @@ Then let's write some assembly test code : (https://github.com/SpinalHDL/NaxSoft
     #include "../../driver/sim_asm.h"
     #include "../../driver/custom_asm.h"
 
-        //Test 1
+        // Test 1
         li x1, 0x01234567
         li x2, 0x01FF01FF
-        opcode_R(CUSTOM0, 0x0, 0x00, x3, x1, x2) //x3 = ADD4(x1, x2)
+        opcode_R(CUSTOM0, 0x0, 0x00, x3, x1, x2) // x3 = ADD4(x1, x2)
 
-        //Print result value
+        // Print result value
         li x4, PUT_HEX
         sw x3, 0(x4)
 
-        //Check result
+        // Check result
         li x5, 0x02224666
         bne x3, x5, fail
 
@@ -184,15 +184,15 @@ Compile it with
     make clean rv32im
 
 Simulation
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^
 
-You could run a simulation using this testbench : 
+You could run a simulation using this testbench :
 
 - Bottom of https://github.com/SpinalHDL/VexiiRiscv/blob/dev/src/main/scala/vexiiriscv/execute/SimdAddPlugin.scala
 
 .. code:: scala
 
-    object VexiiSimdAddSim extends App{
+    object VexiiSimdAddSim extends App {
       val param = new ParamSimple()
       val testOpt = new TestOptions()
 
@@ -231,7 +231,7 @@ Which will output the value 02224666 in the shell and show traces in simWorkspac
 Note that --no-rvls-check is required as spike do not implement that custom simdAdd.
 
 Conclusion
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^
 
 So overall this example didn't introduce how to specify some additional decoding, nor how to define multi-cycle ALU. (TODO).
 But you can take a look in the IntAluPlugin, ShiftPlugin, DivPlugin, MulPlugin and BranchPlugin which are doing those things using the same ExecutionUnitElementSimple base class.

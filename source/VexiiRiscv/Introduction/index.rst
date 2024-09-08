@@ -9,9 +9,9 @@ In a few words, VexiiRiscv :
 - Should fit well on FPGA and ASIC
 
 Other doc / media / talks
---------------------------
+-------------------------
 
-Here is a list of links to ressources which present or document VexiiRiscv : 
+Here is a list of links to resources which present or document VexiiRiscv :
 
 - FSiC 2024   : https://wiki.f-si.org/index.php?title=Moving_toward_VexiiRiscv
 - COSCUP 2024 : https://coscup.org/2024/en/session/PVAHAS
@@ -21,9 +21,9 @@ Here is a list of links to ressources which present or document VexiiRiscv :
 Technicalities
 ------------------------------
 
-VexiiRiscv is a from scratch second iteration of VexRiscv, with the following goals : 
+VexiiRiscv is a from scratch second iteration of VexRiscv, with the following goals :
 
-- To imlement RISC-V 32/64 bits IMAFDCSU
+- To implement RISC-V 32/64 bits IMAFDCSU
 - Could start around as small as VexRiscv, but could scale further in performance
 - Optional late-alu
 - Optional multi issue
@@ -32,10 +32,10 @@ VexiiRiscv is a from scratch second iteration of VexRiscv, with the following go
 - Proper branch prediction
 - ...
 
-On this date (09/08/2024) the status is : 
+On this date (09/08/2024) the status is :
 
 - RISC-V 32/64 IMAFDCSU supported (Multiply / Atomic / Float / Double / Supervisor / User)
-- Can run baremetal applications (2.50 dhrystone/mhz, 5.24 coremark/mhz)
+- Can run baremetal applications (2.50 dhrystone/MHz, 5.24 coremark/MHz)
 - Can run linux/buildroot/debian on FPGA hardware (via litex)
 - single/dual issue supported
 - late-alu supported
@@ -51,28 +51,28 @@ Here is a diagram with 2 issue / early+late alu / 6 stages configuration (note t
 .. image:: /asset/picture/architecture_all_1.png
 
 Navigating the code
-----------------------------------
+-------------------
 
-Here are a few key / typical code examples : 
+Here are a few key / typical code examples :
 
 - The CPU toplevel src/main/scala/vexiiriscv/VexiiRiscv.scala
 - A cpu configuration generator : dev/src/main/scala/vexiiriscv/Param.scala
-- Some globaly shared definitions : src/main/scala/vexiiriscv/Global.scala
+- Some globally shared definitions : src/main/scala/vexiiriscv/Global.scala
 - Integer ALU plugin ; src/main/scala/vexiiriscv/execute/IntAluPlugin.scala
 
 Also on quite important one is to use a text editor / IDE which support curly brace folding and to start with them fully folded, as the code extensively used nested structures.
 
 Check list
------------------------
+----------
 
-Here is a list of important assumptions and things to know about : 
+Here is a list of important assumptions and things to know about :
 
-- trap/flush/pc request from the pipeline, once asserted one cycle can not be undone. This also mean that while a given instruction is stuck somewere, if that instruction did raised on of those request, nothing should change the execution path. For instance, a sudden cache line refill completion should not lift the request from the LSU asking a redo (due to cache refill hazard).
+- trap/flush/pc request from the pipeline, once asserted one cycle can not be undone. This also mean that while a given instruction is stuck somewhere, if that instruction did raised on of those request, nothing should change the execution path. For instance, a sudden cache line refill completion should not lift the request from the LSU asking a redo (due to cache refill hazard).
 - In the execute pipeline, stage.up(RS1/RS2) is the value to be used, while stage.down(RS1/RS2) should not be used, as it implement the bypassing for the next stage
-- Fetch.ctrl(0) isn't persistant.
+- Fetch.ctrl(0) isn't persistent.
 
 About VexRiscv (not VexiiRiscv)
-------------------------------------
+-------------------------------
 
 There is few reasons why VexiiRiscv exists instead of doing incremental upgrade on VexRiscv
 

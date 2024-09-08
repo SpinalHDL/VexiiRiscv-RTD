@@ -45,8 +45,8 @@ On debian :
 
     # RVLS / Spike dependencies
     sudo apt-get install device-tree-compiler libboost-all-dev
-    # Install ELFIO, used to load elf file in the sim 
-    git clone https://github.com/serge1/ELFIO.git 
+    # Install ELFIO, used to load elf file in the sim
+    git clone https://github.com/serge1/ELFIO.git
     cd ELFIO
     git checkout d251da09a07dff40af0b63b8f6c8ae71d2d1938d # Avoid C++17
     sudo cp -R elfio /usr/include
@@ -55,7 +55,7 @@ On debian :
 Repo setup
 ----------------
 
-After installing the dependencies (see above) : 
+After installing the dependencies (see above) :
 
 .. code-block:: bash
 
@@ -117,7 +117,7 @@ You can get a list of the supported parameters via :
 
 
 Run a simulation
------------------
+----------------
 
 Note that Vexiiriscv use mostly an opt-in configuration. So, most performance related configuration are disabled by default.
 
@@ -131,18 +131,18 @@ Note that Vexiiriscv use mostly an opt-in configuration. So, most performance re
 This will generate a simWorkspace/VexiiRiscv/test folder which contains :
 
 - test.fst : A wave file which can be open with gtkwave. It shows all the CPU signals
-- konata.log : A wave file which can be open with https://github.com/shioyadan/Konata, it shows the pipeline behaviour of the CPU
+- konata.log : A wave file which can be open with https://github.com/shioyadan/Konata, it shows the pipeline behavior of the CPU
 - spike.log : The execution logs of Spike (golden model)
 - tracer.log : The execution logs of VexRiscv (Simulation model)
 
-Here is an example of the additional argument you can use to improve the IPC : 
+Here is an example of the additional argument you can use to improve the IPC :
 
 .. code-block:: bash
 
    --with-btb --with-gshare --with-ras --decoders 2 --lanes 2 --with-aligner-buffer --with-dispatcher-buffer --with-late-alu --regfile-async --allow-bypass-from 0 --div-radix 4
 
 
-Here is a screen shot of a cache-less VexiiRiscv booting linux : 
+Here is a screen shot of a cache-less VexiiRiscv booting linux :
 
 .. image:: /asset/picture/konata.png
 
@@ -153,15 +153,15 @@ Synthesis / Inferation
 -----------------------
 
 VexiiRiscv is designed in a way which should make it easy to deploy on all FPGA.
-including the ones without support for asyncronous memory read 
+including the ones without support for asynchronous memory read
 (LUT ram / distributed ram / MLAB).
 The one exception is the MMU, but if configured to only read the memory on cycle 0
-(no tag hit), then the synthesis tool should be capable of inferring that asyncronus 
-read into a syncronous one (RAM block, work on Efinix FPGA)
+(no tag hit), then the synthesis tool should be capable of inferring that asynchronous
+read into a synchronous one (RAM block, work on Efinix FPGA)
 
 By default SpinalHDL will generate memories in a Verilog/VHDL inferable way.
-Otherwise, for ASIC, you likely want to enable the automatic memory blackboxing, 
-which will instead replace all memories defined in the design by a consistant blackbox 
+Otherwise, for ASIC, you likely want to enable the automatic memory blackboxing,
+which will instead replace all memories defined in the design by a consistent blackbox
 module/component, the user having then to provide those blackbox implementation.
 
 Currently all memories used are "simple dual port ram". While this is the best for FPGA usages,

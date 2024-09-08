@@ -1,6 +1,5 @@
 Debug
-============
-
+=====
 
 .. toctree::
    :maxdepth: 2

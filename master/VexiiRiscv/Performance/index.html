@@ -78,8 +78,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#other-doc-media-talks">Other doc / media / talks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#technicalities">Technicalities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#navigating-the-code">Navigating the code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#check-list">Check list</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#about-vexriscv-not-vexiiriscv">About VexRiscv (not VexiiRiscv)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#check-list">Check list</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Framework/index.html">Framework</a><ul>
@@ -280,6 +280,79 @@
 </tbody>
 </table>
 <p>It is too early for area / fmax metric, there is a lot of design space exploration to do which will trade IPC against FMax / Area.</p>
+<p>Here are a few synthesis results :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>! Note !
+Those results are with the best speed grade of each family
+In practice, depending what board/FPGA you use, it is common for them to have worst speed grade.
+Also, concerning the area usage, those numbers are a bit inflated because :
+- The SDC constraint stress the timings =&gt; Synthesis use more logic to improve the timings
+- The inputs/outputs of the design are serialized/deserialized (ff+logic cost) to reduce the pin count
+
+rv32i_noBypass -&gt;
+- 0.78 Dhrystone/MHz 0.60 Coremark/MHz
+- Artix 7    -&gt; 210 Mhz 1182 LUT 1759 FF
+- Cyclone V  -&gt; 159 Mhz 1,015 ALMs
+- Cyclone IV -&gt; 130 Mhz 1,987 LUT 2,017 FF
+- Trion      -&gt; 94 Mhz LUT 1847   FF 1990
+- Titanium   -&gt; 320 Mhz LUT 2005   FF 2030
+
+rv32i -&gt;
+- 1.12 Dhrystone/MHz 0.87 Coremark/MHz
+- Artix 7    -&gt; 206 Mhz 1413 LUT 1761 FF
+- Cyclone V  -&gt; 138 Mhz 1,244 ALMs
+- Cyclone IV -&gt; 124 Mhz 2,188 LUT 2,019 FF
+- Trion      -&gt; 78 Mhz LUT 2252   FF 1962
+- Titanium   -&gt; 300 Mhz LUT 2347   FF 2000
+
+rv64i -&gt;
+- 1.18 Dhrystone/MHz 0.77 Coremark/MHz
+- Artix 7    -&gt; 186 Mhz 2157 LUT 2332 FF
+- Cyclone V  -&gt; 117 Mhz 1,760 ALMs
+- Cyclone IV -&gt; 113 Mhz 3,432 LUT 2,770 FF
+- Trion      -&gt; 83 Mhz LUT 3883   FF 2681
+- Titanium   -&gt; 278 Mhz LUT 3909   FF 2783
+
+rv32im -&gt;
+- 1.20 Dhrystone/MHz 2.70 Coremark/MHz
+- Artix 7    -&gt; 190 Mhz 1815 LUT 2078 FF
+- Cyclone V  -&gt; 131 Mhz 1,474 ALMs
+- Cyclone IV -&gt; 125 Mhz 2,781 LUT 2,266 FF
+- Trion      -&gt; 83 Mhz LUT 2643   FF 2209
+- Titanium   -&gt; 324 Mhz LUT 2685   FF 2279
+
+rv32im_branchPredict -&gt;
+- 1.45 Dhrystone/MHz 2.99 Coremark/MHz
+- Artix 7    -&gt; 195 Mhz 2066 LUT 2438 FF
+- Cyclone V  -&gt; 136 Mhz 1,648 ALMs
+- Cyclone IV -&gt; 117 Mhz 3,093 LUT 2,597 FF
+- Trion      -&gt; 86 Mhz LUT 2963   FF 2568
+- Titanium   -&gt; 327 Mhz LUT 3015   FF 2636
+
+rv32im_branchPredict_cached8k8k -&gt;
+- 1.45 Dhrystone/MHz 2.97 Coremark/MHz
+- Artix 7    -&gt; 210 Mhz 2721 LUT 3477 FF
+- Cyclone V  -&gt; 137 Mhz 1,953 ALMs
+- Cyclone IV -&gt; 127 Mhz 3,648 LUT 3,153 FF
+- Trion      -&gt; 93 Mhz LUT 3388   FF 3204
+- Titanium   -&gt; 314 Mhz LUT 3432   FF 3274
+
+rv32imasu_cached_branchPredict_cached8k8k_linux -&gt;
+- 1.45 Dhrystone/MHz 2.96 Coremark/MHz
+- Artix 7    -&gt; 199 Mhz 3351 LUT 3833 FF
+- Cyclone V  -&gt; 131 Mhz 2,612 ALMs
+- Cyclone IV -&gt; 109 Mhz 4,909 LUT 3,897 FF
+- Trion      -&gt; 73 Mhz LUT 4367   FF 3613
+- Titanium   -&gt; 270 Mhz LUT 4409   FF 3724
+
+rv32im_branchPredictStressed_cached8k8k_ipcMax_lateAlu -&gt;
+- 1.74 Dhrystone/MHz 3.41 Coremark/MHz
+- Artix 7    -&gt; 140 Mhz 3247 LUT 3755 FF
+- Cyclone V  -&gt; 99 Mhz 2,477 ALMs
+- Cyclone IV -&gt; 85 Mhz 4,835 LUT 3,765 FF
+- Trion      -&gt; 60 Mhz LUT 4438   FF 3832
+- Titanium   -&gt; 228 Mhz LUT 4459   FF 3963
+</pre></div>
+</div>
 <section id="tuning">
 <h2>Tuning<a class="headerlink" href="#tuning" title="Permalink to this heading"></a></h2>
 <p>VexiiRiscv can scale a lot in function of its plugins/parameters. It can scale from simple microcontroller
@@ -330,7 +403,7 @@ at the cost of accuracy</p></li>
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~d07b8dd 2024-09-08
+    Version: master git~d7fa741 2024-09-10
     </p></div>
     
 

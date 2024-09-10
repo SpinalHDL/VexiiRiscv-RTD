@@ -2,6 +2,16 @@
 Fetch
 =====
 
+The goal of the fetch pipeline is to provide the CPU with a stream of words in which the instructions to execute are presents.
+So more precisely, the fetch pipeline doesn't realy have the notion of instruction, but instead, just provide memory aligned chunks of memory block (ex 64 bits).
+Those chunks of memory (word) will later be handled by the "AlignerPlugin" to extract the instruction to be executed (and also handle the decompression in the case of RVC).
+
+Here is an example of fetch architecture with an instruction cache, branch predictor aswell as a prefetcher.
+
+.. image:: /asset/picture/fetch_l1.png
+
+
+
 A few plugins operate in the fetch stage :
 
 - FetchPipelinePlugin
@@ -40,6 +50,12 @@ Will :
 - Allow out of order memory bus responses (for maximal compatibility)
 - Always generate aligned memory accesses
 
+Note that in order to get goo performance on FPGA, you may want to set it with the following config in order to relax timings :
+
+- forkAt = 1
+- joinAt = 2
+
+
 
 FetchL1Plugin
 -------------
@@ -75,6 +91,7 @@ The prefetcher can be turned off by setting the CSR 0x7FF bit 0.
 BtbPlugin
 ---------
 
+This plugin implement most of the branch prediction logic. 
 See more in the Branch prediction chapter
 
 GSharePlugin

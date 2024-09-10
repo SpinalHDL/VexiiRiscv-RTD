@@ -78,8 +78,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#other-doc-media-talks">Other doc / media / talks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#technicalities">Technicalities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#navigating-the-code">Navigating the code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#check-list">Check list</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#about-vexriscv-not-vexiiriscv">About VexRiscv (not VexiiRiscv)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#check-list">Check list</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Framework/index.html">Framework</a><ul>
@@ -252,10 +252,10 @@
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h1>
 <p>In a few words, VexiiRiscv :</p>
 <ul class="simple">
-<li><p>Is an hardware CPU project</p></li>
-<li><p>Implements the RISC-V instruction set</p></li>
+<li><p>Is an project which implement an hardware CPU</p></li>
+<li><p>Follows the RISC-V instruction set</p></li>
 <li><p>Is free / open-source</p></li>
-<li><p>Should fit well on FPGA and ASIC</p></li>
+<li><p>Should fit well on FPGA but also be portable to ASIC</p></li>
 </ul>
 <section id="other-doc-media-talks">
 <h2>Other doc / media / talks<a class="headerlink" href="#other-doc-media-talks" title="Permalink to this heading"></a></h2>
@@ -298,23 +298,16 @@
 </section>
 <section id="navigating-the-code">
 <h2>Navigating the code<a class="headerlink" href="#navigating-the-code" title="Permalink to this heading"></a></h2>
+<p>VexiiRiscv isn’t implmeneted in Verilog nor VHDL. Instead it is written in scala and use the SpinalHDL API to generate hardware.
+This allows to leverage an advanced elaboration time paradigme in order to generate hardware in a very flexible manner.</p>
 <p>Here are a few key / typical code examples :</p>
 <ul class="simple">
-<li><p>The CPU toplevel src/main/scala/vexiiriscv/VexiiRiscv.scala</p></li>
-<li><p>A cpu configuration generator : dev/src/main/scala/vexiiriscv/Param.scala</p></li>
-<li><p>Some globally shared definitions : src/main/scala/vexiiriscv/Global.scala</p></li>
 <li><p>Integer ALU plugin ; src/main/scala/vexiiriscv/execute/IntAluPlugin.scala</p></li>
+<li><p>A cpu configuration generator : dev/src/main/scala/vexiiriscv/Param.scala</p></li>
+<li><p>The CPU toplevel src/main/scala/vexiiriscv/VexiiRiscv.scala</p></li>
+<li><p>Some globally shared definitions : src/main/scala/vexiiriscv/Global.scala</p></li>
 </ul>
-<p>Also on quite important one is to use a text editor / IDE which support curly brace folding and to start with them fully folded, as the code extensively used nested structures.</p>
-</section>
-<section id="check-list">
-<h2>Check list<a class="headerlink" href="#check-list" title="Permalink to this heading"></a></h2>
-<p>Here is a list of important assumptions and things to know about :</p>
-<ul class="simple">
-<li><p>trap/flush/pc request from the pipeline, once asserted one cycle can not be undone. This also mean that while a given instruction is stuck somewhere, if that instruction did raised on of those request, nothing should change the execution path. For instance, a sudden cache line refill completion should not lift the request from the LSU asking a redo (due to cache refill hazard).</p></li>
-<li><p>In the execute pipeline, stage.up(RS1/RS2) is the value to be used, while stage.down(RS1/RS2) should not be used, as it implement the bypassing for the next stage</p></li>
-<li><p>Fetch.ctrl(0) isn’t persistent.</p></li>
-</ul>
+<p>Also due to the nested structure of the code base, a text editor / IDE which support curly brace folding can be very usefull.</p>
 </section>
 <section id="about-vexriscv-not-vexiiriscv">
 <h2>About VexRiscv (not VexiiRiscv)<a class="headerlink" href="#about-vexriscv-not-vexiiriscv" title="Permalink to this heading"></a></h2>
@@ -329,6 +322,15 @@
 <li><p>The VexRiscv verification infrastructure based on its own golden model isn’t great.</p></li>
 </ul>
 <p>So, enough is enough, it was time to start fresh :D</p>
+</section>
+<section id="check-list">
+<h2>Check list<a class="headerlink" href="#check-list" title="Permalink to this heading"></a></h2>
+<p>Here is a list of important design assumptions and things to know about :</p>
+<ul class="simple">
+<li><p>trap/flush/pc request from the pipeline, once asserted one cycle can not be undone. This also mean that while a given instruction is stuck somewhere, if that instruction did raised on of those request, nothing should change the execution path. For instance, a sudden cache line refill completion should not lift the request from the LSU asking a redo (due to cache refill hazard).</p></li>
+<li><p>In the execute pipeline, stage.up(RS1/RS2) is the value to be used, while stage.down(RS1/RS2) should not be used, as it implement the bypassing for the next stage</p></li>
+<li><p>Fetch.ctrl(0) isn’t persistent (meaning the PC requested can change at any time)</p></li>
+</ul>
 </section>
 </section>
 
@@ -361,7 +363,7 @@
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~d07b8dd 2024-09-08
+    Version: master git~d7fa741 2024-09-10
     </p></div>
     
 

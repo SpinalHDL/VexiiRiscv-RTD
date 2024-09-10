@@ -78,8 +78,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#other-doc-media-talks">Other doc / media / talks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#technicalities">Technicalities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#navigating-the-code">Navigating the code</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#check-list">Check list</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#about-vexriscv-not-vexiiriscv">About VexRiscv (not VexiiRiscv)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#check-list">Check list</a></li>
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Framework</a><ul>
@@ -256,25 +256,27 @@
 <ul class="simple">
 <li><p>Scala : Which will take care of the elaboration</p></li>
 <li><p>SpinalHDL : Which provide a hardware description API</p></li>
-<li><p>Plugin : Which are used to inject hardware in the CPU</p></li>
-<li><p>Fiber : Which allows to define elaboration threads in the plugins</p></li>
+<li><p>Plugin : Which are used to inject hardware in the CPU. Plugins can discover each others.</p></li>
+<li><p>Fiber : Which allows to define elaboration threads (used in the plugins)</p></li>
 <li><p>Retainer : Which allows to block the execution of the elaboration threads waiting on it</p></li>
 <li><p>Database : Which specify a shared scope for all the plugins to share elaboration time stuff</p></li>
 <li><p>spinal.lib.misc.pipeline : Which allow to pipeline things in a very dynamic manner.</p></li>
-<li><p>spinal.lib.logic : Which provide Quine McCluskey to generate logic decoders from the elaboration time specifications</p></li>
+<li><p>spinal.lib.logic : Which provide the Quine McCluskey algorithm to generate logic decoders from the elaboration time specifications</p></li>
 </ul>
 </section>
 <section id="scala-spinalhdl">
 <h2>Scala / SpinalHDL<a class="headerlink" href="#scala-spinalhdl" title="Permalink to this heading"></a></h2>
-<p>This combination allows to goes way beyond what regular HDL allows in terms of hardware description capabilities.
-You can find some documentation about SpinalHDL here :</p>
+<p>VexiiRiscv is implemented in Scala and use SpinalHDL to generate hardware.</p>
+<p>Scala is a general purpose programming language (like C/C++/Java/Rust/…). Staticaly typed, with a garbage collector.
+This combination allows to goes way beyond what regular HDL allows in terms of hardware elaboration time capabilities.</p>
+<p>You can find some documentation about SpinalHDL here :</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://spinalhdl.github.io/SpinalDoc-RTD/master/index.html">https://spinalhdl.github.io/SpinalDoc-RTD/master/index.html</a></p></li>
 </ul>
 </section>
 <section id="plugin">
 <h2>Plugin<a class="headerlink" href="#plugin" title="Permalink to this heading"></a></h2>
-<p>One main design aspect of VexiiRiscv is that all its hardware is defined inside plugins.
+<p>One of the main aspect of VexiiRiscv is that all its hardware is defined inside plugins.
 When you want to instantiate a VexiiRiscv CPU, you “only” need to provide a list of plugins as parameters.
 So, plugins can be seen as both parameters and hardware definition from a VexiiRiscv perspective.</p>
 <p>So it is quite different from the regular HDL component/module paradigm. Here are the advantagesof this approach :</p>
@@ -471,7 +473,10 @@ You can see it in the VexRiscv toplevel :</p>
 <li><p>Allow design space exploration with less paine (retiming, moving around the architecture)</p></li>
 <li><p>Reduce boiler plate code</p></li>
 </ul>
-<p>More documentation about it in <a class="reference external" href="https://spinalhdl.github.io/SpinalDoc-RTD/master/SpinalHDL/Libraries/Pipeline/index.html">https://spinalhdl.github.io/SpinalDoc-RTD/master/SpinalHDL/Libraries/Pipeline/index.html</a></p>
+<p>More documentation about it in :</p>
+<ul class="simple">
+<li><p><a class="reference external" href="https://spinalhdl.github.io/SpinalDoc-RTD/master/SpinalHDL/Libraries/Pipeline/index.html">https://spinalhdl.github.io/SpinalDoc-RTD/master/SpinalHDL/Libraries/Pipeline/index.html</a></p></li>
+</ul>
 </section>
 </section>
 
@@ -504,7 +509,7 @@ You can see it in the VexRiscv toplevel :</p>
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~d07b8dd 2024-09-08
+    Version: master git~d7fa741 2024-09-10
     </p></div>
     
 

@@ -9,18 +9,22 @@ VexRiscv is based on a few tools / API
 
 - Scala : Which will take care of the elaboration
 - SpinalHDL : Which provide a hardware description API
-- Plugin : Which are used to inject hardware in the CPU
-- Fiber : Which allows to define elaboration threads in the plugins
+- Plugin : Which are used to inject hardware in the CPU. Plugins can discover each others.
+- Fiber : Which allows to define elaboration threads (used in the plugins)
 - Retainer : Which allows to block the execution of the elaboration threads waiting on it
 - Database : Which specify a shared scope for all the plugins to share elaboration time stuff
 - spinal.lib.misc.pipeline : Which allow to pipeline things in a very dynamic manner.
-- spinal.lib.logic : Which provide Quine McCluskey to generate logic decoders from the elaboration time specifications
+- spinal.lib.logic : Which provide the Quine McCluskey algorithm to generate logic decoders from the elaboration time specifications
 
 
 Scala / SpinalHDL
 -----------------
 
-This combination allows to goes way beyond what regular HDL allows in terms of hardware description capabilities.
+VexiiRiscv is implemented in Scala and use SpinalHDL to generate hardware.
+
+Scala is a general purpose programming language (like C/C++/Java/Rust/...). Staticaly typed, with a garbage collector.
+This combination allows to goes way beyond what regular HDL allows in terms of hardware elaboration time capabilities.
+
 You can find some documentation about SpinalHDL here :
 
 - https://spinalhdl.github.io/SpinalDoc-RTD/master/index.html
@@ -28,7 +32,7 @@ You can find some documentation about SpinalHDL here :
 Plugin
 ------
 
-One main design aspect of VexiiRiscv is that all its hardware is defined inside plugins.
+One of the main aspect of VexiiRiscv is that all its hardware is defined inside plugins.
 When you want to instantiate a VexiiRiscv CPU, you "only" need to provide a list of plugins as parameters.
 So, plugins can be seen as both parameters and hardware definition from a VexiiRiscv perspective.
 
@@ -242,5 +246,7 @@ In short, the design use a pipeline API in order to :
 - Allow design space exploration with less paine (retiming, moving around the architecture)
 - Reduce boiler plate code
 
-More documentation about it in https://spinalhdl.github.io/SpinalDoc-RTD/master/SpinalHDL/Libraries/Pipeline/index.html
+More documentation about it in :
+
+- https://spinalhdl.github.io/SpinalDoc-RTD/master/SpinalHDL/Libraries/Pipeline/index.html
 

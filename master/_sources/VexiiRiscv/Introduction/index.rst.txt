@@ -3,10 +3,10 @@ Introduction
 
 In a few words, VexiiRiscv :
 
-- Is an hardware CPU project
-- Implements the RISC-V instruction set
+- Is an project which implement an hardware CPU
+- Follows the RISC-V instruction set
 - Is free / open-source
-- Should fit well on FPGA and ASIC
+- Should fit well on FPGA but also be portable to ASIC
 
 Other doc / media / talks
 -------------------------
@@ -53,23 +53,18 @@ Here is a diagram with 2 issue / early+late alu / 6 stages configuration (note t
 Navigating the code
 -------------------
 
+VexiiRiscv isn't implmeneted in Verilog nor VHDL. Instead it is written in scala and use the SpinalHDL API to generate hardware.
+This allows to leverage an advanced elaboration time paradigme in order to generate hardware in a very flexible manner.
+
 Here are a few key / typical code examples :
 
-- The CPU toplevel src/main/scala/vexiiriscv/VexiiRiscv.scala
-- A cpu configuration generator : dev/src/main/scala/vexiiriscv/Param.scala
-- Some globally shared definitions : src/main/scala/vexiiriscv/Global.scala
 - Integer ALU plugin ; src/main/scala/vexiiriscv/execute/IntAluPlugin.scala
+- A cpu configuration generator : dev/src/main/scala/vexiiriscv/Param.scala
+- The CPU toplevel src/main/scala/vexiiriscv/VexiiRiscv.scala
+- Some globally shared definitions : src/main/scala/vexiiriscv/Global.scala
 
-Also on quite important one is to use a text editor / IDE which support curly brace folding and to start with them fully folded, as the code extensively used nested structures.
+Also due to the nested structure of the code base, a text editor / IDE which support curly brace folding can be very usefull.
 
-Check list
-----------
-
-Here is a list of important assumptions and things to know about :
-
-- trap/flush/pc request from the pipeline, once asserted one cycle can not be undone. This also mean that while a given instruction is stuck somewhere, if that instruction did raised on of those request, nothing should change the execution path. For instance, a sudden cache line refill completion should not lift the request from the LSU asking a redo (due to cache refill hazard).
-- In the execute pipeline, stage.up(RS1/RS2) is the value to be used, while stage.down(RS1/RS2) should not be used, as it implement the bypassing for the next stage
-- Fetch.ctrl(0) isn't persistent.
 
 About VexRiscv (not VexiiRiscv)
 -------------------------------
@@ -85,3 +80,13 @@ There is few reasons why VexiiRiscv exists instead of doing incremental upgrade 
 - The VexRiscv verification infrastructure based on its own golden model isn't great.
 
 So, enough is enough, it was time to start fresh :D
+
+Check list
+----------
+
+Here is a list of important design assumptions and things to know about :
+
+- trap/flush/pc request from the pipeline, once asserted one cycle can not be undone. This also mean that while a given instruction is stuck somewhere, if that instruction did raised on of those request, nothing should change the execution path. For instance, a sudden cache line refill completion should not lift the request from the LSU asking a redo (due to cache refill hazard).
+- In the execute pipeline, stage.up(RS1/RS2) is the value to be used, while stage.down(RS1/RS2) should not be used, as it implement the bypassing for the next stage
+- Fetch.ctrl(0) isn't persistent (meaning the PC requested can change at any time)
+

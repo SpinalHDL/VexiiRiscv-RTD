@@ -32,6 +32,9 @@ Here are a few synthesis results :
     ! Note ! 
     Those results are with the best speed grade of each family
     In practice, depending what board/FPGA you use, it is common for them to have worst speed grade.
+    Also, concerning the area usage, those numbers are a bit inflated because : 
+    - The SDC constraint stress the timings => Synthesis use more logic to improve the timings
+    - The inputs/outputs of the design are serialized/deserialized (ff+logic cost) to reduce the pin count
 
     rv32i_noBypass ->
     - 0.78 Dhrystone/MHz 0.60 Coremark/MHz

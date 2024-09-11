@@ -22,10 +22,23 @@ Will :
 - Implement a return address stack buffer
 - Predict which slices of the fetched word are the last slice of a branch/jump
 - Predict the branch/jump target
+- Predict if the given instruction is a branch, a jump or something else
+- Predict if the given instruction should push or pop the RAS (Return Address Stack)
 - Use the FetchConditionalPrediction plugin (GSharePlugin) to  know if branch should be taken
 - Apply the prediction (flush + pc update + history update)
 - Learn using the LearnPlugin interface. Only learn on misprediction. To avoid write to read hazard, the fetch stage is blocked when it learn.
 - Implement "ways" named chunks which are statically assigned to groups of word's slices, allowing to predict multiple branch/jump present in the same word
+
+
+.. image:: /asset/picture/btb.png
+
+Note that it may help to not make the BTB learn when there has been a non-taken branch.
+
+- The BTB don't need to predict non-taken branch
+- Keep the BTB entry for something more usefull
+- For configs in which multiple instruction can reside in a single fetch word (ex dual issue with RVC), 
+  multiple branch/jump instruction can reside in a single fetch word => need for compromises, 
+  and hope that some of the branch/jump in the chunk are rarely taken.
 
 GSharePlugin
 ------------
@@ -34,18 +47,24 @@ Will :
 
 - Implement a FetchConditionalPrediction (GShare flavor)
 - Learn using the LearnPlugin interface. Write to read hazard are handled via a bypass
-- Will not apply the prediction via flush / pc change, another plugin will do that
+- Will not apply the prediction via flush / pc change, another plugin will do that (ex : BtbPlugin)
+
+Note that one of the current issue with GShare, is that it take quite a few iterations to learn (depending the branch history)
 
 DecodePredictionPlugin
 ----------------------
 
 The purpose of this plugin is to ensure that no branch/jump prediction was made for non branch/jump instructions.
-In case this is detected, the plugin will just flush the pipeline and set the fetch PC to redo everything, but this time with a "first prediction skip"
+In case this is detected, the plugin will : 
+
+- schedule a "REDO trap" which will flush everything and make the CPU jump to the failed instruction
+- Make the predictor skip the first incoming prediction
+- Make the predictor unlearn the prediction entry which failed
 
 BranchPlugin
 ------------
 
-Placed in the execute pipeline, it will ensure that the branch prediction was correct, else it correct it. It also generate a learn interface.
+Placed in the execute pipeline, it will ensure that the branch predictions were correct, else it correct them. It also generate a learn interface to feed the LearnPlugin.
 
 LearnPlugin
 -----------

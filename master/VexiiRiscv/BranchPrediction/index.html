@@ -267,10 +267,21 @@
 <li><p>Implement a return address stack buffer</p></li>
 <li><p>Predict which slices of the fetched word are the last slice of a branch/jump</p></li>
 <li><p>Predict the branch/jump target</p></li>
+<li><p>Predict if the given instruction is a branch, a jump or something else</p></li>
+<li><p>Predict if the given instruction should push or pop the RAS (Return Address Stack)</p></li>
 <li><p>Use the FetchConditionalPrediction plugin (GSharePlugin) to  know if branch should be taken</p></li>
 <li><p>Apply the prediction (flush + pc update + history update)</p></li>
 <li><p>Learn using the LearnPlugin interface. Only learn on misprediction. To avoid write to read hazard, the fetch stage is blocked when it learn.</p></li>
 <li><p>Implement “ways” named chunks which are statically assigned to groups of word’s slices, allowing to predict multiple branch/jump present in the same word</p></li>
+</ul>
+<img alt="../../_images/btb.png" src="../../_images/btb.png" />
+<p>Note that it may help to not make the BTB learn when there has been a non-taken branch.</p>
+<ul class="simple">
+<li><p>The BTB don’t need to predict non-taken branch</p></li>
+<li><p>Keep the BTB entry for something more usefull</p></li>
+<li><p>For configs in which multiple instruction can reside in a single fetch word (ex dual issue with RVC),
+multiple branch/jump instruction can reside in a single fetch word =&gt; need for compromises,
+and hope that some of the branch/jump in the chunk are rarely taken.</p></li>
 </ul>
 </section>
 <section id="gshareplugin">
@@ -279,17 +290,23 @@
 <ul class="simple">
 <li><p>Implement a FetchConditionalPrediction (GShare flavor)</p></li>
 <li><p>Learn using the LearnPlugin interface. Write to read hazard are handled via a bypass</p></li>
-<li><p>Will not apply the prediction via flush / pc change, another plugin will do that</p></li>
+<li><p>Will not apply the prediction via flush / pc change, another plugin will do that (ex : BtbPlugin)</p></li>
 </ul>
+<p>Note that one of the current issue with GShare, is that it take quite a few iterations to learn (depending the branch history)</p>
 </section>
 <section id="decodepredictionplugin">
 <h2>DecodePredictionPlugin<a class="headerlink" href="#decodepredictionplugin" title="Permalink to this heading"></a></h2>
 <p>The purpose of this plugin is to ensure that no branch/jump prediction was made for non branch/jump instructions.
-In case this is detected, the plugin will just flush the pipeline and set the fetch PC to redo everything, but this time with a “first prediction skip”</p>
+In case this is detected, the plugin will :</p>
+<ul class="simple">
+<li><p>schedule a “REDO trap” which will flush everything and make the CPU jump to the failed instruction</p></li>
+<li><p>Make the predictor skip the first incoming prediction</p></li>
+<li><p>Make the predictor unlearn the prediction entry which failed</p></li>
+</ul>
 </section>
 <section id="branchplugin">
 <h2>BranchPlugin<a class="headerlink" href="#branchplugin" title="Permalink to this heading"></a></h2>
-<p>Placed in the execute pipeline, it will ensure that the branch prediction was correct, else it correct it. It also generate a learn interface.</p>
+<p>Placed in the execute pipeline, it will ensure that the branch predictions were correct, else it correct them. It also generate a learn interface to feed the LearnPlugin.</p>
 </section>
 <section id="learnplugin">
 <h2>LearnPlugin<a class="headerlink" href="#learnplugin" title="Permalink to this heading"></a></h2>
@@ -326,7 +343,7 @@ In case this is detected, the plugin will just flush the pipeline and set the fe
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~d7fa741 2024-09-10
+    Version: master git~8b35106 2024-09-11
     </p></div>
     
 

@@ -358,7 +358,12 @@ make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</s
 </section>
 <section id="run-a-simulation">
 <h2>Run a simulation<a class="headerlink" href="#run-a-simulation" title="Permalink to this heading"></a></h2>
-<p>Note that Vexiiriscv use mostly an opt-in configuration. So, most performance related configuration are disabled by default.</p>
+<div class="admonition important">
+<p class="admonition-title">Important</p>
+<p>If you take a VexiiRiscv core and use it with a simulator which does x-prop (not verilator), you will need to add the following option : –with-boot-mem-init.
+By default this isn’t enabled, as it can degrade timings and area while not being necessary for a fully functional hardware.</p>
+</div>
+<p>Here is how you can run a verilator based simulation, note that Vexiiriscv use mostly an opt-in configuration. So, most performance related configuration are disabled by default.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sbt
 compile
 Test/runMain<span class="w"> </span>vexiiriscv.tester.TestBench<span class="w"> </span>--with-mul<span class="w"> </span>--with-div<span class="w"> </span>--load-elf<span class="w"> </span>ext/NaxSoftware/baremetal/dhrystone/build/rv32ima/dhrystone.elf<span class="w"> </span>--trace-all
@@ -424,7 +429,7 @@ on ASIC maybe some of those could be redesigned to be single port rams instead (
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~8b35106 2024-09-11
+    Version: master git~87fe0f9 2024-10-25
     </p></div>
     
 

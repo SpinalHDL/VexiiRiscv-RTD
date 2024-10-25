@@ -29,6 +29,7 @@ jobs:
     - name: "install dependencies"
       run: |
         apt-get update -y && apt-get install -y git
+        apt-get install -y latexmk
         pip install -r requirements.txt
     - name: "check links"
       run: make linkcheck

@@ -22,26 +22,22 @@ jobs:
     - uses: actions/checkout@v3
       with:
         fetch-depth: 0
-    - name: Set up Docker Buildx
-      uses: docker/setup-buildx-action@v2
-    - name: Build docker image
-      uses: docker/build-push-action@v3
+    - name: "setup python"
+      uses: actions/setup-python@v4
       with:
-        context: .
-        load: true
-        push: false
-        cache-to: type=gha
-        cache-from: type=gha
-        tags: vexiiriscv-pdf
-        file: pdf.Dockerfile
-    - name: Check links
-      run: docker run --rm -u $(id -u $USER):$(id -g $USER) -v $PWD:/docs -e sphinx_html_baseurl -e sphinx_github_url vexiiriscv-pdf make linkcheck
-    - name: Build multiversioned doc
-      run: docker run --rm -u $(id -u $USER):$(id -g $USER) -v $PWD:/docs -e sphinx_html_baseurl -e sphinx_github_url vexiiriscv-pdf sphinx-multiversion source docs/html
-    - name: Add .nojekill
-      run: sudo touch docs/html/.nojekyll
-    - name: Add redirection to master
+        python-version: 3.9
+    - name: "install dependencies"
       run: |
+        sudo apt-get update -y 
+        sudo apt-get install -y git latexmk texlive-latex-extra
+        sudo pip install -r requirements.txt
+    - name: "check links"
+      run: make linkcheck
+    - name: "Build multiversioned doc"
+      run: sphinx-multiversion source docs/html
+    - name: "add .nojekill and redirect to master"
+      run: |
+        sudo touch docs/html/.nojekyll
         sudo tee docs/html/index.html << EOF
         <!DOCTYPE html>
         <html>

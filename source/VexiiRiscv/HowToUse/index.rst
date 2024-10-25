@@ -119,7 +119,11 @@ You can get a list of the supported parameters via :
 Run a simulation
 ----------------
 
-Note that Vexiiriscv use mostly an opt-in configuration. So, most performance related configuration are disabled by default.
+.. important::
+   If you take a VexiiRiscv core and use it with a simulator which does x-prop (not verilator), you will need to add the following option : --with-boot-mem-init.
+   By default this isn't enabled, as it can degrade timings and area while not being necessary for a fully functional hardware.
+
+Here is how you can run a verilator based simulation, note that Vexiiriscv use mostly an opt-in configuration. So, most performance related configuration are disabled by default.
 
 .. code-block:: bash
 

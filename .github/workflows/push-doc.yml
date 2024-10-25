@@ -29,7 +29,7 @@ jobs:
     - name: "install dependencies"
       run: |
         sudo apt-get update -y 
-        sudo apt-get install -y git latexmk
+        sudo apt-get install -y git latexmk texlive-latex-extra
         sudo pip install -r requirements.txt
     - name: "check links"
       run: make linkcheck

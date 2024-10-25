@@ -28,8 +28,7 @@ jobs:
         python-version: 3.9
     - name: "install dependencies"
       run: |
-        apt-get update -y && apt-get install -y git
-        apt-get install -y latexmk
+        apt-get update -y && apt-get install -y git latexmk
         pip install -r requirements.txt
     - name: "check links"
       run: make linkcheck

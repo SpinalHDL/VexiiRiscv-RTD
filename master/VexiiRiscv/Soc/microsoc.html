@@ -200,7 +200,11 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">SoC</a><ul class="current">
-<li class="toctree-l2 current"><a class="current reference internal" href="#">MicroSoc</a></li>
+<li class="toctree-l2 current"><a class="current reference internal" href="#">MicroSoc</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#verilog-generation">Verilog generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#simulation-spinalsim-verilator">Simulation (SpinalSim / Verilator)</a></li>
+</ul>
+</li>
 <li class="toctree-l2"><a class="reference internal" href="litex.html">Litex</a></li>
 </ul>
 </li>
@@ -249,26 +253,51 @@
 
 
 
-  <p>This is currently WIP.</p>
-<section id="microsoc">
+  <section id="microsoc">
 <h1>MicroSoc<a class="headerlink" href="#microsoc" title="Permalink to this heading"></a></h1>
 <p>MicroSoC is a little SoC based on VexiiRiscv and a tilelink interconnect.</p>
-<img alt="../../_images/microsoc.png" src="../../_images/microsoc.png" />
-<p>Here you can see the default vexiiriscv architecture for this SoC :</p>
-<img alt="../../_images/microsoc_vexii.png" src="../../_images/microsoc_vexii.png" />
 <p>Its goals are :</p>
 <ul class="simple">
-<li><p>Provide a simple reference design</p></li>
+<li><p>To provide a simple reference design</p></li>
 <li><p>To be a simple and light FPGA SoC</p></li>
 <li><p>Target a high frequency of operation, but not a high IPC (by default)</p></li>
 </ul>
-<p>You can find its implementation here <a class="reference external" href="https://github.com/SpinalHDL/VexiiRiscv/blob/dev/src/main/scala/vexiiriscv/soc/demo/MicroSoc.scala">https://github.com/SpinalHDL/VexiiRiscv/blob/dev/src/main/scala/vexiiriscv/soc/demo/MicroSoc.scala</a></p>
+<p>Here is a architecture diagram :</p>
+<img alt="../../_images/microsoc.png" src="../../_images/microsoc.png" />
+<p>Here you can see the default vexiiriscv architecture for this SoC :</p>
+<img alt="../../_images/microsoc_vexii.png" src="../../_images/microsoc_vexii.png" />
+<p>You can find its implementation here <a class="reference external" href="https://github.com/SpinalHDL/VexiiRiscv/blob/dev/src/main/scala/vexiiriscv/soc/micro">https://github.com/SpinalHDL/VexiiRiscv/blob/dev/src/main/scala/vexiiriscv/soc/micro</a></p>
 <ul class="simple">
-<li><p><cite>class MicroSoc</cite> is the SoC toplevel</p></li>
-<li><p><cite>object MicroSocGen</cite> is a scala main which can be used to generate the hardware</p></li>
-<li><p><cite>object MicroSocSim</cite> is a simple testbench which integrate the UART, konata tracer, rvls CPU checker.</p></li>
+<li><p>MicroSoc.scala : Contains the SoC toplevel</p></li>
+<li><p>MicroSocGen.scala : Contains the scala main which can be used to generate the SoC verilog</p></li>
+<li><p>MicroSocSim.scala : Contains a simple SpinalSim testbench for the SoC</p></li>
 </ul>
-<p>This SoC is WIP, mainly it need more stuff as a rom, jtag, software and a lot more doc.</p>
+<section id="verilog-generation">
+<h2>Verilog generation<a class="headerlink" href="#verilog-generation" title="Permalink to this heading"></a></h2>
+<p>To generate the SoC verilog, you can run :</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Default configuration</span>
+sbt<span class="w"> </span><span class="s2">&quot;runMain vexiiriscv.soc.micro.MicroSocGen&quot;</span>
+<span class="c1"># SoC with 32 KB + RV32IMC running at 50 Mhz:</span>
+sbt<span class="w"> </span><span class="s2">&quot;runMain vexiiriscv.soc.micro.MicroSocGen --ram-bytes=32768 --with-rvm --with-rvc --system-frequency=50000000&quot;</span>
+<span class="c1"># List all the parameters available</span>
+sbt<span class="w"> </span><span class="s2">&quot;runMain vexiiriscv.soc.micro.MicroSocGen --help&quot;</span>
+</pre></div>
+</div>
+</section>
+<section id="simulation-spinalsim-verilator">
+<h2>Simulation (SpinalSim / Verilator)<a class="headerlink" href="#simulation-spinalsim-verilator" title="Permalink to this heading"></a></h2>
+<p>If you have Verilator installed, you can run a simulation by doing :</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Default configuration</span>
+sbt<span class="w"> </span><span class="s2">&quot;runMain vexiiriscv.soc.micro.MicroSocSim&quot;</span>
+<span class="c1"># List all the parameters available</span>
+sbt<span class="w"> </span><span class="s2">&quot;runMain vexiiriscv.soc.micro.MicroSocSim --help&quot;</span>
+</pre></div>
+</div>
+<p>While the simulation is running you can connect to it using openocd as if it was real hardware :</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>openocd<span class="w"> </span>-f<span class="w"> </span>src/main/tcl/openocd/vexiiriscv_sim.tcl
+</pre></div>
+</div>
+</section>
 </section>
 
     <script type="text/javascript">
@@ -300,7 +329,7 @@
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~87fe0f9 2024-10-25
+    Version: master git~7e6c218 2024-10-29
     </p></div>
     
 

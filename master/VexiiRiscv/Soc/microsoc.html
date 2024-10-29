@@ -203,6 +203,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">MicroSoc</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#verilog-generation">Verilog generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#simulation-spinalsim-verilator">Simulation (SpinalSim / Verilator)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-a-custom-peripheral">Adding a custom peripheral</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="litex.html">Litex</a></li>
@@ -272,6 +273,7 @@
 <li><p>MicroSocGen.scala : Contains the scala main which can be used to generate the SoC verilog</p></li>
 <li><p>MicroSocSim.scala : Contains a simple SpinalSim testbench for the SoC</p></li>
 </ul>
+<p>The MicroSoC code is commented in a way which should help non-initiated to understand what is happening. (this is an invitation to read the code ^^)</p>
 <section id="verilog-generation">
 <h2>Verilog generation<a class="headerlink" href="#verilog-generation" title="Permalink to this heading"></a></h2>
 <p>To generate the SoC verilog, you can run :</p>
@@ -297,6 +299,31 @@ sbt<span class="w"> </span><span class="s2">&quot;runMain vexiiriscv.soc.micro.M
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>openocd<span class="w"> </span>-f<span class="w"> </span>src/main/tcl/openocd/vexiiriscv_sim.tcl
 </pre></div>
 </div>
+</section>
+<section id="adding-a-custom-peripheral">
+<h2>Adding a custom peripheral<a class="headerlink" href="#adding-a-custom-peripheral" title="Permalink to this heading"></a></h2>
+<p>Let’s say you want to design a peripheral and then add it to the SoC, the MicroSoc contains one example of that via PeripheralDemo.scala :</p>
+<p><a class="reference external" href="https://github.com/SpinalHDL/VexiiRiscv/blob/dev/src/main/scala/vexiiriscv/soc/micro/PeripheralDemo.scala">https://github.com/SpinalHDL/VexiiRiscv/blob/dev/src/main/scala/vexiiriscv/soc/micro/PeripheralDemo.scala</a></p>
+<p>This peripheral example is a very simple one which provide the CPU access to leds, buttons and an interrupt function of the buttons value.</p>
+<img alt="../../_images/peripheral_demo.png" src="../../_images/peripheral_demo.png" />
+<p>You can see in the diagram above :</p>
+<ul class="simple">
+<li><p>PeripheralDemo : Which is our custom peripheral in its traditional sense (a hardware Component / Module). It use regular SpinalHDL stuff.</p></li>
+<li><p>mapper : This is a tool which ease the creation of peripherals register file.
+Instead of having stuff like big switch case on the bus address, you just need to say “Create a RW register at this address” in a more natural language.</p></li>
+<li><p>BufferCC : Used to avoid metastability when we use the buttons value in our hardware (this is a chain of 2 flip-flop)</p></li>
+<li><p>PeripheralDemoFiber : This is sort of the integration layer for our PeripheralDemo into a SoC. This serve a few purposes.
+It handle the Tilelink parameters negotiation / propagation, aswell as exporting the leds and buttons directly to the MicroSoc io.</p></li>
+<li><p>Node : This is an instance of the tilelink bus in our SoC. It is used for parameter negotiation/propagation as well as to get the hardware bus instance.</p></li>
+</ul>
+<p>You can then add that peripheral in the toplevel by :</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="kd">val</span><span class="w"> </span><span class="n">demo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">PeripheralDemoFiber</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="nc">PeripheralDemoParam</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">16</span><span class="p">))</span>
+<span class="n">demo</span><span class="p">.</span><span class="n">node</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="mh">0x10002000</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">bus32</span>
+<span class="n">plic</span><span class="p">.</span><span class="n">mapUpInterrupt</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span><span class="w"> </span><span class="n">demo</span><span class="p">.</span><span class="n">interrupt</span><span class="p">)</span>
+</pre></div>
+</div>
+<p>This peripheral is already integrated into MicroSoC as a demo but disabled by default. To enable it, will need to provide a specific command line parameter. For instance :</p>
+<p>sbt “runMain vexiiriscv.soc.micro.MicroSocSim –demo-peripheral leds=16,buttons=12”</p>
 </section>
 </section>
 
@@ -329,7 +356,7 @@ sbt<span class="w"> </span><span class="s2">&quot;runMain vexiiriscv.soc.micro.M
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~7e6c218 2024-10-29
+    Version: master git~15ca8f6 2024-10-29
     </p></div>
     
 

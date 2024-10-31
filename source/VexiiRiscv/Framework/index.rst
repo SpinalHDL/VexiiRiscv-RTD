@@ -1,11 +1,10 @@
 Framework
 =========
 
-
 Tools and API
 ------------------------
 
-VexRiscv is based on a few tools / API
+Overall VexiiRiscv is based on a few tools and API which aim at describing hardware in more productive/flexible ways than with Verilog/VHDL.
 
 - Scala : Which will take care of the elaboration
 - SpinalHDL : Which provide a hardware description API

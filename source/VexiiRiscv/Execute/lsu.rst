@@ -94,7 +94,7 @@ own previous accesses in order to prefetch multiple strides ahead.
 
 - Will learn memory accesses patterns from the LsuPlugin traces
 - Patterns need to have a constant stride in order to be recognized
-- By default, can keep of the access patterns up to 128 instructions (1 way * 128 sets, pc indexed)
+- By default, it can keep track of up to 128 instructions access pattern (1 way * 128 sets, pc indexed)
 
 .. image:: /asset/picture/lsu_prefetch.png
 
@@ -148,3 +148,35 @@ Also, prefetch which fail (ex : because of hazards in L1) aren't replayed.
 
 The prefetcher can be turned off by setting the CSR 0x7FF bit 1.
 
+performance measurements
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Here are a few performance gain measurements done on litex with a :
+
+- quad-core RV64GC running at 200 Mhz
+- 16 KB L1 cache for each core
+- 512 KB of l2 cache shared (128 bits data bus)
+- 4 refill slots + 4 writeback slots + 32 entry store queue + 4 slots store queue
+
+.. list-table:: Prefetch performance
+   :widths: 40 30 30
+   :header-rows: 1
+
+   * - Test
+     - No prefetch
+     - RPT prefetch
+   * - Litex bios read speed
+     - 204.2MiB/s
+     - 790.9MiB/s
+   * - Litex bios write speed
+     - 559.2MiB/s
+     - 576.8MiB/s
+   * - iperf3 RX
+     - 617 Mbits/sec
+     - 766 Mbits/sec
+   * - iperf3 TX
+     - 623 Mbits/sec
+     - 623 Mbits/sec
+   * - chocolate-doom -1 demo1.lmp
+     - 43.1 fps
+     - 50.2 fps

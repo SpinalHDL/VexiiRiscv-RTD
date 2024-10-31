@@ -43,14 +43,7 @@ Will :
 - Decode instruction
 - Generate illegal instruction exception
 - Generate "interrupt" instruction
-
-DecodePredictionPlugin
-----------------------
-
-The purpose of this plugin is to ensure that no branch/jump prediction was made for non branch/jump instructions.
-In case this is detected, the plugin will just flush the pipeline and set the fetch PC to redo everything, but this time with a "first prediction skip"
-
-See more in the Branch prediction chapter
+- Ensure that no instruction predicted as a branch/jump by the BTB (but isn't a branch/jump) doesn't goes any further. (See more in the Branch prediction chapter)
 
 DispatchPlugin
 --------------

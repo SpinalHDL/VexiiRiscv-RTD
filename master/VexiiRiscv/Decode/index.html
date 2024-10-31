@@ -109,7 +109,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#decodepipelineplugin">DecodePipelinePlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#alignerplugin">AlignerPlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#decoderplugin">DecoderPlugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#decodepredictionplugin">DecodePredictionPlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#dispatchplugin">DispatchPlugin</a></li>
 </ul>
 </li>
@@ -163,6 +162,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#memory-coherency">Memory coherency</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#prefetching">Prefetching</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#prefetchrptplugin">PrefetchRptPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#performance-measurements">performance measurements</a></li>
 </ul>
 </li>
 </ul>
@@ -178,7 +178,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../BranchPrediction/index.html">Branch Prediction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#btbplugin">BtbPlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#gshareplugin">GSharePlugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#decodepredictionplugin">DecodePredictionPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#decodeplugin">DecodePlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#branchplugin">BranchPlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#learnplugin">LearnPlugin</a></li>
 </ul>
@@ -292,13 +292,8 @@ It use the spinal.lib.misc.pipeline API but implement multiple “lanes” in it
 <li><p>Decode instruction</p></li>
 <li><p>Generate illegal instruction exception</p></li>
 <li><p>Generate “interrupt” instruction</p></li>
+<li><p>Ensure that no instruction predicted as a branch/jump by the BTB (but isn’t a branch/jump) doesn’t goes any further. (See more in the Branch prediction chapter)</p></li>
 </ul>
-</section>
-<section id="decodepredictionplugin">
-<h2>DecodePredictionPlugin<a class="headerlink" href="#decodepredictionplugin" title="Permalink to this heading"></a></h2>
-<p>The purpose of this plugin is to ensure that no branch/jump prediction was made for non branch/jump instructions.
-In case this is detected, the plugin will just flush the pipeline and set the fetch PC to redo everything, but this time with a “first prediction skip”</p>
-<p>See more in the Branch prediction chapter</p>
 </section>
 <section id="dispatchplugin">
 <h2>DispatchPlugin<a class="headerlink" href="#dispatchplugin" title="Permalink to this heading"></a></h2>
@@ -346,7 +341,7 @@ In case this is detected, the plugin will just flush the pipeline and set the fe
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~def4512 2024-10-31
+    Version: master git~e5939cb 2024-10-31
     </p></div>
     
 

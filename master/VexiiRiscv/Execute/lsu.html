@@ -109,7 +109,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#decodepipelineplugin">DecodePipelinePlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#alignerplugin">AlignerPlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#decoderplugin">DecoderPlugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#decodepredictionplugin">DecodePredictionPlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#dispatchplugin">DispatchPlugin</a></li>
 </ul>
 </li>
@@ -163,6 +162,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#memory-coherency">Memory coherency</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#prefetching">Prefetching</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#prefetchrptplugin">PrefetchRptPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#performance-measurements">performance measurements</a></li>
 </ul>
 </li>
 </ul>
@@ -178,7 +178,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../BranchPrediction/index.html">Branch Prediction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#btbplugin">BtbPlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#gshareplugin">GSharePlugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#decodepredictionplugin">DecodePredictionPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#decodeplugin">DecodePlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#branchplugin">BranchPlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#learnplugin">LearnPlugin</a></li>
 </ul>
@@ -341,7 +341,7 @@ own previous accesses in order to prefetch multiple strides ahead.</p>
 <ul class="simple">
 <li><p>Will learn memory accesses patterns from the LsuPlugin traces</p></li>
 <li><p>Patterns need to have a constant stride in order to be recognized</p></li>
-<li><p>By default, can keep of the access patterns up to 128 instructions (1 way * 128 sets, pc indexed)</p></li>
+<li><p>By default, it can keep track of up to 128 instructions access pattern (1 way * 128 sets, pc indexed)</p></li>
 </ul>
 <img alt="../../_images/lsu_prefetch.png" src="../../_images/lsu_prefetch.png" />
 <p>This can improve performance dramatically (for some use cases).
@@ -383,6 +383,52 @@ have enough hardware refill/writeback slots in the LsuL1Plugin.</p>
 <p>Also, prefetch which fail (ex : because of hazards in L1) aren’t replayed.</p>
 <p>The prefetcher can be turned off by setting the CSR 0x7FF bit 1.</p>
 </section>
+<section id="performance-measurements">
+<h3>performance measurements<a class="headerlink" href="#performance-measurements" title="Permalink to this heading"></a></h3>
+<p>Here are a few performance gain measurements done on litex with a :</p>
+<ul class="simple">
+<li><p>quad-core RV64GC running at 200 Mhz</p></li>
+<li><p>16 KB L1 cache for each core</p></li>
+<li><p>512 KB of l2 cache shared (128 bits data bus)</p></li>
+<li><p>4 refill slots + 4 writeback slots + 32 entry store queue + 4 slots store queue</p></li>
+</ul>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Prefetch performance</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 40%" />
+<col style="width: 30%" />
+<col style="width: 30%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Test</p></th>
+<th class="head"><p>No prefetch</p></th>
+<th class="head"><p>RPT prefetch</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>Litex bios read speed</p></td>
+<td><p>204.2MiB/s</p></td>
+<td><p>790.9MiB/s</p></td>
+</tr>
+<tr class="row-odd"><td><p>Litex bios write speed</p></td>
+<td><p>559.2MiB/s</p></td>
+<td><p>576.8MiB/s</p></td>
+</tr>
+<tr class="row-even"><td><p>iperf3 RX</p></td>
+<td><p>617 Mbits/sec</p></td>
+<td><p>766 Mbits/sec</p></td>
+</tr>
+<tr class="row-odd"><td><p>iperf3 TX</p></td>
+<td><p>623 Mbits/sec</p></td>
+<td><p>623 Mbits/sec</p></td>
+</tr>
+<tr class="row-even"><td><p>chocolate-doom -1 demo1.lmp</p></td>
+<td><p>43.1 fps</p></td>
+<td><p>50.2 fps</p></td>
+</tr>
+</tbody>
+</table>
+</section>
 </section>
 </section>
 
@@ -415,7 +461,7 @@ have enough hardware refill/writeback slots in the LsuL1Plugin.</p>
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~def4512 2024-10-31
+    Version: master git~e5939cb 2024-10-31
     </p></div>
     
 

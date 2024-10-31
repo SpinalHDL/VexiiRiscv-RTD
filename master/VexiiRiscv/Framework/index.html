@@ -109,7 +109,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#decodepipelineplugin">DecodePipelinePlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#alignerplugin">AlignerPlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#decoderplugin">DecoderPlugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#decodepredictionplugin">DecodePredictionPlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#dispatchplugin">DispatchPlugin</a></li>
 </ul>
 </li>
@@ -163,6 +162,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#memory-coherency">Memory coherency</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#prefetching">Prefetching</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#prefetchrptplugin">PrefetchRptPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#performance-measurements">performance measurements</a></li>
 </ul>
 </li>
 </ul>
@@ -178,7 +178,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../BranchPrediction/index.html">Branch Prediction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#btbplugin">BtbPlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#gshareplugin">GSharePlugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#decodepredictionplugin">DecodePredictionPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#decodeplugin">DecodePlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#branchplugin">BranchPlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#learnplugin">LearnPlugin</a></li>
 </ul>
@@ -258,7 +258,7 @@
 <h1>Framework<a class="headerlink" href="#framework" title="Permalink to this heading"></a></h1>
 <section id="tools-and-api">
 <h2>Tools and API<a class="headerlink" href="#tools-and-api" title="Permalink to this heading"></a></h2>
-<p>VexRiscv is based on a few tools / API</p>
+<p>Overall VexiiRiscv is based on a few tools and API which aim at describing hardware in more productive/flexible ways than with Verilog/VHDL.</p>
 <ul class="simple">
 <li><p>Scala : Which will take care of the elaboration</p></li>
 <li><p>SpinalHDL : Which provide a hardware description API</p></li>
@@ -667,7 +667,7 @@ meaning that each Plugin can very easily add and extract things on pipeline.</p>
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~def4512 2024-10-31
+    Version: master git~e5939cb 2024-10-31
     </p></div>
     
 

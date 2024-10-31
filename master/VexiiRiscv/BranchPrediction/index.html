@@ -109,7 +109,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#decodepipelineplugin">DecodePipelinePlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#alignerplugin">AlignerPlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#decoderplugin">DecoderPlugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#decodepredictionplugin">DecodePredictionPlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#dispatchplugin">DispatchPlugin</a></li>
 </ul>
 </li>
@@ -163,6 +162,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#memory-coherency">Memory coherency</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#prefetching">Prefetching</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#prefetchrptplugin">PrefetchRptPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#performance-measurements">performance measurements</a></li>
 </ul>
 </li>
 </ul>
@@ -178,7 +178,7 @@
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Branch Prediction</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#btbplugin">BtbPlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#gshareplugin">GSharePlugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#decodepredictionplugin">DecodePredictionPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#decodeplugin">DecodePlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#branchplugin">BranchPlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#learnplugin">LearnPlugin</a></li>
 </ul>
@@ -300,9 +300,9 @@ and hope that some of the branch/jump in the chunk are rarely taken.</p></li>
 </ul>
 <p>Note that one of the current issue with GShare, is that it take quite a few iterations to learn (depending the branch history)</p>
 </section>
-<section id="decodepredictionplugin">
-<h2>DecodePredictionPlugin<a class="headerlink" href="#decodepredictionplugin" title="Permalink to this heading"></a></h2>
-<p>The purpose of this plugin is to ensure that no branch/jump prediction was made for non branch/jump instructions.
+<section id="decodeplugin">
+<h2>DecodePlugin<a class="headerlink" href="#decodeplugin" title="Permalink to this heading"></a></h2>
+<p>The DecodePlugin, in addition of just decoding the incoming instructions, will also ensure that no branch/jump prediction was made for non branch/jump instructions.
 In case this is detected, the plugin will :</p>
 <ul class="simple">
 <li><p>schedule a “REDO trap” which will flush everything and make the CPU jump to the failed instruction</p></li>
@@ -349,7 +349,7 @@ In case this is detected, the plugin will :</p>
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~def4512 2024-10-31
+    Version: master git~e5939cb 2024-10-31
     </p></div>
     
 

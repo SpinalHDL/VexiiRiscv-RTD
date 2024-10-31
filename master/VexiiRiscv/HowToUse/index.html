@@ -83,9 +83,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Framework/index.html">Framework</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#tools-and-api">Tools and API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#scala-spinalhdl">Scala / SpinalHDL</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#plugin">Plugin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#plugin-fiber-retainer">Plugin / Fiber / Retainer</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#simple-all-in-one-example">Simple all-in-one example</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#negotiation-example">Negotiation example</a></li>
 </ul>
@@ -192,7 +192,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#repo-setup">Repo setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#generate-verilog">Generate verilog</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#run-a-simulation">Run a simulation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#synthesis-inferation">Synthesis / Inferation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#synthesis">Synthesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#other-resources">Other resources</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Performance/index.html">Performance / Area / FMax</a><ul>
@@ -257,6 +258,14 @@
 <h1>How to use<a class="headerlink" href="#how-to-use" title="Permalink to this heading"></a></h1>
 <section id="dependencies">
 <h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading"></a></h2>
+<p>You will need :</p>
+<ul class="simple">
+<li><p>A java JDK</p></li>
+<li><p>SBT (Scala build tool)</p></li>
+<li><p>Verilator (optional, for simulations)</p></li>
+<li><p>GCC for RISC-V (optional, if you want to compile some code)</p></li>
+<li><p>a few RVLS / Spike dependencies (optional, if you want to have lock-step simulations checking)</p></li>
+</ul>
 <p>On debian :</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># JAVA JDK</span>
 sudo<span class="w"> </span>add-apt-repository<span class="w"> </span>-y<span class="w"> </span>ppa:openjdk-r/ppa
@@ -388,20 +397,28 @@ Test/runMain<span class="w"> </span>vexiiriscv.tester.TestBench<span class="w"> 
 <p>Here is a screen shot of a cache-less VexiiRiscv booting linux :</p>
 <img alt="../../_images/konata.png" src="../../_images/konata.png" />
 </section>
-<section id="synthesis-inferation">
-<h2>Synthesis / Inferation<a class="headerlink" href="#synthesis-inferation" title="Permalink to this heading"></a></h2>
+<section id="synthesis">
+<h2>Synthesis<a class="headerlink" href="#synthesis" title="Permalink to this heading"></a></h2>
 <p>VexiiRiscv is designed in a way which should make it easy to deploy on all FPGA.
 including the ones without support for asynchronous memory read
 (LUT ram / distributed ram / MLAB).
 The one exception is the MMU, but if configured to only read the memory on cycle 0
 (no tag hit), then the synthesis tool should be capable of inferring that asynchronous
 read into a synchronous one (RAM block, work on Efinix FPGA)</p>
-<p>By default SpinalHDL will generate memories in a Verilog/VHDL inferable way.
+<p>By default SpinalHDL will generate memories in a Verilog/VHDL synthetisable way.
 Otherwise, for ASIC, you likely want to enable the automatic memory blackboxing,
 which will instead replace all memories defined in the design by a consistent blackbox
 module/component, the user having then to provide those blackbox implementation.</p>
 <p>Currently all memories used are “simple dual port ram”. While this is the best for FPGA usages,
 on ASIC maybe some of those could be redesigned to be single port rams instead (todo).</p>
+</section>
+<section id="other-resources">
+<h2>Other resources<a class="headerlink" href="#other-resources" title="Permalink to this heading"></a></h2>
+<p>There a few other ways to start using VexiiRiscv :</p>
+<ul class="simple">
+<li><p>Trough the MicroSoc reference design, a little microcontroller for FPGA (<a class="reference internal" href="../Soc/microsoc.html#microsoc"><span class="std std-ref">MicroSoc</span></a>)</p></li>
+<li><p>Through Litex, a tool to build SoC ((<a class="reference internal" href="../Soc/litex.html#litex"><span class="std std-ref">Litex</span></a>))</p></li>
+</ul>
 </section>
 </section>
 
@@ -434,7 +451,7 @@ on ASIC maybe some of those could be redesigned to be single port rams instead (
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~15ca8f6 2024-10-29
+    Version: master git~def4512 2024-10-31
     </p></div>
     
 

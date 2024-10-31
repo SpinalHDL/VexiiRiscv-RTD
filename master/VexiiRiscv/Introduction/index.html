@@ -83,9 +83,9 @@
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Framework/index.html">Framework</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#tools-and-api">Tools and API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#scala-spinalhdl">Scala / SpinalHDL</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#plugin">Plugin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#plugin-fiber-retainer">Plugin / Fiber / Retainer</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#simple-all-in-one-example">Simple all-in-one example</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#negotiation-example">Negotiation example</a></li>
 </ul>
@@ -192,7 +192,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#repo-setup">Repo setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#generate-verilog">Generate verilog</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#run-a-simulation">Run a simulation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#synthesis-inferation">Synthesis / Inferation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#synthesis">Synthesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#other-resources">Other resources</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Performance/index.html">Performance / Area / FMax</a><ul>
@@ -257,10 +258,10 @@
 <h1>Introduction<a class="headerlink" href="#introduction" title="Permalink to this heading"></a></h1>
 <p>In a few words, VexiiRiscv :</p>
 <ul class="simple">
-<li><p>Is an project which implement an hardware CPU</p></li>
+<li><p>Is an project which implement an hardware CPU as well as a few SoC</p></li>
 <li><p>Follows the RISC-V instruction set</p></li>
 <li><p>Is free / open-source</p></li>
-<li><p>Should fit well on FPGA but also be portable to ASIC</p></li>
+<li><p>Should fit well on all FPGA families but also be portable to ASIC</p></li>
 </ul>
 <section id="other-doc-media-talks">
 <h2>Other doc / media / talks<a class="headerlink" href="#other-doc-media-talks" title="Permalink to this heading"></a></h2>
@@ -295,16 +296,16 @@
 <li><p>MMU SV32/SV39 supported</p></li>
 <li><p>LSU store buffer supported</p></li>
 <li><p>Non-blocking I$ D$ supported</p></li>
-<li><p>Hardware/Software D$ prefetcher supported</p></li>
-<li><p>Hardware I$ prefetcher supported</p></li>
+<li><p>Hardware/Software D$ prefetch supported</p></li>
+<li><p>Hardware I$ prefetch supported</p></li>
 </ul>
 <p>Here is a diagram with 2 issue / early+late alu / 6 stages configuration (note that the pipeline structure can vary a lot):</p>
 <img alt="../../_images/architecture_all_1.png" src="../../_images/architecture_all_1.png" />
 </section>
 <section id="navigating-the-code">
 <h2>Navigating the code<a class="headerlink" href="#navigating-the-code" title="Permalink to this heading"></a></h2>
-<p>VexiiRiscv isn’t implmeneted in Verilog nor VHDL. Instead it is written in scala and use the SpinalHDL API to generate hardware.
-This allows to leverage an advanced elaboration time paradigme in order to generate hardware in a very flexible manner.</p>
+<p>VexiiRiscv isn’t implemented in Verilog nor VHDL. Instead it is written in scala and use the SpinalHDL API to generate hardware.
+This allows to leverage an advanced elaboration time paradigm in order to generate hardware in a very flexible manner.</p>
 <p>Here are a few key / typical code examples :</p>
 <ul class="simple">
 <li><p>Integer ALU plugin ; src/main/scala/vexiiriscv/execute/IntAluPlugin.scala</p></li>
@@ -333,7 +334,7 @@ This allows to leverage an advanced elaboration time paradigme in order to gener
 <p>Here is a list of important design assumptions and things to know about :</p>
 <ul class="simple">
 <li><p>trap/flush/pc request from the pipeline, once asserted one cycle can not be undone. This also mean that while a given instruction is stuck somewhere, if that instruction did raised on of those request, nothing should change the execution path. For instance, a sudden cache line refill completion should not lift the request from the LSU asking a redo (due to cache refill hazard).</p></li>
-<li><p>In the execute pipeline, stage.up(RS1/RS2) is the value to be used, while stage.down(RS1/RS2) should not be used, as it implement the bypassing for the next stage</p></li>
+<li><p>In the execute pipeline, stage.up(RS1/RS2) is the value to be used, (not stage.down(RS1/RS2) as it implement the bypassing for the next stage)</p></li>
 <li><p>Fetch.ctrl(0) isn’t persistent (meaning the PC requested can change at any time)</p></li>
 </ul>
 </section>
@@ -368,7 +369,7 @@ This allows to leverage an advanced elaboration time paradigme in order to gener
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~15ca8f6 2024-10-29
+    Version: master git~def4512 2024-10-31
     </p></div>
     
 

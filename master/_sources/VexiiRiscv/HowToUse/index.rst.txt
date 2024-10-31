@@ -5,6 +5,15 @@ How to use
 Dependencies
 ---------------
 
+You will need :
+
+- A java JDK
+- SBT (Scala build tool)
+- Verilator (optional, for simulations)
+- GCC for RISC-V (optional, if you want to compile some code)
+- a few RVLS / Spike dependencies (optional, if you want to have lock-step simulations checking)
+
+
 On debian :
 
 .. code-block:: bash
@@ -153,7 +162,7 @@ Here is a screen shot of a cache-less VexiiRiscv booting linux :
 
 
 
-Synthesis / Inferation
+Synthesis
 -----------------------
 
 VexiiRiscv is designed in a way which should make it easy to deploy on all FPGA.
@@ -163,7 +172,7 @@ The one exception is the MMU, but if configured to only read the memory on cycle
 (no tag hit), then the synthesis tool should be capable of inferring that asynchronous
 read into a synchronous one (RAM block, work on Efinix FPGA)
 
-By default SpinalHDL will generate memories in a Verilog/VHDL inferable way.
+By default SpinalHDL will generate memories in a Verilog/VHDL synthetisable way.
 Otherwise, for ASIC, you likely want to enable the automatic memory blackboxing,
 which will instead replace all memories defined in the design by a consistent blackbox
 module/component, the user having then to provide those blackbox implementation.
@@ -171,5 +180,12 @@ module/component, the user having then to provide those blackbox implementation.
 Currently all memories used are "simple dual port ram". While this is the best for FPGA usages,
 on ASIC maybe some of those could be redesigned to be single port rams instead (todo).
 
+Other resources
+------------------
+
+There a few other ways to start using VexiiRiscv :
+
+- Trough the MicroSoc reference design, a little microcontroller for FPGA (:ref:`microsoc`)
+- Through Litex, a tool to build SoC ((:ref:`litex`))
 
 

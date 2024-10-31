@@ -83,9 +83,9 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Framework</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tools-and-api">Tools and API</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#scala-spinalhdl">Scala / SpinalHDL</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#plugin">Plugin</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#plugin-fiber-retainer">Plugin / Fiber / Retainer</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#simple-all-in-one-example">Simple all-in-one example</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#negotiation-example">Negotiation example</a></li>
 </ul>
@@ -192,7 +192,8 @@
 <li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#repo-setup">Repo setup</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#generate-verilog">Generate verilog</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#run-a-simulation">Run a simulation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#synthesis-inferation">Synthesis / Inferation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#synthesis">Synthesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#other-resources">Other resources</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Performance/index.html">Performance / Area / FMax</a><ul>
@@ -255,8 +256,8 @@
 
   <section id="framework">
 <h1>Framework<a class="headerlink" href="#framework" title="Permalink to this heading"></a></h1>
-<section id="dependencies">
-<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading"></a></h2>
+<section id="tools-and-api">
+<h2>Tools and API<a class="headerlink" href="#tools-and-api" title="Permalink to this heading"></a></h2>
 <p>VexRiscv is based on a few tools / API</p>
 <ul class="simple">
 <li><p>Scala : Which will take care of the elaboration</p></li>
@@ -271,24 +272,72 @@
 </section>
 <section id="scala-spinalhdl">
 <h2>Scala / SpinalHDL<a class="headerlink" href="#scala-spinalhdl" title="Permalink to this heading"></a></h2>
-<p>VexiiRiscv is implemented in Scala and use SpinalHDL to generate hardware.</p>
-<p>Scala is a general purpose programming language (like C/C++/Java/Rust/…). Staticaly typed, with a garbage collector.
+<p>VexiiRiscv is implemented in Scala and the SpinalHDL API to generate hardware in a explicit manner.</p>
+<p>Scala is a general purpose programming language (like C/C++/Java/Rust/…). Statically typed, with a garbage collector.
 This combination allows to goes way beyond what regular HDL allows in terms of hardware elaboration time capabilities.</p>
-<p>You can find some documentation about SpinalHDL here :</p>
+<p>Here is a simple example of scala/SpinalHDL:</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="c1">// Lets define a Counter Component/Module, with a &quot;width&quot; parameter</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Counter</span><span class="p">(</span><span class="n">width</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Component</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Lets define all its inputs/outputs in a io Bundle (Kinda similar to a SystemVerilog interface)</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Bundle</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">clear</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="nc">Bool</span><span class="p">()</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="n">width</span><span class="w"> </span><span class="n">bits</span><span class="p">)</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">accumulator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Reg</span><span class="p">(</span><span class="nc">UInt</span><span class="p">(</span><span class="n">width</span><span class="w"> </span><span class="n">bits</span><span class="p">))</span><span class="w"> </span><span class="n">init</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="c1">// In SpinalHDL registers/flipflop are defined explicitly. Not inferred.</span>
+<span class="w">  </span><span class="n">accumulator</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">accumulator</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1">//Each cycle we increment the accumulator</span>
+<span class="w">  </span><span class="n">when</span><span class="p">(</span><span class="n">io</span><span class="p">.</span><span class="n">clear</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="n">accumulator</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="c1">//But be override its value if io.clear is set (last assignment win)</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">// We connect the accumulator to the io.value.</span>
+<span class="w">  </span><span class="n">io</span><span class="p">.</span><span class="n">value</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">accumulator</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>Here is another simple example, but which use an JtagTap tool built on the top of Scala/SpinalHDL :</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="c1">// Lets define a component which will provide access to a few input/outputs through JTAG</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SimpleJtagTap</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Component</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Bundle</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">jtag</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="n">slave</span><span class="p">(</span><span class="nc">Jtag</span><span class="p">())</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">switches</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="w">  </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="w"> </span><span class="n">bits</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">keys</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="w">  </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">4</span><span class="w"> </span><span class="n">bits</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">leds</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="w"> </span><span class="n">bits</span><span class="p">)</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">//The JtagTap tool allows to create the mapping between the JTAG bus and the hardware</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">tap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">JtagTap</span><span class="p">(</span><span class="n">io</span><span class="p">.</span><span class="n">jtag</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span>
+
+<span class="w">  </span><span class="c1">//JTAG taps need an idcode, lets add it !</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">idcodeArea</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">tap</span><span class="p">.</span><span class="n">idcode</span><span class="p">(</span><span class="nc">B</span><span class="s">&quot;x87654321&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="n">instructionId</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+
+<span class="w">  </span><span class="c1">// For instance here we specify that the jtag instruction id 5 will allow it to read the io.switches value</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">switchesArea</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tap</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">io</span><span class="p">.</span><span class="n">switches</span><span class="p">)</span><span class="w">     </span><span class="p">(</span><span class="n">instructionId</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+
+<span class="w">  </span><span class="c1">//Lets add a few other jtag instructions to access the keys and leds hardware</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">keysArea</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">tap</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">io</span><span class="p">.</span><span class="n">keys</span><span class="p">)</span><span class="w">         </span><span class="p">(</span><span class="n">instructionId</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">ledsArea</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">tap</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">io</span><span class="p">.</span><span class="n">leds</span><span class="p">)</span><span class="w">        </span><span class="p">(</span><span class="n">instructionId</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>The key thing about the example above is that the JtagTap tool itself is defined in regular Scala / SpinalHDL.
+In other words, you can easily layer abstraction and tool on the top of the ecosystem.
+Use feature like Scala classes, inheritance, function overloading, collections, …, during the hardware elaboration time.</p>
+<p>You can find more documentation about SpinalHDL here :</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://spinalhdl.github.io/SpinalDoc-RTD/master/index.html">https://spinalhdl.github.io/SpinalDoc-RTD/master/index.html</a></p></li>
 </ul>
 </section>
-<section id="plugin">
-<h2>Plugin<a class="headerlink" href="#plugin" title="Permalink to this heading"></a></h2>
-<p>One of the main aspect of VexiiRiscv is that all its hardware is defined inside plugins.
+<section id="plugin-fiber-retainer">
+<h2>Plugin / Fiber / Retainer<a class="headerlink" href="#plugin-fiber-retainer" title="Permalink to this heading"></a></h2>
+<p>One of the main aspect of VexiiRiscv is that all its hardware is defined inside plugins instead of a big toplevel.
 When you want to instantiate a VexiiRiscv CPU, you “only” need to provide a list of plugins as parameters.
 So, plugins can be seen as both parameters and hardware definition from a VexiiRiscv perspective.</p>
-<p>So it is quite different from the regular HDL component/module paradigm. Here are the advantagesof this approach :</p>
+<p>It is quite different from the regular HDL component/module paradigm. Here are the advantages of this approach :</p>
 <ul class="simple">
 <li><p>The CPU can be extended without modifying its core source code, just add a new plugin in the parameters</p></li>
 <li><p>You can swap a specific implementation for another just by swapping plugin in the parameter list. (ex branch prediction, mul/div, …)</p></li>
-<li><p>It is decentralized by nature, you don’t have a fat toplevel of doom, software interface between plugins can be used to negotiate things during elaboration time.</p></li>
+<li><p>It is decentralized by nature, you don’t have a endless toplevel of doom, software interface between plugins can be used to negotiate and connect things during elaboration time.</p></li>
 </ul>
 <p>The plugins can fork elaboration threads which cover 2 phases :</p>
 <ul class="simple">
@@ -344,25 +393,31 @@ So, plugins can be seen as both parameters and hardware definition from a VexiiR
 <span class="k">import</span><span class="w"> </span><span class="nn">scala</span><span class="p">.</span><span class="nn">collection</span><span class="p">.</span><span class="nn">mutable</span><span class="p">.</span><span class="nc">ArrayBuffer</span>
 
 <span class="k">class</span><span class="w"> </span><span class="nc">EventCounterPlugin</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">FiberPlugin</span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">lock</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Retainer</span><span class="p">()</span><span class="w"> </span><span class="c1">// Will allow other plugins to block the elaboration of &quot;logic&quot; thread</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">retainer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Retainer</span><span class="p">()</span><span class="w"> </span><span class="c1">// Will allow other plugins to block the elaboration of &quot;logic&quot; thread</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">events</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ArrayBuffer</span><span class="p">[</span><span class="nc">Bool</span><span class="p">]()</span><span class="w"> </span><span class="c1">// Will allow other plugins to add event sources</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">lock</span><span class="p">.</span><span class="n">await</span><span class="p">()</span><span class="w"> </span><span class="c1">// Active blocking</span>
+<span class="w">    </span><span class="c1">// Prevent executing this thread until the retainer is locked by other plugins</span>
+<span class="w">    </span><span class="n">retainer</span><span class="p">.</span><span class="n">await</span><span class="p">()</span>
+
+<span class="w">    </span><span class="c1">// Now that all the other plugins are done adding event sources, we can generate the actual hardware</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Reg</span><span class="p">(</span><span class="nc">UInt</span><span class="p">(</span><span class="mi">32</span><span class="w"> </span><span class="n">bits</span><span class="p">))</span><span class="w"> </span><span class="n">init</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="w">    </span><span class="n">counter</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nc">CountOne</span><span class="p">(</span><span class="n">events</span><span class="p">)</span>
+<span class="w">    </span><span class="n">counter</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nc">CountOne</span><span class="p">(</span><span class="n">events</span><span class="p">)</span><span class="w"> </span><span class="c1">// CountOne will take each bits of events, add sum all them all. ex : 0b1011 =&gt; 3</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 
 
-<span class="c1">// For the demo we want to be able to instantiate this plugin multiple times, so we add a prefix parameter</span>
+<span class="c1">// For the demo we want to be able to instantiate this plugin multiple times, so we add a prefix parameter to name the specific instance</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">EventSourcePlugin</span><span class="p">(</span><span class="n">prefix</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nc">String</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">FiberPlugin</span><span class="p">{</span>
 <span class="w">  </span><span class="n">withPrefix</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span>
 
-<span class="w">  </span><span class="c1">// Create a thread starting from the setup phase (this allow to run some code before the build phase, and so lock some other plugins retainers)</span>
+<span class="w">  </span><span class="c1">// Create a thread starting from the setup phase (this allow to run some code before the build phase,</span>
+<span class="w">  </span><span class="c1">// this allows to lock some other plugins retainers before their build phase</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">setup</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">ecp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">host</span><span class="p">[</span><span class="nc">EventCounterPlugin</span><span class="p">]</span><span class="w"> </span><span class="c1">// Search for the single instance of EventCounterPlugin in the plugin pool</span>
-<span class="w">    </span><span class="c1">// Generate a lock to prevent the EventCounterPlugin elaboration until we release it.</span>
-<span class="w">    </span><span class="c1">// this will allow us to add our localEvent to the ecp.events list</span>
+<span class="w">    </span><span class="c1">// Search for the single instance of EventCounterPlugin in the plugin pool</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">ecp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">host</span><span class="p">[</span><span class="nc">EventCounterPlugin</span><span class="p">]</span>
+
+<span class="w">    </span><span class="c1">// Generate a lock to prevent the EventCounterPlugin elaboration (until we release it).</span>
+<span class="w">    </span><span class="c1">// This will allow us to add our localEvent to the ecp.events list</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">ecpLocker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ecp</span><span class="p">.</span><span class="n">lock</span><span class="p">()</span>
 
 <span class="w">    </span><span class="c1">// Wait for the build phase before generating any hardware</span>
@@ -427,8 +482,9 @@ So, plugins can be seen as both parameters and hardware definition from a VexiiR
 </section>
 <section id="database">
 <h2>Database<a class="headerlink" href="#database" title="Permalink to this heading"></a></h2>
-<p>Quite a few things behave kinda like variable specific for each VexiiRiscv instance. For instance XLEN, PC_WIDTH, INSTRUCTION_WIDTH, …</p>
-<p>So they are end up with things that we would like to share between plugins of a given VexiiRiscv instance with the minimum code possible to keep things slim. For that, a “database” was added.
+<p>In VexiiRiscv, there is the possibility to define elaboration time variable which are unique to each VexiiRiscv instance while being easily accessible as if they were global variable.
+For instance XLEN, PC_WIDTH, INSTRUCTION_WIDTH, …</p>
+<p>Those variable are handled through the VexiiRiscv “database”.
 You can see it in the VexRiscv toplevel :</p>
 <div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">VexiiRiscv</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Component</span><span class="p">{</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">database</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Database</span>
@@ -439,26 +495,33 @@ You can see it in the VexRiscv toplevel :</p>
 <p>What it does is that all the plugin thread will run in the context of that database. Allowing the following patterns :</p>
 <div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="nn">spinal</span><span class="p">.</span><span class="nn">core</span><span class="p">.</span><span class="n">_</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">spinal</span><span class="p">.</span><span class="nn">lib</span><span class="p">.</span><span class="nn">misc</span><span class="p">.</span><span class="nn">plugin</span><span class="p">.</span><span class="n">_</span>
-<span class="k">import</span><span class="w"> </span><span class="nn">spinal</span><span class="p">.</span><span class="nn">lib</span><span class="p">.</span><span class="nn">misc</span><span class="p">.</span><span class="nn">database</span><span class="p">.</span><span class="nc">Database</span><span class="p">.</span><span class="n">blocking</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">spinal</span><span class="p">.</span><span class="nn">lib</span><span class="p">.</span><span class="nn">misc</span><span class="p">.</span><span class="nn">database</span><span class="p">.</span><span class="nc">Database</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">vexiiriscv</span><span class="p">.</span><span class="n">_</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">scala</span><span class="p">.</span><span class="nn">collection</span><span class="p">.</span><span class="nn">mutable</span><span class="p">.</span><span class="nc">ArrayBuffer</span>
 
+<span class="c1">// In Scala, an object define a singleton / static thing.</span>
 <span class="k">object</span><span class="w"> </span><span class="nc">Global</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">AreaObject</span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="nc">VIRTUAL_WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">blocking</span><span class="p">[</span><span class="nc">Int</span><span class="p">]</span><span class="w"> </span><span class="c1">// If accessed while before being set, it will actively block (until set by another thread)</span>
+<span class="w">  </span><span class="c1">// Lets define VIRTUAL_WIDTH as a variable in the data base.</span>
+<span class="w">  </span><span class="c1">// VIRTUAL_WIDTH will act as the &quot;key&quot; to access the variable value in the current context.</span>
+<span class="w"> </span><span class="c1">// If accessed before being set, it will block the current thread execution (until it is set by another thread)</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="nc">VIRTUAL_WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Database</span><span class="p">.</span><span class="n">blocking</span><span class="p">[</span><span class="nc">Int</span><span class="p">]</span>
 <span class="p">}</span>
 
+<span class="c1">// Lets define a plugin which will use the VIRTUAL_WIDTH value.</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">LoadStorePlugin</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">FiberPlugin</span><span class="p">{</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="p">{</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">register</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Reg</span><span class="p">(</span><span class="nc">UInt</span><span class="p">(</span><span class="nc">Global</span><span class="p">.</span><span class="nc">VIRTUAL_WIDTH</span><span class="w"> </span><span class="n">bits</span><span class="p">))</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Reg</span><span class="p">(</span><span class="nc">UInt</span><span class="p">(</span><span class="nc">Global</span><span class="p">.</span><span class="nc">VIRTUAL_WIDTH</span><span class="p">.</span><span class="n">get</span><span class="w"> </span><span class="n">bits</span><span class="p">))</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 
+<span class="c1">// Lets define a plugin which will set the VIRTUAL_WIDTH value</span>
 <span class="k">class</span><span class="w"> </span><span class="nc">MmuPlugin</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">FiberPlugin</span><span class="p">{</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="p">{</span>
 <span class="w">    </span><span class="nc">Global</span><span class="p">.</span><span class="nc">VIRTUAL_WIDTH</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="mi">39</span><span class="p">)</span>
 <span class="w">  </span><span class="p">}</span>
 <span class="p">}</span>
 
+<span class="c1">// Lets define the scala application which can generate the VexiiRiscv hardware using those two plugins.</span>
 <span class="k">object</span><span class="w"> </span><span class="nc">Gen</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">App</span><span class="p">{</span>
 <span class="w">  </span><span class="nc">SpinalVerilog</span><span class="p">{</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">plugins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ArrayBuffer</span><span class="p">[</span><span class="nc">FiberPlugin</span><span class="p">]()</span>
@@ -469,6 +532,17 @@ You can see it in the VexRiscv toplevel :</p>
 <span class="p">}</span>
 </pre></div>
 </div>
+<p>This will generate the following hardware :</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="n">module</span><span class="w"> </span><span class="nc">VexiiRiscv</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="n">input</span><span class="w">  </span><span class="n">wire</span><span class="w">          </span><span class="n">clk</span><span class="p">,</span>
+<span class="w">  </span><span class="n">input</span><span class="w">  </span><span class="n">wire</span><span class="w">          </span><span class="n">reset</span>
+<span class="p">);</span>
+
+<span class="w">  </span><span class="n">reg</span><span class="w">        </span><span class="p">[</span><span class="mi">38</span><span class="p">:</span><span class="mi">0</span><span class="p">]</span><span class="w">   </span><span class="nc">LoadStorePlugin_logic_address</span><span class="p">;</span>
+<span class="n">endmodule</span>
+</pre></div>
+</div>
+<p>Keep in mind that if our toplevel had to instantiate two VexiiRiscv, each of them would have it own dedicated VIRTUAL_WIDTH.get value, while using the same VIRTUAL_WIDTH key to access it.</p>
 </section>
 <section id="pipeline-api">
 <h2>Pipeline API<a class="headerlink" href="#pipeline-api" title="Permalink to this heading"></a></h2>
@@ -476,8 +550,87 @@ You can see it in the VexRiscv toplevel :</p>
 <ul class="simple">
 <li><p>Propagate data into the pipeline automatically</p></li>
 <li><p>Allow design space exploration with less paine (retiming, moving around the architecture)</p></li>
+<li><p>Handle the valid/ready arbitration</p></li>
 <li><p>Reduce boiler plate code</p></li>
 </ul>
+<p>This is one of the main pillar on which VexiiRiscv is based, as it allows to define pipelines in a very distributed manner,
+meaning that each Plugin can very easily add and extract things on pipeline.</p>
+<p>For instance, the plugin A can insert a given value into the pipeline at stage 1, and another plugin can ask that given value at stage 4, and that’s it, it just work.</p>
+<p>Here is an example which expose a simple usage of the pipelining API (not related to VexiiRiscv):</p>
+<ul class="simple">
+<li><p>Take the input at stage 0</p></li>
+<li><p>Sum the input at stage 1</p></li>
+<li><p>Square the sum at stage 2</p></li>
+<li><p>Provide the result at stage 3</p></li>
+</ul>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="nn">spinal</span><span class="p">.</span><span class="nn">core</span><span class="p">.</span><span class="n">_</span>
+<span class="k">import</span><span class="w"> </span><span class="nn">spinal</span><span class="p">.</span><span class="nn">lib</span><span class="p">.</span><span class="nn">misc</span><span class="p">.</span><span class="nn">pipeline</span><span class="p">.</span><span class="n">_</span>
+
+<span class="k">class</span><span class="w"> </span><span class="nc">PipelineExample</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Component</span><span class="p">{</span>
+<span class="w">  </span><span class="c1">// Lets define a few inputs/outputs</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="w"> </span><span class="n">bits</span><span class="p">)</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">out</span><span class="p">(</span><span class="nc">UInt</span><span class="p">(</span><span class="mi">16</span><span class="w"> </span><span class="n">bits</span><span class="p">))</span>
+
+<span class="w">  </span><span class="c1">// Lets create the pipelining tool.</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">pip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">StagePipeline</span>
+
+<span class="w">  </span><span class="c1">// Lets insert a and b into the pipeline at stage 0</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="nc">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pip</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="n">insert</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="nc">B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pip</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="n">insert</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+
+<span class="w">  </span><span class="c1">// Lets insert the sum of A and B into the stage 1 of our pipeline</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="nc">SUM</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pip</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="n">insert</span><span class="p">(</span><span class="n">pip</span><span class="p">(</span><span class="mi">1</span><span class="p">)(</span><span class="nc">A</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">pip</span><span class="p">(</span><span class="mi">1</span><span class="p">)(</span><span class="nc">B</span><span class="p">))</span>
+
+<span class="w">  </span><span class="c1">// Clearly, i don&#39;t want to say pip(x)(y) on every pipelined thing.</span>
+<span class="w">  </span><span class="c1">// So instead we can create a pip.Area(x) which will provide a scope which work in stage &quot;x&quot;</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">onSquare</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">pip</span><span class="p">.</span><span class="nc">Area</span><span class="p">(</span><span class="mi">2</span><span class="p">){</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nc">VALUE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">insert</span><span class="p">(</span><span class="nc">SUM</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nc">SUM</span><span class="p">)</span>
+<span class="w">  </span><span class="p">}</span>
+
+<span class="w">  </span><span class="c1">// Lets assign our output result from stage 3</span>
+<span class="w">  </span><span class="n">result</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">pip</span><span class="p">(</span><span class="mi">3</span><span class="p">)(</span><span class="n">onSquare</span><span class="p">.</span><span class="nc">VALUE</span><span class="p">)</span>
+
+<span class="w">  </span><span class="c1">// Now that everything is specified, we can build the pipeline</span>
+<span class="w">  </span><span class="n">pip</span><span class="p">.</span><span class="n">build</span><span class="p">()</span>
+<span class="p">}</span>
+
+<span class="k">object</span><span class="w"> </span><span class="nc">PipelineExampleGen</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">App</span><span class="p">{</span>
+<span class="w">  </span><span class="nc">SpinalVerilog</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="nc">PipelineExample</span><span class="p">)</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>This will generate the following verilog :</p>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span><span class="w"> </span><span class="n">PipelineExample</span><span class="w"> </span><span class="p">(</span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">a</span><span class="p">,</span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">b</span><span class="p">,</span>
+<span class="w">  </span><span class="k">output</span><span class="w"> </span><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">   </span><span class="n">result</span><span class="p">,</span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w">          </span><span class="n">clk</span><span class="p">,</span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w">          </span><span class="n">reset</span>
+<span class="p">);</span>
+
+<span class="w">  </span><span class="kt">reg</span><span class="w">        </span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">   </span><span class="n">pip_node_3_onSquare_VALUE</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">wire</span><span class="w">       </span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">   </span><span class="n">pip_node_2_onSquare_VALUE</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">reg</span><span class="w">        </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">pip_node_2_SUM</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">wire</span><span class="w">       </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">pip_node_1_SUM</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">reg</span><span class="w">        </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">pip_node_1_B</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">reg</span><span class="w">        </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">pip_node_1_A</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">wire</span><span class="w">       </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">pip_node_0_B</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">wire</span><span class="w">       </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">pip_node_0_A</span><span class="p">;</span>
+
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">pip_node_0_A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">pip_node_0_B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">pip_node_1_SUM</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">pip_node_1_A</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">pip_node_1_B</span><span class="p">);</span>
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">pip_node_2_onSquare_VALUE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">pip_node_2_SUM</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pip_node_2_SUM</span><span class="p">);</span>
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pip_node_3_onSquare_VALUE</span><span class="p">;</span>
+<span class="w">  </span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
+<span class="w">    </span><span class="n">pip_node_1_A</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">pip_node_0_A</span><span class="p">;</span>
+<span class="w">    </span><span class="n">pip_node_1_B</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">pip_node_0_B</span><span class="p">;</span>
+<span class="w">    </span><span class="n">pip_node_2_SUM</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">pip_node_1_SUM</span><span class="p">;</span>
+<span class="w">    </span><span class="n">pip_node_3_onSquare_VALUE</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">pip_node_2_onSquare_VALUE</span><span class="p">;</span>
+<span class="w">  </span><span class="k">end</span>
+<span class="k">endmodule</span>
+</pre></div>
+</div>
 <p>More documentation about it in :</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://spinalhdl.github.io/SpinalDoc-RTD/master/SpinalHDL/Libraries/Pipeline/index.html">https://spinalhdl.github.io/SpinalDoc-RTD/master/SpinalHDL/Libraries/Pipeline/index.html</a></p></li>
@@ -514,7 +667,7 @@ You can see it in the VexRiscv toplevel :</p>
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~15ca8f6 2024-10-29
+    Version: master git~def4512 2024-10-31
     </p></div>
     
 

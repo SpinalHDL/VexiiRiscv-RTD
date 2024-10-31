@@ -51,10 +51,10 @@ Will :
 
 Note that one of the current issue with GShare, is that it take quite a few iterations to learn (depending the branch history)
 
-DecodePredictionPlugin
+DecodePlugin
 ----------------------
 
-The purpose of this plugin is to ensure that no branch/jump prediction was made for non branch/jump instructions.
+The DecodePlugin, in addition of just decoding the incoming instructions, will also ensure that no branch/jump prediction was made for non branch/jump instructions.
 In case this is detected, the plugin will : 
 
 - schedule a "REDO trap" which will flush everything and make the CPU jump to the failed instruction

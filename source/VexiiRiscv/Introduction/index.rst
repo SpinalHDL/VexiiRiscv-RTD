@@ -3,10 +3,10 @@ Introduction
 
 In a few words, VexiiRiscv :
 
-- Is an project which implement an hardware CPU
+- Is an project which implement an hardware CPU as well as a few SoC
 - Follows the RISC-V instruction set
 - Is free / open-source
-- Should fit well on FPGA but also be portable to ASIC
+- Should fit well on all FPGA families but also be portable to ASIC
 
 Other doc / media / talks
 -------------------------
@@ -43,8 +43,8 @@ On this date (09/08/2024) the status is :
 - MMU SV32/SV39 supported
 - LSU store buffer supported
 - Non-blocking I$ D$ supported
-- Hardware/Software D$ prefetcher supported
-- Hardware I$ prefetcher supported
+- Hardware/Software D$ prefetch supported
+- Hardware I$ prefetch supported
 
 Here is a diagram with 2 issue / early+late alu / 6 stages configuration (note that the pipeline structure can vary a lot):
 
@@ -53,8 +53,8 @@ Here is a diagram with 2 issue / early+late alu / 6 stages configuration (note t
 Navigating the code
 -------------------
 
-VexiiRiscv isn't implmeneted in Verilog nor VHDL. Instead it is written in scala and use the SpinalHDL API to generate hardware.
-This allows to leverage an advanced elaboration time paradigme in order to generate hardware in a very flexible manner.
+VexiiRiscv isn't implemented in Verilog nor VHDL. Instead it is written in scala and use the SpinalHDL API to generate hardware.
+This allows to leverage an advanced elaboration time paradigm in order to generate hardware in a very flexible manner.
 
 Here are a few key / typical code examples :
 
@@ -87,6 +87,6 @@ Check list
 Here is a list of important design assumptions and things to know about :
 
 - trap/flush/pc request from the pipeline, once asserted one cycle can not be undone. This also mean that while a given instruction is stuck somewhere, if that instruction did raised on of those request, nothing should change the execution path. For instance, a sudden cache line refill completion should not lift the request from the LSU asking a redo (due to cache refill hazard).
-- In the execute pipeline, stage.up(RS1/RS2) is the value to be used, while stage.down(RS1/RS2) should not be used, as it implement the bypassing for the next stage
+- In the execute pipeline, stage.up(RS1/RS2) is the value to be used, (not stage.down(RS1/RS2) as it implement the bypassing for the next stage)
 - Fetch.ctrl(0) isn't persistent (meaning the PC requested can change at any time)
 

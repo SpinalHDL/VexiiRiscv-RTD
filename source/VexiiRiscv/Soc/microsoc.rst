@@ -1,3 +1,5 @@
+.. _microsoc:
+
 MicroSoc
 --------
 
@@ -52,6 +54,23 @@ If you have Verilator installed, you can run a simulation by doing :
     # List all the parameters available
     sbt "runMain vexiiriscv.soc.micro.MicroSocSim --help"
 
+Here is a set of important command line arguments :
+
+.. list-table:: Arguments
+   :widths: 30 70
+   :header-rows: 1
+
+   * - Command
+     - Description
+   * - --load-elf ELF_FILE
+     - Will load elf file into the ram/rom/flash of the SoC
+   * - --trace-fst
+     - A FST wave of all the DUT signals will be stored in simWorkspace/MicroSocSim/test (you can open it using GTKwave)
+   * - --trace-konata
+     - A konata trace of all the executed instruction will be stored in simWorkspace/MicroSocSim/test (you can open it using https://github.com/shioyadan/Konata)
+
+Note that the default VexiiRiscv configuration is RV32I, with a relatively low area/performance. You can for instance get more performance by adding ``--allow-bypass-from=0 --with-rvm --with-btb --with-ras --with-gshare`
+
 While the simulation is running you can connect to it using openocd as if it was real hardware :
 
 .. code:: shell
@@ -79,13 +98,13 @@ You can see in the diagram above :
   It handle the Tilelink parameters negotiation / propagation, aswell as exporting the leds and buttons directly to the MicroSoc io.
 - Node : This is an instance of the tilelink bus in our SoC. It is used for parameter negotiation/propagation as well as to get the hardware bus instance.
 
-You can then add that peripheral in the toplevel by :
+You can then add that peripheral in the toplevel around the other peripherals by :
 
 .. code:: scala
 
       val demo = new PeripheralDemoFiber(new PeripheralDemoParam(12,16))
-      demo.node at 0x10002000 of bus32
-      plic.mapUpInterrupt(2, demo.interrupt)
+      demo.node at 0x10003000 of bus32
+      plic.mapUpInterrupt(3, demo.interrupt)
 
 This peripheral is already integrated into MicroSoC as a demo but disabled by default. To enable it, will need to provide a specific command line parameter. For instance :
 

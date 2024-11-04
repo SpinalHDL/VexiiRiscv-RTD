@@ -69,7 +69,7 @@ Here is a set of important command line arguments :
    * - --trace-konata
      - A konata trace of all the executed instruction will be stored in simWorkspace/MicroSocSim/test (you can open it using https://github.com/shioyadan/Konata)
 
-Note that the default VexiiRiscv configuration is RV32I, with a relatively low area/performance. You can for instance get more performance by adding ``--allow-bypass-from=0 --with-rvm --with-btb --with-ras --with-gshare`
+Note that the default VexiiRiscv configuration is RV32I, with a relatively low area/performance. You can for instance get more performance by adding `--allow-bypass-from=0 --with-rvm --with-btb --with-ras --with-gshare`
 
 While the simulation is running you can connect to it using openocd as if it was real hardware :
 

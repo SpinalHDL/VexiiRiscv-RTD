@@ -48,19 +48,55 @@ Will :
 DispatchPlugin
 --------------
 
-Will :
+This is probably the hardest part of the VexiiRiscv hardware description to read, as it does a lot of elaboration time computing
+in order to figure out what hardware need to be generated.
+
+The function of the plugin is to :
 
 - Collect instruction from the end of the decode pipeline
-- Try to dispatch them ASAP on the multiple "layers" available
+- Dispatch them on the multiple "execution layers" (Execution lanes's ALUs) available when all dependencies are done.
+
+
+Architecture
+^^^^^^^^^^^^^
+
+Here is a diagram of the DispatchPlugin hardware for a dual issue VexiiRiscv :
+
+.. image:: /asset/picture/dispatcher.png
 
 Here is a few explanation about execute lanes and layers :
 
 - A execute lane represent a path toward which an instruction can be executed.
 - A execute lane can have one or many layers, which can be used to implement things as early ALU / late ALU
-- Each layer will have static a scheduling priority
+- Each layer will have a static scheduling priority
 
 The DispatchPlugin doesn't require lanes or layers to be symmetric in any way.
 
+Here is an picture example of VexiiRiscv with 2 execution lanes and 2 layer per execution lane. the 2 execution lanes are separated left and right in stages E1-E2-E3.
 
+- Left E1 ALU is one layer, with highest priority, as it provide the best timings and keep the LSU/MUL/DIV path free
+- Right E1 ALU/DIV/MUL/LSU is one layer, with high priority, as it provide the best timings but it does allocate the MUL/LSU path as well (even if the instruction doesn't need it)
+- Left E3 ALU is one layer, with low priority, as it provide a late ALU result (bad for dependencies).
+- Right E3 ALU is one layer, with lowest priority, as it provide a late ALU result and also allocate the MUL/LSU path as well.
+
+.. image:: /asset/picture/architecture_all_1.png
+
+Here are a list of things that the schedulers need to take in account to know on which layer an instruction could be scheduled :
+
+- Check if, in the future (after the instruction side-effects timing), the instruction could be flushed by an already scheduled instruction
+- Check at which stage of the execute pipeline the instruction need its RS (operands) to be readable (this is the main feature allowing late-alu)
+- Check if the timing at which the instruction would use shared resources would conflict with something already scheduled
+- Check if a instruction fence is pending
+- And a few other minor things
+
+The inserter will then select which candidates instruction can be executed in which execution lane / layer depending the instruction order and layer priorities.
+
+Elaboration
+^^^^^^^^^^^^
+
+This is what make the DispatcherPlugin quite special. During elaboration time, it look at the specification of every execution lane's layers,
+to figure out which instruction it supports and what are its dependencies / limitations, and then try to generate a scheduler for it.
+
+.. image:: /asset/picture/layer_model.png
 
 

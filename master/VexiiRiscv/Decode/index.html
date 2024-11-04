@@ -109,7 +109,11 @@
 <li class="toctree-l2"><a class="reference internal" href="#decodepipelineplugin">DecodePipelinePlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#alignerplugin">AlignerPlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#decoderplugin">DecoderPlugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#dispatchplugin">DispatchPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#dispatchplugin">DispatchPlugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#architecture">Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#elaboration">Elaboration</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Execute/index.html">Execute</a><ul>
@@ -297,18 +301,48 @@ It use the spinal.lib.misc.pipeline API but implement multiple “lanes” in it
 </section>
 <section id="dispatchplugin">
 <h2>DispatchPlugin<a class="headerlink" href="#dispatchplugin" title="Permalink to this heading"></a></h2>
-<p>Will :</p>
+<p>This is probably the hardest part of the VexiiRiscv hardware description to read, as it does a lot of elaboration time computing
+in order to figure out what hardware need to be generated.</p>
+<p>The function of the plugin is to :</p>
 <ul class="simple">
 <li><p>Collect instruction from the end of the decode pipeline</p></li>
-<li><p>Try to dispatch them ASAP on the multiple “layers” available</p></li>
+<li><p>Dispatch them on the multiple “execution layers” (Execution lanes’s ALUs) available when all dependencies are done.</p></li>
 </ul>
+<section id="architecture">
+<h3>Architecture<a class="headerlink" href="#architecture" title="Permalink to this heading"></a></h3>
+<p>Here is a diagram of the DispatchPlugin hardware for a dual issue VexiiRiscv :</p>
+<img alt="../../_images/dispatcher.png" src="../../_images/dispatcher.png" />
 <p>Here is a few explanation about execute lanes and layers :</p>
 <ul class="simple">
 <li><p>A execute lane represent a path toward which an instruction can be executed.</p></li>
 <li><p>A execute lane can have one or many layers, which can be used to implement things as early ALU / late ALU</p></li>
-<li><p>Each layer will have static a scheduling priority</p></li>
+<li><p>Each layer will have a static scheduling priority</p></li>
 </ul>
 <p>The DispatchPlugin doesn’t require lanes or layers to be symmetric in any way.</p>
+<p>Here is an picture example of VexiiRiscv with 2 execution lanes and 2 layer per execution lane. the 2 execution lanes are separated left and right in stages E1-E2-E3.</p>
+<ul class="simple">
+<li><p>Left E1 ALU is one layer, with highest priority, as it provide the best timings and keep the LSU/MUL/DIV path free</p></li>
+<li><p>Right E1 ALU/DIV/MUL/LSU is one layer, with high priority, as it provide the best timings but it does allocate the MUL/LSU path as well (even if the instruction doesn’t need it)</p></li>
+<li><p>Left E3 ALU is one layer, with low priority, as it provide a late ALU result (bad for dependencies).</p></li>
+<li><p>Right E3 ALU is one layer, with lowest priority, as it provide a late ALU result and also allocate the MUL/LSU path as well.</p></li>
+</ul>
+<img alt="../../_images/architecture_all_1.png" src="../../_images/architecture_all_1.png" />
+<p>Here are a list of things that the schedulers need to take in account to know on which layer an instruction could be scheduled :</p>
+<ul class="simple">
+<li><p>Check if, in the future (after the instruction side-effects timing), the instruction could be flushed by an already scheduled instruction</p></li>
+<li><p>Check at which stage of the execute pipeline the instruction need its RS (operands) to be readable (this is the main feature allowing late-alu)</p></li>
+<li><p>Check if the timing at which the instruction would use shared resources would conflict with something already scheduled</p></li>
+<li><p>Check if a instruction fence is pending</p></li>
+<li><p>And a few other minor things</p></li>
+</ul>
+<p>The inserter will then select which candidates instruction can be executed in which execution lane / layer depending the instruction order and layer priorities.</p>
+</section>
+<section id="elaboration">
+<h3>Elaboration<a class="headerlink" href="#elaboration" title="Permalink to this heading"></a></h3>
+<p>This is what make the DispatcherPlugin quite special. During elaboration time, it look at the specification of every execution lane’s layers,
+to figure out which instruction it supports and what are its dependencies / limitations, and then try to generate a scheduler for it.</p>
+<img alt="../../_images/layer_model.png" src="../../_images/layer_model.png" />
+</section>
 </section>
 </section>
 
@@ -341,7 +375,7 @@ It use the spinal.lib.misc.pipeline API but implement multiple “lanes” in it
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~4516740 2024-11-04
+    Version: master git~33efefb 2024-11-04
     </p></div>
     
 

@@ -109,7 +109,11 @@
 <li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#decodepipelineplugin">DecodePipelinePlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#alignerplugin">AlignerPlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#decoderplugin">DecoderPlugin</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#dispatchplugin">DispatchPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#dispatchplugin">DispatchPlugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Decode/index.html#architecture">Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Decode/index.html#elaboration">Elaboration</a></li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Execute/index.html">Execute</a><ul>
@@ -297,8 +301,8 @@ sbt<span class="w"> </span><span class="s2">&quot;runMain vexiiriscv.soc.micro.M
 </pre></div>
 </div>
 <p>Here is a set of important command line arguments :</p>
-<table class="docutils align-default" id="id4">
-<caption><span class="caption-text">Arguments</span><a class="headerlink" href="#id4" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text">Arguments</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 30%" />
 <col style="width: 70%" />
@@ -320,7 +324,7 @@ sbt<span class="w"> </span><span class="s2">&quot;runMain vexiiriscv.soc.micro.M
 </tr>
 </tbody>
 </table>
-<p>Note that the default VexiiRiscv configuration is RV32I, with a relatively low area/performance. You can for instance get more performance by adding <a href="#id2"><span class="problematic" id="id3">``</span></a>–allow-bypass-from=0 –with-rvm –with-btb –with-ras –with-gshare`</p>
+<p>Note that the default VexiiRiscv configuration is RV32I, with a relatively low area/performance. You can for instance get more performance by adding <cite>–allow-bypass-from=0 –with-rvm –with-btb –with-ras –with-gshare</cite></p>
 <p>While the simulation is running you can connect to it using openocd as if it was real hardware :</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>openocd<span class="w"> </span>-f<span class="w"> </span>src/main/tcl/openocd/vexiiriscv_sim.tcl
 </pre></div>
@@ -382,7 +386,7 @@ It handle the Tilelink parameters negotiation / propagation, aswell as exporting
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~4516740 2024-11-04
+    Version: master git~33efefb 2024-11-04
     </p></div>
     
 

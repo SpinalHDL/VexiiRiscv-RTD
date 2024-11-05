@@ -1,3 +1,5 @@
+.. _lsu:
+
 Load Store Unit (LSU)
 =====================
 

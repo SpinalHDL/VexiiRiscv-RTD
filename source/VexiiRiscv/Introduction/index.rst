@@ -65,6 +65,23 @@ Here are a few key / typical code examples :
 
 Also due to the nested structure of the code base, a text editor / IDE which support curly brace folding can be very usefull.
 
+About RISC-V
+------------------
+
+To help onboarding, here is a few thing about RISC-V :
+
+- RISC-V isn't a CPU / CPU architecture
+- RISC-V is a Instruction Set Architecture (ISA), which mean that from a CPU perspective, it mostly specify the instructions that need to be implemented, and their behaviour.
+
+RISC-V has 4 main specification :
+
+- `Unprivileged Specification` : Mainly specify the integer, floating point and load / store instructions
+- `Privileged Specification` : Mainly specify all the special CPU registers which can be used to handle
+  interruptions, exceptions, traps, virtual memory, memory protections, machine/supervisor/user privilege modes
+- `RISC-V calling convention` : Mainly specify how the registers can be used by functions to pass parameters, aswell as providing an alternative name for each of the registers (ex : x2 become the stack pointer, named sp)
+- `RISC-V External Debug Support` : Mainly specify how the CPU can support JTAG debug, hardware breakpoints and triggers
+
+To figure out more about those specification, check https://riscv.org/technical/specifications/
 
 About VexRiscv (not VexiiRiscv)
 -------------------------------

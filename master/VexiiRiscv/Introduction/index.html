@@ -78,6 +78,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#other-doc-media-talks">Other doc / media / talks</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#technicalities">Technicalities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#navigating-the-code">Navigating the code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#about-risc-v">About RISC-V</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#about-vexriscv-not-vexiiriscv">About VexRiscv (not VexiiRiscv)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#check-list">Check list</a></li>
 </ul>
@@ -322,6 +323,23 @@ This allows to leverage an advanced elaboration time paradigm in order to genera
 </ul>
 <p>Also due to the nested structure of the code base, a text editor / IDE which support curly brace folding can be very usefull.</p>
 </section>
+<section id="about-risc-v">
+<h2>About RISC-V<a class="headerlink" href="#about-risc-v" title="Permalink to this heading"></a></h2>
+<p>To help onboarding, here is a few thing about RISC-V :</p>
+<ul class="simple">
+<li><p>RISC-V isn’t a CPU / CPU architecture</p></li>
+<li><p>RISC-V is a Instruction Set Architecture (ISA), which mean that from a CPU perspective, it mostly specify the instructions that need to be implemented, and their behaviour.</p></li>
+</ul>
+<p>RISC-V has 4 main specification :</p>
+<ul class="simple">
+<li><p><cite>Unprivileged Specification</cite> : Mainly specify the integer, floating point and load / store instructions</p></li>
+<li><p><cite>Privileged Specification</cite> : Mainly specify all the special CPU registers which can be used to handle
+interruptions, exceptions, traps, virtual memory, memory protections, machine/supervisor/user privilege modes</p></li>
+<li><p><cite>RISC-V calling convention</cite> : Mainly specify how the registers can be used by functions to pass parameters, aswell as providing an alternative name for each of the registers (ex : x2 become the stack pointer, named sp)</p></li>
+<li><p><cite>RISC-V External Debug Support</cite> : Mainly specify how the CPU can support JTAG debug, hardware breakpoints and triggers</p></li>
+</ul>
+<p>To figure out more about those specification, check <a class="reference external" href="https://riscv.org/technical/specifications/">https://riscv.org/technical/specifications/</a></p>
+</section>
 <section id="about-vexriscv-not-vexiiriscv">
 <h2>About VexRiscv (not VexiiRiscv)<a class="headerlink" href="#about-vexriscv-not-vexiiriscv" title="Permalink to this heading"></a></h2>
 <p>There is few reasons why VexiiRiscv exists instead of doing incremental upgrade on VexRiscv</p>
@@ -376,7 +394,7 @@ This allows to leverage an advanced elaboration time paradigm in order to genera
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~51c2bce 2024-11-05
+    Version: master git~a8b33a8 2024-11-05
     </p></div>
     
 

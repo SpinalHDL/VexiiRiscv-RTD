@@ -92,12 +92,12 @@ BtbPlugin
 ---------
 
 This plugin implement most of the branch prediction logic. 
-See more in the Branch prediction chapter
+See more in the :ref:`branch_prediction` chapter
 
 GSharePlugin
 ------------
 
-See more in the Branch prediction chapter
+See more in the :ref:`branch_prediction` chapter
 
 HistoryPlugin
 -------------

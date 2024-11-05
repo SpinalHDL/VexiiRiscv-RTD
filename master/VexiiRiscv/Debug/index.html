@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Debug &mdash; VexiiRiscv  documentation</title>
+  <title>Debug support &mdash; VexiiRiscv  documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
@@ -31,8 +31,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="JTAG" href="jtag.html" />
-    <link rel="prev" title="Branch Prediction" href="../BranchPrediction/index.html" />
+    <link rel="next" title="How to use" href="../HowToUse/index.html" />
+    <link rel="prev" title="Branch" href="../BranchPrediction/index.html" />
      
     <!-- source/_templates/layout.html -->
     
@@ -119,7 +119,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../Execute/index.html">Execute</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../Execute/introduction.html">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Execute/plugins.html">Plugins</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../Execute/plugins.html#infrastructures">infrastructures</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/plugins.html#infrastructures">Infrastructures</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#executepipelineplugin">ExecutePipelinePlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#executelaneplugin">ExecuteLanePlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#regfileplugin">RegFilePlugin</a></li>
@@ -137,12 +137,14 @@
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#mulplugin">MulPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#divplugin">DivPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#lsucachelessplugin">LsuCachelessPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#lsuplugin">LsuPlugin</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="../Execute/plugins.html#special">Special</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#csraccessplugin">CsrAccessPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#csrramplugin">CsrRamPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#privilegedplugin">PrivilegedPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#trapplugin">TrapPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#envplugin">EnvPlugin</a></li>
 </ul>
@@ -179,7 +181,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../BranchPrediction/index.html">Branch Prediction</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../BranchPrediction/index.html">Branch</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#btbplugin">BtbPlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#gshareplugin">GSharePlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#decodeplugin">DecodePlugin</a></li>
@@ -187,8 +189,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#learnplugin">LearnPlugin</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Debug</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="jtag.html">JTAG</a></li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Debug support</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#architecture">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#embeddedriscvjtag">EmbeddedRiscvJtag</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../HowToUse/index.html">How to use</a><ul>
@@ -230,7 +233,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Debug</li>
+      <li class="breadcrumb-item active">Debug support</li>
       <li class="wy-breadcrumbs-aside">
               <a href="https://github.com/SpinalHDL/VexiiRiscv-RTD/blob/master/source/VexiiRiscv/Debug/index.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
@@ -258,13 +261,48 @@
 
 
 
-  <section id="debug">
-<h1>Debug<a class="headerlink" href="#debug" title="Permalink to this heading"></a></h1>
-<div class="toctree-wrapper compound">
-<ul>
-<li class="toctree-l1"><a class="reference internal" href="jtag.html">JTAG</a></li>
+  <section id="debug-support">
+<h1>Debug support<a class="headerlink" href="#debug-support" title="Permalink to this heading"></a></h1>
+<section id="architecture">
+<h2>Architecture<a class="headerlink" href="#architecture" title="Permalink to this heading"></a></h2>
+<p>VexiiRiscv support hardware debugging by implementing the official RISC-V debug spec.</p>
+<ul class="simple">
+<li><p>Compatible with OpenOCD (and maybe some other closed vendor, but untested)</p></li>
+<li><p>Can be used through a regular JTAG interface</p></li>
+<li><p>Can be used via tunneling through a single JTAG TAP instruction (FPGA native jtag interface)</p></li>
+<li><p>Support for some hardware trigger (PC, Load/Store address)</p></li>
 </ul>
+<p>Here is a diagram of a typical debug setup :</p>
+<img alt="../../_images/debug.png" src="../../_images/debug.png" />
+<p>The current implementation tends to provide the minimum required by the debug spec in order to reduce its area usage and complexity.
+It mostly work the following :</p>
+<ul class="simple">
+<li><p>The RISC-V debug module can push RISC-V instructions for the VexiiRiscv to execute.</p></li>
+<li><p>VexiiRiscv implement a custom CSR used by the debug module to read/write data of the CPU. This CSR doesn’t behave like a regular register.</p></li>
+<li><p>The Debug Module can update the value of that special CSR, which can then be read by the CPU via <cite>csrr</cite> instructions</p></li>
+<li><p>When the CPU write into the CSR via a <cite>csrw</cite>, it will sent the written value to the Debug Module.</p></li>
+</ul>
+<p>So let’s say the debug module want to read some memory, here is what it will do :</p>
+<ul class="simple">
+<li><p>Push instructions to set one register in the register file (let’s say x1) to the address whe want to read: <cite>li x1, 0x12345678</cite></p></li>
+<li><p>Push a memory load instruction: <cite>lw x1, 0(x1)</cite></p></li>
+<li><p>Push a instruction to write the readed value into the special CSR (0x7B4): <cite>csrw 0x7B4, x1</cite>.
+Writing this CSR will automatically push the value to the debug module</p></li>
+<li><p>Provide that value to the JTAG</p></li>
+</ul>
+<p>If you run a simulation (for instance : <a class="reference internal" href="../HowToUse/index.html#simulation"><span class="std std-ref">Run a simulation</span></a> with the –debug-jtag-tap argument), then you can connect to the simulated JTAG
+via openocd and its TCP remote_bitbang bridge as if it was real hardware:</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>openocd<span class="w"> </span>-f<span class="w"> </span>src/main/tcl/openocd/vexiiriscv_sim.tcl
+</pre></div>
 </div>
+<p>But note that the speed will be quite low (as it is a hardware simulation)</p>
+</section>
+<section id="embeddedriscvjtag">
+<h2>EmbeddedRiscvJtag<a class="headerlink" href="#embeddedriscvjtag" title="Permalink to this heading"></a></h2>
+<p>EmbeddedRiscvJtag is a plugin which can be used to integrate the RISC-V debug module and its JTAG TAP directly inside
+the VexiiRiscv. This simplify its deployment, but can only be used in single core configs.</p>
+<p>It is the plugin being used to implement the simulation jtag described in the previous chapter (–debug-jtag-tap)</p>
+</section>
 </section>
 
     <script type="text/javascript">
@@ -278,8 +316,8 @@
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../BranchPrediction/index.html" class="btn btn-neutral float-left" title="Branch Prediction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="jtag.html" class="btn btn-neutral float-right" title="JTAG" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../BranchPrediction/index.html" class="btn btn-neutral float-left" title="Branch" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../HowToUse/index.html" class="btn btn-neutral float-right" title="How to use" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -296,7 +334,7 @@
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~33efefb 2024-11-04
+    Version: master git~51c2bce 2024-11-05
     </p></div>
     
 

@@ -124,6 +124,7 @@ You can get a list of the supported parameters via :
      --with-fetch-l1
      ...
 
+.. _simulation:
 
 Run a simulation
 ----------------
@@ -132,7 +133,7 @@ Run a simulation
    If you take a VexiiRiscv core and use it with a simulator which does x-prop (not verilator), you will need to add the following option : --with-boot-mem-init.
    By default this isn't enabled, as it can degrade timings and area while not being necessary for a fully functional hardware.
 
-Here is how you can run a verilator based simulation, note that Vexiiriscv use mostly an opt-in configuration. So, most performance related configuration are disabled by default.
+Here is how you can run a Verilator based simulation, note that Vexiiriscv use mostly an opt-in configuration. So, most performance related configuration are disabled by default.
 
 .. code-block:: bash
 
@@ -158,8 +159,6 @@ Here is an example of the additional argument you can use to improve the IPC :
 Here is a screen shot of a cache-less VexiiRiscv booting linux :
 
 .. image:: /asset/picture/konata.png
-
-
 
 
 Synthesis

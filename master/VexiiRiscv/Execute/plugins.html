@@ -119,7 +119,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Execute</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l2 current"><a class="current reference internal" href="#">Plugins</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="#infrastructures">infrastructures</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#infrastructures">Infrastructures</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#executepipelineplugin">ExecutePipelinePlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#executelaneplugin">ExecuteLanePlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#regfileplugin">RegFilePlugin</a></li>
@@ -137,12 +137,14 @@
 <li class="toctree-l4"><a class="reference internal" href="#mulplugin">MulPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#divplugin">DivPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#lsucachelessplugin">LsuCachelessPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#lsuplugin">LsuPlugin</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#special">Special</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#csraccessplugin">CsrAccessPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#csrramplugin">CsrRamPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#privilegedplugin">PrivilegedPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="#trapplugin">TrapPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#performancecounterplugin">PerformanceCounterPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#envplugin">EnvPlugin</a></li>
 </ul>
@@ -179,7 +181,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../BranchPrediction/index.html">Branch Prediction</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../BranchPrediction/index.html">Branch</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#btbplugin">BtbPlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#gshareplugin">GSharePlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#decodeplugin">DecodePlugin</a></li>
@@ -187,8 +189,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#learnplugin">LearnPlugin</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../Debug/index.html">Debug</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Debug/jtag.html">JTAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Debug/index.html">Debug support</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Debug/index.html#architecture">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Debug/index.html#embeddedriscvjtag">EmbeddedRiscvJtag</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../HowToUse/index.html">How to use</a><ul>
@@ -261,29 +264,46 @@
 
   <section id="plugins">
 <h1>Plugins<a class="headerlink" href="#plugins" title="Permalink to this heading"></a></h1>
+<p>The execute pipeline is composed by many plugins, here is a diagram to illustrate the flow of instructions through them :</p>
+<img alt="../../_images/execute_plugins.png" src="../../_images/execute_plugins.png" />
 <section id="infrastructures">
-<h2>infrastructures<a class="headerlink" href="#infrastructures" title="Permalink to this heading"></a></h2>
-<p>Many plugins operate in the fetch stage. Some provide infrastructures :</p>
+<h2>Infrastructures<a class="headerlink" href="#infrastructures" title="Permalink to this heading"></a></h2>
+<p>Many of the plugins operating in the execute stage aren’t directly implementing instructions,
+but instead provide some infrastructure which will be used to do so.</p>
 <section id="executepipelineplugin">
 <h3>ExecutePipelinePlugin<a class="headerlink" href="#executepipelineplugin" title="Permalink to this heading"></a></h3>
 <p>Provide the pipeline framework for all the execute related hardware with the following specificities :</p>
 <ul class="simple">
-<li><p>It is based on the spinal.lib.misc.pipeline API and can host multiple “lanes” in it.</p></li>
 <li><p>For flow control, the lanes can only freeze the whole pipeline</p></li>
-<li><p>The pipeline do not collapse bubbles (empty stages)</p></li>
+<li><p>The pipeline do not collapse bubbles (a bubble is a stage with no instruction at a given cycle)</p></li>
 </ul>
 </section>
 <section id="executelaneplugin">
 <h3>ExecuteLanePlugin<a class="headerlink" href="#executelaneplugin" title="Permalink to this heading"></a></h3>
-<p>Implement an execution lane in the ExecutePipelinePlugin</p>
+<p>Implement an execution lane in the ExecutePipelinePlugin :</p>
+<ul class="simple">
+<li><p>Read the register files</p></li>
+<li><p>Implement the register files write to read bypasses networks</p></li>
+<li><p>Provide a pipelining API built on the top ExecutePipelinePlugin. That API allows to operate in the given lane.</p></li>
+</ul>
 </section>
 <section id="regfileplugin">
 <h3>RegFilePlugin<a class="headerlink" href="#regfileplugin" title="Permalink to this heading"></a></h3>
-<p>Implement one register file, with the possibility to create new read / write port on demand</p>
+<p>Implement one register file, with the possibility to create new read / write port on demands.</p>
 </section>
 <section id="srcplugin">
 <h3>SrcPlugin<a class="headerlink" href="#srcplugin" title="Permalink to this heading"></a></h3>
-<p>Provide some early integer values which can mux between RS1/RS2 and multiple RISC-V instruction’s literal values</p>
+<p>Provide some integer values to instruction which can mux between RS1/RS2 and multiple RISC-V instruction’s literal values :</p>
+<ul class="simple">
+<li><p>SRC1 can be : RS1 or U literal</p></li>
+<li><p>SRC2 can be : RS1 or PC or I or S literal</p></li>
+</ul>
+<p>It also provide the hardware for a :</p>
+<ul class="simple">
+<li><p>SRC1 + SRC2</p></li>
+<li><p>SRC1 - SRC2</p></li>
+<li><p>SRC1 &lt; SRC2</p></li>
+</ul>
 </section>
 <section id="rsunsignedplugin">
 <h3>RsUnsignedPlugin<a class="headerlink" href="#rsunsignedplugin" title="Permalink to this heading"></a></h3>
@@ -291,12 +311,12 @@
 </section>
 <section id="intformatplugin">
 <h3>IntFormatPlugin<a class="headerlink" href="#intformatplugin" title="Permalink to this heading"></a></h3>
-<p>Allows plugins to write integer values back to the register file through a optional sign extender.
-It uses WriteBackPlugin as value backend.</p>
+<p>Allows plugins to sign extends their result values using a shared hardware.
+It uses the WriteBackPlugin to write its results back to the register file.</p>
 </section>
 <section id="writebackplugin">
 <h3>WriteBackPlugin<a class="headerlink" href="#writebackplugin" title="Permalink to this heading"></a></h3>
-<p>Used by plugins to provide the RD value to write back to the register file</p>
+<p>Used by plugins to inject results into the pipeline, which will then be written into the register file.</p>
 </section>
 <section id="learnplugin">
 <h3>LearnPlugin<a class="headerlink" href="#learnplugin" title="Permalink to this heading"></a></h3>
@@ -305,7 +325,7 @@ It uses WriteBackPlugin as value backend.</p>
 </section>
 <section id="instructions">
 <h2>Instructions<a class="headerlink" href="#instructions" title="Permalink to this heading"></a></h2>
-<p>Some implement regular instructions</p>
+<p>Some plugins just focus on implementing the CPU instructions.</p>
 <section id="intaluplugin">
 <h3>IntAluPlugin<a class="headerlink" href="#intaluplugin" title="Permalink to this heading"></a></h3>
 <p>Implement the arithmetic, binary and literal instructions (ADD, SUB, AND, OR, LUI, …)</p>
@@ -334,8 +354,8 @@ It uses WriteBackPlugin as value backend.</p>
 <section id="divplugin">
 <h3>DivPlugin<a class="headerlink" href="#divplugin" title="Permalink to this heading"></a></h3>
 <ul class="simple">
-<li><p>Implement the division/remain</p></li>
-<li><p>2 bits per cycle are solved.</p></li>
+<li><p>Implement the division/remain instructions</p></li>
+<li><p>Can be configured in Radix 2/4 (1/ bits per cycle are solved)</p></li>
 <li><p>When it start, it scan for the numerator leading bits for 0, and can skip dividing them (can skip blocks of XLEN/4)</p></li>
 </ul>
 </section>
@@ -346,6 +366,12 @@ It uses WriteBackPlugin as value backend.</p>
 <li><p>Will fork the cmd as soon as fork stage is valid (with no flush)</p></li>
 <li><p>Handle backpressure by using a little fifo on the response data</p></li>
 </ul>
+<p>More information in the <a class="reference internal" href="lsu.html#lsu"><span class="std std-ref">Load Store Unit (LSU)</span></a> chapter</p>
+</section>
+<section id="lsuplugin">
+<h3>LsuPlugin<a class="headerlink" href="#lsuplugin" title="Permalink to this heading"></a></h3>
+<p>Implement load / store through a l1 cache.</p>
+<p>More information in the <a class="reference internal" href="lsu.html#lsu"><span class="std std-ref">Load Store Unit (LSU)</span></a> chapter</p>
 </section>
 </section>
 <section id="special">
@@ -354,7 +380,7 @@ It uses WriteBackPlugin as value backend.</p>
 <section id="csraccessplugin">
 <h3>CsrAccessPlugin<a class="headerlink" href="#csraccessplugin" title="Permalink to this heading"></a></h3>
 <ul class="simple">
-<li><p>Implement the CSR instruction</p></li>
+<li><p>Implement the CSR read and write instruction</p></li>
 <li><p>Provide an API for other plugins to specify its hardware mapping</p></li>
 </ul>
 </section>
@@ -370,16 +396,26 @@ It uses WriteBackPlugin as value backend.</p>
 <section id="privilegedplugin">
 <h3>PrivilegedPlugin<a class="headerlink" href="#privilegedplugin" title="Permalink to this heading"></a></h3>
 <ul class="simple">
-<li><p>Implement the RISCV privileged spec</p></li>
-<li><p>Implement the trap buffer / FSM</p></li>
+<li><p>Implement the RISC-V privileged spec</p></li>
 <li><p>Use the CsrRamPlugin to implement various CSR as MTVAL, MTVEC, MEPC, MSCRATCH, …</p></li>
+</ul>
+</section>
+<section id="trapplugin">
+<h3>TrapPlugin<a class="headerlink" href="#trapplugin" title="Permalink to this heading"></a></h3>
+<ul class="simple">
+<li><p>Implement the trap buffer / FSM</p></li>
+<li><p>The FSM implement the core logic of many special instructions (MRET, SRET, ECALL, EBREAK, FENCE.I, WFI, …)</p></li>
+<li><p>Also allows the CPU pipeline to emit hardware traps to re-execute (REDO) the current instruction
+or to jump to the next one after a full pipeline flush (NEXT).</p></li>
+<li><p>the REDO hardware trap is used by I$ D$ miss, the DecodePlugin when it detect a illegal branch prediction</p></li>
+<li><p>the NEXT hardware trap is used by the CsrAccessPlugin when a state change require a full CPU flush</p></li>
 </ul>
 </section>
 <section id="performancecounterplugin">
 <h3>PerformanceCounterPlugin<a class="headerlink" href="#performancecounterplugin" title="Permalink to this heading"></a></h3>
+<p>Implement the privileged performance counters in a FPGA friendly way :</p>
 <ul class="simple">
-<li><p>Implement the privileged performance counters in a very FPGA way</p></li>
-<li><p>Use the CsrRamPlugin to store most of the counter bits</p></li>
+<li><p>Use the CsrRamPlugin to store 57 bits for each performance counter</p></li>
 <li><p>Use a dedicated 7 bits hardware register per counter</p></li>
 <li><p>Once that 7 bits register MSB is set, a FSM will flush it into the CsrRamPlugin</p></li>
 </ul>
@@ -387,7 +423,8 @@ It uses WriteBackPlugin as value backend.</p>
 <section id="envplugin">
 <h3>EnvPlugin<a class="headerlink" href="#envplugin" title="Permalink to this heading"></a></h3>
 <ul class="simple">
-<li><p>Implement a few instructions as MRET, SRET, ECALL, EBREAK</p></li>
+<li><p>Implement a few instructions as MRET, SRET, ECALL, EBREAK, FENCE.I, WFI by producing hardware traps</p></li>
+<li><p>Those hardware trap are then handled in the TrapPlugin FSM</p></li>
 </ul>
 </section>
 </section>
@@ -422,7 +459,7 @@ It uses WriteBackPlugin as value backend.</p>
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~33efefb 2024-11-04
+    Version: master git~51c2bce 2024-11-05
     </p></div>
     
 

@@ -1,36 +1,53 @@
 Plugins
 =======
 
+The execute pipeline is composed by many plugins, here is a diagram to illustrate the flow of instructions through them :
 
-infrastructures
+.. image:: /asset/picture/execute_plugins.png
+
+
+Infrastructures
 ---------------
 
-Many plugins operate in the fetch stage. Some provide infrastructures :
+Many of the plugins operating in the execute stage aren't directly implementing instructions,
+but instead provide some infrastructure which will be used to do so.
 
 ExecutePipelinePlugin
 ^^^^^^^^^^^^^^^^^^^^^
 
 Provide the pipeline framework for all the execute related hardware with the following specificities :
 
-- It is based on the spinal.lib.misc.pipeline API and can host multiple "lanes" in it.
 - For flow control, the lanes can only freeze the whole pipeline
-- The pipeline do not collapse bubbles (empty stages)
-
+- The pipeline do not collapse bubbles (a bubble is a stage with no instruction at a given cycle)
 
 ExecuteLanePlugin
 ^^^^^^^^^^^^^^^^^
 
-Implement an execution lane in the ExecutePipelinePlugin
+Implement an execution lane in the ExecutePipelinePlugin :
+
+- Read the register files
+- Implement the register files write to read bypasses networks
+- Provide a pipelining API built on the top ExecutePipelinePlugin. That API allows to operate in the given lane.
 
 RegFilePlugin
 ^^^^^^^^^^^^^
 
-Implement one register file, with the possibility to create new read / write port on demand
+Implement one register file, with the possibility to create new read / write port on demands.
 
 SrcPlugin
 ^^^^^^^^^
 
-Provide some early integer values which can mux between RS1/RS2 and multiple RISC-V instruction's literal values
+Provide some integer values to instruction which can mux between RS1/RS2 and multiple RISC-V instruction's literal values :
+
+- SRC1 can be : RS1 or U literal
+- SRC2 can be : RS1 or PC or I or S literal
+
+
+It also provide the hardware for a :
+
+- SRC1 + SRC2
+- SRC1 - SRC2
+- SRC1 < SRC2
 
 RsUnsignedPlugin
 ^^^^^^^^^^^^^^^^
@@ -40,13 +57,13 @@ Used by mul/div in order to get an unsigned RS1/RS2 value early in the pipeline
 IntFormatPlugin
 ^^^^^^^^^^^^^^^
 
-Allows plugins to write integer values back to the register file through a optional sign extender.
-It uses WriteBackPlugin as value backend.
+Allows plugins to sign extends their result values using a shared hardware.
+It uses the WriteBackPlugin to write its results back to the register file.
 
 WriteBackPlugin
 ^^^^^^^^^^^^^^^
 
-Used by plugins to provide the RD value to write back to the register file
+Used by plugins to inject results into the pipeline, which will then be written into the register file.
 
 LearnPlugin
 ^^^^^^^^^^^
@@ -56,7 +73,7 @@ Will collect all interface which provide jump/branch learning interfaces to aggr
 Instructions
 ------------
 
-Some implement regular instructions
+Some plugins just focus on implementing the CPU instructions.
 
 IntAluPlugin
 ^^^^^^^^^^^^
@@ -88,8 +105,8 @@ MulPlugin
 DivPlugin
 ^^^^^^^^^
 
-- Implement the division/remain
-- 2 bits per cycle are solved.
+- Implement the division/remain instructions
+- Can be configured in Radix 2/4 (1/ bits per cycle are solved)
 - When it start, it scan for the numerator leading bits for 0, and can skip dividing them (can skip blocks of XLEN/4)
 
 LsuCachelessPlugin
@@ -99,6 +116,16 @@ LsuCachelessPlugin
 - Will fork the cmd as soon as fork stage is valid (with no flush)
 - Handle backpressure by using a little fifo on the response data
 
+More information in the :ref:`lsu` chapter
+
+LsuPlugin
+^^^^^^^^^^^^^^^^^^
+
+Implement load / store through a l1 cache.
+
+More information in the :ref:`lsu` chapter
+
+
 Special
 -------
 
@@ -107,7 +134,7 @@ Some implement CSR, privileges and special instructions
 CsrAccessPlugin
 ^^^^^^^^^^^^^^^
 
-- Implement the CSR instruction
+- Implement the CSR read and write instruction
 - Provide an API for other plugins to specify its hardware mapping
 
 CsrRamPlugin
@@ -121,20 +148,30 @@ CsrRamPlugin
 PrivilegedPlugin
 ^^^^^^^^^^^^^^^^
 
-- Implement the RISCV privileged spec
-- Implement the trap buffer / FSM
+- Implement the RISC-V privileged spec
 - Use the CsrRamPlugin to implement various CSR as MTVAL, MTVEC, MEPC, MSCRATCH, ...
+
+TrapPlugin
+^^^^^^^^^^^
+
+- Implement the trap buffer / FSM
+- The FSM implement the core logic of many special instructions (MRET, SRET, ECALL, EBREAK, FENCE.I, WFI, ...)
+- Also allows the CPU pipeline to emit hardware traps to re-execute (REDO) the current instruction
+  or to jump to the next one after a full pipeline flush (NEXT).
+- the REDO hardware trap is used by I$ D$ miss, the DecodePlugin when it detect a illegal branch prediction
+- the NEXT hardware trap is used by the CsrAccessPlugin when a state change require a full CPU flush
 
 PerformanceCounterPlugin
 ^^^^^^^^^^^^^^^^^^^^^^^^
 
-- Implement the privileged performance counters in a very FPGA way
-- Use the CsrRamPlugin to store most of the counter bits
+Implement the privileged performance counters in a FPGA friendly way :
+
+- Use the CsrRamPlugin to store 57 bits for each performance counter
 - Use a dedicated 7 bits hardware register per counter
 - Once that 7 bits register MSB is set, a FSM will flush it into the CsrRamPlugin
-
 
 EnvPlugin
 ^^^^^^^^^
 
-- Implement a few instructions as MRET, SRET, ECALL, EBREAK
+- Implement a few instructions as MRET, SRET, ECALL, EBREAK, FENCE.I, WFI by producing hardware traps
+- Those hardware trap are then handled in the TrapPlugin FSM

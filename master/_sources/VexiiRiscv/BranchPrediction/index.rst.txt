@@ -1,4 +1,6 @@
-Branch Prediction
+.. _branch_prediction:
+
+Branch
 =================
 
 The branch prediction is implemented as follow :

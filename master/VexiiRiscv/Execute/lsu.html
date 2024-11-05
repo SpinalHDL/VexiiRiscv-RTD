@@ -119,7 +119,7 @@
 <li class="toctree-l1 current"><a class="reference internal" href="index.html">Execute</a><ul class="current">
 <li class="toctree-l2"><a class="reference internal" href="introduction.html">Introduction</a></li>
 <li class="toctree-l2"><a class="reference internal" href="plugins.html">Plugins</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="plugins.html#infrastructures">infrastructures</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="plugins.html#infrastructures">Infrastructures</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="plugins.html#executepipelineplugin">ExecutePipelinePlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="plugins.html#executelaneplugin">ExecuteLanePlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="plugins.html#regfileplugin">RegFilePlugin</a></li>
@@ -137,12 +137,14 @@
 <li class="toctree-l4"><a class="reference internal" href="plugins.html#mulplugin">MulPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="plugins.html#divplugin">DivPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="plugins.html#lsucachelessplugin">LsuCachelessPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="plugins.html#lsuplugin">LsuPlugin</a></li>
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="plugins.html#special">Special</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="plugins.html#csraccessplugin">CsrAccessPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="plugins.html#csrramplugin">CsrRamPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="plugins.html#privilegedplugin">PrivilegedPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="plugins.html#trapplugin">TrapPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="plugins.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="plugins.html#envplugin">EnvPlugin</a></li>
 </ul>
@@ -179,7 +181,7 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../BranchPrediction/index.html">Branch Prediction</a><ul>
+<li class="toctree-l1"><a class="reference internal" href="../BranchPrediction/index.html">Branch</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#btbplugin">BtbPlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#gshareplugin">GSharePlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#decodeplugin">DecodePlugin</a></li>
@@ -187,8 +189,9 @@
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#learnplugin">LearnPlugin</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../Debug/index.html">Debug</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Debug/jtag.html">JTAG</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../Debug/index.html">Debug support</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Debug/index.html#architecture">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Debug/index.html#embeddedriscvjtag">EmbeddedRiscvJtag</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../HowToUse/index.html">How to use</a><ul>
@@ -260,7 +263,7 @@
 
 
   <section id="load-store-unit-lsu">
-<h1>Load Store Unit (LSU)<a class="headerlink" href="#load-store-unit-lsu" title="Permalink to this heading"></a></h1>
+<span id="lsu"></span><h1>Load Store Unit (LSU)<a class="headerlink" href="#load-store-unit-lsu" title="Permalink to this heading"></a></h1>
 <p>VexiiRiscv has 2 implementations of LSU :</p>
 <ul class="simple">
 <li><p>LsuCachelessPlugin for microcontrollers, which doesn’t implement any cache</p></li>
@@ -465,7 +468,7 @@ have enough hardware refill/writeback slots in the LsuL1Plugin.</p>
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~33efefb 2024-11-04
+    Version: master git~51c2bce 2024-11-05
     </p></div>
     
 

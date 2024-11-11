@@ -213,6 +213,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#verilog-generation">Verilog generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#simulation-spinalsim-verilator">Simulation (SpinalSim / Verilator)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#adding-a-custom-peripheral">Adding a custom peripheral</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#exporting-an-apb3-bus-to-the-toplevel">Exporting an APB3 bus to the toplevel</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="litex.html">Litex</a></li>
@@ -336,7 +337,8 @@ sbt<span class="w"> </span><span class="s2">&quot;runMain vexiiriscv.soc.micro.M
 </section>
 <section id="adding-a-custom-peripheral">
 <h2>Adding a custom peripheral<a class="headerlink" href="#adding-a-custom-peripheral" title="Permalink to this heading"></a></h2>
-<p>Let’s say you want to design a peripheral and then add it to the SoC, the MicroSoc contains one example of that via PeripheralDemo.scala :</p>
+<p>Let’s say you want to design a peripheral and then add it to the SoC, the MicroSoc contains one example of that via PeripheralDemo.scala.
+Take a look at it, its code is extensively commented :</p>
 <p><a class="reference external" href="https://github.com/SpinalHDL/VexiiRiscv/blob/dev/src/main/scala/vexiiriscv/soc/micro/PeripheralDemo.scala">https://github.com/SpinalHDL/VexiiRiscv/blob/dev/src/main/scala/vexiiriscv/soc/micro/PeripheralDemo.scala</a></p>
 <p>This peripheral example is a very simple one which provide the CPU access to leds, buttons and an interrupt function of the buttons value.</p>
 <img alt="../../_images/peripheral_demo.png" src="../../_images/peripheral_demo.png" />
@@ -358,6 +360,60 @@ It handle the Tilelink parameters negotiation / propagation, aswell as exporting
 </div>
 <p>This peripheral is already integrated into MicroSoC as a demo but disabled by default. To enable it, will need to provide a specific command line parameter. For instance :</p>
 <p>sbt “runMain vexiiriscv.soc.micro.MicroSocSim –demo-peripheral leds=16,buttons=12”</p>
+</section>
+<section id="exporting-an-apb3-bus-to-the-toplevel">
+<h2>Exporting an APB3 bus to the toplevel<a class="headerlink" href="#exporting-an-apb3-bus-to-the-toplevel" title="Permalink to this heading"></a></h2>
+<p>Let’s say you want to allow the CPU to access a APB3 peripheral which stand outside the SoC toplevel.
+Here is how you can do so by adding code to the MicroSoc.system.peripheral area :</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MicroSoc</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nc">MicroSocParam</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Component</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="p">..</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">system</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">ClockingArea</span><span class="p">(</span><span class="n">socCtrl</span><span class="p">.</span><span class="n">system</span><span class="p">.</span><span class="n">cd</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="p">..</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">peripheral</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="w"> </span><span class="p">{</span>
+<span class="w">      </span><span class="p">..</span>
+<span class="w">      </span><span class="c1">// Let&#39;s define a namespace to contains all our logic</span>
+<span class="w">      </span><span class="kd">val</span><span class="w"> </span><span class="n">exported</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="p">{</span>
+<span class="w">        </span><span class="c1">// Let&#39;s define tl as our Tilelink peripheral endpoint (before the APB3 bridge)</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="n">tl</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">tilelink</span><span class="p">.</span><span class="n">fabric</span><span class="p">.</span><span class="nc">Node</span><span class="p">.</span><span class="n">slave</span><span class="p">()</span>
+<span class="w">        </span><span class="n">tl</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="mh">0x10006000</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">bus32</span><span class="w"> </span><span class="c1">// Lets map our tilelink bus in the memory space</span>
+
+<span class="w">        </span><span class="c1">// Let&#39;s define our APB3 bus which will be exposed to the IO of the SoC</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="n">bus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">master</span><span class="p">(</span><span class="nc">Apb3</span><span class="p">(</span><span class="n">addressWidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="n">dataWidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">))</span>
+
+<span class="w">        </span><span class="c1">// Let&#39;s define a Fiber thread which will</span>
+<span class="w">        </span><span class="c1">// - Handle the tilelink parameter negotiation</span>
+<span class="w">        </span><span class="c1">// - Instanciate the APB3 bridge and connect the buses</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="n">fiber</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Fiber</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="p">{</span>
+<span class="w">          </span><span class="c1">// Here we go with the tilelink negociation</span>
+<span class="w">          </span><span class="n">tl</span><span class="p">.</span><span class="n">m2s</span><span class="p">.</span><span class="n">supported</span><span class="p">.</span><span class="n">load</span><span class="p">(</span>
+<span class="w">            </span><span class="nc">M2sSupport</span><span class="p">(</span>
+<span class="w">              </span><span class="n">addressWidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bus</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">addressWidth</span><span class="p">,</span>
+<span class="w">              </span><span class="n">dataWidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bus</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">dataWidth</span><span class="p">,</span>
+<span class="w">              </span><span class="n">transfers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">M2sTransfers</span><span class="p">(</span>
+<span class="w">                </span><span class="n">get</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tilelink</span><span class="p">.</span><span class="nc">SizeRange</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>
+<span class="w">                </span><span class="n">putFull</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tilelink</span><span class="p">.</span><span class="nc">SizeRange</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
+<span class="w">              </span><span class="p">)</span>
+<span class="w">            </span><span class="p">)</span>
+<span class="w">          </span><span class="p">)</span>
+<span class="w">          </span><span class="n">tl</span><span class="p">.</span><span class="n">s2m</span><span class="p">.</span><span class="n">none</span><span class="p">()</span>
+
+<span class="w">          </span><span class="c1">// Create the hardware bridge from tilelink to APB3 and connect the buses</span>
+<span class="w">          </span><span class="kd">val</span><span class="w"> </span><span class="n">bridge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">tilelink</span><span class="p">.</span><span class="nc">Apb3Bridge</span><span class="p">(</span><span class="n">tl</span><span class="p">.</span><span class="n">bus</span><span class="p">.</span><span class="n">p</span><span class="p">.</span><span class="n">node</span><span class="p">)</span>
+<span class="w">          </span><span class="n">bridge</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">up</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">tl</span><span class="p">.</span><span class="n">bus</span>
+<span class="w">          </span><span class="n">bridge</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">down</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">bus</span>
+<span class="w">        </span><span class="p">}</span>
+<span class="w">      </span><span class="p">}</span>
+<span class="w">    </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<p>If you want the CPU to be able to execute code located in the APB3 peripheral, then you will need to tag the tl bus with :</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="kd">val</span><span class="w"> </span><span class="n">tl</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">tilelink</span><span class="p">.</span><span class="n">fabric</span><span class="p">.</span><span class="nc">Node</span><span class="p">.</span><span class="n">slave</span><span class="p">()</span>
+<span class="n">tl</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="mh">0x10006000</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">bus32</span><span class="w"> </span><span class="c1">// Lets map our tilelink bus in the memory space</span>
+<span class="n">tl</span><span class="p">.</span><span class="n">addTag</span><span class="p">(</span><span class="n">spinal</span><span class="p">.</span><span class="n">lib</span><span class="p">.</span><span class="n">system</span><span class="p">.</span><span class="n">tag</span><span class="p">.</span><span class="nc">PMA</span><span class="p">.</span><span class="nc">EXECUTABLE</span><span class="p">)</span>
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -390,7 +446,7 @@ It handle the Tilelink parameters negotiation / propagation, aswell as exporting
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~a8b33a8 2024-11-05
+    Version: master git~3a49e91 2024-11-11
     </p></div>
     
 

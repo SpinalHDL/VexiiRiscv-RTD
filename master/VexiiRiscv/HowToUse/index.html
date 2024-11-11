@@ -213,6 +213,7 @@
 <li class="toctree-l3"><a class="reference internal" href="../Soc/microsoc.html#verilog-generation">Verilog generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../Soc/microsoc.html#simulation-spinalsim-verilator">Simulation (SpinalSim / Verilator)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../Soc/microsoc.html#adding-a-custom-peripheral">Adding a custom peripheral</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Soc/microsoc.html#exporting-an-apb3-bus-to-the-toplevel">Exporting an APB3 bus to the toplevel</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Soc/litex.html">Litex</a></li>
@@ -271,8 +272,8 @@
 <li><p>A java JDK</p></li>
 <li><p>SBT (Scala build tool)</p></li>
 <li><p>Verilator (optional, for simulations)</p></li>
+<li><p>RVLS / Spike dependencies (optional, if you want to have lock-step simulations checking)</p></li>
 <li><p>GCC for RISC-V (optional, if you want to compile some code)</p></li>
-<li><p>a few RVLS / Spike dependencies (optional, if you want to have lock-step simulations checking)</p></li>
 </ul>
 <p>On debian :</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># JAVA JDK</span>
@@ -302,14 +303,7 @@ autoconf<span class="w">        </span><span class="c1"># Create ./configure scr
 make
 sudo<span class="w"> </span>make<span class="w"> </span>install
 
-<span class="c1"># Getting a RISC-V toolchain (optional)</span>
-<span class="nv">version</span><span class="o">=</span>riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14
-wget<span class="w"> </span>-O<span class="w"> </span>riscv64-unknown-elf-gcc.tar.gz<span class="w"> </span>riscv<span class="w"> </span>https://static.dev.sifive.com/dev-tools/<span class="nv">$version</span>.tar.gz
-tar<span class="w"> </span>-xzvf<span class="w"> </span>riscv64-unknown-elf-gcc.tar.gz
-sudo<span class="w"> </span>mv<span class="w"> </span><span class="nv">$version</span><span class="w"> </span>/opt/riscv
-<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export PATH=/opt/riscv/bin:$PATH&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
-
-<span class="c1"># RVLS / Spike dependencies</span>
+<span class="c1"># RVLS / Spike dependencies (optional, for simulations)</span>
 sudo<span class="w"> </span>apt-get<span class="w"> </span>install<span class="w"> </span>device-tree-compiler<span class="w"> </span>libboost-all-dev
 <span class="c1"># Install ELFIO, used to load elf file in the sim</span>
 git<span class="w"> </span>clone<span class="w"> </span>https://github.com/serge1/ELFIO.git
@@ -317,6 +311,13 @@ git<span class="w"> </span>clone<span class="w"> </span>https://github.com/serge
 git<span class="w"> </span>checkout<span class="w"> </span>d251da09a07dff40af0b63b8f6c8ae71d2d1938d<span class="w"> </span><span class="c1"># Avoid C++17</span>
 sudo<span class="w"> </span>cp<span class="w"> </span>-R<span class="w"> </span>elfio<span class="w"> </span>/usr/include
 <span class="nb">cd</span><span class="w"> </span>..<span class="w"> </span><span class="o">&amp;&amp;</span><span class="w"> </span>rm<span class="w"> </span>-rf<span class="w"> </span>ELFIO
+
+<span class="c1"># Getting a RISC-V toolchain (optional, if you want to compile RISC-V software)</span>
+<span class="nv">version</span><span class="o">=</span>riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14
+wget<span class="w"> </span>-O<span class="w"> </span>riscv64-unknown-elf-gcc.tar.gz<span class="w"> </span>riscv<span class="w"> </span>https://static.dev.sifive.com/dev-tools/<span class="nv">$version</span>.tar.gz
+tar<span class="w"> </span>-xzvf<span class="w"> </span>riscv64-unknown-elf-gcc.tar.gz
+sudo<span class="w"> </span>mv<span class="w"> </span><span class="nv">$version</span><span class="w"> </span>/opt/riscv
+<span class="nb">echo</span><span class="w"> </span><span class="s1">&#39;export PATH=/opt/riscv/bin:$PATH&#39;</span><span class="w"> </span>&gt;&gt;<span class="w"> </span>~/.bashrc
 </pre></div>
 </div>
 </section>
@@ -360,23 +361,79 @@ make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</s
 <span class="w"> </span>--with-rva
 <span class="w"> </span>--with-rvc
 <span class="w"> </span>--with-supervisor
-<span class="w"> </span>--with-user
-<span class="w"> </span>--without-mul
-<span class="w"> </span>--without-div
-<span class="w"> </span>--with-mul
-<span class="w"> </span>--with-div
-<span class="w"> </span>--with-gshare
-<span class="w"> </span>--with-btb
-<span class="w"> </span>--with-ras
-<span class="w"> </span>--with-late-alu
-<span class="w"> </span>--regfile-async
-<span class="w"> </span>--regfile-sync
-<span class="w"> </span>--allow-bypass-from<span class="w"> </span>&lt;value&gt;
-<span class="w"> </span>--performance-counters<span class="w"> </span>&lt;value&gt;
-<span class="w"> </span>--with-fetch-l1
 <span class="w"> </span>...
 </pre></div>
 </div>
+<p>Here is a list of the important parameters :</p>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Generation parameters</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>–xlen=32/64</p></td>
+<td><p>Specify the CPU data width (RISC-V XLEN). 32 bits by default, can be set to 64 bits</p></td>
+</tr>
+<tr class="row-odd"><td><p>–with-rvm</p></td>
+<td><p>Enable RISC-V mul/div instruction</p></td>
+</tr>
+<tr class="row-even"><td><p>–with-rvc</p></td>
+<td><p>Enable RISC-V compressed instruction set</p></td>
+</tr>
+<tr class="row-odd"><td><p>–with-rva</p></td>
+<td><p>Enable atomic instruction support</p></td>
+</tr>
+<tr class="row-even"><td><p>–with-rvf</p></td>
+<td><p>Enable 32 bits floating point support</p></td>
+</tr>
+<tr class="row-odd"><td><p>–with-rvd</p></td>
+<td><p>Enable 32/64 bits floating point support</p></td>
+</tr>
+<tr class="row-even"><td><p>–with-supervisor</p></td>
+<td><p>Enable privileged supervisor, user and MMU</p></td>
+</tr>
+<tr class="row-odd"><td><p>–allow-bypass-from=Int</p></td>
+<td><p>Specify from which execute stage the integer result bypassing is allowed. Default disabled. For performance set it to 0</p></td>
+</tr>
+<tr class="row-even"><td><p>–with-btb</p></td>
+<td><p>Enable Branch Target Buffer prediction</p></td>
+</tr>
+<tr class="row-odd"><td><p>–with-gshare</p></td>
+<td><p>Enable GShare conditional branch prediction. (Require the BTB to be enabled)</p></td>
+</tr>
+<tr class="row-even"><td><p>–with-ras</p></td>
+<td><p>Enable Return Address Stack prediction. (Require the BTB to be enabled)</p></td>
+</tr>
+<tr class="row-odd"><td><p>–regfile-async</p></td>
+<td><p>The register read ports become asynchronous, shaving one stage in the pipeline, but not all FPGA support this kind of memories.</p></td>
+</tr>
+<tr class="row-even"><td><p>–mmu-sync-read</p></td>
+<td><p>The MMU TLB memories will be implemented using memories with synchronous read ports. This allows to keep it small on FPGA which doesn’t support asynchronous read ports</p></td>
+</tr>
+<tr class="row-odd"><td><p>–fetch-l1</p></td>
+<td><p>Enable the L1 instruction cache</p></td>
+</tr>
+<tr class="row-even"><td><p>–fetch-l1-ways=Int</p></td>
+<td><p>Set the number of instruction cache ways (4KB per way by default)</p></td>
+</tr>
+<tr class="row-odd"><td><p>–lsu-l1</p></td>
+<td><p>Enable the L1 data cache</p></td>
+</tr>
+<tr class="row-even"><td><p>–lsu-l1-ways=Int</p></td>
+<td><p>Set the number of data cache ways (4KB per way by default)</p></td>
+</tr>
+<tr class="row-odd"><td><p>–with-jtag-tap</p></td>
+<td><p>Enable the RISC-V JTAG debugging.</p></td>
+</tr>
+</tbody>
+</table>
+<p>There is a lot more parameters which can be turned.</p>
 </section>
 <section id="run-a-simulation">
 <span id="simulation"></span><h2>Run a simulation<a class="headerlink" href="#run-a-simulation" title="Permalink to this heading"></a></h2>
@@ -425,7 +482,7 @@ on ASIC maybe some of those could be redesigned to be single port rams instead (
 <p>There a few other ways to start using VexiiRiscv :</p>
 <ul class="simple">
 <li><p>Trough the MicroSoc reference design, a little microcontroller for FPGA (<a class="reference internal" href="../Soc/microsoc.html#microsoc"><span class="std std-ref">MicroSoc</span></a>)</p></li>
-<li><p>Through Litex, a tool to build SoC ((<a class="reference internal" href="../Soc/litex.html#litex"><span class="std std-ref">Litex</span></a>))</p></li>
+<li><p>Through Litex, a tool to build SoC w(<a class="reference internal" href="../Soc/litex.html#litex"><span class="std std-ref">Litex</span></a>)</p></li>
 </ul>
 </section>
 </section>
@@ -459,7 +516,7 @@ on ASIC maybe some of those could be redesigned to be single port rams instead (
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~a8b33a8 2024-11-05
+    Version: master git~3a49e91 2024-11-11
     </p></div>
     
 

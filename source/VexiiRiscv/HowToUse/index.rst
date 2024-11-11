@@ -10,8 +10,8 @@ You will need :
 - A java JDK
 - SBT (Scala build tool)
 - Verilator (optional, for simulations)
+- RVLS / Spike dependencies (optional, if you want to have lock-step simulations checking)
 - GCC for RISC-V (optional, if you want to compile some code)
-- a few RVLS / Spike dependencies (optional, if you want to have lock-step simulations checking)
 
 
 On debian :
@@ -45,14 +45,7 @@ On debian :
     make
     sudo make install
 
-    # Getting a RISC-V toolchain (optional)
-    version=riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14
-    wget -O riscv64-unknown-elf-gcc.tar.gz riscv https://static.dev.sifive.com/dev-tools/$version.tar.gz
-    tar -xzvf riscv64-unknown-elf-gcc.tar.gz
-    sudo mv $version /opt/riscv
-    echo 'export PATH=/opt/riscv/bin:$PATH' >> ~/.bashrc
-
-    # RVLS / Spike dependencies
+    # RVLS / Spike dependencies (optional, for simulations)
     sudo apt-get install device-tree-compiler libboost-all-dev
     # Install ELFIO, used to load elf file in the sim
     git clone https://github.com/serge1/ELFIO.git
@@ -60,6 +53,14 @@ On debian :
     git checkout d251da09a07dff40af0b63b8f6c8ae71d2d1938d # Avoid C++17
     sudo cp -R elfio /usr/include
     cd .. && rm -rf ELFIO
+
+    # Getting a RISC-V toolchain (optional, if you want to compile RISC-V software)
+    version=riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14
+    wget -O riscv64-unknown-elf-gcc.tar.gz riscv https://static.dev.sifive.com/dev-tools/$version.tar.gz
+    tar -xzvf riscv64-unknown-elf-gcc.tar.gz
+    sudo mv $version /opt/riscv
+    echo 'export PATH=/opt/riscv/bin:$PATH' >> ~/.bashrc
+
 
 Repo setup
 ----------------
@@ -108,21 +109,54 @@ You can get a list of the supported parameters via :
      --with-rva
      --with-rvc
      --with-supervisor
-     --with-user
-     --without-mul
-     --without-div
-     --with-mul
-     --with-div
-     --with-gshare
-     --with-btb
-     --with-ras
-     --with-late-alu
-     --regfile-async
-     --regfile-sync
-     --allow-bypass-from <value>
-     --performance-counters <value>
-     --with-fetch-l1
      ...
+
+Here is a list of the important parameters :
+
+.. list-table:: Generation parameters
+   :widths: 30 70
+   :header-rows: 1
+
+   * - Parameter
+     - Description
+   * - --xlen=32/64
+     - Specify the CPU data width (RISC-V XLEN). 32 bits by default, can be set to 64 bits
+   * - --with-rvm
+     - Enable RISC-V mul/div instruction
+   * - --with-rvc
+     - Enable RISC-V compressed instruction set
+   * - --with-rva
+     - Enable atomic instruction support
+   * - --with-rvf
+     - Enable 32 bits floating point support
+   * - --with-rvd
+     - Enable 32/64 bits floating point support
+   * - --with-supervisor
+     - Enable privileged supervisor, user and MMU
+   * - --allow-bypass-from=Int
+     - Specify from which execute stage the integer result bypassing is allowed. Default disabled. For performance set it to 0
+   * - --with-btb
+     - Enable Branch Target Buffer prediction
+   * - --with-gshare
+     - Enable GShare conditional branch prediction. (Require the BTB to be enabled)
+   * - --with-ras
+     - Enable Return Address Stack prediction. (Require the BTB to be enabled)
+   * - --regfile-async
+     - The register read ports become asynchronous, shaving one stage in the pipeline, but not all FPGA support this kind of memories.
+   * - --mmu-sync-read
+     - The MMU TLB memories will be implemented using memories with synchronous read ports. This allows to keep it small on FPGA which doesn't support asynchronous read ports
+   * - --fetch-l1
+     - Enable the L1 instruction cache
+   * - --fetch-l1-ways=Int
+     - Set the number of instruction cache ways (4KB per way by default)
+   * - --lsu-l1
+     - Enable the L1 data cache
+   * - --lsu-l1-ways=Int
+     - Set the number of data cache ways (4KB per way by default)
+   * - --with-jtag-tap
+     - Enable the RISC-V JTAG debugging.
+
+There is a lot more parameters which can be turned.
 
 .. _simulation:
 
@@ -185,6 +219,6 @@ Other resources
 There a few other ways to start using VexiiRiscv :
 
 - Trough the MicroSoc reference design, a little microcontroller for FPGA (:ref:`microsoc`)
-- Through Litex, a tool to build SoC ((:ref:`litex`))
+- Through Litex, a tool to build SoC w(:ref:`litex`)
 
 

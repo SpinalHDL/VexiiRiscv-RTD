@@ -80,7 +80,8 @@ While the simulation is running you can connect to it using openocd as if it was
 Adding a custom peripheral
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
-Let's say you want to design a peripheral and then add it to the SoC, the MicroSoc contains one example of that via PeripheralDemo.scala :
+Let's say you want to design a peripheral and then add it to the SoC, the MicroSoc contains one example of that via PeripheralDemo.scala.
+Take a look at it, its code is extensively commented :
 
 https://github.com/SpinalHDL/VexiiRiscv/blob/dev/src/main/scala/vexiiriscv/soc/micro/PeripheralDemo.scala
 
@@ -110,3 +111,60 @@ This peripheral is already integrated into MicroSoC as a demo but disabled by de
 
 sbt "runMain vexiiriscv.soc.micro.MicroSocSim --demo-peripheral leds=16,buttons=12"
 
+Exporting an APB3 bus to the toplevel
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Let's say you want to allow the CPU to access a APB3 peripheral which stand outside the SoC toplevel.
+Here is how you can do so by adding code to the MicroSoc.system.peripheral area :
+
+.. code:: scala
+
+    class MicroSoc(p : MicroSocParam) extends Component {
+      ..
+      val system = new ClockingArea(socCtrl.system.cd) {
+        ..
+        val peripheral = new Area {
+          ..
+          // Let's define a namespace to contains all our logic
+          val exported = new Area{
+            // Let's define tl as our Tilelink peripheral endpoint (before the APB3 bridge)
+            val tl  = tilelink.fabric.Node.slave()
+            tl at 0x10006000 of bus32 // Lets map our tilelink bus in the memory space
+
+            // Let's define our APB3 bus which will be exposed to the IO of the SoC
+            val bus = master(Apb3(addressWidth = 12, dataWidth = 32))
+
+            // Let's define a Fiber thread which will
+            // - Handle the tilelink parameter negotiation
+            // - Instanciate the APB3 bridge and connect the buses
+            val fiber = Fiber build new Area{
+              // Here we go with the tilelink negociation
+              tl.m2s.supported.load(
+                M2sSupport(
+                  addressWidth = bus.config.addressWidth,
+                  dataWidth = bus.config.dataWidth,
+                  transfers = M2sTransfers(
+                    get = tilelink.SizeRange(4),
+                    putFull = tilelink.SizeRange(4)
+                  )
+                )
+              )
+              tl.s2m.none()
+
+              // Create the hardware bridge from tilelink to APB3 and connect the buses
+              val bridge = new tilelink.Apb3Bridge(tl.bus.p.node)
+              bridge.io.up << tl.bus
+              bridge.io.down >> bus
+            }
+          }
+        }
+      }
+    }
+
+If you want the CPU to be able to execute code located in the APB3 peripheral, then you will need to tag the tl bus with :
+
+.. code:: scala
+
+            val tl  = tilelink.fabric.Node.slave()
+            tl at 0x10006000 of bus32 // Lets map our tilelink bus in the memory space
+            tl.addTag(spinal.lib.system.tag.PMA.EXECUTABLE)

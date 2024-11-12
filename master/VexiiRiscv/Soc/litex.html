@@ -162,17 +162,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../Execute/lsu.html">Load Store Unit (LSU)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#without-l1">Without L1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#with-l1">With L1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#memory-coherency">Memory coherency</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#prefetching">Prefetching</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#prefetchrptplugin">PrefetchRptPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#performance-measurements">performance measurements</a></li>
-</ul>
-</li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../Execute/fpu.html">FPU</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../Execute/fpu.html#plugins-architecture">Plugins architecture</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../Execute/fpu.html#area-timings-options">Area / Timings options</a></li>
@@ -187,6 +176,24 @@
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#decodeplugin">DecodePlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#branchplugin">BranchPlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#learnplugin">LearnPlugin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Memory/index.html">Memory (LSU)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Memory/index.html#without-l1">Without L1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Memory/index.html#with-l1">With L1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Memory/index.html#prefetching">Prefetching</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Memory/index.html#prefetchrptplugin">PrefetchRptPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Memory/index.html#performance-measurements">performance measurements</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Memory/index.html#memory-coherency">Memory coherency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Memory/index.html#memory-system">Memory system</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Memory/index.html#why-tilelink">Why Tilelink</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Memory/index.html#efficiency-cookbook">Efficiency cookbook</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Debug/index.html">Debug support</a><ul>
@@ -343,7 +350,7 @@ make<span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o"
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~3a49e91 2024-11-11
+    Version: master git~9eb566b 2024-11-12
     </p></div>
     
 

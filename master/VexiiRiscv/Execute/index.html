@@ -163,17 +163,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="lsu.html">Load Store Unit (LSU)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="lsu.html#without-l1">Without L1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="lsu.html#with-l1">With L1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="lsu.html#memory-coherency">Memory coherency</a></li>
-<li class="toctree-l3"><a class="reference internal" href="lsu.html#prefetching">Prefetching</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="lsu.html#prefetchrptplugin">PrefetchRptPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="lsu.html#performance-measurements">performance measurements</a></li>
-</ul>
-</li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="fpu.html">FPU</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="fpu.html#plugins-architecture">Plugins architecture</a></li>
 <li class="toctree-l3"><a class="reference internal" href="fpu.html#area-timings-options">Area / Timings options</a></li>
@@ -188,6 +177,24 @@
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#decodeplugin">DecodePlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#branchplugin">BranchPlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#learnplugin">LearnPlugin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Memory/index.html">Memory (LSU)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Memory/index.html#without-l1">Without L1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Memory/index.html#with-l1">With L1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Memory/index.html#prefetching">Prefetching</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Memory/index.html#prefetchrptplugin">PrefetchRptPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Memory/index.html#performance-measurements">performance measurements</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Memory/index.html#memory-coherency">Memory coherency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Memory/index.html#memory-system">Memory system</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Memory/index.html#why-tilelink">Why Tilelink</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Memory/index.html#efficiency-cookbook">Efficiency cookbook</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Debug/index.html">Debug support</a><ul>
@@ -278,13 +285,6 @@
 <li class="toctree-l2"><a class="reference internal" href="custom.html#simd-add">SIMD add</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="lsu.html">Load Store Unit (LSU)</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="lsu.html#without-l1">Without L1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lsu.html#with-l1">With L1</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lsu.html#memory-coherency">Memory coherency</a></li>
-<li class="toctree-l2"><a class="reference internal" href="lsu.html#prefetching">Prefetching</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="fpu.html">FPU</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="fpu.html#plugins-architecture">Plugins architecture</a></li>
 <li class="toctree-l2"><a class="reference internal" href="fpu.html#area-timings-options">Area / Timings options</a></li>
@@ -324,7 +324,7 @@
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~3a49e91 2024-11-11
+    Version: master git~9eb566b 2024-11-12
     </p></div>
     
 

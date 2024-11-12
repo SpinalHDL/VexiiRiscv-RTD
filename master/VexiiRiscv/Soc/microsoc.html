@@ -163,17 +163,6 @@
 </li>
 </ul>
 </li>
-<li class="toctree-l2"><a class="reference internal" href="../Execute/lsu.html">Load Store Unit (LSU)</a><ul>
-<li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#without-l1">Without L1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#with-l1">With L1</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#memory-coherency">Memory coherency</a></li>
-<li class="toctree-l3"><a class="reference internal" href="../Execute/lsu.html#prefetching">Prefetching</a><ul>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#prefetchrptplugin">PrefetchRptPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/lsu.html#performance-measurements">performance measurements</a></li>
-</ul>
-</li>
-</ul>
-</li>
 <li class="toctree-l2"><a class="reference internal" href="../Execute/fpu.html">FPU</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../Execute/fpu.html#plugins-architecture">Plugins architecture</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../Execute/fpu.html#area-timings-options">Area / Timings options</a></li>
@@ -188,6 +177,24 @@
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#decodeplugin">DecodePlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#branchplugin">BranchPlugin</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#learnplugin">LearnPlugin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Memory/index.html">Memory (LSU)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Memory/index.html#without-l1">Without L1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Memory/index.html#with-l1">With L1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Memory/index.html#prefetching">Prefetching</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Memory/index.html#prefetchrptplugin">PrefetchRptPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Memory/index.html#performance-measurements">performance measurements</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Memory/index.html#memory-coherency">Memory coherency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Memory/index.html#memory-system">Memory system</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Memory/index.html#why-tilelink">Why Tilelink</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Memory/index.html#efficiency-cookbook">Efficiency cookbook</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Debug/index.html">Debug support</a><ul>
@@ -382,9 +389,9 @@ Here is how you can do so by adding code to the MicroSoc.system.peripheral area 
 
 <span class="w">        </span><span class="c1">// Let&#39;s define a Fiber thread which will</span>
 <span class="w">        </span><span class="c1">// - Handle the tilelink parameter negotiation</span>
-<span class="w">        </span><span class="c1">// - Instanciate the APB3 bridge and connect the buses</span>
+<span class="w">        </span><span class="c1">// - Instantiate the APB3 bridge and connect the buses</span>
 <span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="n">fiber</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Fiber</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="p">{</span>
-<span class="w">          </span><span class="c1">// Here we go with the tilelink negociation</span>
+<span class="w">          </span><span class="c1">// Here we go with the tilelink negotiation</span>
 <span class="w">          </span><span class="n">tl</span><span class="p">.</span><span class="n">m2s</span><span class="p">.</span><span class="n">supported</span><span class="p">.</span><span class="n">load</span><span class="p">(</span>
 <span class="w">            </span><span class="nc">M2sSupport</span><span class="p">(</span>
 <span class="w">              </span><span class="n">addressWidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bus</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">addressWidth</span><span class="p">,</span>
@@ -446,7 +453,7 @@ Here is how you can do so by adding code to the MicroSoc.system.peripheral area 
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~3a49e91 2024-11-11
+    Version: master git~9eb566b 2024-11-12
     </p></div>
     
 

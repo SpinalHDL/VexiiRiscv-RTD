@@ -8,5 +8,4 @@ Execute
    introduction
    plugins
    custom
-   lsu
    fpu

@@ -1,6 +1,6 @@
-<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.8 Chrome/114.0.5735.289 Electron/25.5.0 Safari/537.36" modified="2024-11-07T10:06:17.993Z" etag="HGfe3Zfac4NQSpku5BXU" version="21.6.8" type="device" pages="22">
+<mxfile host="Electron" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.6.8 Chrome/114.0.5735.289 Electron/25.5.0 Safari/537.36" modified="2024-11-12T09:03:30.834Z" etag="38zzuGwrFk-mtstjiv5Z" version="21.6.8" type="device" pages="22">
   <diagram id="21M7YdDJjqVILJei4Rus" name="vexii">
-    <mxGraphModel dx="2351" dy="412" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="3654" dy="1235" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -5429,7 +5429,7 @@
     </mxGraphModel>
   </diagram>
   <diagram id="ig-2AVWA0T57yhrwyXbR" name="load/store">
-    <mxGraphModel dx="2804" dy="1235" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+    <mxGraphModel dx="1967" dy="706" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
       <root>
         <mxCell id="0" />
         <mxCell id="1" parent="0" />
@@ -6014,6 +6014,164 @@
         </mxCell>
         <mxCell id="0vqHUgIGs6FAMhVuRuhu-4" value="3" style="rounded=0;whiteSpace=wrap;html=1;" parent="1" vertex="1">
           <mxGeometry x="409.99999999999994" y="880" width="10" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-1" value="CPU0" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=20;" vertex="1" parent="1">
+          <mxGeometry x="-440" y="480" width="60" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-2" value="Interconnect (L2)" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=20;" vertex="1" parent="1">
+          <mxGeometry x="-370" y="480" width="100" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-8" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0;entryDx=0;entryDy=0;exitX=1;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-330" y="530" as="targetPoint" />
+            <mxPoint x="-400.0000000000001" y="520" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-9" value="AquireData(x, shared)" style="edgeLabel;html=1;align=right;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="aAzc7_zl25Mq9BWgkw9h-8">
+          <mxGeometry x="-0.3439" y="-1" relative="1" as="geometry">
+            <mxPoint x="-43" y="-4" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-12" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=1;entryDx=0;entryDy=0;exitX=0;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-400" y="560" as="targetPoint" />
+            <mxPoint x="-330" y="550" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-13" value="GrantData(x, exclusive)" style="edgeLabel;html=1;align=right;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="aAzc7_zl25Mq9BWgkw9h-12">
+          <mxGeometry x="-0.3439" y="-1" relative="1" as="geometry">
+            <mxPoint x="-67" y="8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-16" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=1;entryDx=0;entryDy=0;exitX=0;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1" source="aAzc7_zl25Mq9BWgkw9h-26">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-310.0000000000001" y="619.81" as="targetPoint" />
+            <mxPoint x="-229.69" y="610" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-17" value="AquireData(x,&amp;nbsp;exclusive)" style="edgeLabel;html=1;align=left;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="aAzc7_zl25Mq9BWgkw9h-16">
+          <mxGeometry x="-0.3439" y="-1" relative="1" as="geometry">
+            <mxPoint x="43" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-18" value="CPU1" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=1;dropTarget=0;collapsible=0;recursiveResize=0;outlineConnect=0;portConstraint=eastwest;newEdgeStyle={&quot;edgeStyle&quot;:&quot;elbowEdgeStyle&quot;,&quot;elbow&quot;:&quot;vertical&quot;,&quot;curved&quot;:0,&quot;rounded&quot;:0};size=20;" vertex="1" parent="1">
+          <mxGeometry x="-260" y="480" width="60" height="340" as="geometry" />
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-20" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=1;exitDx=0;exitDy=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-400" y="640" as="targetPoint" />
+            <mxPoint x="-330" y="630.19" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-21" value="&amp;nbsp; ProbeBlock(x, toInvalid)" style="edgeLabel;html=1;align=right;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="aAzc7_zl25Mq9BWgkw9h-20">
+          <mxGeometry x="-0.3439" y="-1" relative="1" as="geometry">
+            <mxPoint x="-67" y="8" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-22" value="" style="rounded=0;whiteSpace=wrap;html=1;fontSize=8;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="-420" y="640" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-23" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=-0.04;entryY=0.838;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-330.79999999999995" y="670.28" as="targetPoint" />
+            <mxPoint x="-400" y="660" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-24" value="ProbeData(x)" style="edgeLabel;html=1;align=right;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="aAzc7_zl25Mq9BWgkw9h-23">
+          <mxGeometry x="-0.3439" y="-1" relative="1" as="geometry">
+            <mxPoint x="-42" y="-4" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-26" value="" style="rounded=0;whiteSpace=wrap;html=1;fontSize=8;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="-240" y="610" width="20" height="100" as="geometry" />
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-27" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.313;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-240" y="690" as="targetPoint" />
+            <mxPoint x="-310" y="680" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-28" value="GrantData(x)" style="edgeLabel;html=1;align=left;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="aAzc7_zl25Mq9BWgkw9h-27">
+          <mxGeometry x="-0.3439" y="-1" relative="1" as="geometry">
+            <mxPoint x="67" y="6" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-30" value="" style="rounded=0;whiteSpace=wrap;html=1;fontSize=8;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="-330" y="530" width="20" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-31" value="" style="rounded=0;whiteSpace=wrap;html=1;fontSize=8;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="-420" y="520" width="20" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-32" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0;entryDx=0;entryDy=0;exitX=1;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-330" y="590" as="targetPoint" />
+            <mxPoint x="-400.0000000000001" y="580" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-33" value="GrantAck(x)" style="edgeLabel;html=1;align=right;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="aAzc7_zl25Mq9BWgkw9h-32">
+          <mxGeometry x="-0.3439" y="-1" relative="1" as="geometry">
+            <mxPoint x="-43" y="-4" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-34" value="" style="rounded=0;whiteSpace=wrap;html=1;fontSize=8;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="-240" y="760" width="20" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-35" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=1;entryDx=0;entryDy=0;exitX=0;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-310.0000000000001" y="769.81" as="targetPoint" />
+            <mxPoint x="-240" y="760" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-36" value="ReleaseData(x)" style="edgeLabel;html=1;align=left;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="aAzc7_zl25Mq9BWgkw9h-35">
+          <mxGeometry x="-0.3439" y="-1" relative="1" as="geometry">
+            <mxPoint x="43" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-37" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.313;entryDx=0;entryDy=0;entryPerimeter=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-240" y="800" as="targetPoint" />
+            <mxPoint x="-310" y="790" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-38" value="ReleaseAck(x)" style="edgeLabel;html=1;align=left;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="aAzc7_zl25Mq9BWgkw9h-37">
+          <mxGeometry x="-0.3439" y="-1" relative="1" as="geometry">
+            <mxPoint x="67" y="6" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-39" value="" style="rounded=0;whiteSpace=wrap;html=1;fontSize=8;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="-330" y="770" width="20" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-40" value="CPU0 want to get the X memory block copy in a shared state (read only), but end up getting it in Unique state (read/write)" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;dashed=1;dashPattern=1 1;labelBackgroundColor=none;fontSize=11;spacingRight=0;fontColor=#FF0000;" vertex="1" parent="1">
+          <mxGeometry x="-650" y="530" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-42" value="CPU1 want to get the X memory block copy, and in a unique state" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;dashed=1;dashPattern=1 1;labelBackgroundColor=none;fontSize=11;spacingRight=0;fontColor=#FF0000;" vertex="1" parent="1">
+          <mxGeometry x="-200" y="640" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-43" value="CPU0 copy of the X was dirty" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;dashed=1;dashPattern=1 1;labelBackgroundColor=none;fontSize=11;spacingRight=0;fontColor=#FF0000;" vertex="1" parent="1">
+          <mxGeometry x="-660" y="640" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-44" value="CPU1 want to make some room, getting ride of the X memory block" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;dashed=1;dashPattern=1 1;labelBackgroundColor=none;fontSize=11;spacingRight=0;fontColor=#FF0000;" vertex="1" parent="1">
+          <mxGeometry x="-140" y="770" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-45" value="CPU0 modify its copy of X" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;dashed=1;dashPattern=1 1;labelBackgroundColor=none;fontSize=11;spacingRight=0;fontColor=#FF0000;" vertex="1" parent="1">
+          <mxGeometry x="-570" y="600" width="160" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-46" value="CPU1 modify its copy of X" style="text;html=1;strokeColor=none;fillColor=none;align=left;verticalAlign=middle;whiteSpace=wrap;rounded=0;dashed=1;dashPattern=1 1;labelBackgroundColor=none;fontSize=11;spacingRight=0;fontColor=#FF0000;" vertex="1" parent="1">
+          <mxGeometry x="-220" y="730" width="160" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-47" style="rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=1;entryDx=0;entryDy=0;exitX=0;exitY=0;exitDx=0;exitDy=0;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="-310.0000000000001" y="720" as="targetPoint" />
+            <mxPoint x="-240" y="710.19" as="sourcePoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-48" value="GrantAck(x)" style="edgeLabel;html=1;align=left;verticalAlign=middle;resizable=0;points=[];" vertex="1" connectable="0" parent="aAzc7_zl25Mq9BWgkw9h-47">
+          <mxGeometry x="-0.3439" y="-1" relative="1" as="geometry">
+            <mxPoint x="43" y="-2" as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="aAzc7_zl25Mq9BWgkw9h-49" value="" style="rounded=0;whiteSpace=wrap;html=1;fontSize=8;strokeWidth=1;" vertex="1" parent="1">
+          <mxGeometry x="-330" y="620" width="20" height="100" as="geometry" />
         </mxCell>
       </root>
     </mxGraphModel>

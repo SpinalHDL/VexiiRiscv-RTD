@@ -136,9 +136,9 @@ Here is how you can do so by adding code to the MicroSoc.system.peripheral area 
 
             // Let's define a Fiber thread which will
             // - Handle the tilelink parameter negotiation
-            // - Instanciate the APB3 bridge and connect the buses
+            // - Instantiate the APB3 bridge and connect the buses
             val fiber = Fiber build new Area{
-              // Here we go with the tilelink negociation
+              // Here we go with the tilelink negotiation
               tl.m2s.supported.load(
                 M2sSupport(
                   addressWidth = bus.config.addressWidth,

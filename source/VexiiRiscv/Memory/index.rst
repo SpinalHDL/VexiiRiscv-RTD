@@ -1,15 +1,15 @@
 .. _lsu:
 
-Load Store Unit (LSU)
-=====================
+Memory (LSU)
+###################
 
-VexiiRiscv has 2 implementations of LSU :
+LSU stand for Load Store Unit, VexiiRiscv has currently 2 implementations for it:
 
 - LsuCachelessPlugin for microcontrollers, which doesn't implement any cache
 - LsuPlugin / LsuL1Plugin which can work together to implement load and store through an L1 cache
 
 Without L1
-----------
+====================
 
 Implemented by the LsuCachelessPlugin, it should be noted that to
 reach good frequencies on FPGA SoC, forking the memory request at
@@ -19,7 +19,7 @@ as it relax the AGU timings as well as the PMA (Physical Memory Attributes) chec
 .. image:: /asset/picture/lsu_nol1.png
 
 With L1
--------
+====================
 
 This configuration supports :
 
@@ -63,25 +63,9 @@ For multiple reasons (ease of implementation, FMax, hardware usage), VexiiRiscv 
 In those situation, the LsuPlugin will trigger an "hardware trap"
 which will flush the pipeline and reschedule the failed instruction to the fetch unit.
 
-Memory coherency
-----------------
-
-Memory coherency (L1) with other memory agents (CPU, DMA, ..) is supported though a MESI implementation which can be bridged to a tilelink memory bus.
-
-So, the L1 cache will have the following stream interfaces :
-
-- read_cmd : To send memory block acquire requests (invalid/shared -> shared/exclusive)
-- read_rsp : For responses of the above requests
-- read_ack : To send acquire requests completion
-- write_cmd : To send release a memory block permission (shared/exclusive -> invalid)
-- write_rsp : For responses of the above requests
-- probe_cmd : To receive probe requests (toInvalid/toShared/toUnique)
-- probe_rsp : to send responses from the above requests (isInvalid/isShared/isUnique)
-
-PICTURE
 
 Prefetching
------------
+----------------------
 
 Currently there is two implementation of prefetching
 
@@ -182,3 +166,77 @@ Here are a few performance gain measurements done on litex with a :
    * - chocolate-doom -1 demo1.lmp
      - 43.1 fps
      - 50.2 fps
+
+Memory coherency
+----------------------
+
+Memory coherency (L1) with other memory agents (CPU, DMA, L2, ..) is supported though a MESI implementation which can be bridged to a tilelink memory bus.
+
+MESI is an standard acronym for every possible state that a copy of a memory block can have in the caches :
+
+- I : Invalid, meaning that there is no copy of that memory block
+- S : Shared, meaning that the cache has a read only copy of the memory block, and that other caches may also have a copy. This state is sometime named : Shared/Clean
+- E : Exclusive, meaning that the cache has a read/writable copy of the memory block which is still in a clean state (unmodified, no writeback required),
+  and that no other cache has a copy of the block. This state is sometime named : Unique/Clean
+- M : Modified, meaning that the cache line exclusive, but has been modified, and so, require a writeback later on. This state is sometime named : Unique/Dirty
+
+Here is a diagram which shows an example of memory block copy exchanges between 2 CPUs :
+
+.. image:: /asset/picture/tilelink_coherency.png
+
+The VexiiRiscv L1 cache interconnect interface is kinda close to what Tilelink specifies and can easily be bridged to Tilelink.
+The main difference is that probe requests can fail (need to be replayed), and that probes which which hit will then go through the writeback interface.
+Here is the hardware interfaces :
+
+- read_cmd : To send memory block acquire requests (invalid/shared -> shared/exclusive)
+- read_rsp : For responses of the above requests
+- read_ack : To send acquire requests completion
+- write_cmd : To send release a memory block permission (shared/exclusive -> invalid)
+- write_rsp : For responses of the above requests
+- probe_cmd : To receive probe requests (toInvalid/toShared/toUnique)
+- probe_rsp : to send responses from the above requests (isInvalid/isShared/isUnique).
+  When data need to be written back, it will be done through the write_cmd channel.
+
+Memory system
+----------------------
+
+Currently, VexiiRiscv can be used with the Tilelink memory interconnect from SpinalHDL and Chipyard (https://chipyard.readthedocs.io/en/latest/Generators/VexiiRiscv.html).
+
+Why Tilelink
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+So, why using Tilelink, while most of the FPGA industry is using AXI4 ? Here are some issues / complexities that AXI4 bring with it.
+(Dolu1990 opinions, with the perspective of using it in FPGA, with limited man power, don't see this as an absolute truth)
+
+- The AXI4 memory ordering, while allowing CPU/DMA to get preserved ordering between transactions with the same ID,
+  is creating complexities and bottlenecks in the memory system. Typically in the interconnect decoders
+  to avoid dead-locks, but even more in L2 caches and DRAM controllers  which ideally would handle every request out of order.
+  Tilelink instead specify that the CPU/DMAs shouldn't assume any memory ordering between inflight transactions.
+- AXI4 specifies that memory read response channel can interleave between multiple ongoing bursts.
+  While this can be use full for very large burst (which in itself is a bad idea, see next chapter),
+  this can lead to big area overhead for memory bridges, especially with width adapters.
+  Tilelink doesn't allows this behaviour.
+- AXI4 splits write address from write data, which add additional synchronisations points in the interconnect decoders/arbiters and peripherals (bad for timings)
+  as well as potentially decrease performances if address and data arrive at different timings.
+- AXI4 isn't great for low latency memory interconnects, mostly because of the previous point.
+- AXI4 splits read and write channels (ar r / aw w b), which mostly double the area cost of address decoding and routing for DMA and non-coherent CPUs.
+- AXI4 specifies a few "low values" features which increase complexity and area (ex: WRAP/FIXED bursts, unaligned memory accesses).
+
+Efficiency cookbook
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Here are a set of design guideline to keep a memory system lean and efficient (don't see this as an absolute truth) :
+
+- Memory blocks are 64 aligned bytes long : DDR3/4/5 modules provides native 64 bytes burst accesses.
+  In particular, with DDR5 modules, they doubled its burst size (to 16 beats), but in order to preserve 64 bytes burst accesses,
+  they divided the 64 bits physical data width between two independent channels.
+  CPU cache lines, L2 and L3 designs follow that 64 bytes block "rule" as well.
+  Their coherency dictionary will be designed to handle 64 bytes memory blocks too.
+  AMBA 5 CHI enforce 64 bytes cache lines, and doesn't support memory transfers with more than 64 bytes.
+- DMA should use one unique ID (axi/tilelink) for each inflight transactions and not expect any ordering between inflight transactions. That keep them highly portable and relax the memory system.
+- DMA should access up to 64 aligned bytes per burst, this should be enough to reach peak bandwidth. No need for 4KB Rambo bursts.
+- DMA should only do burst aligned memory accesses (to keep them easily portable to Tilelink)
+- It is fine for DMA to over fetch (let's say you need 48 bytes, but access  aligned 64 bytes instead),
+  as long as the bulk of the memory bandwidth is not doing it.
+
+

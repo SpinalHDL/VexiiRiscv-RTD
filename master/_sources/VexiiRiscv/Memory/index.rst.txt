@@ -217,9 +217,9 @@ So, why using Tilelink, while most of the FPGA industry is using AXI4 ? Here are
   this can lead to big area overhead for memory bridges, especially with width adapters.
   Tilelink doesn't allows this behaviour.
 - AXI4 splits write address from write data, which add additional synchronisations points in the interconnect decoders/arbiters and peripherals (bad for timings)
-  as well as potentially decrease performances if address and data arrive at different timings.
+  as well as potentially decrease performances when integrating multiple AXI4 modules which do not use similar address/data timings.
 - AXI4 isn't great for low latency memory interconnects, mostly because of the previous point.
-- AXI4 splits read and write channels (ar r / aw w b), which mostly double the area cost of address decoding and routing for DMA and non-coherent CPUs.
+- AXI4 splits read and write channels (ar r / aw w b), which mostly double the area cost of address decoding/routing for DMA and non-coherent CPUs.
 - AXI4 specifies a few "low values" features which increase complexity and area (ex: WRAP/FIXED bursts, unaligned memory accesses).
 
 Efficiency cookbook
@@ -227,8 +227,8 @@ Efficiency cookbook
 
 Here are a set of design guideline to keep a memory system lean and efficient (don't see this as an absolute truth) :
 
-- Memory blocks are 64 aligned bytes long : DDR3/4/5 modules provides native 64 bytes burst accesses.
-  In particular, with DDR5 modules, they doubled its burst size (to 16 beats), but in order to preserve 64 bytes burst accesses,
+- Memory blocks are 64 aligned bytes long : DDR3/4/5 modules are tuned to provides native 64 bytes burst accesses (not less, not more).
+  In particular, with DDR5 modules, they doubled the module burst size (to 16 beats), but in order to preserve 64 bytes burst accesses,
   they divided the 64 bits physical data width between two independent channels.
   CPU cache lines, L2 and L3 designs follow that 64 bytes block "rule" as well.
   Their coherency dictionary will be designed to handle 64 bytes memory blocks too.
@@ -236,7 +236,10 @@ Here are a set of design guideline to keep a memory system lean and efficient (d
 - DMA should use one unique ID (axi/tilelink) for each inflight transactions and not expect any ordering between inflight transactions. That keep them highly portable and relax the memory system.
 - DMA should access up to 64 aligned bytes per burst, this should be enough to reach peak bandwidth. No need for 4KB Rambo bursts.
 - DMA should only do burst aligned memory accesses (to keep them easily portable to Tilelink)
-- It is fine for DMA to over fetch (let's say you need 48 bytes, but access  aligned 64 bytes instead),
+- It is fine for DMA to over fetch (let's say you need 48 bytes, but access aligned 64 bytes instead),
   as long as the bulk of the memory bandwidth is not doing it.
+- DMA should avoid doing multiple accesses in a 64 byte block if possible, and instead use a single access.
+  This can preserve the DRAM controller bandwidth (see DDR3/4/5 comments above),
+  but also, L2/L3 cache designs may block any additional memory request targeting a memory block which is already under operation.
 
 

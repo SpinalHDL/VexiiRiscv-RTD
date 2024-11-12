@@ -190,3 +190,5 @@ We need to edit this into :
     pluginsArea.plugins += new vexiiriscv.execute.SimdAddPlugin(pluginsArea.early0)
     // Build the CPU
     val cpu = new TilelinkVexiiRiscvFiber(pluginsArea.plugins)
+
+TODO add software example

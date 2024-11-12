@@ -474,9 +474,9 @@ While this can be use full for very large burst (which in itself is a bad idea, 
 this can lead to big area overhead for memory bridges, especially with width adapters.
 Tilelink doesn’t allows this behaviour.</p></li>
 <li><p>AXI4 splits write address from write data, which add additional synchronisations points in the interconnect decoders/arbiters and peripherals (bad for timings)
-as well as potentially decrease performances if address and data arrive at different timings.</p></li>
+as well as potentially decrease performances when integrating multiple AXI4 modules which do not use similar address/data timings.</p></li>
 <li><p>AXI4 isn’t great for low latency memory interconnects, mostly because of the previous point.</p></li>
-<li><p>AXI4 splits read and write channels (ar r / aw w b), which mostly double the area cost of address decoding and routing for DMA and non-coherent CPUs.</p></li>
+<li><p>AXI4 splits read and write channels (ar r / aw w b), which mostly double the area cost of address decoding/routing for DMA and non-coherent CPUs.</p></li>
 <li><p>AXI4 specifies a few “low values” features which increase complexity and area (ex: WRAP/FIXED bursts, unaligned memory accesses).</p></li>
 </ul>
 </section>
@@ -484,8 +484,8 @@ as well as potentially decrease performances if address and data arrive at diffe
 <h4>Efficiency cookbook<a class="headerlink" href="#efficiency-cookbook" title="Permalink to this heading"></a></h4>
 <p>Here are a set of design guideline to keep a memory system lean and efficient (don’t see this as an absolute truth) :</p>
 <ul class="simple">
-<li><p>Memory blocks are 64 aligned bytes long : DDR3/4/5 modules provides native 64 bytes burst accesses.
-In particular, with DDR5 modules, they doubled its burst size (to 16 beats), but in order to preserve 64 bytes burst accesses,
+<li><p>Memory blocks are 64 aligned bytes long : DDR3/4/5 modules are tuned to provides native 64 bytes burst accesses (not less, not more).
+In particular, with DDR5 modules, they doubled the module burst size (to 16 beats), but in order to preserve 64 bytes burst accesses,
 they divided the 64 bits physical data width between two independent channels.
 CPU cache lines, L2 and L3 designs follow that 64 bytes block “rule” as well.
 Their coherency dictionary will be designed to handle 64 bytes memory blocks too.
@@ -493,8 +493,11 @@ AMBA 5 CHI enforce 64 bytes cache lines, and doesn’t support memory transfers 
 <li><p>DMA should use one unique ID (axi/tilelink) for each inflight transactions and not expect any ordering between inflight transactions. That keep them highly portable and relax the memory system.</p></li>
 <li><p>DMA should access up to 64 aligned bytes per burst, this should be enough to reach peak bandwidth. No need for 4KB Rambo bursts.</p></li>
 <li><p>DMA should only do burst aligned memory accesses (to keep them easily portable to Tilelink)</p></li>
-<li><p>It is fine for DMA to over fetch (let’s say you need 48 bytes, but access  aligned 64 bytes instead),
+<li><p>It is fine for DMA to over fetch (let’s say you need 48 bytes, but access aligned 64 bytes instead),
 as long as the bulk of the memory bandwidth is not doing it.</p></li>
+<li><p>DMA should avoid doing multiple accesses in a 64 byte block if possible, and instead use a single access.
+This can preserve the DRAM controller bandwidth (see DDR3/4/5 comments above),
+but also, L2/L3 cache designs may block any additional memory request targeting a memory block which is already under operation.</p></li>
 </ul>
 </section>
 </section>
@@ -530,7 +533,7 @@ as long as the bulk of the memory bandwidth is not doing it.</p></li>
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~71b59a2 2024-11-12
+    Version: master git~4695f72 2024-11-12
     </p></div>
     
 

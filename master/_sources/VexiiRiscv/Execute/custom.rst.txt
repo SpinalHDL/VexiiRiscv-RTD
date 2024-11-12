@@ -21,6 +21,8 @@ For instance the Plugin configuration could be :
     plugins += new BranchPlugin(early0, aluAt = 0, jumpAt = relaxedBranch.toInt, wbAt = 0)
     plugins += new SimdAddPlugin(early0) // <- We will implement this plugin
 
+.. _custom_plugin_impl:
+
 Plugin implementation
 ^^^^^^^^^^^^^^^^^^^^^
 

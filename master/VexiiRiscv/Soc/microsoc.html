@@ -221,6 +221,7 @@
 <li class="toctree-l3"><a class="reference internal" href="#simulation-spinalsim-verilator">Simulation (SpinalSim / Verilator)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#adding-a-custom-peripheral">Adding a custom peripheral</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#exporting-an-apb3-bus-to-the-toplevel">Exporting an APB3 bus to the toplevel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#adding-a-custom-instruction">Adding a custom instruction</a></li>
 </ul>
 </li>
 <li class="toctree-l2"><a class="reference internal" href="litex.html">Litex</a></li>
@@ -422,6 +423,23 @@ Here is how you can do so by adding code to the MicroSoc.system.peripheral area 
 </pre></div>
 </div>
 </section>
+<section id="adding-a-custom-instruction">
+<h2>Adding a custom instruction<a class="headerlink" href="#adding-a-custom-instruction" title="Permalink to this heading"></a></h2>
+<p>Let’s say you want to add a custom instruction to the MicroSoc. Let’s use the <a class="reference internal" href="../Execute/custom.html#custom-plugin-impl"><span class="std std-ref">Plugin implementation</span></a> which does SIMD add.</p>
+<p>In the MicroSoc, you can find :</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="kd">val</span><span class="w"> </span><span class="n">cpu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">TilelinkVexiiRiscvFiber</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">vexii</span><span class="p">.</span><span class="n">plugins</span><span class="p">())</span>
+</pre></div>
+</div>
+<p>We need to edit this into :</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="c1">// Instantiate all the plugins from the command line arguments</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">pluginsArea</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">vexii</span><span class="p">.</span><span class="n">pluginsArea</span><span class="p">()</span>
+<span class="c1">// Add our custom plugin, pluginsArea.early0 refer to the default execute lane of the CPU</span>
+<span class="n">pluginsArea</span><span class="p">.</span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">vexiiriscv</span><span class="p">.</span><span class="n">execute</span><span class="p">.</span><span class="nc">SimdAddPlugin</span><span class="p">(</span><span class="n">pluginsArea</span><span class="p">.</span><span class="n">early0</span><span class="p">)</span>
+<span class="c1">// Build the CPU</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">cpu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">TilelinkVexiiRiscvFiber</span><span class="p">(</span><span class="n">pluginsArea</span><span class="p">.</span><span class="n">plugins</span><span class="p">)</span>
+</pre></div>
+</div>
+</section>
 </section>
 
     <script type="text/javascript">
@@ -453,7 +471,7 @@ Here is how you can do so by adding code to the MicroSoc.system.peripheral area 
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~9eb566b 2024-11-12
+    Version: master git~71b59a2 2024-11-12
     </p></div>
     
 

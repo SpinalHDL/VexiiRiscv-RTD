@@ -168,3 +168,25 @@ If you want the CPU to be able to execute code located in the APB3 peripheral, t
             val tl  = tilelink.fabric.Node.slave()
             tl at 0x10006000 of bus32 // Lets map our tilelink bus in the memory space
             tl.addTag(spinal.lib.system.tag.PMA.EXECUTABLE)
+
+Adding a custom instruction
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Let's say you want to add a custom instruction to the MicroSoc. Let's use the :ref:`custom_plugin_impl` which does SIMD add.
+
+In the MicroSoc, you can find :
+
+.. code:: scala
+
+    val cpu = new TilelinkVexiiRiscvFiber(p.vexii.plugins())
+
+We need to edit this into :
+
+.. code:: scala
+
+    // Instantiate all the plugins from the command line arguments
+    val pluginsArea = p.vexii.pluginsArea()
+    // Add our custom plugin, pluginsArea.early0 refer to the default execute lane of the CPU
+    pluginsArea.plugins += new vexiiriscv.execute.SimdAddPlugin(pluginsArea.early0)
+    // Build the CPU
+    val cpu = new TilelinkVexiiRiscvFiber(pluginsArea.plugins)

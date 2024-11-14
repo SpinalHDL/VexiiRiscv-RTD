@@ -113,15 +113,18 @@ On FPGA there is a few options which can be key in order to scale up the IPC whi
   This can be easily be the first critical path to appear.
   This option make the BTB implementation spread over 2 cycles,
   which relax the timings at the cost of 1 cycle penalty on every successful branch predictions.
-
 - --relaxed-branch : By default, the BranchPlugin will flush/setPc in the same stage
   than its own ALU. This is good for IPC but can easily be a critical path.
   This option will add one cycle latency between the ALU and the side effects (flush/setPc)
   in order to improve timings.
   If you enabled the branch prediction, then the impact on the IPC should be quite low.
-
 - --fma-reduced-accuracy and --fpu-ignore-subnormal both reduce and can improve the fmax
   at the cost of accuracy
+- --fetch-fork-at=1 : If you don't have a instruction cache, this option will significantly relax the
+  timings of the instruction fetch bus. With this option, instead of connecting the fetch bus to the first stage of the
+  fetch pipeline (address generation stage), it will connect it to the stage after.
+- --lsu-fork-at=1 --lsu-pma-at : If you don't have a data cache, this option will relax the LSU memory bus command channel
+  by pushing everything down one stage before forking requests to the memory system.
 
 
 Critical paths tool

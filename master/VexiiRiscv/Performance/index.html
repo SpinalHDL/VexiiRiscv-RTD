@@ -394,6 +394,11 @@ in order to improve timings.
 If you enabled the branch prediction, then the impact on the IPC should be quite low.</p></li>
 <li><p>–fma-reduced-accuracy and –fpu-ignore-subnormal both reduce and can improve the fmax
 at the cost of accuracy</p></li>
+<li><p>–fetch-fork-at=1 : If you don’t have a instruction cache, this option will significantly relax the
+timings of the instruction fetch bus. With this option, instead of connecting the fetch bus to the first stage of the
+fetch pipeline (address generation stage), it will connect it to the stage after.</p></li>
+<li><p>–lsu-fork-at=1 –lsu-pma-at : If you don’t have a data cache, this option will relax the LSU memory bus command channel
+by pushing everything down one stage before forking requests to the memory system.</p></li>
 </ul>
 </section>
 <section id="critical-paths-tool">
@@ -465,7 +470,7 @@ That particular path is the one going through the RS1 -&gt; SrcPlugin -&gt; IntA
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~ff4632b 2024-11-14
+    Version: master git~74184e5 2024-11-14
     </p></div>
     
 

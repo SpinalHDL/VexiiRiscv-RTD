@@ -122,3 +122,47 @@ On FPGA there is a few options which can be key in order to scale up the IPC whi
 
 - --fma-reduced-accuracy and --fpu-ignore-subnormal both reduce and can improve the fmax
   at the cost of accuracy
+
+
+Critical paths tool
+--------------------------------
+
+At the end of your synthesis/place/route tools, you get a critical path report where hopefully, the source and destination registers are well named.
+The issue is that in between, all the combinatorial logic and signals names become unrecognizable or misleading most of the time.
+Also, in CPU design, it can quite easily happen that some combinatorial path "leak" through the pipeline, degrading the FMax quite a bit !
+
+So there is a tool you can use in SpinalHDL to provide you a "clean" combinatorial path report between 2 signals of a design.
+Here is an example how you can use it in VexiiRiscv :
+
+.. code-block:: bash
+
+    sbt "Test/runMain vexiiriscv.Generate --stressed-src --allow-bypass-from=0 --analyse-path from=execute_ctrl2_up_integer_RS1_lane0,to=execute_ctrl1_down_integer_RS1_lane0"
+
+This will report you the various paths from execute_ctrl2_up_integer_RS1_lane0 to execute_ctrl1_down_integer_RS1_lane0 in reverse order.
+That particular path is the one going through the RS1 -> SrcPlugin -> IntAluPlugin -> WriteBackPlugin -> RS1 bypass -> RS1:
+
+.. code-block::
+
+- Node((toplevel/execute_ctrl1_down_integer_RS1_lane0 :  Bits[32 bits]))
+  - Node((toplevel/_zz_execute_ctrl1_down_integer_RS1_lane0_1 :  Bits[32 bits]))
+    - Node((toplevel/execute_ctrl2_down_lane0_integer_WriteBackPlugin_logic_DATA_lane0 :  Bits[32 bits]))
+      - Node((toplevel/execute_ctrl2_lane0_integer_WriteBackPlugin_logic_DATA_lane0_bypass :  Bits[32 bits]))
+        - Node((toplevel/lane0_integer_WriteBackPlugin_logic_stages_0_muxed :  Bits[32 bits]))
+          - Node((Bits | Bits)[32 bits])
+            - Node((Bool ? Bits | Bits)[32 bits])
+              - Node((toplevel/lane0_IntFormatPlugin_logic_stages_0_wb_payload :  Bits[32 bits]))
+                - Node((toplevel/lane0_IntFormatPlugin_logic_stages_0_raw :  Bits[32 bits]))
+                  - Node((Bits | Bits)[32 bits])
+                    - Node((Bool ? Bits | Bits)[32 bits])
+                      - Node((toplevel/early0_IntAluPlugin_logic_wb_payload :  Bits[32 bits]))
+                        - Node((toplevel/execute_ctrl2_down_early0_IntAluPlugin_ALU_RESULT_lane0 :  Bits[32 bits]))
+                          - Node((SInt -> Bits of 32 bits))
+                            - Node((toplevel/early0_IntAluPlugin_logic_alu_result :  SInt[32 bits]))
+                              - Node((SInt | SInt)[32 bits])
+                                - Node((SInt | SInt)[32 bits])
+                                  - Node((toplevel/early0_IntAluPlugin_logic_alu_bitwise :  SInt[32 bits]))
+                                    - Node((SInt & SInt)[32 bits])
+                                      - Node((toplevel/execute_ctrl2_down_early0_SrcPlugin_SRC1_lane0 :  SInt[32 bits]))
+                                        - Node((toplevel/_zz_execute_ctrl2_down_early0_SrcPlugin_SRC1_lane0 :  SInt[32 bits]))
+                                          - Node((Bits -> SInt of 32 bits))
+                                            - Node((toplevel/execute_ctrl2_up_integer_RS1_lane0 :  Bits[32 bits]))

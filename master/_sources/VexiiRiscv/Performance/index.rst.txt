@@ -141,31 +141,63 @@ Here is an example how you can use it in VexiiRiscv :
 
     sbt "Test/runMain vexiiriscv.Generate --stressed-src --allow-bypass-from=0 --analyse-path from=execute_ctrl2_up_integer_RS1_lane0,to=execute_ctrl1_down_integer_RS1_lane0"
 
-This will report you the various paths from execute_ctrl2_up_integer_RS1_lane0 to execute_ctrl1_down_integer_RS1_lane0 in reverse order.
-That particular path is the one going through the RS1 -> SrcPlugin -> IntAluPlugin -> WriteBackPlugin -> RS1 bypass -> RS1:
+This will report you the various paths from execute_ctrl2_up_integer_RS1_lane0 to execute_ctrl1_down_integer_RS1_lane0.
+
+Here is one of the path reported, which goes through RS1 -> SrcPlugin -> BarrelShifterPlugin -> IntFormatPlugin -> WriteBackPlugin -> RS1 bypass -> RS1 :
 
 .. code-block::
 
-    - Node((toplevel/execute_ctrl1_down_integer_RS1_lane0 :  Bits[32 bits]))
-      - Node((toplevel/_zz_execute_ctrl1_down_integer_RS1_lane0_1 :  Bits[32 bits]))
-        - Node((toplevel/execute_ctrl2_down_lane0_integer_WriteBackPlugin_logic_DATA_lane0 :  Bits[32 bits]))
-          - Node((toplevel/execute_ctrl2_lane0_integer_WriteBackPlugin_logic_DATA_lane0_bypass :  Bits[32 bits]))
-            - Node((toplevel/lane0_integer_WriteBackPlugin_logic_stages_0_muxed :  Bits[32 bits]))
-              - Node((Bits | Bits)[32 bits])
-                - Node((Bool ? Bits | Bits)[32 bits])
-                  - Node((toplevel/lane0_IntFormatPlugin_logic_stages_0_wb_payload :  Bits[32 bits]))
-                    - Node((toplevel/lane0_IntFormatPlugin_logic_stages_0_raw :  Bits[32 bits]))
-                      - Node((Bits | Bits)[32 bits])
-                        - Node((Bool ? Bits | Bits)[32 bits])
-                          - Node((toplevel/early0_IntAluPlugin_logic_wb_payload :  Bits[32 bits]))
-                            - Node((toplevel/execute_ctrl2_down_early0_IntAluPlugin_ALU_RESULT_lane0 :  Bits[32 bits]))
-                              - Node((SInt -> Bits of 32 bits))
-                                - Node((toplevel/early0_IntAluPlugin_logic_alu_result :  SInt[32 bits]))
-                                  - Node((SInt | SInt)[32 bits])
-                                    - Node((SInt | SInt)[32 bits])
-                                      - Node((toplevel/early0_IntAluPlugin_logic_alu_bitwise :  SInt[32 bits]))
-                                        - Node((SInt & SInt)[32 bits])
-                                          - Node((toplevel/execute_ctrl2_down_early0_SrcPlugin_SRC1_lane0 :  SInt[32 bits]))
-                                            - Node((toplevel/_zz_execute_ctrl2_down_early0_SrcPlugin_SRC1_lane0 :  SInt[32 bits]))
-                                              - Node((Bits -> SInt of 32 bits))
-                                                - Node((toplevel/execute_ctrl2_up_integer_RS1_lane0 :  Bits[32 bits]))
+    - (toplevel/execute_ctrl2_up_integer_RS1_lane0 :  Bits[32 bits])
+    - (Bits -> SInt of 32 bits)
+    - (toplevel/_zz_execute_ctrl2_down_early0_SrcPlugin_SRC1_lane0 :  SInt[32 bits])
+    - (toplevel/execute_ctrl2_down_early0_SrcPlugin_SRC1_lane0 :  SInt[32 bits])
+    - (Bool ? Bits | Bits)[32 bits]
+    - (toplevel/early0_BarrelShifterPlugin_logic_shift_reversed :  SInt[32 bits])
+    - (SInt -> Bits of 32 bits)
+    - Bits ## Bits
+    - (Bits -> SInt of 33 bits)
+    - (SInt >> UInt)[33 bits]
+    - resize(SInt,32 bits)
+    - (toplevel/early0_BarrelShifterPlugin_logic_shift_shifted :  SInt[32 bits])
+    - (Bool ? Bits | Bits)[32 bits]
+    - (toplevel/early0_BarrelShifterPlugin_logic_shift_patched :  SInt[32 bits])
+    - (SInt -> Bits of 32 bits)
+    - (toplevel/execute_ctrl2_down_early0_BarrelShifterPlugin_SHIFT_RESULT_lane0 :  Bits[32 bits])
+    - (toplevel/early0_BarrelShifterPlugin_logic_wb_payload :  Bits[32 bits])
+    - (Bool ? Bits | Bits)[32 bits]
+    - (Bits | Bits)[32 bits]
+    - (toplevel/lane0_IntFormatPlugin_logic_stages_0_raw :  Bits[32 bits])
+    - (toplevel/lane0_IntFormatPlugin_logic_stages_0_wb_payload :  Bits[32 bits])
+    - (Bool ? Bits | Bits)[32 bits]
+    - (Bits | Bits)[32 bits]
+    - (toplevel/lane0_integer_WriteBackPlugin_logic_stages_0_muxed :  Bits[32 bits])
+    - (toplevel/execute_ctrl2_lane0_integer_WriteBackPlugin_logic_DATA_lane0_bypass :  Bits[32 bits])
+    - (toplevel/execute_ctrl2_down_lane0_integer_WriteBackPlugin_logic_DATA_lane0 :  Bits[32 bits])
+    - (toplevel/_zz_execute_ctrl1_down_integer_RS1_lane0_1 :  Bits[32 bits])
+    - (toplevel/execute_ctrl1_down_integer_RS1_lane0 :  Bits[32 bits])
+
+And there is the reported list of all named signal used by any of the paths :
+
+.. code-block::
+
+    - (toplevel/_zz_execute_ctrl1_down_integer_RS1_lane0_1 :  Bits[32 bits])
+    - (toplevel/_zz_execute_ctrl2_down_early0_SrcPlugin_SRC1_lane0 :  SInt[32 bits])
+    - (toplevel/early0_BarrelShifterPlugin_logic_shift_patched :  SInt[32 bits])
+    - (toplevel/early0_BarrelShifterPlugin_logic_shift_reversed :  SInt[32 bits])
+    - (toplevel/early0_BarrelShifterPlugin_logic_shift_shifted :  SInt[32 bits])
+    - (toplevel/early0_BarrelShifterPlugin_logic_wb_payload :  Bits[32 bits])
+    - (toplevel/early0_IntAluPlugin_logic_alu_bitwise :  SInt[32 bits])
+    - (toplevel/early0_IntAluPlugin_logic_alu_result :  SInt[32 bits])
+    - (toplevel/early0_IntAluPlugin_logic_wb_payload :  Bits[32 bits])
+    - (toplevel/execute_ctrl1_down_integer_RS1_lane0 :  Bits[32 bits])
+    - (toplevel/execute_ctrl2_down_early0_BarrelShifterPlugin_SHIFT_RESULT_lane0 :  Bits[32 bits])
+    - (toplevel/execute_ctrl2_down_early0_IntAluPlugin_ALU_RESULT_lane0 :  Bits[32 bits])
+    - (toplevel/execute_ctrl2_down_early0_SrcPlugin_ADD_SUB_lane0 :  SInt[32 bits])
+    - (toplevel/execute_ctrl2_down_early0_SrcPlugin_LESS_lane0 :  Bool)
+    - (toplevel/execute_ctrl2_down_early0_SrcPlugin_SRC1_lane0 :  SInt[32 bits])
+    - (toplevel/execute_ctrl2_down_lane0_integer_WriteBackPlugin_logic_DATA_lane0 :  Bits[32 bits])
+    - (toplevel/execute_ctrl2_lane0_integer_WriteBackPlugin_logic_DATA_lane0_bypass :  Bits[32 bits])
+    - (toplevel/execute_ctrl2_up_integer_RS1_lane0 :  Bits[32 bits])
+    - (toplevel/lane0_IntFormatPlugin_logic_stages_0_raw :  Bits[32 bits])
+    - (toplevel/lane0_IntFormatPlugin_logic_stages_0_wb_payload :  Bits[32 bits])
+    - (toplevel/lane0_integer_WriteBackPlugin_logic_stages_0_muxed :  Bits[32 bits])

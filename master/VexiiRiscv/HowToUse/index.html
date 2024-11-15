@@ -209,6 +209,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#run-a-simulation">Run a simulation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#synthesis">Synthesis</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#other-resources">Other resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-intellij-idea">Using IntelliJ IDEA</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Performance/index.html">Performance / Area / FMax</a><ul>
@@ -494,6 +495,16 @@ on ASIC maybe some of those could be redesigned to be single port rams instead (
 <li><p>Through Litex, a tool to build SoC w(<a class="reference internal" href="../Soc/litex.html#litex"><span class="std std-ref">Litex</span></a>)</p></li>
 </ul>
 </section>
+<section id="using-intellij-idea">
+<h2>Using IntelliJ IDEA<a class="headerlink" href="#using-intellij-idea" title="Permalink to this heading"></a></h2>
+<p>IntelliJ IDEA is a Java/Scala IDE which can help a lot navigating the codebase. You can get its community edition for free.
+Then you just need to install the scala plugin (asked the first time you run the IDE), and open the VexiiRiscv folder with it.</p>
+<p>The one issue is that it has a bug, and will give you a :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">object</span> <span class="n">Info</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">a</span> <span class="n">member</span> <span class="n">of</span> <span class="n">package</span> <span class="n">spinal</span><span class="o">.</span><span class="n">core</span>
+</pre></div>
+</div>
+<p>The workaround is that you need to run the “sbt compile” command in a terminal in the VexiiRiscv folder once.</p>
+</section>
 </section>
 
     <script type="text/javascript">
@@ -525,7 +536,7 @@ on ASIC maybe some of those could be redesigned to be single port rams instead (
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~8f1138d 2024-11-14
+    Version: master git~1b70be0 2024-11-15
     </p></div>
     
 

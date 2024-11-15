@@ -221,4 +221,16 @@ There a few other ways to start using VexiiRiscv :
 - Trough the MicroSoc reference design, a little microcontroller for FPGA (:ref:`microsoc`)
 - Through Litex, a tool to build SoC w(:ref:`litex`)
 
+Using IntelliJ IDEA
+-------------------------
 
+IntelliJ IDEA is a Java/Scala IDE which can help a lot navigating the codebase. You can get its community edition for free.
+Then you just need to install the scala plugin (asked the first time you run the IDE), and open the VexiiRiscv folder with it.
+
+The one issue is that it has a bug, and will give you a :
+
+.. code-block::
+
+    object Info is not a member of package spinal.core
+
+The workaround is that you need to run the "sbt compile" command in a terminal in the VexiiRiscv folder once.

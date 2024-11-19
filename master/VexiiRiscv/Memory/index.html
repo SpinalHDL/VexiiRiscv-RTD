@@ -187,7 +187,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#performance-measurements">performance measurements</a></li>
 </ul>
 </li>
-<li class="toctree-l3"><a class="reference internal" href="#memory-coherency">Memory coherency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#hardware-memory-coherency">Hardware Memory coherency</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#memory-system">Memory system</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#why-tilelink">Why Tilelink</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#efficiency-cookbook">Efficiency cookbook</a></li>
@@ -432,9 +432,21 @@ have enough hardware refill/writeback slots in the LsuL1Plugin.</p>
 </table>
 </section>
 </section>
-<section id="memory-coherency">
-<h3>Memory coherency<a class="headerlink" href="#memory-coherency" title="Permalink to this heading"></a></h3>
-<p>Memory coherency (L1) with other memory agents (CPU, DMA, L2, ..) is supported though a MESI implementation which can be bridged to a tilelink memory bus.</p>
+<section id="hardware-memory-coherency">
+<h3>Hardware Memory coherency<a class="headerlink" href="#hardware-memory-coherency" title="Permalink to this heading"></a></h3>
+<p>Hardware memory coherency, is the feature which allows multiple memory agents (ex : CPU, DMA, …)
+to work the on the same memory locations and notify each others when they change îts content.
+Without it, the CPU software would have to manualy flush/invalidate their L1 caches to keep things in sync.</p>
+<p>There is mostly 2 kinds of hardware memory coherency architecture :</p>
+<ul class="simple">
+<li><p>By invalidation : When a CPU/DMA write some memory, it notifies the other CPU caches that they should invalidate any</p></li>
+</ul>
+<p>old copy that they have of the written memory locations. This is generaly used for write-through L1 caches.
+This isn’t what VexiiRiscv implements.
+- By permition : Memory blocks copies (typicaly 64 aligned bytes blocks which resides in L1 caches lines) can have multiple states.
+Some of which provide read only accesses, while others provide read/write accesses. This is generaly used in write-back L1 caches,
+and this is what VexiiRiscv uses.</p>
+<p>In VexiiRiscv, the hardware memory coherency (L1) with other memory agents (CPU, DMA, L2, ..) is supported though a MESI implementation which can be bridged to a tilelink memory bus.</p>
 <p>MESI is an standard acronym for every possible state that a copy of a memory block can have in the caches :</p>
 <ul class="simple">
 <li><p>I : Invalid, meaning that there is no copy of that memory block</p></li>
@@ -535,7 +547,7 @@ but also, L2/L3 cache designs may block any additional memory request targeting 
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~1b70be0 2024-11-15
+    Version: master git~cfa6081 2024-11-19
     </p></div>
     
 

@@ -171,7 +171,7 @@ Hardware Memory coherency
 --------------------------------------------
 
 Hardware memory coherency, is the feature which allows multiple memory agents (ex : CPU, DMA, ...)
-to work the on the same memory locations and notify each others when they change îts content.
+to work on the same memory locations and notify each others when they change their contents.
 Without it, the CPU software would have to manualy flush/invalidate their L1 caches to keep things in sync.
 
 There is mostly 2 kinds of hardware memory coherency architecture :
@@ -179,7 +179,7 @@ There is mostly 2 kinds of hardware memory coherency architecture :
 - By invalidation : When a CPU/DMA write some memory, it notifies the other CPU caches that they should invalidate any
 old copy that they have of the written memory locations. This is generaly used for write-through L1 caches.
 This isn't what VexiiRiscv implements.
-- By permition : Memory blocks copies (typicaly 64 aligned bytes blocks which resides in L1 caches lines) can have multiple states.
+- By permition : Memory blocks copies (typicaly 64 aligned bytes blocks which resides in L1 cache lines) can have multiple states.
 Some of which provide read only accesses, while others provide read/write accesses. This is generaly used in write-back L1 caches,
 and this is what VexiiRiscv uses.
 

@@ -139,14 +139,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#divplugin">DivPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#lsucachelessplugin">LsuCachelessPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#lsuplugin">LsuPlugin</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../Execute/plugins.html#special">Special</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#csraccessplugin">CsrAccessPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#csrramplugin">CsrRamPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#privilegedplugin">PrivilegedPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#trapplugin">TrapPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#envplugin">EnvPlugin</a></li>
 </ul>
 </li>
@@ -193,6 +186,19 @@
 <li class="toctree-l4"><a class="reference internal" href="../Memory/index.html#efficiency-cookbook">Efficiency cookbook</a></li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Privileges/index.html">Privileges</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Privileges/index.html#csraccessplugin">CsrAccessPlugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#privilegedplugin">PrivilegedPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#csrramplugin">CsrRamPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#trapplugin">TrapPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#envplugin">EnvPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#mmuplugin">MmuPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#pmpplugin">PmpPlugin</a></li>
 </ul>
 </li>
 </ul>
@@ -384,21 +390,21 @@ rv32im_branchPredictStressed_cached8k8k_ipcMax_lateAlu -&gt;
 (ex M0) up to an application processor (A53),</p>
 <p>On FPGA there is a few options which can be key in order to scale up the IPC while preserving the FMax :</p>
 <ul class="simple">
-<li><p>–relaxed-btb : When the BTB is enabled, by default it is implemented as a single cycle predictor,
+<li><p>--relaxed-btb : When the BTB is enabled, by default it is implemented as a single cycle predictor,
 This can be easily be the first critical path to appear.
 This option make the BTB implementation spread over 2 cycles,
 which relax the timings at the cost of 1 cycle penalty on every successful branch predictions.</p></li>
-<li><p>–relaxed-branch : By default, the BranchPlugin will flush/setPc in the same stage
+<li><p>--relaxed-branch : By default, the BranchPlugin will flush/setPc in the same stage
 than its own ALU. This is good for IPC but can easily be a critical path.
 This option will add one cycle latency between the ALU and the side effects (flush/setPc)
 in order to improve timings.
 If you enabled the branch prediction, then the impact on the IPC should be quite low.</p></li>
-<li><p>–fma-reduced-accuracy and –fpu-ignore-subnormal both reduce and can improve the fmax
+<li><p>--fma-reduced-accuracy and --fpu-ignore-subnormal both reduce and can improve the fmax
 at the cost of accuracy</p></li>
-<li><p>–fetch-fork-at=1 : If you don’t have a instruction cache, this option will significantly relax the
+<li><p>--fetch-fork-at=1 : If you don't have a instruction cache, this option will significantly relax the
 timings of the instruction fetch bus. With this option, instead of connecting the fetch bus to the first stage of the
 fetch pipeline (address generation stage), it will connect it to the stage after.</p></li>
-<li><p>–lsu-fork-at=1 –lsu-pma-at : If you don’t have a data cache, this option will relax the LSU memory bus command channel
+<li><p>--lsu-fork-at=1 --lsu-pma-at : If you don't have a data cache, this option will relax the LSU memory bus command channel
 by pushing everything down one stage before forking requests to the memory system.</p></li>
 </ul>
 </section>
@@ -406,8 +412,8 @@ by pushing everything down one stage before forking requests to the memory syste
 <h2>Critical paths tool<a class="headerlink" href="#critical-paths-tool" title="Permalink to this heading"></a></h2>
 <p>At the end of your synthesis/place/route tools, you get a critical path report where hopefully, the source and destination registers are well named.
 The issue is that in between, all the combinatorial logic and signals names become unrecognizable or misleading most of the time.
-Also, in CPU design, it can quite easily happen that some combinatorial path “leak” through the pipeline, degrading the FMax quite a bit !</p>
-<p>So there is a tool you can use in SpinalHDL to provide you a “clean” combinatorial path report between 2 signals of a design.
+Also, in CPU design, it can quite easily happen that some combinatorial path &quot;leak&quot; through the pipeline, degrading the FMax quite a bit !</p>
+<p>So there is a tool you can use in SpinalHDL to provide you a &quot;clean&quot; combinatorial path report between 2 signals of a design.
 Here is an example how you can use it in VexiiRiscv :</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sbt<span class="w"> </span><span class="s2">&quot;Test/runMain vexiiriscv.Generate --stressed-src --allow-bypass-from=0 --analyse-path from=execute_ctrl2_up_integer_RS1_lane0,to=execute_ctrl1_down_integer_RS1_lane0&quot;</span>
 </pre></div>
@@ -500,7 +506,7 @@ Here is an example how you can use it in VexiiRiscv :</p>
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~967f1ed 2024-11-19
+    Version: master git~3201b41 2024-11-25
     </p></div>
     
 

@@ -139,14 +139,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#divplugin">DivPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#lsucachelessplugin">LsuCachelessPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#lsuplugin">LsuPlugin</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../Execute/plugins.html#special">Special</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#csraccessplugin">CsrAccessPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#csrramplugin">CsrRamPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#privilegedplugin">PrivilegedPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#trapplugin">TrapPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#envplugin">EnvPlugin</a></li>
 </ul>
 </li>
@@ -193,6 +186,19 @@
 <li class="toctree-l4"><a class="reference internal" href="../Memory/index.html#efficiency-cookbook">Efficiency cookbook</a></li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Privileges/index.html">Privileges</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Privileges/index.html#csraccessplugin">CsrAccessPlugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#privilegedplugin">PrivilegedPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#csrramplugin">CsrRamPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#trapplugin">TrapPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#envplugin">EnvPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#mmuplugin">MmuPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#pmpplugin">PmpPlugin</a></li>
 </ul>
 </li>
 </ul>
@@ -292,7 +298,7 @@
 <section id="scala-spinalhdl">
 <h2>Scala / SpinalHDL<a class="headerlink" href="#scala-spinalhdl" title="Permalink to this heading"></a></h2>
 <p>VexiiRiscv is implemented in Scala and the SpinalHDL API to generate hardware in a explicit manner.</p>
-<p>Scala is a general purpose programming language (like C/C++/Java/Rust/…). Statically typed, with a garbage collector.
+<p>Scala is a general purpose programming language (like C/C++/Java/Rust/...). Statically typed, with a garbage collector.
 This combination allows to goes way beyond what regular HDL allows in terms of hardware elaboration time capabilities.</p>
 <p>Here is a simple example of scala/SpinalHDL:</p>
 <div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="c1">// Lets define a Counter Component/Module, with a &quot;width&quot; parameter</span>
@@ -341,7 +347,7 @@ This combination allows to goes way beyond what regular HDL allows in terms of h
 </div>
 <p>The key thing about the example above is that the JtagTap tool itself is defined in regular Scala / SpinalHDL.
 In other words, you can easily layer abstraction and tool on the top of the ecosystem.
-Use feature like Scala classes, inheritance, function overloading, collections, …, during the hardware elaboration time.</p>
+Use feature like Scala classes, inheritance, function overloading, collections, ..., during the hardware elaboration time.</p>
 <p>You can find more documentation about SpinalHDL here :</p>
 <ul class="simple">
 <li><p><a class="reference external" href="https://spinalhdl.github.io/SpinalDoc-RTD/master/index.html">https://spinalhdl.github.io/SpinalDoc-RTD/master/index.html</a></p></li>
@@ -350,13 +356,13 @@ Use feature like Scala classes, inheritance, function overloading, collections, 
 <section id="plugin-fiber-retainer">
 <h2>Plugin / Fiber / Retainer<a class="headerlink" href="#plugin-fiber-retainer" title="Permalink to this heading"></a></h2>
 <p>One of the main aspect of VexiiRiscv is that all its hardware is defined inside plugins instead of a big toplevel.
-When you want to instantiate a VexiiRiscv CPU, you “only” need to provide a list of plugins as parameters.
+When you want to instantiate a VexiiRiscv CPU, you &quot;only&quot; need to provide a list of plugins as parameters.
 So, plugins can be seen as both parameters and hardware definition from a VexiiRiscv perspective.</p>
 <p>It is quite different from the regular HDL component/module paradigm. Here are the advantages of this approach :</p>
 <ul class="simple">
 <li><p>The CPU can be extended without modifying its core source code, just add a new plugin in the parameters</p></li>
-<li><p>You can swap a specific implementation for another just by swapping plugin in the parameter list. (ex branch prediction, mul/div, …)</p></li>
-<li><p>It is decentralized by nature, you don’t have a endless toplevel of doom, software interface between plugins can be used to negotiate and connect things during elaboration time.</p></li>
+<li><p>You can swap a specific implementation for another just by swapping plugin in the parameter list. (ex branch prediction, mul/div, ...)</p></li>
+<li><p>It is decentralized by nature, you don't have a endless toplevel of doom, software interface between plugins can be used to negotiate and connect things during elaboration time.</p></li>
 </ul>
 <p>The plugins can fork elaboration threads which cover 2 phases :</p>
 <ul class="simple">
@@ -502,8 +508,8 @@ So, plugins can be seen as both parameters and hardware definition from a VexiiR
 <section id="database">
 <h2>Database<a class="headerlink" href="#database" title="Permalink to this heading"></a></h2>
 <p>In VexiiRiscv, there is the possibility to define elaboration time variable which are unique to each VexiiRiscv instance while being easily accessible as if they were global variable.
-For instance XLEN, PC_WIDTH, INSTRUCTION_WIDTH, …</p>
-<p>Those variable are handled through the VexiiRiscv “database”.
+For instance XLEN, PC_WIDTH, INSTRUCTION_WIDTH, ...</p>
+<p>Those variable are handled through the VexiiRiscv &quot;database&quot;.
 You can see it in the VexRiscv toplevel :</p>
 <div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">VexiiRiscv</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Component</span><span class="p">{</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">database</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Database</span>
@@ -574,7 +580,7 @@ You can see it in the VexRiscv toplevel :</p>
 </ul>
 <p>This is one of the main pillar on which VexiiRiscv is based, as it allows to define pipelines in a very distributed manner,
 meaning that each Plugin can very easily add and extract things on pipeline.</p>
-<p>For instance, the plugin A can insert a given value into the pipeline at stage 1, and another plugin can ask that given value at stage 4, and that’s it, it just work.</p>
+<p>For instance, the plugin A can insert a given value into the pipeline at stage 1, and another plugin can ask that given value at stage 4, and that's it, it just work.</p>
 <p>Here is an example which expose a simple usage of the pipelining API (not related to VexiiRiscv):</p>
 <ul class="simple">
 <li><p>Take the input at stage 0</p></li>
@@ -686,7 +692,7 @@ meaning that each Plugin can very easily add and extract things on pipeline.</p>
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~967f1ed 2024-11-19
+    Version: master git~3201b41 2024-11-25
     </p></div>
     
 

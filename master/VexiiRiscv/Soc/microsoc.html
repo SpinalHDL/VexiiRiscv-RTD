@@ -139,14 +139,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#divplugin">DivPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#lsucachelessplugin">LsuCachelessPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#lsuplugin">LsuPlugin</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../Execute/plugins.html#special">Special</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#csraccessplugin">CsrAccessPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#csrramplugin">CsrRamPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#privilegedplugin">PrivilegedPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#trapplugin">TrapPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#envplugin">EnvPlugin</a></li>
 </ul>
 </li>
@@ -193,6 +186,19 @@
 <li class="toctree-l4"><a class="reference internal" href="../Memory/index.html#efficiency-cookbook">Efficiency cookbook</a></li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Privileges/index.html">Privileges</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Privileges/index.html#csraccessplugin">CsrAccessPlugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#privilegedplugin">PrivilegedPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#csrramplugin">CsrRamPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#trapplugin">TrapPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#envplugin">EnvPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#mmuplugin">MmuPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#pmpplugin">PmpPlugin</a></li>
 </ul>
 </li>
 </ul>
@@ -328,18 +334,18 @@ sbt<span class="w"> </span><span class="s2">&quot;runMain vexiiriscv.soc.micro.M
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>–load-elf ELF_FILE</p></td>
+<tr class="row-even"><td><p>--load-elf ELF_FILE</p></td>
 <td><p>Will load elf file into the ram/rom/flash of the SoC</p></td>
 </tr>
-<tr class="row-odd"><td><p>–trace-fst</p></td>
+<tr class="row-odd"><td><p>--trace-fst</p></td>
 <td><p>A FST wave of all the DUT signals will be stored in simWorkspace/MicroSocSim/test (you can open it using GTKwave)</p></td>
 </tr>
-<tr class="row-even"><td><p>–trace-konata</p></td>
+<tr class="row-even"><td><p>--trace-konata</p></td>
 <td><p>A konata trace of all the executed instruction will be stored in simWorkspace/MicroSocSim/test (you can open it using <a class="reference external" href="https://github.com/shioyadan/Konata">https://github.com/shioyadan/Konata</a>)</p></td>
 </tr>
 </tbody>
 </table>
-<p>Note that the default VexiiRiscv configuration is RV32I, with a relatively low area/performance. You can for instance get more performance by adding <cite>–allow-bypass-from=0 –with-rvm –with-btb –with-ras –with-gshare</cite></p>
+<p>Note that the default VexiiRiscv configuration is RV32I, with a relatively low area/performance. You can for instance get more performance by adding <cite>--allow-bypass-from=0 --with-rvm --with-btb --with-ras --with-gshare</cite></p>
 <p>While the simulation is running you can connect to it using openocd as if it was real hardware :</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>openocd<span class="w"> </span>-f<span class="w"> </span>src/main/tcl/openocd/vexiiriscv_sim.tcl
 </pre></div>
@@ -347,7 +353,7 @@ sbt<span class="w"> </span><span class="s2">&quot;runMain vexiiriscv.soc.micro.M
 </section>
 <section id="adding-a-custom-peripheral">
 <h2>Adding a custom peripheral<a class="headerlink" href="#adding-a-custom-peripheral" title="Permalink to this heading"></a></h2>
-<p>Let’s say you want to design a peripheral and then add it to the SoC, the MicroSoc contains one example of that via PeripheralDemo.scala.
+<p>Let's say you want to design a peripheral and then add it to the SoC, the MicroSoc contains one example of that via PeripheralDemo.scala.
 Take a look at it, its code is extensively commented :</p>
 <p><a class="reference external" href="https://github.com/SpinalHDL/VexiiRiscv/blob/dev/src/main/scala/vexiiriscv/soc/micro/PeripheralDemo.scala">https://github.com/SpinalHDL/VexiiRiscv/blob/dev/src/main/scala/vexiiriscv/soc/micro/PeripheralDemo.scala</a></p>
 <p>This peripheral example is a very simple one which provide the CPU access to leds, buttons and an interrupt function of the buttons value.</p>
@@ -356,7 +362,7 @@ Take a look at it, its code is extensively commented :</p>
 <ul class="simple">
 <li><p>PeripheralDemo : Which is our custom peripheral in its traditional sense (a hardware Component / Module). It use regular SpinalHDL stuff.</p></li>
 <li><p>mapper : This is a tool which ease the creation of peripherals register file.
-Instead of having stuff like big switch case on the bus address, you just need to say “Create a RW register at this address” in a more natural language.</p></li>
+Instead of having stuff like big switch case on the bus address, you just need to say &quot;Create a RW register at this address&quot; in a more natural language.</p></li>
 <li><p>BufferCC : Used to avoid metastability when we use the buttons value in our hardware (this is a chain of 2 flip-flop)</p></li>
 <li><p>PeripheralDemoFiber : This is sort of the integration layer for our PeripheralDemo into a SoC. This serve a few purposes.
 It handle the Tilelink parameters negotiation / propagation, aswell as exporting the leds and buttons directly to the MicroSoc io.</p></li>
@@ -369,11 +375,11 @@ It handle the Tilelink parameters negotiation / propagation, aswell as exporting
 </pre></div>
 </div>
 <p>This peripheral is already integrated into MicroSoC as a demo but disabled by default. To enable it, will need to provide a specific command line parameter. For instance :</p>
-<p>sbt “runMain vexiiriscv.soc.micro.MicroSocSim –demo-peripheral leds=16,buttons=12”</p>
+<p>sbt &quot;runMain vexiiriscv.soc.micro.MicroSocSim --demo-peripheral leds=16,buttons=12&quot;</p>
 </section>
 <section id="exporting-an-apb3-bus-to-the-toplevel">
 <h2>Exporting an APB3 bus to the toplevel<a class="headerlink" href="#exporting-an-apb3-bus-to-the-toplevel" title="Permalink to this heading"></a></h2>
-<p>Let’s say you want to allow the CPU to access a APB3 peripheral which stand outside the SoC toplevel.
+<p>Let's say you want to allow the CPU to access a APB3 peripheral which stand outside the SoC toplevel.
 Here is how you can do so by adding code to the MicroSoc.system.peripheral area :</p>
 <div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MicroSoc</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nc">MicroSocParam</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Component</span><span class="w"> </span><span class="p">{</span>
 <span class="w">  </span><span class="p">..</span>
@@ -427,7 +433,7 @@ Here is how you can do so by adding code to the MicroSoc.system.peripheral area 
 </section>
 <section id="adding-a-custom-instruction">
 <h2>Adding a custom instruction<a class="headerlink" href="#adding-a-custom-instruction" title="Permalink to this heading"></a></h2>
-<p>Let’s say you want to add a custom instruction to the MicroSoc. Let’s use the <a class="reference internal" href="../Execute/custom.html#custom-plugin-impl"><span class="std std-ref">Plugin implementation</span></a> which does SIMD add.</p>
+<p>Let's say you want to add a custom instruction to the MicroSoc. Let's use the <a class="reference internal" href="../Execute/custom.html#custom-plugin-impl"><span class="std std-ref">Plugin implementation</span></a> which does SIMD add.</p>
 <p>In the MicroSoc, you can find :</p>
 <div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="kd">val</span><span class="w"> </span><span class="n">cpu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">TilelinkVexiiRiscvFiber</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">vexii</span><span class="p">.</span><span class="n">plugins</span><span class="p">())</span>
 </pre></div>
@@ -474,7 +480,7 @@ Here is how you can do so by adding code to the MicroSoc.system.peripheral area 
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~967f1ed 2024-11-19
+    Version: master git~3201b41 2024-11-25
     </p></div>
     
 

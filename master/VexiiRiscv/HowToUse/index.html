@@ -139,14 +139,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#divplugin">DivPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#lsucachelessplugin">LsuCachelessPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#lsuplugin">LsuPlugin</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../Execute/plugins.html#special">Special</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#csraccessplugin">CsrAccessPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#csrramplugin">CsrRamPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#privilegedplugin">PrivilegedPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#trapplugin">TrapPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#envplugin">EnvPlugin</a></li>
 </ul>
 </li>
@@ -193,6 +186,19 @@
 <li class="toctree-l4"><a class="reference internal" href="../Memory/index.html#efficiency-cookbook">Efficiency cookbook</a></li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Privileges/index.html">Privileges</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Privileges/index.html#csraccessplugin">CsrAccessPlugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#privilegedplugin">PrivilegedPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#csrramplugin">CsrRamPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#trapplugin">TrapPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#envplugin">EnvPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#mmuplugin">MmuPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#pmpplugin">PmpPlugin</a></li>
 </ul>
 </li>
 </ul>
@@ -387,58 +393,58 @@ make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</s
 </tr>
 </thead>
 <tbody>
-<tr class="row-even"><td><p>–xlen=32/64</p></td>
+<tr class="row-even"><td><p>--xlen=32/64</p></td>
 <td><p>Specify the CPU data width (RISC-V XLEN). 32 bits by default, can be set to 64 bits</p></td>
 </tr>
-<tr class="row-odd"><td><p>–with-rvm</p></td>
+<tr class="row-odd"><td><p>--with-rvm</p></td>
 <td><p>Enable RISC-V mul/div instruction</p></td>
 </tr>
-<tr class="row-even"><td><p>–with-rvc</p></td>
+<tr class="row-even"><td><p>--with-rvc</p></td>
 <td><p>Enable RISC-V compressed instruction set</p></td>
 </tr>
-<tr class="row-odd"><td><p>–with-rva</p></td>
+<tr class="row-odd"><td><p>--with-rva</p></td>
 <td><p>Enable atomic instruction support</p></td>
 </tr>
-<tr class="row-even"><td><p>–with-rvf</p></td>
+<tr class="row-even"><td><p>--with-rvf</p></td>
 <td><p>Enable 32 bits floating point support</p></td>
 </tr>
-<tr class="row-odd"><td><p>–with-rvd</p></td>
+<tr class="row-odd"><td><p>--with-rvd</p></td>
 <td><p>Enable 32/64 bits floating point support</p></td>
 </tr>
-<tr class="row-even"><td><p>–with-supervisor</p></td>
+<tr class="row-even"><td><p>--with-supervisor</p></td>
 <td><p>Enable privileged supervisor, user and MMU</p></td>
 </tr>
-<tr class="row-odd"><td><p>–allow-bypass-from=Int</p></td>
+<tr class="row-odd"><td><p>--allow-bypass-from=Int</p></td>
 <td><p>Specify from which execute stage the integer result bypassing is allowed. Default disabled. For performance set it to 0</p></td>
 </tr>
-<tr class="row-even"><td><p>–with-btb</p></td>
+<tr class="row-even"><td><p>--with-btb</p></td>
 <td><p>Enable Branch Target Buffer prediction</p></td>
 </tr>
-<tr class="row-odd"><td><p>–with-gshare</p></td>
+<tr class="row-odd"><td><p>--with-gshare</p></td>
 <td><p>Enable GShare conditional branch prediction. (Require the BTB to be enabled)</p></td>
 </tr>
-<tr class="row-even"><td><p>–with-ras</p></td>
+<tr class="row-even"><td><p>--with-ras</p></td>
 <td><p>Enable Return Address Stack prediction. (Require the BTB to be enabled)</p></td>
 </tr>
-<tr class="row-odd"><td><p>–regfile-async</p></td>
+<tr class="row-odd"><td><p>--regfile-async</p></td>
 <td><p>The register read ports become asynchronous, shaving one stage in the pipeline, but not all FPGA support this kind of memories.</p></td>
 </tr>
-<tr class="row-even"><td><p>–mmu-sync-read</p></td>
-<td><p>The MMU TLB memories will be implemented using memories with synchronous read ports. This allows to keep it small on FPGA which doesn’t support asynchronous read ports</p></td>
+<tr class="row-even"><td><p>--mmu-sync-read</p></td>
+<td><p>The MMU TLB memories will be implemented using memories with synchronous read ports. This allows to keep it small on FPGA which doesn't support asynchronous read ports</p></td>
 </tr>
-<tr class="row-odd"><td><p>–fetch-l1</p></td>
+<tr class="row-odd"><td><p>--fetch-l1</p></td>
 <td><p>Enable the L1 instruction cache</p></td>
 </tr>
-<tr class="row-even"><td><p>–fetch-l1-ways=Int</p></td>
+<tr class="row-even"><td><p>--fetch-l1-ways=Int</p></td>
 <td><p>Set the number of instruction cache ways (4KB per way by default)</p></td>
 </tr>
-<tr class="row-odd"><td><p>–lsu-l1</p></td>
+<tr class="row-odd"><td><p>--lsu-l1</p></td>
 <td><p>Enable the L1 data cache</p></td>
 </tr>
-<tr class="row-even"><td><p>–lsu-l1-ways=Int</p></td>
+<tr class="row-even"><td><p>--lsu-l1-ways=Int</p></td>
 <td><p>Set the number of data cache ways (4KB per way by default)</p></td>
 </tr>
-<tr class="row-odd"><td><p>–with-jtag-tap</p></td>
+<tr class="row-odd"><td><p>--with-jtag-tap</p></td>
 <td><p>Enable the RISC-V JTAG debugging.</p></td>
 </tr>
 </tbody>
@@ -449,8 +455,8 @@ make<span class="w"> </span>-j<span class="k">$(</span>nproc<span class="k">)</s
 <span id="simulation"></span><h2>Run a simulation<a class="headerlink" href="#run-a-simulation" title="Permalink to this heading"></a></h2>
 <div class="admonition important">
 <p class="admonition-title">Important</p>
-<p>If you take a VexiiRiscv core and use it with a simulator which does x-prop (not verilator), you will need to add the following option : –with-boot-mem-init.
-By default this isn’t enabled, as it can degrade timings and area while not being necessary for a fully functional hardware.</p>
+<p>If you take a VexiiRiscv core and use it with a simulator which does x-prop (not verilator), you will need to add the following option : --with-boot-mem-init.
+By default this isn't enabled, as it can degrade timings and area while not being necessary for a fully functional hardware.</p>
 </div>
 <p>Here is how you can run a Verilator based simulation, note that Vexiiriscv use mostly an opt-in configuration. So, most performance related configuration are disabled by default.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sbt
@@ -484,7 +490,7 @@ read into a synchronous one (RAM block, work on Efinix FPGA)</p>
 Otherwise, for ASIC, you likely want to enable the automatic memory blackboxing,
 which will instead replace all memories defined in the design by a consistent blackbox
 module/component, the user having then to provide those blackbox implementation.</p>
-<p>Currently all memories used are “simple dual port ram”. While this is the best for FPGA usages,
+<p>Currently all memories used are &quot;simple dual port ram&quot;. While this is the best for FPGA usages,
 on ASIC maybe some of those could be redesigned to be single port rams instead (todo).</p>
 </section>
 <section id="other-resources">
@@ -503,7 +509,7 @@ Then you just need to install the scala plugin (asked the first time you run the
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">object</span> <span class="n">Info</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">a</span> <span class="n">member</span> <span class="n">of</span> <span class="n">package</span> <span class="n">spinal</span><span class="o">.</span><span class="n">core</span>
 </pre></div>
 </div>
-<p>The workaround is that you need to run the “sbt compile” command in a terminal in the VexiiRiscv folder once.</p>
+<p>The workaround is that you need to run the &quot;sbt compile&quot; command in a terminal in the VexiiRiscv folder once.</p>
 </section>
 </section>
 
@@ -536,7 +542,7 @@ Then you just need to install the scala plugin (asked the first time you run the
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~967f1ed 2024-11-19
+    Version: master git~3201b41 2024-11-25
     </p></div>
     
 

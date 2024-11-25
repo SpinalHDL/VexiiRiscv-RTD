@@ -139,14 +139,7 @@
 <li class="toctree-l4"><a class="reference internal" href="plugins.html#divplugin">DivPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="plugins.html#lsucachelessplugin">LsuCachelessPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="plugins.html#lsuplugin">LsuPlugin</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="plugins.html#special">Special</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="plugins.html#csraccessplugin">CsrAccessPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#csrramplugin">CsrRamPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#privilegedplugin">PrivilegedPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#trapplugin">TrapPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="plugins.html#envplugin">EnvPlugin</a></li>
 </ul>
 </li>
@@ -193,6 +186,19 @@
 <li class="toctree-l4"><a class="reference internal" href="../Memory/index.html#efficiency-cookbook">Efficiency cookbook</a></li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Privileges/index.html">Privileges</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Privileges/index.html#csraccessplugin">CsrAccessPlugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#privilegedplugin">PrivilegedPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#csrramplugin">CsrRamPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#trapplugin">TrapPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#envplugin">EnvPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#mmuplugin">MmuPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#pmpplugin">PmpPlugin</a></li>
 </ul>
 </li>
 </ul>
@@ -279,7 +285,7 @@
 <p>The execute pipeline has the following properties :</p>
 <ul class="simple">
 <li><p>Support multiple lane of execution.</p></li>
-<li><p>Support multiple implementation of the same instruction on the same lane (late-alu) via the concept of “layer”</p></li>
+<li><p>Support multiple implementation of the same instruction on the same lane (late-alu) via the concept of &quot;layer&quot;</p></li>
 <li><p>each layer is owned by a given lane</p></li>
 <li><p>each layer can implement multiple instructions and store a data model of their requirements.</p></li>
 <li><p>The whole pipeline never collapse bubbles, all lanes of every stage move forward together as one.</p></li>
@@ -328,7 +334,7 @@
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~967f1ed 2024-11-19
+    Version: master git~3201b41 2024-11-25
     </p></div>
     
 

@@ -139,14 +139,7 @@
 <li class="toctree-l4"><a class="reference internal" href="plugins.html#divplugin">DivPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="plugins.html#lsucachelessplugin">LsuCachelessPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="plugins.html#lsuplugin">LsuPlugin</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="plugins.html#special">Special</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="plugins.html#csraccessplugin">CsrAccessPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#csrramplugin">CsrRamPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#privilegedplugin">PrivilegedPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#trapplugin">TrapPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="plugins.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="plugins.html#envplugin">EnvPlugin</a></li>
 </ul>
 </li>
@@ -193,6 +186,19 @@
 <li class="toctree-l4"><a class="reference internal" href="../Memory/index.html#efficiency-cookbook">Efficiency cookbook</a></li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Privileges/index.html">Privileges</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Privileges/index.html#csraccessplugin">CsrAccessPlugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#privilegedplugin">PrivilegedPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#csrramplugin">CsrRamPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#trapplugin">TrapPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#envplugin">EnvPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#mmuplugin">MmuPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#pmpplugin">PmpPlugin</a></li>
 </ul>
 </li>
 </ul>
@@ -279,7 +285,7 @@
 <p>There are multiple ways you can add custom instructions into VexiiRiscv. The following chapter will provide some demo.</p>
 <section id="simd-add">
 <h2>SIMD add<a class="headerlink" href="#simd-add" title="Permalink to this heading"></a></h2>
-<p>Let’s define a plugin which will implement a SIMD add (4x8bits adder), working on the integer register file.</p>
+<p>Let's define a plugin which will implement a SIMD add (4x8bits adder), working on the integer register file.</p>
 <p>The plugin will be based on the ExecutionUnitElementSimple which makes implementing ALU plugins simpler. Such a plugin can then be used to compose a given execution lane layer</p>
 <p>For instance the Plugin configuration could be :</p>
 <div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">SrcPlugin</span><span class="p">(</span><span class="n">early0</span><span class="p">,</span><span class="w"> </span><span class="n">executeAt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">relaxedRs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">relaxedSrc</span><span class="p">)</span>
@@ -408,7 +414,7 @@
 </section>
 <section id="software-test">
 <h3>Software test<a class="headerlink" href="#software-test" title="Permalink to this heading"></a></h3>
-<p>Then let’s write some assembly test code : (<a class="reference external" href="https://github.com/SpinalHDL/NaxSoftware/tree/849679c70b238ceee021bdfd18eb2e9809e7bdd0/baremetal/simdAdd">https://github.com/SpinalHDL/NaxSoftware/tree/849679c70b238ceee021bdfd18eb2e9809e7bdd0/baremetal/simdAdd</a>)</p>
+<p>Then let's write some assembly test code : (<a class="reference external" href="https://github.com/SpinalHDL/NaxSoftware/tree/849679c70b238ceee021bdfd18eb2e9809e7bdd0/baremetal/simdAdd">https://github.com/SpinalHDL/NaxSoftware/tree/849679c70b238ceee021bdfd18eb2e9809e7bdd0/baremetal/simdAdd</a>)</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.globl<span class="w"> </span>_start
 _start:
 
@@ -481,11 +487,11 @@ fail:
 </pre></div>
 </div>
 <p>Which will output the value 02224666 in the shell and show traces in simWorkspace/VexiiRiscv/test :D</p>
-<p>Note that –no-rvls-check is required as spike do not implement that custom simdAdd.</p>
+<p>Note that --no-rvls-check is required as spike do not implement that custom simdAdd.</p>
 </section>
 <section id="conclusion">
 <h3>Conclusion<a class="headerlink" href="#conclusion" title="Permalink to this heading"></a></h3>
-<p>So overall this example didn’t introduce how to specify some additional decoding, nor how to define multi-cycle ALU. (TODO).
+<p>So overall this example didn't introduce how to specify some additional decoding, nor how to define multi-cycle ALU. (TODO).
 But you can take a look in the IntAluPlugin, ShiftPlugin, DivPlugin, MulPlugin and BranchPlugin which are doing those things using the same ExecutionUnitElementSimple base class.</p>
 </section>
 </section>
@@ -520,7 +526,7 @@ But you can take a look in the IntAluPlugin, ShiftPlugin, DivPlugin, MulPlugin a
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~967f1ed 2024-11-19
+    Version: master git~3201b41 2024-11-25
     </p></div>
     
 

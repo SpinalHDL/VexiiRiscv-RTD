@@ -139,14 +139,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#divplugin">DivPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#lsucachelessplugin">LsuCachelessPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#lsuplugin">LsuPlugin</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../Execute/plugins.html#special">Special</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#csraccessplugin">CsrAccessPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#csrramplugin">CsrRamPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#privilegedplugin">PrivilegedPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#trapplugin">TrapPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#envplugin">EnvPlugin</a></li>
 </ul>
 </li>
@@ -193,6 +186,19 @@
 <li class="toctree-l4"><a class="reference internal" href="../Memory/index.html#efficiency-cookbook">Efficiency cookbook</a></li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Privileges/index.html">Privileges</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Privileges/index.html#csraccessplugin">CsrAccessPlugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#privilegedplugin">PrivilegedPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#csrramplugin">CsrRamPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#trapplugin">TrapPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#envplugin">EnvPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#mmuplugin">MmuPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#pmpplugin">PmpPlugin</a></li>
 </ul>
 </li>
 </ul>
@@ -288,7 +294,7 @@
 <ul class="simple">
 <li><p>FSiC 2024   : <a class="reference external" href="https://wiki.f-si.org/index.php?title=Moving_toward_VexiiRiscv">https://wiki.f-si.org/index.php?title=Moving_toward_VexiiRiscv</a></p></li>
 <li><p>COSCUP 2024 : <a class="reference external" href="https://coscup.org/2024/en/session/PVAHAS">https://coscup.org/2024/en/session/PVAHAS</a></p></li>
-<li><p>ORConf 2024 : <a class="reference external" href="https://fossi-foundation.org/orconf/2024#vexiiriscv--a-debian-demonstration">https://fossi-foundation.org/orconf/2024#vexiiriscv–a-debian-demonstration</a></p></li>
+<li><p>ORConf 2024 : <a class="reference external" href="https://fossi-foundation.org/orconf/2024#vexiiriscv--a-debian-demonstration">https://fossi-foundation.org/orconf/2024#vexiiriscv--a-debian-demonstration</a></p></li>
 </ul>
 </section>
 <section id="technicalities">
@@ -302,7 +308,7 @@
 <li><p>Providing a cleaner implementation, getting ride of the technical debt, especially the frontend</p></li>
 <li><p>Scale well at higher frequencies via its hardware prefetching and non blocking write-back D$</p></li>
 <li><p>Proper branch prediction</p></li>
-<li><p>…</p></li>
+<li><p>...</p></li>
 </ul>
 <p>On this date (09/08/2024) the status is :</p>
 <ul class="simple">
@@ -323,7 +329,7 @@
 </section>
 <section id="navigating-the-code">
 <h2>Navigating the code<a class="headerlink" href="#navigating-the-code" title="Permalink to this heading"></a></h2>
-<p>VexiiRiscv isn’t implemented in Verilog nor VHDL. Instead it is written in scala and use the SpinalHDL API to generate hardware.
+<p>VexiiRiscv isn't implemented in Verilog nor VHDL. Instead it is written in scala and use the SpinalHDL API to generate hardware.
 This allows to leverage an advanced elaboration time paradigm in order to generate hardware in a very flexible manner.</p>
 <p>Here are a few key / typical code examples :</p>
 <ul class="simple">
@@ -338,7 +344,7 @@ This allows to leverage an advanced elaboration time paradigm in order to genera
 <h2>About RISC-V<a class="headerlink" href="#about-risc-v" title="Permalink to this heading"></a></h2>
 <p>To help onboarding, here is a few thing about RISC-V :</p>
 <ul class="simple">
-<li><p>RISC-V isn’t a CPU / CPU architecture</p></li>
+<li><p>RISC-V isn't a CPU / CPU architecture</p></li>
 <li><p>RISC-V is a Instruction Set Architecture (ISA), which mean that from a CPU perspective, it mostly specify the instructions that need to be implemented, and their behaviour.</p></li>
 </ul>
 <p>RISC-V has 4 main specification :</p>
@@ -360,8 +366,8 @@ interruptions, exceptions, traps, virtual memory, memory protections, machine/su
 <li><p>The whole VexRiscv pipeline would have need a complete overhaul in oder to support multiple issue / late-alu</p></li>
 <li><p>The VexRiscv plugin system has hits some limits</p></li>
 <li><p>VexRiscv accumulated quite a bit of technical debt over time (2017)</p></li>
-<li><p>The VexRiscv data cache being write though start to create issues the faster the frequency goes (DRAM can’t follow)</p></li>
-<li><p>The VexRiscv verification infrastructure based on its own golden model isn’t great.</p></li>
+<li><p>The VexRiscv data cache being write though start to create issues the faster the frequency goes (DRAM can't follow)</p></li>
+<li><p>The VexRiscv verification infrastructure based on its own golden model isn't great.</p></li>
 </ul>
 <p>So, enough is enough, it was time to start fresh :D</p>
 </section>
@@ -371,7 +377,7 @@ interruptions, exceptions, traps, virtual memory, memory protections, machine/su
 <ul class="simple">
 <li><p>trap/flush/pc request from the pipeline, once asserted one cycle can not be undone. This also mean that while a given instruction is stuck somewhere, if that instruction did raised on of those request, nothing should change the execution path. For instance, a sudden cache line refill completion should not lift the request from the LSU asking a redo (due to cache refill hazard).</p></li>
 <li><p>In the execute pipeline, stage.up(RS1/RS2) is the value to be used, (not stage.down(RS1/RS2) as it implement the bypassing for the next stage)</p></li>
-<li><p>Fetch.ctrl(0) isn’t persistent (meaning the PC requested can change at any time)</p></li>
+<li><p>Fetch.ctrl(0) isn't persistent (meaning the PC requested can change at any time)</p></li>
 </ul>
 </section>
 </section>
@@ -405,7 +411,7 @@ interruptions, exceptions, traps, virtual memory, memory protections, machine/su
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~967f1ed 2024-11-19
+    Version: master git~3201b41 2024-11-25
     </p></div>
     
 

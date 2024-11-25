@@ -139,14 +139,7 @@
 <li class="toctree-l4"><a class="reference internal" href="#divplugin">DivPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#lsucachelessplugin">LsuCachelessPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#lsuplugin">LsuPlugin</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="#special">Special</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#csraccessplugin">CsrAccessPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#csrramplugin">CsrRamPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#privilegedplugin">PrivilegedPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#trapplugin">TrapPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="#performancecounterplugin">PerformanceCounterPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#envplugin">EnvPlugin</a></li>
 </ul>
 </li>
@@ -193,6 +186,19 @@
 <li class="toctree-l4"><a class="reference internal" href="../Memory/index.html#efficiency-cookbook">Efficiency cookbook</a></li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Privileges/index.html">Privileges</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Privileges/index.html#csraccessplugin">CsrAccessPlugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#privilegedplugin">PrivilegedPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#csrramplugin">CsrRamPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#trapplugin">TrapPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#envplugin">EnvPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#mmuplugin">MmuPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#pmpplugin">PmpPlugin</a></li>
 </ul>
 </li>
 </ul>
@@ -280,7 +286,7 @@
 <img alt="../../_images/execute_plugins.png" src="../../_images/execute_plugins.png" />
 <section id="infrastructures">
 <h2>Infrastructures<a class="headerlink" href="#infrastructures" title="Permalink to this heading"></a></h2>
-<p>Many of the plugins operating in the execute stage aren’t directly implementing instructions,
+<p>Many of the plugins operating in the execute stage aren't directly implementing instructions,
 but instead provide some infrastructure which will be used to do so.</p>
 <section id="executepipelineplugin">
 <h3>ExecutePipelinePlugin<a class="headerlink" href="#executepipelineplugin" title="Permalink to this heading"></a></h3>
@@ -305,7 +311,7 @@ but instead provide some infrastructure which will be used to do so.</p>
 </section>
 <section id="srcplugin">
 <h3>SrcPlugin<a class="headerlink" href="#srcplugin" title="Permalink to this heading"></a></h3>
-<p>Provide some integer values to instruction which can mux between RS1/RS2 and multiple RISC-V instruction’s literal values :</p>
+<p>Provide some integer values to instruction which can mux between RS1/RS2 and multiple RISC-V instruction's literal values :</p>
 <ul class="simple">
 <li><p>SRC1 can be : RS1 or U literal</p></li>
 <li><p>SRC2 can be : RS1 or PC or I or S literal</p></li>
@@ -340,11 +346,11 @@ It uses the WriteBackPlugin to write its results back to the register file.</p>
 <p>Some plugins just focus on implementing the CPU instructions.</p>
 <section id="intaluplugin">
 <h3>IntAluPlugin<a class="headerlink" href="#intaluplugin" title="Permalink to this heading"></a></h3>
-<p>Implement the arithmetic, binary and literal instructions (ADD, SUB, AND, OR, LUI, …)</p>
+<p>Implement the arithmetic, binary and literal instructions (ADD, SUB, AND, OR, LUI, ...)</p>
 </section>
 <section id="barrelshifterplugin">
 <h3>BarrelShifterPlugin<a class="headerlink" href="#barrelshifterplugin" title="Permalink to this heading"></a></h3>
-<p>Implement the shift instructions in a non-blocking way (no iterations). Fast but “heavy”.</p>
+<p>Implement the shift instructions in a non-blocking way (no iterations). Fast but &quot;heavy&quot;.</p>
 </section>
 <section id="branchplugin">
 <h3>BranchPlugin<a class="headerlink" href="#branchplugin" title="Permalink to this heading"></a></h3>
@@ -385,58 +391,19 @@ It uses the WriteBackPlugin to write its results back to the register file.</p>
 <p>Implement load / store through a l1 cache.</p>
 <p>More information in the <a class="reference internal" href="../Memory/index.html#lsu"><span class="std std-ref">Memory (LSU)</span></a> chapter</p>
 </section>
-</section>
-<section id="special">
-<h2>Special<a class="headerlink" href="#special" title="Permalink to this heading"></a></h2>
-<p>Some implement CSR, privileges and special instructions</p>
 <section id="csraccessplugin">
 <h3>CsrAccessPlugin<a class="headerlink" href="#csraccessplugin" title="Permalink to this heading"></a></h3>
 <ul class="simple">
-<li><p>Implement the CSR read and write instruction</p></li>
-<li><p>Provide an API for other plugins to specify its hardware mapping</p></li>
+<li><p>Implement the CSR read and write instruction in the execute pipeline</p></li>
+<li><p>Provide an API for other plugins to specify the mapping between the CSR registers and the CSR instruction</p></li>
 </ul>
-</section>
-<section id="csrramplugin">
-<h3>CsrRamPlugin<a class="headerlink" href="#csrramplugin" title="Permalink to this heading"></a></h3>
-<ul class="simple">
-<li><p>Implement a shared on chip ram</p></li>
-<li><p>Provide an API which allows to statically allocate space on it</p></li>
-<li><p>Provide an API to create read / write ports on it</p></li>
-<li><p>Used by various plugins to store the CSR contents in a FPGA efficient way</p></li>
-</ul>
-</section>
-<section id="privilegedplugin">
-<h3>PrivilegedPlugin<a class="headerlink" href="#privilegedplugin" title="Permalink to this heading"></a></h3>
-<ul class="simple">
-<li><p>Implement the RISC-V privileged spec</p></li>
-<li><p>Use the CsrRamPlugin to implement various CSR as MTVAL, MTVEC, MEPC, MSCRATCH, …</p></li>
-</ul>
-</section>
-<section id="trapplugin">
-<h3>TrapPlugin<a class="headerlink" href="#trapplugin" title="Permalink to this heading"></a></h3>
-<ul class="simple">
-<li><p>Implement the trap buffer / FSM</p></li>
-<li><p>The FSM implement the core logic of many special instructions (MRET, SRET, ECALL, EBREAK, FENCE.I, WFI, …)</p></li>
-<li><p>Also allows the CPU pipeline to emit hardware traps to re-execute (REDO) the current instruction
-or to jump to the next one after a full pipeline flush (NEXT).</p></li>
-<li><p>the REDO hardware trap is used by I$ D$ miss, the DecodePlugin when it detect a illegal branch prediction</p></li>
-<li><p>the NEXT hardware trap is used by the CsrAccessPlugin when a state change require a full CPU flush</p></li>
-</ul>
-</section>
-<section id="performancecounterplugin">
-<h3>PerformanceCounterPlugin<a class="headerlink" href="#performancecounterplugin" title="Permalink to this heading"></a></h3>
-<p>Implement the privileged performance counters in a FPGA friendly way :</p>
-<ul class="simple">
-<li><p>Use the CsrRamPlugin to store 57 bits for each performance counter</p></li>
-<li><p>Use a dedicated 7 bits hardware register per counter</p></li>
-<li><p>Once that 7 bits register MSB is set, a FSM will flush it into the CsrRamPlugin</p></li>
-</ul>
+<p>See the <a class="reference internal" href="../Privileges/index.html#privileges"><span class="std std-ref">Privileges</span></a> chapter for more informations.</p>
 </section>
 <section id="envplugin">
 <h3>EnvPlugin<a class="headerlink" href="#envplugin" title="Permalink to this heading"></a></h3>
+<p>See the <a class="reference internal" href="../Privileges/index.html#privileges"><span class="std std-ref">Privileges</span></a> chapter for more informations.</p>
 <ul class="simple">
 <li><p>Implement a few instructions as MRET, SRET, ECALL, EBREAK, FENCE.I, WFI by producing hardware traps</p></li>
-<li><p>Those hardware trap are then handled in the TrapPlugin FSM</p></li>
 </ul>
 </section>
 </section>
@@ -471,7 +438,7 @@ or to jump to the next one after a full pipeline flush (NEXT).</p></li>
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~967f1ed 2024-11-19
+    Version: master git~3201b41 2024-11-25
     </p></div>
     
 

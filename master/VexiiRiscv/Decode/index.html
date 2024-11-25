@@ -139,14 +139,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#divplugin">DivPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#lsucachelessplugin">LsuCachelessPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#lsuplugin">LsuPlugin</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../Execute/plugins.html#special">Special</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#csraccessplugin">CsrAccessPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#csrramplugin">CsrRamPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#privilegedplugin">PrivilegedPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#trapplugin">TrapPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#envplugin">EnvPlugin</a></li>
 </ul>
 </li>
@@ -193,6 +186,19 @@
 <li class="toctree-l4"><a class="reference internal" href="../Memory/index.html#efficiency-cookbook">Efficiency cookbook</a></li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Privileges/index.html">Privileges</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Privileges/index.html#csraccessplugin">CsrAccessPlugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#privilegedplugin">PrivilegedPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#csrramplugin">CsrRamPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#trapplugin">TrapPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#envplugin">EnvPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#mmuplugin">MmuPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#pmpplugin">PmpPlugin</a></li>
 </ul>
 </li>
 </ul>
@@ -286,7 +292,7 @@
 <section id="decodepipelineplugin">
 <h2>DecodePipelinePlugin<a class="headerlink" href="#decodepipelineplugin" title="Permalink to this heading"></a></h2>
 <p>Provide the pipeline framework for all the decode related hardware.
-It use the spinal.lib.misc.pipeline API but implement multiple “lanes” in it.</p>
+It use the spinal.lib.misc.pipeline API but implement multiple &quot;lanes&quot; in it.</p>
 </section>
 <section id="alignerplugin">
 <h2>AlignerPlugin<a class="headerlink" href="#alignerplugin" title="Permalink to this heading"></a></h2>
@@ -310,8 +316,8 @@ It use the spinal.lib.misc.pipeline API but implement multiple “lanes” in it
 <ul class="simple">
 <li><p>Decode instruction</p></li>
 <li><p>Generate illegal instruction exception</p></li>
-<li><p>Generate “interrupt” instruction</p></li>
-<li><p>Ensure that no instruction predicted as a branch/jump by the BTB (but isn’t a branch/jump) doesn’t goes any further. (See more in the Branch prediction chapter)</p></li>
+<li><p>Generate &quot;interrupt&quot; instruction</p></li>
+<li><p>Ensure that no instruction predicted as a branch/jump by the BTB (but isn't a branch/jump) doesn't goes any further. (See more in the Branch prediction chapter)</p></li>
 </ul>
 </section>
 <section id="dispatchplugin">
@@ -321,7 +327,7 @@ in order to figure out what hardware need to be generated.</p>
 <p>The function of the plugin is to :</p>
 <ul class="simple">
 <li><p>Collect instruction from the end of the decode pipeline</p></li>
-<li><p>Dispatch them on the multiple “execution layers” (Execution lanes’s ALUs) available when all dependencies are done.</p></li>
+<li><p>Dispatch them on the multiple &quot;execution layers&quot; (Execution lanes's ALUs) available when all dependencies are done.</p></li>
 </ul>
 <section id="architecture">
 <h3>Architecture<a class="headerlink" href="#architecture" title="Permalink to this heading"></a></h3>
@@ -333,11 +339,11 @@ in order to figure out what hardware need to be generated.</p>
 <li><p>A execute lane can have one or many layers, which can be used to implement things as early ALU / late ALU</p></li>
 <li><p>Each layer will have a static scheduling priority</p></li>
 </ul>
-<p>The DispatchPlugin doesn’t require lanes or layers to be symmetric in any way.</p>
+<p>The DispatchPlugin doesn't require lanes or layers to be symmetric in any way.</p>
 <p>Here is an picture example of VexiiRiscv with 2 execution lanes and 2 layer per execution lane. the 2 execution lanes are separated left and right in stages E1-E2-E3.</p>
 <ul class="simple">
 <li><p>Left E1 ALU is one layer, with highest priority, as it provide the best timings and keep the LSU/MUL/DIV path free</p></li>
-<li><p>Right E1 ALU/DIV/MUL/LSU is one layer, with high priority, as it provide the best timings but it does allocate the MUL/LSU path as well (even if the instruction doesn’t need it)</p></li>
+<li><p>Right E1 ALU/DIV/MUL/LSU is one layer, with high priority, as it provide the best timings but it does allocate the MUL/LSU path as well (even if the instruction doesn't need it)</p></li>
 <li><p>Left E3 ALU is one layer, with low priority, as it provide a late ALU result (bad for dependencies).</p></li>
 <li><p>Right E3 ALU is one layer, with lowest priority, as it provide a late ALU result and also allocate the MUL/LSU path as well.</p></li>
 </ul>
@@ -354,7 +360,7 @@ in order to figure out what hardware need to be generated.</p>
 </section>
 <section id="elaboration">
 <h3>Elaboration<a class="headerlink" href="#elaboration" title="Permalink to this heading"></a></h3>
-<p>This is what make the DispatcherPlugin quite special. During elaboration time, it look at the specification of every execution lane’s layers,
+<p>This is what make the DispatcherPlugin quite special. During elaboration time, it look at the specification of every execution lane's layers,
 to figure out which instruction it supports and what are its dependencies / limitations, and then try to generate a scheduler for it.</p>
 <img alt="../../_images/layer_model.png" src="../../_images/layer_model.png" />
 </section>
@@ -390,7 +396,7 @@ to figure out which instruction it supports and what are its dependencies / limi
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~967f1ed 2024-11-19
+    Version: master git~3201b41 2024-11-25
     </p></div>
     
 

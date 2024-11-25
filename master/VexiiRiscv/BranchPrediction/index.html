@@ -139,14 +139,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#divplugin">DivPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#lsucachelessplugin">LsuCachelessPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#lsuplugin">LsuPlugin</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../Execute/plugins.html#special">Special</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#csraccessplugin">CsrAccessPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#csrramplugin">CsrRamPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#privilegedplugin">PrivilegedPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#trapplugin">TrapPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#envplugin">EnvPlugin</a></li>
 </ul>
 </li>
@@ -193,6 +186,19 @@
 <li class="toctree-l4"><a class="reference internal" href="../Memory/index.html#efficiency-cookbook">Efficiency cookbook</a></li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Privileges/index.html">Privileges</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Privileges/index.html#csraccessplugin">CsrAccessPlugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#privilegedplugin">PrivilegedPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#csrramplugin">CsrRamPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#trapplugin">TrapPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#envplugin">EnvPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#mmuplugin">MmuPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#pmpplugin">PmpPlugin</a></li>
 </ul>
 </li>
 </ul>
@@ -278,12 +284,12 @@
 <p>The branch prediction is implemented as follow :</p>
 <ul class="simple">
 <li><p>During fetch, a BTB, GShare, RAS memory is used to provide an early branch prediction (BtbPlugin / GSharePlugin)</p></li>
-<li><p>In Decode, the DecodePredictionPlugin will ensure that no “none jump/branch instruction”” predicted as a jump/branch continues down the pipeline.</p></li>
+<li><p>In Decode, the DecodePredictionPlugin will ensure that no &quot;none jump/branch instruction&quot;&quot; predicted as a jump/branch continues down the pipeline.</p></li>
 <li><p>In Execute, the prediction made is checked and eventually corrected. Also a stream of data is generated to feed the BTB / GShare memories with good data to learn.</p></li>
 </ul>
 <p>Here is a diagram of the whole architecture :</p>
 <img alt="../../_images/branch_prediction.png" src="../../_images/branch_prediction.png" />
-<p>While it would have been possible in the decode stage to correct some miss prediction from the BTB / RAS, it isn’t done to improve timings and reduce Area.</p>
+<p>While it would have been possible in the decode stage to correct some miss prediction from the BTB / RAS, it isn't done to improve timings and reduce Area.</p>
 <section id="btbplugin">
 <h2>BtbPlugin<a class="headerlink" href="#btbplugin" title="Permalink to this heading"></a></h2>
 <p>Will :</p>
@@ -297,12 +303,12 @@
 <li><p>Use the FetchConditionalPrediction plugin (GSharePlugin) to  know if branch should be taken</p></li>
 <li><p>Apply the prediction (flush + pc update + history update)</p></li>
 <li><p>Learn using the LearnPlugin interface. Only learn on misprediction. To avoid write to read hazard, the fetch stage is blocked when it learn.</p></li>
-<li><p>Implement “ways” named chunks which are statically assigned to groups of word’s slices, allowing to predict multiple branch/jump present in the same word</p></li>
+<li><p>Implement &quot;ways&quot; named chunks which are statically assigned to groups of word's slices, allowing to predict multiple branch/jump present in the same word</p></li>
 </ul>
 <img alt="../../_images/btb.png" src="../../_images/btb.png" />
 <p>Note that it may help to not make the BTB learn when there has been a non-taken branch.</p>
 <ul class="simple">
-<li><p>The BTB don’t need to predict non-taken branch</p></li>
+<li><p>The BTB don't need to predict non-taken branch</p></li>
 <li><p>Keep the BTB entry for something more usefull</p></li>
 <li><p>For configs in which multiple instruction can reside in a single fetch word (ex dual issue with RVC),
 multiple branch/jump instruction can reside in a single fetch word =&gt; need for compromises,
@@ -324,7 +330,7 @@ and hope that some of the branch/jump in the chunk are rarely taken.</p></li>
 <p>The DecodePlugin, in addition of just decoding the incoming instructions, will also ensure that no branch/jump prediction was made for non branch/jump instructions.
 In case this is detected, the plugin will :</p>
 <ul class="simple">
-<li><p>schedule a “REDO trap” which will flush everything and make the CPU jump to the failed instruction</p></li>
+<li><p>schedule a &quot;REDO trap&quot; which will flush everything and make the CPU jump to the failed instruction</p></li>
 <li><p>Make the predictor skip the first incoming prediction</p></li>
 <li><p>Make the predictor unlearn the prediction entry which failed</p></li>
 </ul>
@@ -368,7 +374,7 @@ In case this is detected, the plugin will :</p>
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~967f1ed 2024-11-19
+    Version: master git~3201b41 2024-11-25
     </p></div>
     
 

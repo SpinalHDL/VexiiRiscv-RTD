@@ -139,14 +139,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#divplugin">DivPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#lsucachelessplugin">LsuCachelessPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#lsuplugin">LsuPlugin</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../Execute/plugins.html#special">Special</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#csraccessplugin">CsrAccessPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#csrramplugin">CsrRamPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#privilegedplugin">PrivilegedPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#trapplugin">TrapPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#envplugin">EnvPlugin</a></li>
 </ul>
 </li>
@@ -193,6 +186,19 @@
 <li class="toctree-l4"><a class="reference internal" href="../Memory/index.html#efficiency-cookbook">Efficiency cookbook</a></li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Privileges/index.html">Privileges</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Privileges/index.html#csraccessplugin">CsrAccessPlugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#privilegedplugin">PrivilegedPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#csrramplugin">CsrRamPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#trapplugin">TrapPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#envplugin">EnvPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#mmuplugin">MmuPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#pmpplugin">PmpPlugin</a></li>
 </ul>
 </li>
 </ul>
@@ -276,8 +282,8 @@
   <section id="fetch">
 <h1>Fetch<a class="headerlink" href="#fetch" title="Permalink to this heading"></a></h1>
 <p>The goal of the fetch pipeline is to provide the CPU with a stream of words in which the instructions to execute are presents.
-So more precisely, the fetch pipeline doesn’t realy have the notion of instruction, but instead, just provide memory aligned chunks of memory block (ex 64 bits).
-Those chunks of memory (word) will later be handled by the “AlignerPlugin” to extract the instruction to be executed (and also handle the decompression in the case of RVC).</p>
+So more precisely, the fetch pipeline doesn't realy have the notion of instruction, but instead, just provide memory aligned chunks of memory block (ex 64 bits).
+Those chunks of memory (word) will later be handled by the &quot;AlignerPlugin&quot; to extract the instruction to be executed (and also handle the decompression in the case of RVC).</p>
 <p>Here is an example of fetch architecture with an instruction cache, branch predictor aswell as a prefetcher.</p>
 <img alt="../../_images/fetch_l1.png" src="../../_images/fetch_l1.png" />
 <p>A few plugins operate in the fetch stage :</p>
@@ -300,7 +306,7 @@ Those chunks of memory (word) will later be handled by the “AlignerPlugin” t
 <ul class="simple">
 <li><p>implement the fetch program counter register</p></li>
 <li><p>inject the program counter in the first fetch stage</p></li>
-<li><p>allow other plugin to create “jump” interface allowing to override the PC value</p></li>
+<li><p>allow other plugin to create &quot;jump&quot; interface allowing to override the PC value</p></li>
 </ul>
 <p>Jump interfaces will impact the PC value injected in the fetch stage in a combinatorial manner to reduce latency.</p>
 </section>
@@ -393,7 +399,7 @@ See more in the <a class="reference internal" href="../BranchPrediction/index.ht
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~967f1ed 2024-11-19
+    Version: master git~3201b41 2024-11-25
     </p></div>
     
 

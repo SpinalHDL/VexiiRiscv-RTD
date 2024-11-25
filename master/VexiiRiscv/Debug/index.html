@@ -32,7 +32,7 @@
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
     <link rel="next" title="How to use" href="../HowToUse/index.html" />
-    <link rel="prev" title="Memory (LSU)" href="../Memory/index.html" />
+    <link rel="prev" title="Privileges" href="../Privileges/index.html" />
      
     <!-- source/_templates/layout.html -->
     
@@ -139,14 +139,7 @@
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#divplugin">DivPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#lsucachelessplugin">LsuCachelessPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#lsuplugin">LsuPlugin</a></li>
-</ul>
-</li>
-<li class="toctree-l3"><a class="reference internal" href="../Execute/plugins.html#special">Special</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#csraccessplugin">CsrAccessPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#csrramplugin">CsrRamPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#privilegedplugin">PrivilegedPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#trapplugin">TrapPlugin</a></li>
-<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
 <li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#envplugin">EnvPlugin</a></li>
 </ul>
 </li>
@@ -193,6 +186,19 @@
 <li class="toctree-l4"><a class="reference internal" href="../Memory/index.html#efficiency-cookbook">Efficiency cookbook</a></li>
 </ul>
 </li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Privileges/index.html">Privileges</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Privileges/index.html#csraccessplugin">CsrAccessPlugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#privilegedplugin">PrivilegedPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#csrramplugin">CsrRamPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#trapplugin">TrapPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#envplugin">EnvPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#mmuplugin">MmuPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#pmpplugin">PmpPlugin</a></li>
 </ul>
 </li>
 </ul>
@@ -290,19 +296,19 @@
 It mostly work the following :</p>
 <ul class="simple">
 <li><p>The RISC-V debug module can push RISC-V instructions for the VexiiRiscv to execute.</p></li>
-<li><p>VexiiRiscv implement a custom CSR used by the debug module to read/write data of the CPU. This CSR doesn’t behave like a regular register.</p></li>
+<li><p>VexiiRiscv implement a custom CSR used by the debug module to read/write data of the CPU. This CSR doesn't behave like a regular register.</p></li>
 <li><p>The Debug Module can update the value of that special CSR, which can then be read by the CPU via <cite>csrr</cite> instructions</p></li>
 <li><p>When the CPU write into the CSR via a <cite>csrw</cite>, it will sent the written value to the Debug Module.</p></li>
 </ul>
-<p>So let’s say the debug module want to read some memory, here is what it will do :</p>
+<p>So let's say the debug module want to read some memory, here is what it will do :</p>
 <ul class="simple">
-<li><p>Push instructions to set one register in the register file (let’s say x1) to the address whe want to read: <cite>li x1, 0x12345678</cite></p></li>
+<li><p>Push instructions to set one register in the register file (let's say x1) to the address whe want to read: <cite>li x1, 0x12345678</cite></p></li>
 <li><p>Push a memory load instruction: <cite>lw x1, 0(x1)</cite></p></li>
 <li><p>Push a instruction to write the readed value into the special CSR (0x7B4): <cite>csrw 0x7B4, x1</cite>.
 Writing this CSR will automatically push the value to the debug module</p></li>
 <li><p>Provide that value to the JTAG</p></li>
 </ul>
-<p>If you run a simulation (for instance : <a class="reference internal" href="../HowToUse/index.html#simulation"><span class="std std-ref">Run a simulation</span></a> with the –debug-jtag-tap argument), then you can connect to the simulated JTAG
+<p>If you run a simulation (for instance : <a class="reference internal" href="../HowToUse/index.html#simulation"><span class="std std-ref">Run a simulation</span></a> with the --debug-jtag-tap argument), then you can connect to the simulated JTAG
 via openocd and its TCP remote_bitbang bridge as if it was real hardware:</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>openocd<span class="w"> </span>-f<span class="w"> </span>src/main/tcl/openocd/vexiiriscv_sim.tcl
 </pre></div>
@@ -313,7 +319,7 @@ via openocd and its TCP remote_bitbang bridge as if it was real hardware:</p>
 <h2>EmbeddedRiscvJtag<a class="headerlink" href="#embeddedriscvjtag" title="Permalink to this heading"></a></h2>
 <p>EmbeddedRiscvJtag is a plugin which can be used to integrate the RISC-V debug module and its JTAG TAP directly inside
 the VexiiRiscv. This simplify its deployment, but can only be used in single core configs.</p>
-<p>It is the plugin being used to implement the simulation jtag described in the previous chapter (–debug-jtag-tap)</p>
+<p>It is the plugin being used to implement the simulation jtag described in the previous chapter (--debug-jtag-tap)</p>
 </section>
 </section>
 
@@ -328,7 +334,7 @@ the VexiiRiscv. This simplify its deployment, but can only be used in single cor
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../Memory/index.html" class="btn btn-neutral float-left" title="Memory (LSU)" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../Privileges/index.html" class="btn btn-neutral float-left" title="Privileges" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
         <a href="../HowToUse/index.html" class="btn btn-neutral float-right" title="How to use" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
@@ -346,7 +352,7 @@ the VexiiRiscv. This simplify its deployment, but can only be used in single cor
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~967f1ed 2024-11-19
+    Version: master git~3201b41 2024-11-25
     </p></div>
     
 

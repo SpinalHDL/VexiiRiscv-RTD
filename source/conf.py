@@ -236,6 +236,9 @@ tls_verify = False # disable since Intel urls don't verify on github infra
 # Whitelist pattern for tags (set to None to ignore all tags)
 smv_tag_whitelist = r'^.*$'
 
+smartquotes = False
+html_use_smartypants = False
+
 # The branch called "latest" is not a real branch/tag, it is aliased by the document
 #  build process to the most recent stable release.
 # Whitelist pattern for branches (set to None to ignore all branches)

@@ -125,53 +125,17 @@ Implement load / store through a l1 cache.
 
 More information in the :ref:`lsu` chapter
 
-
-Special
--------
-
-Some implement CSR, privileges and special instructions
-
 CsrAccessPlugin
 ^^^^^^^^^^^^^^^
 
-- Implement the CSR read and write instruction
-- Provide an API for other plugins to specify its hardware mapping
+- Implement the CSR read and write instruction in the execute pipeline
+- Provide an API for other plugins to specify the mapping between the CSR registers and the CSR instruction
 
-CsrRamPlugin
-^^^^^^^^^^^^
-
-- Implement a shared on chip ram
-- Provide an API which allows to statically allocate space on it
-- Provide an API to create read / write ports on it
-- Used by various plugins to store the CSR contents in a FPGA efficient way
-
-PrivilegedPlugin
-^^^^^^^^^^^^^^^^
-
-- Implement the RISC-V privileged spec
-- Use the CsrRamPlugin to implement various CSR as MTVAL, MTVEC, MEPC, MSCRATCH, ...
-
-TrapPlugin
-^^^^^^^^^^^
-
-- Implement the trap buffer / FSM
-- The FSM implement the core logic of many special instructions (MRET, SRET, ECALL, EBREAK, FENCE.I, WFI, ...)
-- Also allows the CPU pipeline to emit hardware traps to re-execute (REDO) the current instruction
-  or to jump to the next one after a full pipeline flush (NEXT).
-- the REDO hardware trap is used by I$ D$ miss, the DecodePlugin when it detect a illegal branch prediction
-- the NEXT hardware trap is used by the CsrAccessPlugin when a state change require a full CPU flush
-
-PerformanceCounterPlugin
-^^^^^^^^^^^^^^^^^^^^^^^^
-
-Implement the privileged performance counters in a FPGA friendly way :
-
-- Use the CsrRamPlugin to store 57 bits for each performance counter
-- Use a dedicated 7 bits hardware register per counter
-- Once that 7 bits register MSB is set, a FSM will flush it into the CsrRamPlugin
+See the :ref:`privileges` chapter for more informations.
 
 EnvPlugin
-^^^^^^^^^
+^^^^^^^^^^^^^^^
+
+See the :ref:`privileges` chapter for more informations.
 
 - Implement a few instructions as MRET, SRET, ECALL, EBREAK, FENCE.I, WFI by producing hardware traps
-- Those hardware trap are then handled in the TrapPlugin FSM

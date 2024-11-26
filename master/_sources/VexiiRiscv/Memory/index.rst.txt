@@ -63,6 +63,36 @@ For multiple reasons (ease of implementation, FMax, hardware usage), VexiiRiscv 
 In those situation, the LsuPlugin will trigger an "hardware trap"
 which will flush the pipeline and reschedule the failed instruction to the fetch unit.
 
+Here is a set of options which can be used :
+
+
+.. list-table:: Generation parameters
+   :widths: 30 70
+   :header-rows: 1
+
+   * - Parameter
+     - Description
+   * - --lsu-l1
+     - Enable the L1 D$
+   * - --lsu-l1-ways=X
+     - Specify the number of ways  for the L1 D$ (how many direct mapped caches in parallel)
+   * - --lsu-l1-sets=X
+     - Specify the number of sets for the L1 D$ (how many line of cache per way)
+   * - --lsu-l1-mem-data-width-min=X
+     - Set a lower bound for the L1 D$ data width
+   * - --lsu-software-prefetch
+     - Enable RISC-V CMO for software prefetching in the D$
+   * - --lsu-hardware-prefetch rpt
+     - Enable the L1 D$ hardware prefetcher (based on RPT)
+   * - --lsu-l1-store-buffer-ops=X
+     - Specify how many store miss can be pushed in the store buffer (disabled/0 by default)
+   * - --lsu-l1-store-buffer-slots=X
+     -  Specify how many block of memory can be targeted by the store buffer (disabled/0 by default)
+   * - --lsu-l1-refill-count=X
+     - Specify how many cache line refill the L1 D$ can handle at the same time
+   * - --lsu-l1-writeback-count=X
+     - Specify how many cache line writeback the L1 D$ can handle at the same time
+
 
 Prefetching
 ----------------------

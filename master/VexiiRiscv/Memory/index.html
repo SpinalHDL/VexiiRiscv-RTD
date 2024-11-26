@@ -335,6 +335,51 @@ as it relax the AGU timings as well as the PMA (Physical Memory Attributes) chec
 </ul>
 <p>In those situation, the LsuPlugin will trigger an &quot;hardware trap&quot;
 which will flush the pipeline and reschedule the failed instruction to the fetch unit.</p>
+<p>Here is a set of options which can be used :</p>
+<table class="docutils align-default" id="id1">
+<caption><span class="caption-text">Generation parameters</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<colgroup>
+<col style="width: 30%" />
+<col style="width: 70%" />
+</colgroup>
+<thead>
+<tr class="row-odd"><th class="head"><p>Parameter</p></th>
+<th class="head"><p>Description</p></th>
+</tr>
+</thead>
+<tbody>
+<tr class="row-even"><td><p>--lsu-l1</p></td>
+<td><p>Enable the L1 D$</p></td>
+</tr>
+<tr class="row-odd"><td><p>--lsu-l1-ways=X</p></td>
+<td><p>Specify the number of ways  for the L1 D$ (how many direct mapped caches in parallel)</p></td>
+</tr>
+<tr class="row-even"><td><p>--lsu-l1-sets=X</p></td>
+<td><p>Specify the number of sets for the L1 D$ (how many line of cache per way)</p></td>
+</tr>
+<tr class="row-odd"><td><p>--lsu-l1-mem-data-width-min=X</p></td>
+<td><p>Set a lower bound for the L1 D$ data width</p></td>
+</tr>
+<tr class="row-even"><td><p>--lsu-software-prefetch</p></td>
+<td><p>Enable RISC-V CMO for software prefetching in the D$</p></td>
+</tr>
+<tr class="row-odd"><td><p>--lsu-hardware-prefetch rpt</p></td>
+<td><p>Enable the L1 D$ hardware prefetcher (based on RPT)</p></td>
+</tr>
+<tr class="row-even"><td><p>--lsu-l1-store-buffer-ops=X</p></td>
+<td><p>Specify how many store miss can be pushed in the store buffer (disabled/0 by default)</p></td>
+</tr>
+<tr class="row-odd"><td><p>--lsu-l1-store-buffer-slots=X</p></td>
+<td><p>Specify how many block of memory can be targeted by the store buffer (disabled/0 by default)</p></td>
+</tr>
+<tr class="row-even"><td><p>--lsu-l1-refill-count=X</p></td>
+<td><p>Specify how many cache line refill the L1 D$ can handle at the same time</p></td>
+</tr>
+<tr class="row-odd"><td><p>--lsu-l1-writeback-count=X</p></td>
+<td><p>Specify how many cache line writeback the L1 D$ can handle at the same time</p></td>
+</tr>
+</tbody>
+</table>
 <section id="prefetching">
 <h3>Prefetching<a class="headerlink" href="#prefetching" title="Permalink to this heading"></a></h3>
 <p>Currently there is two implementation of prefetching</p>
@@ -400,8 +445,8 @@ have enough hardware refill/writeback slots in the LsuL1Plugin.</p>
 <li><p>512 KB of l2 cache shared (128 bits data bus)</p></li>
 <li><p>4 refill slots + 4 writeback slots + 32 entry store queue + 4 slots store queue</p></li>
 </ul>
-<table class="docutils align-default" id="id1">
-<caption><span class="caption-text">Prefetch performance</span><a class="headerlink" href="#id1" title="Permalink to this table"></a></caption>
+<table class="docutils align-default" id="id2">
+<caption><span class="caption-text">Prefetch performance</span><a class="headerlink" href="#id2" title="Permalink to this table"></a></caption>
 <colgroup>
 <col style="width: 40%" />
 <col style="width: 30%" />
@@ -553,7 +598,7 @@ but also, L2/L3 cache designs may block any additional memory request targeting 
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~de955e9 2024-11-26
+    Version: master git~014aa36 2024-11-26
     </p></div>
     
 

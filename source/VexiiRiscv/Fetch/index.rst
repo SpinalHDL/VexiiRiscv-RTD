@@ -67,6 +67,29 @@ Will :
 - Check for the presence of a fetch.PrefetcherPlugin to bind it to the L1
 
 
+
+.. list-table:: Generation parameters
+   :widths: 30 70
+   :header-rows: 1
+
+   * - Parameter
+     - Description
+   * - --fetch-l1
+     - Enable the L1 D$
+   * - --fetch-l1-ways=X
+     - Specify the number of ways  for the L1 I$ (how many direct mapped caches in parallel)
+   * - --fetch-l1-sets=X
+     - Specify the number of sets for the L1 I$ (how many line of cache per way)
+   * - --fetch-l1-mem-data-width-min=X
+     - Set a lower bound for the L1 I$ data width
+   * - --fetch-l1-hardware-prefetc=nl
+     - Enable the L1 I$ hardware prefetcher (prefetch the next line)
+   * - --fetch-l1-refill-count=X
+     - Specify how many cache line refill the L1 I$ can handle at the same time
+
+
+
+
 PrefetcherNextLinePlugin
 ------------------------
 

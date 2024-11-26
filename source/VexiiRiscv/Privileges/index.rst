@@ -110,7 +110,7 @@ PmpPlugin
 - Quite expensive in resources and timings.
 - Support NAPOT (aligned power of 2 sized regions)
 - Support TOR (unrestricted region address/size)
-- You can disable the RISC-V TOR support to help with area and timings
+- You can disable the RISC-V TOR support to help with area and timings via `--pmp-tor-disable`
 - You can set the granularity of the memory regions (to improve timings and area usage). This throw away some of the address LSB bits.
   By default, the granularity is 4KB (--pmp-granularity=4096). Minimum allowed is 4.
 - By default, the PmpPlugin is disabled, but you can enable it via, for instance, `--pmp-size=4`,

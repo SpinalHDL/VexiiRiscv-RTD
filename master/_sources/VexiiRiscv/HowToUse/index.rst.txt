@@ -33,7 +33,7 @@ On debian :
     sudo apt-get install sbt
 
     # Verilator (optional, for simulations)
-    sudo apt-get install git make autoconf g++ flex bison
+    sudo apt-get install git make autoconf g++ flex bison help2man
     git clone http://git.veripool.org/git/verilator   # Only first time
     unsetenv VERILATOR_ROOT  # For csh; ignore error if on bash
     unset VERILATOR_ROOT  # For bash

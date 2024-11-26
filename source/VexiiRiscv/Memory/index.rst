@@ -75,9 +75,9 @@ Here is a set of options which can be used :
    * - --lsu-l1
      - Enable the L1 D$
    * - --lsu-l1-ways=X
-     - Specify the number of ways  for the L1 D$ (how many direct mapped caches in parallel)
+     - Specify the number of ways  for the L1 D$ (how many direct mapped caches in parallel), default=1
    * - --lsu-l1-sets=X
-     - Specify the number of sets for the L1 D$ (how many line of cache per way)
+     - Specify the number of sets for the L1 D$ (how many line of cache per way), default=64
    * - --lsu-l1-mem-data-width-min=X
      - Set a lower bound for the L1 D$ data width
    * - --lsu-software-prefetch
@@ -89,9 +89,17 @@ Here is a set of options which can be used :
    * - --lsu-l1-store-buffer-slots=X
      -  Specify how many block of memory can be targeted by the store buffer (disabled/0 by default)
    * - --lsu-l1-refill-count=X
-     - Specify how many cache line refill the L1 D$ can handle at the same time
+     - Specify how many cache line refill the L1 D$ can handle at the same time, default=1
    * - --lsu-l1-writeback-count=X
-     - Specify how many cache line writeback the L1 D$ can handle at the same time
+     - Specify how many cache line writeback the L1 D$ can handle at the same time, default=1
+
+To improve the performances, consider first increasing the number of cache ways to 4.
+
+The store buffer will help a lot with the store bandwidth by allowing the CPU to not be blocked by every store miss.
+The hardware prefetcher will help with both store/load bandwidth (but if the store buffer is already enabled, it will not
+realy increase the store bandwidth).
+
+For the hardware prefetcher to stretch its leg, consider using 4 refill/writeback slots. This will also help the store buffer.
 
 
 Prefetching

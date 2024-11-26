@@ -349,10 +349,10 @@ Those chunks of memory (word) will later be handled by the &quot;AlignerPlugin&q
 <td><p>Enable the L1 D$</p></td>
 </tr>
 <tr class="row-odd"><td><p>--fetch-l1-ways=X</p></td>
-<td><p>Specify the number of ways  for the L1 I$ (how many direct mapped caches in parallel)</p></td>
+<td><p>Specify the number of ways  for the L1 I$ (how many direct mapped caches in parallel), default=1</p></td>
 </tr>
 <tr class="row-even"><td><p>--fetch-l1-sets=X</p></td>
-<td><p>Specify the number of sets for the L1 I$ (how many line of cache per way)</p></td>
+<td><p>Specify the number of sets for the L1 I$ (how many line of cache per way), default=64</p></td>
 </tr>
 <tr class="row-odd"><td><p>--fetch-l1-mem-data-width-min=X</p></td>
 <td><p>Set a lower bound for the L1 I$ data width</p></td>
@@ -361,10 +361,13 @@ Those chunks of memory (word) will later be handled by the &quot;AlignerPlugin&q
 <td><p>Enable the L1 I$ hardware prefetcher (prefetch the next line)</p></td>
 </tr>
 <tr class="row-odd"><td><p>--fetch-l1-refill-count=X</p></td>
-<td><p>Specify how many cache line refill the L1 I$ can handle at the same time</p></td>
+<td><p>Specify how many cache line refill the L1 I$ can handle at the same time, default=1</p></td>
 </tr>
 </tbody>
 </table>
+<p>To improve the performances, consider first increasing the number of cache ways to 4.
+The hardware prefetcher can help, but it is very variable in function of the workload. If you enable it, then consider
+increasing the number of refill slots to at least 2, idealy 3.</p>
 </section>
 <section id="prefetchernextlineplugin">
 <h2>PrefetcherNextLinePlugin<a class="headerlink" href="#prefetchernextlineplugin" title="Permalink to this heading"></a></h2>
@@ -431,7 +434,7 @@ See more in the <a class="reference internal" href="../BranchPrediction/index.ht
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~014aa36 2024-11-26
+    Version: master git~c49000e 2024-11-26
     </p></div>
     
 

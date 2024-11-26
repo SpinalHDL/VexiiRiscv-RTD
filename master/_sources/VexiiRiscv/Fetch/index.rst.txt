@@ -66,8 +66,6 @@ Will :
 - Generate a fetch memory bus for the SoC interconnect
 - Check for the presence of a fetch.PrefetcherPlugin to bind it to the L1
 
-
-
 .. list-table:: Generation parameters
    :widths: 30 70
    :header-rows: 1
@@ -77,16 +75,19 @@ Will :
    * - --fetch-l1
      - Enable the L1 D$
    * - --fetch-l1-ways=X
-     - Specify the number of ways  for the L1 I$ (how many direct mapped caches in parallel)
+     - Specify the number of ways  for the L1 I$ (how many direct mapped caches in parallel), default=1
    * - --fetch-l1-sets=X
-     - Specify the number of sets for the L1 I$ (how many line of cache per way)
+     - Specify the number of sets for the L1 I$ (how many line of cache per way), default=64
    * - --fetch-l1-mem-data-width-min=X
      - Set a lower bound for the L1 I$ data width
    * - --fetch-l1-hardware-prefetc=nl
      - Enable the L1 I$ hardware prefetcher (prefetch the next line)
    * - --fetch-l1-refill-count=X
-     - Specify how many cache line refill the L1 I$ can handle at the same time
+     - Specify how many cache line refill the L1 I$ can handle at the same time, default=1
 
+To improve the performances, consider first increasing the number of cache ways to 4.
+The hardware prefetcher can help, but it is very variable in function of the workload. If you enable it, then consider
+increasing the number of refill slots to at least 2, idealy 3.
 
 
 

@@ -209,8 +209,8 @@
 </ul>
 </li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">How to use</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#dependencies">Dependencies</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#repo-setup">Repo setup</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#docker-container">Docker Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#compilation">Compilation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#generate-verilog">Generate verilog</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#run-a-simulation">Run a simulation</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#synthesis">Synthesis</a></li>
@@ -281,8 +281,20 @@
 
   <section id="how-to-use">
 <h1>How to use<a class="headerlink" href="#how-to-use" title="Permalink to this heading"></a></h1>
-<section id="dependencies">
-<h2>Dependencies<a class="headerlink" href="#dependencies" title="Permalink to this heading"></a></h2>
+<p>For getting started you have two options.</p>
+<p>Either you compile it from scratch or you use our Docker container which provides all the dependencies readily installed.</p>
+<section id="docker-container">
+<h2>Docker Container<a class="headerlink" href="#docker-container" title="Permalink to this heading"></a></h2>
+<p>Probably the easiest way to get started:</p>
+<p>Simply run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker pull leviathanch/vexiiriscv
+</pre></div>
+</div>
+<p>and fetch the Docker image with the RISC-V tools, sbt and all the other essentials installed</p>
+</section>
+<section id="compilation">
+<h2>Compilation<a class="headerlink" href="#compilation" title="Permalink to this heading"></a></h2>
+<p><strong>Dependencies</strong></p>
 <p>You will need :</p>
 <ul class="simple">
 <li><p>A java JDK</p></li>
@@ -308,7 +320,7 @@ sudo apt-get install sbt
 
 <span class="c1"># Verilator (optional, for simulations)</span>
 sudo apt-get install git make autoconf g++ flex bison help2man
-git clone http://git.veripool.org/git/verilator   <span class="c1"># Only first time</span>
+git clone https://github.com/verilator/verilator
 unsetenv VERILATOR_ROOT  <span class="c1"># For csh; ignore error if on bash</span>
 <span class="nb">unset</span> VERILATOR_ROOT  <span class="c1"># For bash</span>
 <span class="nb">cd</span> verilator
@@ -336,9 +348,7 @@ sudo mv <span class="nv">$version</span> /opt/riscv
 <span class="nb">echo</span> <span class="s1">&#39;export PATH=/opt/riscv/bin:$PATH&#39;</span> &gt;&gt; ~/.bashrc
 </pre></div>
 </div>
-</section>
-<section id="repo-setup">
-<h2>Repo setup<a class="headerlink" href="#repo-setup" title="Permalink to this heading"></a></h2>
+<p><strong>Repo setup</strong></p>
 <p>After installing the dependencies (see above) :</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone --recursive https://github.com/SpinalHDL/VexiiRiscv.git
 <span class="nb">cd</span> VexiiRiscv
@@ -542,7 +552,7 @@ Then you just need to install the scala plugin (asked the first time you run the
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~50df064 2024-11-28
+    Version: master git~afd50f3 2024-11-28
     </p></div>
     
 

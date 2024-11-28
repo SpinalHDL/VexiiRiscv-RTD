@@ -256,14 +256,14 @@ jobs:
         fi
 
         # See if a tags/latest exists
-        if git show-ref -q latest
-        then
-          echo "$(git show-ref ${sphinx_extra_version})  ## ALREADY EXISTS, KEEPING"
-        else
-          gitref=$(git show-ref ${sphinx_latest_version} | cut -d ' ' -f1)
-          git tag "${sphinx_extra_version}" "${gitref}"
-          echo "$(git show-ref ${sphinx_extra_version})  ## CREATED LOCAL ALIAS TO ${sphinx_latest_version}"
-        fi
+        #if git show-ref -q latest
+        #then
+        #  echo "$(git show-ref ${sphinx_extra_version})  ## ALREADY EXISTS, KEEPING"
+        #else
+        #  gitref=$(git show-ref ${sphinx_latest_version} | cut -d ' ' -f1)
+        #  git tag "${sphinx_extra_version}" "${gitref}"
+        #  echo "$(git show-ref ${sphinx_extra_version})  ## CREATED LOCAL ALIAS TO ${sphinx_latest_version}"
+        #fi
 
         # Now we are all configured lets make these settings global
         for varname in DEPLOY_ENV_TEST DEPLOY_ENV_LIVE

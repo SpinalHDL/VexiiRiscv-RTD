@@ -288,11 +288,11 @@
 <p>Let's define a plugin which will implement a SIMD add (4x8bits adder), working on the integer register file.</p>
 <p>The plugin will be based on the ExecutionUnitElementSimple which makes implementing ALU plugins simpler. Such a plugin can then be used to compose a given execution lane layer</p>
 <p>For instance the Plugin configuration could be :</p>
-<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">SrcPlugin</span><span class="p">(</span><span class="n">early0</span><span class="p">,</span><span class="w"> </span><span class="n">executeAt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">relaxedRs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">relaxedSrc</span><span class="p">)</span>
-<span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">IntAluPlugin</span><span class="p">(</span><span class="n">early0</span><span class="p">,</span><span class="w"> </span><span class="n">formatAt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
-<span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">BarrelShifterPlugin</span><span class="p">(</span><span class="n">early0</span><span class="p">,</span><span class="w"> </span><span class="n">formatAt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">relaxedShift</span><span class="p">.</span><span class="n">toInt</span><span class="p">)</span>
-<span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">IntFormatPlugin</span><span class="p">(</span><span class="s">&quot;lane0&quot;</span><span class="p">)</span>
-<span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">BranchPlugin</span><span class="p">(</span><span class="n">early0</span><span class="p">,</span><span class="w"> </span><span class="n">aluAt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">jumpAt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">relaxedBranch</span><span class="p">.</span><span class="n">toInt</span><span class="p">,</span><span class="w"> </span><span class="n">wbAt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">SrcPlugin</span><span class="p">(</span><span class="n">early0</span><span class="p">,</span><span class="w"> </span><span class="n">executeAt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">relaxedRs</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">relaxedSrc</span><span class="p">)</span><span class="w"></span>
+<span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">IntAluPlugin</span><span class="p">(</span><span class="n">early0</span><span class="p">,</span><span class="w"> </span><span class="n">formatAt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
+<span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">BarrelShifterPlugin</span><span class="p">(</span><span class="n">early0</span><span class="p">,</span><span class="w"> </span><span class="n">formatAt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">relaxedShift</span><span class="p">.</span><span class="n">toInt</span><span class="p">)</span><span class="w"></span>
+<span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">IntFormatPlugin</span><span class="p">(</span><span class="s">&quot;lane0&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">BranchPlugin</span><span class="p">(</span><span class="n">early0</span><span class="p">,</span><span class="w"> </span><span class="n">aluAt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">,</span><span class="w"> </span><span class="n">jumpAt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">relaxedBranch</span><span class="p">.</span><span class="n">toInt</span><span class="p">,</span><span class="w"> </span><span class="n">wbAt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
 <span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">SimdAddPlugin</span><span class="p">(</span><span class="n">early0</span><span class="p">)</span><span class="w"> </span><span class="c1">// &lt;- We will implement this plugin</span>
 </pre></div>
 </div>
@@ -327,59 +327,59 @@
 <span class="c1">// Note :  RS1, RS2, RD positions follow the RISC-V spec and are common for all instruction of the ISA</span>
 
 
-<span class="k">object</span><span class="w"> </span><span class="nc">SimdAddPlugin</span><span class="p">{</span>
+<span class="k">object</span><span class="w"> </span><span class="nc">SimdAddPlugin</span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="c1">// Define the instruction type and encoding that we wll use</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="nc">ADD4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">IntRegFile</span><span class="p">.</span><span class="nc">TypeR</span><span class="p">(</span><span class="nc">M</span><span class="s">&quot;0000000----------000-----0001011&quot;</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="nc">ADD4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">IntRegFile</span><span class="p">.</span><span class="nc">TypeR</span><span class="p">(</span><span class="nc">M</span><span class="s">&quot;0000000----------000-----0001011&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
 <span class="c1">// ExecutionUnitElementSimple is a plugin base class which will integrate itself in a execute lane layer</span>
 <span class="c1">// It provide quite a few utilities to ease the implementation of custom instruction.</span>
 <span class="c1">// Here we will implement a plugin which provide SIMD add on the register file.</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">SimdAddPlugin</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="n">layer</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nc">LaneLayer</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">ExecutionUnitElementSimple</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SimdAddPlugin</span><span class="p">(</span><span class="kd">val</span><span class="w"> </span><span class="n">layer</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nc">LaneLayer</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">ExecutionUnitElementSimple</span><span class="p">(</span><span class="n">layer</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 
 <span class="w">  </span><span class="c1">// Here we create an elaboration thread. The Logic class is provided by ExecutionUnitElementSimple to provide functionalities</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">setup</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Logic</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">setup</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Logic</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="c1">// Here we could have lock the elaboration of some other plugins (ex CSR), but here we don&#39;t need any of that</span>
 <span class="w">    </span><span class="c1">// as all is already sorted out in the Logic base class.</span>
 <span class="w">    </span><span class="c1">// So we just wait for the build phase</span>
-<span class="w">    </span><span class="n">awaitBuild</span><span class="p">()</span>
+<span class="w">    </span><span class="n">awaitBuild</span><span class="p">()</span><span class="w"></span>
 
 <span class="w">    </span><span class="c1">// Let&#39;s assume we only support RV32 for now</span>
-<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="nc">Riscv</span><span class="p">.</span><span class="nc">XLEN</span><span class="p">.</span><span class="n">get</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">32</span><span class="p">)</span>
+<span class="w">    </span><span class="n">assert</span><span class="p">(</span><span class="nc">Riscv</span><span class="p">.</span><span class="nc">XLEN</span><span class="p">.</span><span class="n">get</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="mi">32</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">    </span><span class="c1">// Let&#39;s get the hardware interface that we will use to provide the result of our custom instruction</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">wb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newWriteback</span><span class="p">(</span><span class="n">ifp</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">wb</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">newWriteback</span><span class="p">(</span><span class="n">ifp</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">    </span><span class="c1">// Specify that the current plugin will implement the ADD4 instruction</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">add4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="nc">SimdAddPlugin</span><span class="p">.</span><span class="nc">ADD4</span><span class="p">).</span><span class="n">spec</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">add4</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">add</span><span class="p">(</span><span class="nc">SimdAddPlugin</span><span class="p">.</span><span class="nc">ADD4</span><span class="p">).</span><span class="n">spec</span><span class="w"></span>
 
 <span class="w">    </span><span class="c1">// We need to specify on which stage we start using the register file values</span>
-<span class="w">    </span><span class="n">add4</span><span class="p">.</span><span class="n">addRsSpec</span><span class="p">(</span><span class="nc">RS1</span><span class="p">,</span><span class="w"> </span><span class="n">executeAt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
-<span class="w">    </span><span class="n">add4</span><span class="p">.</span><span class="n">addRsSpec</span><span class="p">(</span><span class="nc">RS2</span><span class="p">,</span><span class="w"> </span><span class="n">executeAt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span>
+<span class="w">    </span><span class="n">add4</span><span class="p">.</span><span class="n">addRsSpec</span><span class="p">(</span><span class="nc">RS1</span><span class="p">,</span><span class="w"> </span><span class="n">executeAt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">add4</span><span class="p">.</span><span class="n">addRsSpec</span><span class="p">(</span><span class="nc">RS2</span><span class="p">,</span><span class="w"> </span><span class="n">executeAt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">    </span><span class="c1">// Now that we are done specifying everything about the instructions, we can release the Logic.uopRetainer</span>
 <span class="w">    </span><span class="c1">// This will allow a few other plugins to continue their elaboration (ex : decoder, dispatcher, ...)</span>
-<span class="w">    </span><span class="n">uopRetainer</span><span class="p">.</span><span class="n">release</span><span class="p">()</span>
+<span class="w">    </span><span class="n">uopRetainer</span><span class="p">.</span><span class="n">release</span><span class="p">()</span><span class="w"></span>
 
 <span class="w">    </span><span class="c1">// Let&#39;s define some logic in the execute lane [0]</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">process</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">el</span><span class="p">.</span><span class="nc">Execute</span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">process</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">el</span><span class="p">.</span><span class="nc">Execute</span><span class="p">(</span><span class="n">id</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">      </span><span class="c1">// Get the RISC-V RS1/RS2 values from the register file</span>
-<span class="w">      </span><span class="kd">val</span><span class="w"> </span><span class="n">rs1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">el</span><span class="p">(</span><span class="nc">IntRegFile</span><span class="p">,</span><span class="w"> </span><span class="nc">RS1</span><span class="p">).</span><span class="n">asUInt</span>
-<span class="w">      </span><span class="kd">val</span><span class="w"> </span><span class="n">rs2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">el</span><span class="p">(</span><span class="nc">IntRegFile</span><span class="p">,</span><span class="w"> </span><span class="nc">RS2</span><span class="p">).</span><span class="n">asUInt</span>
+<span class="w">      </span><span class="kd">val</span><span class="w"> </span><span class="n">rs1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">el</span><span class="p">(</span><span class="nc">IntRegFile</span><span class="p">,</span><span class="w"> </span><span class="nc">RS1</span><span class="p">).</span><span class="n">asUInt</span><span class="w"></span>
+<span class="w">      </span><span class="kd">val</span><span class="w"> </span><span class="n">rs2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">el</span><span class="p">(</span><span class="nc">IntRegFile</span><span class="p">,</span><span class="w"> </span><span class="nc">RS2</span><span class="p">).</span><span class="n">asUInt</span><span class="w"></span>
 
 <span class="w">      </span><span class="c1">// Do some computation</span>
-<span class="w">      </span><span class="kd">val</span><span class="w"> </span><span class="n">rd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">32</span><span class="w"> </span><span class="n">bits</span><span class="p">)</span>
-<span class="w">      </span><span class="n">rd</span><span class="p">(</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="n">downto</span><span class="w">  </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">rs1</span><span class="p">(</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="n">downto</span><span class="w">  </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rs2</span><span class="p">(</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="n">downto</span><span class="w">  </span><span class="mi">0</span><span class="p">)</span>
-<span class="w">      </span><span class="n">rd</span><span class="p">(</span><span class="mi">16</span><span class="w"> </span><span class="n">downto</span><span class="w">  </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">rs1</span><span class="p">(</span><span class="mi">16</span><span class="w"> </span><span class="n">downto</span><span class="w">  </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rs2</span><span class="p">(</span><span class="mi">16</span><span class="w"> </span><span class="n">downto</span><span class="w">  </span><span class="mi">8</span><span class="p">)</span>
-<span class="w">      </span><span class="n">rd</span><span class="p">(</span><span class="mi">23</span><span class="w"> </span><span class="n">downto</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">rs1</span><span class="p">(</span><span class="mi">23</span><span class="w"> </span><span class="n">downto</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rs2</span><span class="p">(</span><span class="mi">23</span><span class="w"> </span><span class="n">downto</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span>
-<span class="w">      </span><span class="n">rd</span><span class="p">(</span><span class="mi">31</span><span class="w"> </span><span class="n">downto</span><span class="w"> </span><span class="mi">24</span><span class="p">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">rs1</span><span class="p">(</span><span class="mi">31</span><span class="w"> </span><span class="n">downto</span><span class="w"> </span><span class="mi">24</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rs2</span><span class="p">(</span><span class="mi">31</span><span class="w"> </span><span class="n">downto</span><span class="w"> </span><span class="mi">24</span><span class="p">)</span>
+<span class="w">      </span><span class="kd">val</span><span class="w"> </span><span class="n">rd</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">32</span><span class="w"> </span><span class="n">bits</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="n">rd</span><span class="p">(</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="n">downto</span><span class="w">  </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">rs1</span><span class="p">(</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="n">downto</span><span class="w">  </span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rs2</span><span class="p">(</span><span class="w"> </span><span class="mi">7</span><span class="w"> </span><span class="n">downto</span><span class="w">  </span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="n">rd</span><span class="p">(</span><span class="mi">16</span><span class="w"> </span><span class="n">downto</span><span class="w">  </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">rs1</span><span class="p">(</span><span class="mi">16</span><span class="w"> </span><span class="n">downto</span><span class="w">  </span><span class="mi">8</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rs2</span><span class="p">(</span><span class="mi">16</span><span class="w"> </span><span class="n">downto</span><span class="w">  </span><span class="mi">8</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="n">rd</span><span class="p">(</span><span class="mi">23</span><span class="w"> </span><span class="n">downto</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">rs1</span><span class="p">(</span><span class="mi">23</span><span class="w"> </span><span class="n">downto</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rs2</span><span class="p">(</span><span class="mi">23</span><span class="w"> </span><span class="n">downto</span><span class="w"> </span><span class="mi">16</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="n">rd</span><span class="p">(</span><span class="mi">31</span><span class="w"> </span><span class="n">downto</span><span class="w"> </span><span class="mi">24</span><span class="p">)</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">rs1</span><span class="p">(</span><span class="mi">31</span><span class="w"> </span><span class="n">downto</span><span class="w"> </span><span class="mi">24</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">rs2</span><span class="p">(</span><span class="mi">31</span><span class="w"> </span><span class="n">downto</span><span class="w"> </span><span class="mi">24</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">      </span><span class="c1">// Provide the computation value for the writeback</span>
-<span class="w">      </span><span class="n">wb</span><span class="p">.</span><span class="n">valid</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nc">SEL</span>
-<span class="w">      </span><span class="n">wb</span><span class="p">.</span><span class="n">payload</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">rd</span><span class="p">.</span><span class="n">asBits</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
+<span class="w">      </span><span class="n">wb</span><span class="p">.</span><span class="n">valid</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="nc">SEL</span><span class="w"></span>
+<span class="w">      </span><span class="n">wb</span><span class="p">.</span><span class="n">payload</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">rd</span><span class="p">.</span><span class="n">asBits</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
@@ -389,62 +389,62 @@
 <ul class="simple">
 <li><p>Bottom of <a class="reference external" href="https://github.com/SpinalHDL/VexiiRiscv/blob/dev/src/main/scala/vexiiriscv/execute/SimdAddPlugin.scala">https://github.com/SpinalHDL/VexiiRiscv/blob/dev/src/main/scala/vexiiriscv/execute/SimdAddPlugin.scala</a></p></li>
 </ul>
-<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">object</span><span class="w"> </span><span class="nc">VexiiSimdAddGen</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">App</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">param</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">ParamSimple</span><span class="p">()</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">sc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">SpinalConfig</span><span class="p">()</span>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">object</span><span class="w"> </span><span class="nc">VexiiSimdAddGen</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">App</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">param</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">ParamSimple</span><span class="p">()</span><span class="w"></span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">sc</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">SpinalConfig</span><span class="p">()</span><span class="w"></span>
 
-<span class="w">  </span><span class="n">assert</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">scopt</span><span class="p">.</span><span class="nc">OptionParser</span><span class="p">[</span><span class="nc">Unit</span><span class="p">](</span><span class="s">&quot;VexiiRiscv&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">help</span><span class="p">(</span><span class="s">&quot;help&quot;</span><span class="p">).</span><span class="n">text</span><span class="p">(</span><span class="s">&quot;prints this usage text&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="n">param</span><span class="p">.</span><span class="n">addOptions</span><span class="p">(</span><span class="bp">this</span><span class="p">)</span>
-<span class="w">  </span><span class="p">}.</span><span class="n">parse</span><span class="p">(</span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="nc">Unit</span><span class="p">).</span><span class="n">nonEmpty</span><span class="p">)</span>
+<span class="w">  </span><span class="n">assert</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">scopt</span><span class="p">.</span><span class="nc">OptionParser</span><span class="p">[</span><span class="nc">Unit</span><span class="p">](</span><span class="s">&quot;VexiiRiscv&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">help</span><span class="p">(</span><span class="s">&quot;help&quot;</span><span class="p">).</span><span class="n">text</span><span class="p">(</span><span class="s">&quot;prints this usage text&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">param</span><span class="p">.</span><span class="n">addOptions</span><span class="p">(</span><span class="bp">this</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="p">}.</span><span class="n">parse</span><span class="p">(</span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="nc">Unit</span><span class="p">).</span><span class="n">nonEmpty</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">  </span><span class="n">sc</span><span class="p">.</span><span class="n">addTransformationPhase</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="nc">MultiPortWritesSymplifier</span><span class="p">)</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">report</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sc</span><span class="p">.</span><span class="n">generateVerilog</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">pa</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">param</span><span class="p">.</span><span class="n">pluginsArea</span><span class="p">()</span>
-<span class="w">    </span><span class="n">pa</span><span class="p">.</span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">SimdAddPlugin</span><span class="p">(</span><span class="n">pa</span><span class="p">.</span><span class="n">early0</span><span class="p">)</span>
-<span class="w">    </span><span class="nc">VexiiRiscv</span><span class="p">(</span><span class="n">pa</span><span class="p">.</span><span class="n">plugins</span><span class="p">)</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
+<span class="w">  </span><span class="n">sc</span><span class="p">.</span><span class="n">addTransformationPhase</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="nc">MultiPortWritesSymplifier</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">report</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sc</span><span class="p">.</span><span class="n">generateVerilog</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">pa</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">param</span><span class="p">.</span><span class="n">pluginsArea</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="n">pa</span><span class="p">.</span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">SimdAddPlugin</span><span class="p">(</span><span class="n">pa</span><span class="p">.</span><span class="n">early0</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nc">VexiiRiscv</span><span class="p">(</span><span class="n">pa</span><span class="p">.</span><span class="n">plugins</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>To run this App, you can go to the NaxRiscv directory and run :</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sbt<span class="w"> </span><span class="s2">&quot;runMain vexiiriscv.execute.VexiiSimdAddGen&quot;</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sbt <span class="s2">&quot;runMain vexiiriscv.execute.VexiiSimdAddGen&quot;</span>
 </pre></div>
 </div>
 </section>
 <section id="software-test">
 <h3>Software test<a class="headerlink" href="#software-test" title="Permalink to this heading"></a></h3>
 <p>Then let's write some assembly test code : (<a class="reference external" href="https://github.com/SpinalHDL/NaxSoftware/tree/849679c70b238ceee021bdfd18eb2e9809e7bdd0/baremetal/simdAdd">https://github.com/SpinalHDL/NaxSoftware/tree/849679c70b238ceee021bdfd18eb2e9809e7bdd0/baremetal/simdAdd</a>)</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.globl<span class="w"> </span>_start
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>.globl _start
 _start:
 
 <span class="c1">#include &quot;../../driver/riscv_asm.h&quot;</span>
 <span class="c1">#include &quot;../../driver/sim_asm.h&quot;</span>
 <span class="c1">#include &quot;../../driver/custom_asm.h&quot;</span>
 
-<span class="w">    </span>//<span class="w"> </span>Test<span class="w"> </span><span class="m">1</span>
-<span class="w">    </span>li<span class="w"> </span>x1,<span class="w"> </span>0x01234567
-<span class="w">    </span>li<span class="w"> </span>x2,<span class="w"> </span>0x01FF01FF
-<span class="w">    </span>opcode_R<span class="o">(</span>CUSTOM0,<span class="w"> </span>0x0,<span class="w"> </span>0x00,<span class="w"> </span>x3,<span class="w"> </span>x1,<span class="w"> </span>x2<span class="o">)</span><span class="w"> </span>//<span class="w"> </span><span class="nv">x3</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>ADD4<span class="o">(</span>x1,<span class="w"> </span>x2<span class="o">)</span>
+    // Test <span class="m">1</span>
+    li x1, 0x01234567
+    li x2, 0x01FF01FF
+    opcode_R<span class="o">(</span>CUSTOM0, 0x0, 0x00, x3, x1, x2<span class="o">)</span> // <span class="nv">x3</span> <span class="o">=</span> ADD4<span class="o">(</span>x1, x2<span class="o">)</span>
 
-<span class="w">    </span>//<span class="w"> </span>Print<span class="w"> </span>result<span class="w"> </span>value
-<span class="w">    </span>li<span class="w"> </span>x4,<span class="w"> </span>PUT_HEX
-<span class="w">    </span>sw<span class="w"> </span>x3,<span class="w"> </span><span class="m">0</span><span class="o">(</span>x4<span class="o">)</span>
+    // Print result value
+    li x4, PUT_HEX
+    sw x3, <span class="m">0</span><span class="o">(</span>x4<span class="o">)</span>
 
-<span class="w">    </span>//<span class="w"> </span>Check<span class="w"> </span>result
-<span class="w">    </span>li<span class="w"> </span>x5,<span class="w"> </span>0x02224666
-<span class="w">    </span>bne<span class="w"> </span>x3,<span class="w"> </span>x5,<span class="w"> </span>fail
+    // Check result
+    li x5, 0x02224666
+    bne x3, x5, fail
 
-<span class="w">    </span>j<span class="w"> </span>pass
+    j pass
 
 pass:
-<span class="w">    </span>j<span class="w"> </span>pass
+    j pass
 fail:
-<span class="w">    </span>j<span class="w"> </span>fail
+    j fail
 </pre></div>
 </div>
 <p>Compile it with</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>make<span class="w"> </span>clean<span class="w"> </span>rv32im
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>make clean rv32im
 </pre></div>
 </div>
 </section>
@@ -454,36 +454,36 @@ fail:
 <ul class="simple">
 <li><p>Bottom of <a class="reference external" href="https://github.com/SpinalHDL/VexiiRiscv/blob/dev/src/main/scala/vexiiriscv/execute/SimdAddPlugin.scala">https://github.com/SpinalHDL/VexiiRiscv/blob/dev/src/main/scala/vexiiriscv/execute/SimdAddPlugin.scala</a></p></li>
 </ul>
-<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">object</span><span class="w"> </span><span class="nc">VexiiSimdAddSim</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">App</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">param</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">ParamSimple</span><span class="p">()</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">testOpt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">TestOptions</span><span class="p">()</span>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">object</span><span class="w"> </span><span class="nc">VexiiSimdAddSim</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">App</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">param</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">ParamSimple</span><span class="p">()</span><span class="w"></span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">testOpt</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">TestOptions</span><span class="p">()</span><span class="w"></span>
 
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">genConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">SpinalConfig</span><span class="p">()</span>
-<span class="w">  </span><span class="n">genConfig</span><span class="p">.</span><span class="n">includeSimulation</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">genConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">SpinalConfig</span><span class="p">()</span><span class="w"></span>
+<span class="w">  </span><span class="n">genConfig</span><span class="p">.</span><span class="n">includeSimulation</span><span class="w"></span>
 
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">simConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">SpinalSimConfig</span><span class="p">()</span>
-<span class="w">  </span><span class="n">simConfig</span><span class="p">.</span><span class="n">withFstWave</span>
-<span class="w">  </span><span class="n">simConfig</span><span class="p">.</span><span class="n">withTestFolder</span>
-<span class="w">  </span><span class="n">simConfig</span><span class="p">.</span><span class="n">withConfig</span><span class="p">(</span><span class="n">genConfig</span><span class="p">)</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">simConfig</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">SpinalSimConfig</span><span class="p">()</span><span class="w"></span>
+<span class="w">  </span><span class="n">simConfig</span><span class="p">.</span><span class="n">withFstWave</span><span class="w"></span>
+<span class="w">  </span><span class="n">simConfig</span><span class="p">.</span><span class="n">withTestFolder</span><span class="w"></span>
+<span class="w">  </span><span class="n">simConfig</span><span class="p">.</span><span class="n">withConfig</span><span class="p">(</span><span class="n">genConfig</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">  </span><span class="n">assert</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">scopt</span><span class="p">.</span><span class="nc">OptionParser</span><span class="p">[</span><span class="nc">Unit</span><span class="p">](</span><span class="s">&quot;VexiiRiscv&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="n">help</span><span class="p">(</span><span class="s">&quot;help&quot;</span><span class="p">).</span><span class="n">text</span><span class="p">(</span><span class="s">&quot;prints this usage text&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="n">testOpt</span><span class="p">.</span><span class="n">addOptions</span><span class="p">(</span><span class="bp">this</span><span class="p">)</span>
-<span class="w">    </span><span class="n">param</span><span class="p">.</span><span class="n">addOptions</span><span class="p">(</span><span class="bp">this</span><span class="p">)</span>
-<span class="w">  </span><span class="p">}.</span><span class="n">parse</span><span class="p">(</span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="nc">Unit</span><span class="p">).</span><span class="n">nonEmpty</span><span class="p">)</span>
+<span class="w">  </span><span class="n">assert</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="n">scopt</span><span class="p">.</span><span class="nc">OptionParser</span><span class="p">[</span><span class="nc">Unit</span><span class="p">](</span><span class="s">&quot;VexiiRiscv&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">help</span><span class="p">(</span><span class="s">&quot;help&quot;</span><span class="p">).</span><span class="n">text</span><span class="p">(</span><span class="s">&quot;prints this usage text&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">testOpt</span><span class="p">.</span><span class="n">addOptions</span><span class="p">(</span><span class="bp">this</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">param</span><span class="p">.</span><span class="n">addOptions</span><span class="p">(</span><span class="bp">this</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="p">}.</span><span class="n">parse</span><span class="p">(</span><span class="n">args</span><span class="p">,</span><span class="w"> </span><span class="nc">Unit</span><span class="p">).</span><span class="n">nonEmpty</span><span class="p">)</span><span class="w"></span>
 
-<span class="w">  </span><span class="n">println</span><span class="p">(</span><span class="s">s&quot;With Vexiiriscv parm :\n - </span><span class="si">${</span><span class="n">param</span><span class="p">.</span><span class="n">getName</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">compiled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">simConfig</span><span class="p">.</span><span class="n">compile</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">pa</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">param</span><span class="p">.</span><span class="n">pluginsArea</span><span class="p">()</span>
-<span class="w">    </span><span class="n">pa</span><span class="p">.</span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">SimdAddPlugin</span><span class="p">(</span><span class="n">pa</span><span class="p">.</span><span class="n">early0</span><span class="p">)</span>
-<span class="w">    </span><span class="nc">VexiiRiscv</span><span class="p">(</span><span class="n">pa</span><span class="p">.</span><span class="n">plugins</span><span class="p">)</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="w">  </span><span class="n">testOpt</span><span class="p">.</span><span class="n">test</span><span class="p">(</span><span class="n">compiled</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">  </span><span class="n">println</span><span class="p">(</span><span class="s">s&quot;With Vexiiriscv parm :\n - </span><span class="si">${</span><span class="n">param</span><span class="p">.</span><span class="n">getName</span><span class="p">()</span><span class="si">}</span><span class="s">&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">compiled</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">simConfig</span><span class="p">.</span><span class="n">compile</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">pa</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">param</span><span class="p">.</span><span class="n">pluginsArea</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="n">pa</span><span class="p">.</span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">SimdAddPlugin</span><span class="p">(</span><span class="n">pa</span><span class="p">.</span><span class="n">early0</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nc">VexiiRiscv</span><span class="p">(</span><span class="n">pa</span><span class="p">.</span><span class="n">plugins</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="n">testOpt</span><span class="p">.</span><span class="n">test</span><span class="p">(</span><span class="n">compiled</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Which can be run with :</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sbt<span class="w"> </span><span class="s2">&quot;runMain vexiiriscv.execute.VexiiSimdAddSim --load-elf ext/NaxSoftware/baremetal/simdAdd/build/rv32ima/simdAdd.elf --trace-all --no-rvls-check&quot;</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>sbt <span class="s2">&quot;runMain vexiiriscv.execute.VexiiSimdAddSim --load-elf ext/NaxSoftware/baremetal/simdAdd/build/rv32ima/simdAdd.elf --trace-all --no-rvls-check&quot;</span>
 </pre></div>
 </div>
 <p>Which will output the value 02224666 in the shell and show traces in simWorkspace/VexiiRiscv/test :D</p>
@@ -526,7 +526,7 @@ But you can take a look in the IntAluPlugin, ShiftPlugin, DivPlugin, MulPlugin a
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~20f99b5 2024-11-26
+    Version: master git~50df064 2024-11-28
     </p></div>
     
 

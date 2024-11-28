@@ -415,7 +415,7 @@ The issue is that in between, all the combinatorial logic and signals names beco
 Also, in CPU design, it can quite easily happen that some combinatorial path &quot;leak&quot; through the pipeline, degrading the FMax quite a bit !</p>
 <p>So there is a tool you can use in SpinalHDL to provide you a &quot;clean&quot; combinatorial path report between 2 signals of a design.
 Here is an example how you can use it in VexiiRiscv :</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sbt<span class="w"> </span><span class="s2">&quot;Test/runMain vexiiriscv.Generate --stressed-src --allow-bypass-from=0 --analyse-path from=execute_ctrl2_up_integer_RS1_lane0,to=execute_ctrl1_down_integer_RS1_lane0&quot;</span>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sbt <span class="s2">&quot;Test/runMain vexiiriscv.Generate --stressed-src --allow-bypass-from=0 --analyse-path from=execute_ctrl2_up_integer_RS1_lane0,to=execute_ctrl1_down_integer_RS1_lane0&quot;</span>
 </pre></div>
 </div>
 <p>This will report you the various paths from execute_ctrl2_up_integer_RS1_lane0 to execute_ctrl1_down_integer_RS1_lane0.</p>
@@ -506,7 +506,7 @@ Here is an example how you can use it in VexiiRiscv :</p>
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~20f99b5 2024-11-26
+    Version: master git~50df064 2024-11-28
     </p></div>
     
 

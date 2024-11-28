@@ -302,25 +302,25 @@
 <li><p>Provide an API for other plugins to specify the mapping between the CSR registers and the CSR instruction</p></li>
 </ul>
 <p>For instance, when another plugin want to add a custom CSR, it can do as follow :</p>
-<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">CustomPlugin</span><span class="p">()</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">FiberPlugin</span><span class="w">  </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">setup</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="p">{</span>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">CustomPlugin</span><span class="p">()</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">FiberPlugin</span><span class="w">  </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">setup</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">cp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">host</span><span class="p">[</span><span class="nc">CsrService</span><span class="p">]</span><span class="w"> </span><span class="c1">// CsrAccessPlugin is an implementation of CsrService</span>
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">buildBefore</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">retains</span><span class="p">(</span><span class="n">cp</span><span class="p">.</span><span class="n">csrLock</span><span class="p">)</span><span class="w"> </span><span class="c1">// This ensure that the CsrService hold one until we are finished with the API usages</span>
-<span class="w">    </span><span class="n">awaitBuild</span><span class="p">()</span>
+<span class="w">    </span><span class="n">awaitBuild</span><span class="p">()</span><span class="w"></span>
 
 <span class="w">    </span><span class="c1">// Define a few registers</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">regX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Reg</span><span class="p">(</span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="w"> </span><span class="n">bits</span><span class="p">))</span><span class="w"> </span><span class="n">init</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">regY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Reg</span><span class="p">(</span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="w"> </span><span class="n">bits</span><span class="p">))</span><span class="w"> </span><span class="n">init</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">regX</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Reg</span><span class="p">(</span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="w"> </span><span class="n">bits</span><span class="p">))</span><span class="w"> </span><span class="n">init</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">regY</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Reg</span><span class="p">(</span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="w"> </span><span class="n">bits</span><span class="p">))</span><span class="w"> </span><span class="n">init</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">    </span><span class="c1">// Map those registers in the RISC-V CSRs at address 0xFF0.</span>
 <span class="w">    </span><span class="c1">// - Bits 17:10 will be regX</span>
 <span class="w">    </span><span class="c1">// - Bits 27:20 will be regY</span>
-<span class="w">    </span><span class="n">cp</span><span class="p">.</span><span class="n">readWrite</span><span class="p">(</span><span class="mh">0xFF0</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">regX</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">regY</span><span class="p">)</span>
+<span class="w">    </span><span class="n">cp</span><span class="p">.</span><span class="n">readWrite</span><span class="p">(</span><span class="mh">0xFF0</span><span class="p">,</span><span class="w"> </span><span class="mi">10</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">regX</span><span class="p">,</span><span class="w"> </span><span class="mi">20</span><span class="w"> </span><span class="o">-&gt;</span><span class="w"> </span><span class="n">regY</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">    </span><span class="c1">// Now that we are with the csr API, we allows it to elaborate</span>
-<span class="w">    </span><span class="n">buildBefore</span><span class="p">.</span><span class="n">release</span><span class="p">()</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="n">buildBefore</span><span class="p">.</span><span class="n">release</span><span class="p">()</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <section id="privilegedplugin">
@@ -426,7 +426,7 @@ which will enable 4 hardware PMP registres, allowing you to set up to 4 memory r
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~20f99b5 2024-11-26
+    Version: master git~50df064 2024-11-28
     </p></div>
     
 

@@ -302,47 +302,47 @@
 This combination allows to goes way beyond what regular HDL allows in terms of hardware elaboration time capabilities.</p>
 <p>Here is a simple example of scala/SpinalHDL:</p>
 <div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="c1">// Lets define a Counter Component/Module, with a &quot;width&quot; parameter</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">Counter</span><span class="p">(</span><span class="n">width</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Component</span><span class="w"> </span><span class="p">{</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">Counter</span><span class="p">(</span><span class="n">width</span><span class="p">:</span><span class="w"> </span><span class="nc">Int</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Component</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="c1">// Lets define all its inputs/outputs in a io Bundle (Kinda similar to a SystemVerilog interface)</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Bundle</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">clear</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="nc">Bool</span><span class="p">()</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="n">width</span><span class="w"> </span><span class="n">bits</span><span class="p">)</span>
-<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Bundle</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">clear</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="nc">Bool</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="n">width</span><span class="w"> </span><span class="n">bits</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
 
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">accumulator</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Reg</span><span class="p">(</span><span class="nc">UInt</span><span class="p">(</span><span class="n">width</span><span class="w"> </span><span class="n">bits</span><span class="p">))</span><span class="w"> </span><span class="n">init</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"> </span><span class="c1">// In SpinalHDL registers/flipflop are defined explicitly. Not inferred.</span>
 <span class="w">  </span><span class="n">accumulator</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">accumulator</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="mi">1</span><span class="w"> </span><span class="c1">//Each cycle we increment the accumulator</span>
-<span class="w">  </span><span class="n">when</span><span class="p">(</span><span class="n">io</span><span class="p">.</span><span class="n">clear</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="n">when</span><span class="p">(</span><span class="n">io</span><span class="p">.</span><span class="n">clear</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="n">accumulator</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="c1">//But be override its value if io.clear is set (last assignment win)</span>
-<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
 
 <span class="w">  </span><span class="c1">// We connect the accumulator to the io.value.</span>
-<span class="w">  </span><span class="n">io</span><span class="p">.</span><span class="n">value</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">accumulator</span>
-<span class="p">}</span>
+<span class="w">  </span><span class="n">io</span><span class="p">.</span><span class="n">value</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">accumulator</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Here is another simple example, but which use an JtagTap tool built on the top of Scala/SpinalHDL :</p>
 <div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="c1">// Lets define a component which will provide access to a few input/outputs through JTAG</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">SimpleJtagTap</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Component</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Bundle</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">jtag</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="n">slave</span><span class="p">(</span><span class="nc">Jtag</span><span class="p">())</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">switches</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="w">  </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="w"> </span><span class="n">bits</span><span class="p">)</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">keys</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="w">  </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">4</span><span class="w"> </span><span class="n">bits</span><span class="p">)</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">leds</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="w"> </span><span class="n">bits</span><span class="p">)</span>
-<span class="w">  </span><span class="p">}</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">SimpleJtagTap</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Component</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">io</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Bundle</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">jtag</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="n">slave</span><span class="p">(</span><span class="nc">Jtag</span><span class="p">())</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">switches</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="w">  </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="w"> </span><span class="n">bits</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">keys</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="w">  </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">4</span><span class="w"> </span><span class="n">bits</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">leds</span><span class="w">    </span><span class="o">=</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="nc">Bits</span><span class="p">(</span><span class="mi">8</span><span class="w"> </span><span class="n">bits</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
 
 <span class="w">  </span><span class="c1">//The JtagTap tool allows to create the mapping between the JTAG bus and the hardware</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">tap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">JtagTap</span><span class="p">(</span><span class="n">io</span><span class="p">.</span><span class="n">jtag</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">tap</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">JtagTap</span><span class="p">(</span><span class="n">io</span><span class="p">.</span><span class="n">jtag</span><span class="p">,</span><span class="w"> </span><span class="mi">8</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">  </span><span class="c1">//JTAG taps need an idcode, lets add it !</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">idcodeArea</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">tap</span><span class="p">.</span><span class="n">idcode</span><span class="p">(</span><span class="nc">B</span><span class="s">&quot;x87654321&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="n">instructionId</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">idcodeArea</span><span class="w">   </span><span class="o">=</span><span class="w"> </span><span class="n">tap</span><span class="p">.</span><span class="n">idcode</span><span class="p">(</span><span class="nc">B</span><span class="s">&quot;x87654321&quot;</span><span class="p">)</span><span class="w"> </span><span class="p">(</span><span class="n">instructionId</span><span class="o">=</span><span class="mi">4</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">  </span><span class="c1">// For instance here we specify that the jtag instruction id 5 will allow it to read the io.switches value</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">switchesArea</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tap</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">io</span><span class="p">.</span><span class="n">switches</span><span class="p">)</span><span class="w">     </span><span class="p">(</span><span class="n">instructionId</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">switchesArea</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tap</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">io</span><span class="p">.</span><span class="n">switches</span><span class="p">)</span><span class="w">     </span><span class="p">(</span><span class="n">instructionId</span><span class="o">=</span><span class="mi">5</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">  </span><span class="c1">//Lets add a few other jtag instructions to access the keys and leds hardware</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">keysArea</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">tap</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">io</span><span class="p">.</span><span class="n">keys</span><span class="p">)</span><span class="w">         </span><span class="p">(</span><span class="n">instructionId</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">ledsArea</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">tap</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">io</span><span class="p">.</span><span class="n">leds</span><span class="p">)</span><span class="w">        </span><span class="p">(</span><span class="n">instructionId</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">keysArea</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">tap</span><span class="p">.</span><span class="n">read</span><span class="p">(</span><span class="n">io</span><span class="p">.</span><span class="n">keys</span><span class="p">)</span><span class="w">         </span><span class="p">(</span><span class="n">instructionId</span><span class="o">=</span><span class="mi">6</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">ledsArea</span><span class="w">     </span><span class="o">=</span><span class="w"> </span><span class="n">tap</span><span class="p">.</span><span class="n">write</span><span class="p">(</span><span class="n">io</span><span class="p">.</span><span class="n">leds</span><span class="p">)</span><span class="w">        </span><span class="p">(</span><span class="n">instructionId</span><span class="o">=</span><span class="mi">7</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>The key thing about the example above is that the JtagTap tool itself is defined in regular Scala / SpinalHDL.
@@ -378,32 +378,32 @@ So, plugins can be seen as both parameters and hardware definition from a VexiiR
 <span class="k">import</span><span class="w"> </span><span class="nn">scala</span><span class="p">.</span><span class="nn">collection</span><span class="p">.</span><span class="nn">mutable</span><span class="p">.</span><span class="nc">ArrayBuffer</span>
 
 <span class="c1">// Define a new plugin kind</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">FixedOutputPlugin</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">FiberPlugin</span><span class="p">{</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">FixedOutputPlugin</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">FiberPlugin</span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="c1">// Define a build phase elaboration thread</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="p">{</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="w"> </span><span class="n">bits</span><span class="p">)</span>
-<span class="w">    </span><span class="n">port</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">42</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">out</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="w"> </span><span class="n">bits</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">port</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="mi">42</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="k">object</span><span class="w"> </span><span class="nc">Gen</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">App</span><span class="p">{</span>
+<span class="k">object</span><span class="w"> </span><span class="nc">Gen</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">App</span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="c1">// Generate the verilog</span>
-<span class="w">  </span><span class="nc">SpinalVerilog</span><span class="p">{</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">plugins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ArrayBuffer</span><span class="p">[</span><span class="nc">FiberPlugin</span><span class="p">]()</span>
-<span class="w">    </span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">FixedOutputPlugin</span><span class="p">()</span>
-<span class="w">    </span><span class="nc">VexiiRiscv</span><span class="p">(</span><span class="n">plugins</span><span class="p">)</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
+<span class="w">  </span><span class="nc">SpinalVerilog</span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">plugins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ArrayBuffer</span><span class="p">[</span><span class="nc">FiberPlugin</span><span class="p">]()</span><span class="w"></span>
+<span class="w">    </span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">FixedOutputPlugin</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="nc">VexiiRiscv</span><span class="p">(</span><span class="n">plugins</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Will generate</p>
-<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span><span class="w"> </span><span class="n">VexiiRiscv</span><span class="w"> </span><span class="p">(</span>
-<span class="w">  </span><span class="k">output</span><span class="w"> </span><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">FixedOutputPlugin_logic_port</span>
-<span class="p">);</span>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span><span class="w"> </span><span class="n">VexiiRiscv</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">  </span><span class="k">output</span><span class="w"> </span><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">FixedOutputPlugin_logic_port</span><span class="w"></span>
+<span class="p">);</span><span class="w"></span>
 
-<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">FixedOutputPlugin_logic_port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8&#39;h42</span><span class="p">;</span>
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">FixedOutputPlugin_logic_port</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">8&#39;h42</span><span class="p">;</span><span class="w"></span>
 
-<span class="k">endmodule</span>
+<span class="k">endmodule</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
@@ -417,90 +417,90 @@ So, plugins can be seen as both parameters and hardware definition from a VexiiR
 <span class="k">import</span><span class="w"> </span><span class="nn">vexiiriscv</span><span class="p">.</span><span class="n">_</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">scala</span><span class="p">.</span><span class="nn">collection</span><span class="p">.</span><span class="nn">mutable</span><span class="p">.</span><span class="nc">ArrayBuffer</span>
 
-<span class="k">class</span><span class="w"> </span><span class="nc">EventCounterPlugin</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">FiberPlugin</span><span class="p">{</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">EventCounterPlugin</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">FiberPlugin</span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">retainer</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Retainer</span><span class="p">()</span><span class="w"> </span><span class="c1">// Will allow other plugins to block the elaboration of &quot;logic&quot; thread</span>
 <span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">events</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ArrayBuffer</span><span class="p">[</span><span class="nc">Bool</span><span class="p">]()</span><span class="w"> </span><span class="c1">// Will allow other plugins to add event sources</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="c1">// Prevent executing this thread until the retainer is locked by other plugins</span>
-<span class="w">    </span><span class="n">retainer</span><span class="p">.</span><span class="n">await</span><span class="p">()</span>
+<span class="w">    </span><span class="n">retainer</span><span class="p">.</span><span class="n">await</span><span class="p">()</span><span class="w"></span>
 
 <span class="w">    </span><span class="c1">// Now that all the other plugins are done adding event sources, we can generate the actual hardware</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Reg</span><span class="p">(</span><span class="nc">UInt</span><span class="p">(</span><span class="mi">32</span><span class="w"> </span><span class="n">bits</span><span class="p">))</span><span class="w"> </span><span class="n">init</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Reg</span><span class="p">(</span><span class="nc">UInt</span><span class="p">(</span><span class="mi">32</span><span class="w"> </span><span class="n">bits</span><span class="p">))</span><span class="w"> </span><span class="n">init</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span><span class="w"></span>
 <span class="w">    </span><span class="n">counter</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">counter</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="nc">CountOne</span><span class="p">(</span><span class="n">events</span><span class="p">)</span><span class="w"> </span><span class="c1">// CountOne will take each bits of events, add sum all them all. ex : 0b1011 =&gt; 3</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
 
 <span class="c1">// For the demo we want to be able to instantiate this plugin multiple times, so we add a prefix parameter to name the specific instance</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">EventSourcePlugin</span><span class="p">(</span><span class="n">prefix</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nc">String</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">FiberPlugin</span><span class="p">{</span>
-<span class="w">  </span><span class="n">withPrefix</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">EventSourcePlugin</span><span class="p">(</span><span class="n">prefix</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nc">String</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">FiberPlugin</span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="n">withPrefix</span><span class="p">(</span><span class="n">prefix</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">  </span><span class="c1">// Create a thread starting from the setup phase (this allow to run some code before the build phase,</span>
 <span class="w">  </span><span class="c1">// this allows to lock some other plugins retainers before their build phase</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">setup</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="w"> </span><span class="p">{</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">setup</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">    </span><span class="c1">// Search for the single instance of EventCounterPlugin in the plugin pool</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">ecp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">host</span><span class="p">[</span><span class="nc">EventCounterPlugin</span><span class="p">]</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">ecp</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">host</span><span class="p">[</span><span class="nc">EventCounterPlugin</span><span class="p">]</span><span class="w"></span>
 
 <span class="w">    </span><span class="c1">// Generate a lock to prevent the EventCounterPlugin elaboration (until we release it).</span>
 <span class="w">    </span><span class="c1">// This will allow us to add our localEvent to the ecp.events list</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">ecpLocker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ecp</span><span class="p">.</span><span class="n">lock</span><span class="p">()</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">ecpLocker</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">ecp</span><span class="p">.</span><span class="n">lock</span><span class="p">()</span><span class="w"></span>
 
 <span class="w">    </span><span class="c1">// Wait for the build phase before generating any hardware</span>
-<span class="w">    </span><span class="n">awaitBuild</span><span class="p">()</span>
+<span class="w">    </span><span class="n">awaitBuild</span><span class="p">()</span><span class="w"></span>
 
 <span class="w">    </span><span class="c1">// Here the local event is a input of the VexiiRiscv toplevel (just for the demo)</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">localEvent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="nc">Bool</span><span class="p">()</span>
-<span class="w">    </span><span class="n">ecp</span><span class="p">.</span><span class="n">events</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">localEvent</span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">localEvent</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="nc">Bool</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="n">ecp</span><span class="p">.</span><span class="n">events</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="n">localEvent</span><span class="w"></span>
 
 <span class="w">    </span><span class="c1">// As everything is done, we now allow the ecp to elaborate itself</span>
-<span class="w">    </span><span class="n">ecpLocker</span><span class="p">.</span><span class="n">release</span><span class="p">()</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
+<span class="w">    </span><span class="n">ecpLocker</span><span class="p">.</span><span class="n">release</span><span class="p">()</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="k">object</span><span class="w"> </span><span class="nc">Gen</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">App</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="nc">SpinalVerilog</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">plugins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ArrayBuffer</span><span class="p">[</span><span class="nc">FiberPlugin</span><span class="p">]()</span>
-<span class="w">    </span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">EventCounterPlugin</span><span class="p">()</span>
-<span class="w">    </span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">EventSourcePlugin</span><span class="p">(</span><span class="s">&quot;lane0&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">EventSourcePlugin</span><span class="p">(</span><span class="s">&quot;lane1&quot;</span><span class="p">)</span>
-<span class="w">    </span><span class="nc">VexiiRiscv</span><span class="p">(</span><span class="n">plugins</span><span class="p">)</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
+<span class="k">object</span><span class="w"> </span><span class="nc">Gen</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">App</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nc">SpinalVerilog</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">plugins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ArrayBuffer</span><span class="p">[</span><span class="nc">FiberPlugin</span><span class="p">]()</span><span class="w"></span>
+<span class="w">    </span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">EventCounterPlugin</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">EventSourcePlugin</span><span class="p">(</span><span class="s">&quot;lane0&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">EventSourcePlugin</span><span class="p">(</span><span class="s">&quot;lane1&quot;</span><span class="p">)</span><span class="w"></span>
+<span class="w">    </span><span class="nc">VexiiRiscv</span><span class="p">(</span><span class="n">plugins</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span><span class="w"> </span><span class="n">VexiiRiscv</span><span class="w"> </span><span class="p">(</span>
-<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w">          </span><span class="n">lane0_EventSourcePlugin_logic_localEvent</span><span class="p">,</span>
-<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w">          </span><span class="n">lane1_EventSourcePlugin_logic_localEvent</span><span class="p">,</span>
-<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w">          </span><span class="n">clk</span><span class="p">,</span>
-<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w">          </span><span class="n">reset</span>
-<span class="p">);</span>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span><span class="w"> </span><span class="n">VexiiRiscv</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w">          </span><span class="n">lane0_EventSourcePlugin_logic_localEvent</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w">          </span><span class="n">lane1_EventSourcePlugin_logic_localEvent</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w">          </span><span class="n">clk</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w">          </span><span class="n">reset</span><span class="w"></span>
+<span class="p">);</span><span class="w"></span>
 
-<span class="w">  </span><span class="kt">wire</span><span class="w">       </span><span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">   </span><span class="n">_zz_EventCounterPlugin_logic_counter</span><span class="p">;</span>
-<span class="w">  </span><span class="kt">reg</span><span class="w">        </span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">_zz_EventCounterPlugin_logic_counter_1</span><span class="p">;</span>
-<span class="w">  </span><span class="kt">wire</span><span class="w">       </span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">_zz_EventCounterPlugin_logic_counter_2</span><span class="p">;</span>
-<span class="w">  </span><span class="kt">reg</span><span class="w">        </span><span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">   </span><span class="n">EventCounterPlugin_logic_counter</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">wire</span><span class="w">       </span><span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">   </span><span class="n">_zz_EventCounterPlugin_logic_counter</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">reg</span><span class="w">        </span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">_zz_EventCounterPlugin_logic_counter_1</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">wire</span><span class="w">       </span><span class="p">[</span><span class="mh">1</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">_zz_EventCounterPlugin_logic_counter_2</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">reg</span><span class="w">        </span><span class="p">[</span><span class="mh">31</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">   </span><span class="n">EventCounterPlugin_logic_counter</span><span class="p">;</span><span class="w"></span>
 
-<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">_zz_EventCounterPlugin_logic_counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mh">30</span><span class="mi">&#39;d0</span><span class="p">,</span><span class="w"> </span><span class="n">_zz_EventCounterPlugin_logic_counter_1</span><span class="p">};</span>
-<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">_zz_EventCounterPlugin_logic_counter_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">lane1_EventSourcePlugin_logic_localEvent</span><span class="p">,</span><span class="n">lane0_EventSourcePlugin_logic_localEvent</span><span class="p">};</span>
-<span class="w">  </span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">    </span><span class="k">case</span><span class="p">(</span><span class="n">_zz_EventCounterPlugin_logic_counter_2</span><span class="p">)</span>
-<span class="w">      </span><span class="mh">2</span><span class="mb">&#39;b00</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">_zz_EventCounterPlugin_logic_counter_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b00</span><span class="p">;</span>
-<span class="w">      </span><span class="mh">2</span><span class="mb">&#39;b01</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">_zz_EventCounterPlugin_logic_counter_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b01</span><span class="p">;</span>
-<span class="w">      </span><span class="mh">2</span><span class="mb">&#39;b10</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">_zz_EventCounterPlugin_logic_counter_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b01</span><span class="p">;</span>
-<span class="w">      </span><span class="k">default</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">_zz_EventCounterPlugin_logic_counter_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b10</span><span class="p">;</span>
-<span class="w">    </span><span class="k">endcase</span>
-<span class="w">  </span><span class="k">end</span>
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">_zz_EventCounterPlugin_logic_counter</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="mh">30</span><span class="mi">&#39;d0</span><span class="p">,</span><span class="w"> </span><span class="n">_zz_EventCounterPlugin_logic_counter_1</span><span class="p">};</span><span class="w"></span>
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">_zz_EventCounterPlugin_logic_counter_2</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">{</span><span class="n">lane1_EventSourcePlugin_logic_localEvent</span><span class="p">,</span><span class="n">lane0_EventSourcePlugin_logic_localEvent</span><span class="p">};</span><span class="w"></span>
+<span class="w">  </span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="o">*</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span><span class="w"></span>
+<span class="w">    </span><span class="k">case</span><span class="p">(</span><span class="n">_zz_EventCounterPlugin_logic_counter_2</span><span class="p">)</span><span class="w"></span>
+<span class="w">      </span><span class="mh">2</span><span class="mb">&#39;b00</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">_zz_EventCounterPlugin_logic_counter_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b00</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="mh">2</span><span class="mb">&#39;b01</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">_zz_EventCounterPlugin_logic_counter_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b01</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="mh">2</span><span class="mb">&#39;b10</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">_zz_EventCounterPlugin_logic_counter_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b01</span><span class="p">;</span><span class="w"></span>
+<span class="w">      </span><span class="k">default</span><span class="w"> </span><span class="o">:</span><span class="w"> </span><span class="n">_zz_EventCounterPlugin_logic_counter_1</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mh">2</span><span class="mb">&#39;b10</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">endcase</span><span class="w"></span>
+<span class="w">  </span><span class="k">end</span><span class="w"></span>
 
-<span class="w">  </span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">posedge</span><span class="w"> </span><span class="n">reset</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">reset</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">      </span><span class="n">EventCounterPlugin_logic_counter</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">32&#39;h00000000</span><span class="p">;</span>
-<span class="w">    </span><span class="k">end</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">      </span><span class="n">EventCounterPlugin_logic_counter</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="p">(</span><span class="n">EventCounterPlugin_logic_counter</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">_zz_EventCounterPlugin_logic_counter</span><span class="p">);</span>
-<span class="w">    </span><span class="k">end</span>
-<span class="w">  </span><span class="k">end</span>
+<span class="w">  </span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="w"> </span><span class="k">or</span><span class="w"> </span><span class="k">posedge</span><span class="w"> </span><span class="n">reset</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span><span class="w"></span>
+<span class="w">    </span><span class="k">if</span><span class="p">(</span><span class="n">reset</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span><span class="w"></span>
+<span class="w">      </span><span class="n">EventCounterPlugin_logic_counter</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="mh">32&#39;h00000000</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="k">end</span><span class="w"> </span><span class="k">else</span><span class="w"> </span><span class="k">begin</span><span class="w"></span>
+<span class="w">      </span><span class="n">EventCounterPlugin_logic_counter</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="p">(</span><span class="n">EventCounterPlugin_logic_counter</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">_zz_EventCounterPlugin_logic_counter</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="k">end</span><span class="w"></span>
+<span class="w">  </span><span class="k">end</span><span class="w"></span>
 
 
-<span class="k">endmodule</span>
+<span class="k">endmodule</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
@@ -511,10 +511,10 @@ So, plugins can be seen as both parameters and hardware definition from a VexiiR
 For instance XLEN, PC_WIDTH, INSTRUCTION_WIDTH, ...</p>
 <p>Those variable are handled through the VexiiRiscv &quot;database&quot;.
 You can see it in the VexRiscv toplevel :</p>
-<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">VexiiRiscv</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Component</span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">database</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Database</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">database</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="nc">PluginHost</span><span class="p">)</span>
-<span class="p">}</span>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">VexiiRiscv</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Component</span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">database</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Database</span><span class="w"></span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">host</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">database</span><span class="w"> </span><span class="n">on</span><span class="w"> </span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="nc">PluginHost</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>What it does is that all the plugin thread will run in the context of that database. Allowing the following patterns :</p>
@@ -525,46 +525,46 @@ You can see it in the VexRiscv toplevel :</p>
 <span class="k">import</span><span class="w"> </span><span class="nn">scala</span><span class="p">.</span><span class="nn">collection</span><span class="p">.</span><span class="nn">mutable</span><span class="p">.</span><span class="nc">ArrayBuffer</span>
 
 <span class="c1">// In Scala, an object define a singleton / static thing.</span>
-<span class="k">object</span><span class="w"> </span><span class="nc">Global</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">AreaObject</span><span class="p">{</span>
+<span class="k">object</span><span class="w"> </span><span class="nc">Global</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">AreaObject</span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="c1">// Lets define VIRTUAL_WIDTH as a variable in the data base.</span>
 <span class="w">  </span><span class="c1">// VIRTUAL_WIDTH will act as the &quot;key&quot; to access the variable value in the current context.</span>
 <span class="w"> </span><span class="c1">// If accessed before being set, it will block the current thread execution (until it is set by another thread)</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="nc">VIRTUAL_WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Database</span><span class="p">.</span><span class="n">blocking</span><span class="p">[</span><span class="nc">Int</span><span class="p">]</span>
-<span class="p">}</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="nc">VIRTUAL_WIDTH</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Database</span><span class="p">.</span><span class="n">blocking</span><span class="p">[</span><span class="nc">Int</span><span class="p">]</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
 <span class="c1">// Lets define a plugin which will use the VIRTUAL_WIDTH value.</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">LoadStorePlugin</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">FiberPlugin</span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="p">{</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Reg</span><span class="p">(</span><span class="nc">UInt</span><span class="p">(</span><span class="nc">Global</span><span class="p">.</span><span class="nc">VIRTUAL_WIDTH</span><span class="p">.</span><span class="n">get</span><span class="w"> </span><span class="n">bits</span><span class="p">))</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">LoadStorePlugin</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">FiberPlugin</span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">address</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Reg</span><span class="p">(</span><span class="nc">UInt</span><span class="p">(</span><span class="nc">Global</span><span class="p">.</span><span class="nc">VIRTUAL_WIDTH</span><span class="p">.</span><span class="n">get</span><span class="w"> </span><span class="n">bits</span><span class="p">))</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
 <span class="c1">// Lets define a plugin which will set the VIRTUAL_WIDTH value</span>
-<span class="k">class</span><span class="w"> </span><span class="nc">MmuPlugin</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">FiberPlugin</span><span class="p">{</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="p">{</span>
-<span class="w">    </span><span class="nc">Global</span><span class="p">.</span><span class="nc">VIRTUAL_WIDTH</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="mi">39</span><span class="p">)</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">MmuPlugin</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">FiberPlugin</span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">logic</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">during</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="nc">Global</span><span class="p">.</span><span class="nc">VIRTUAL_WIDTH</span><span class="p">.</span><span class="n">set</span><span class="p">(</span><span class="mi">39</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
 <span class="c1">// Lets define the scala application which can generate the VexiiRiscv hardware using those two plugins.</span>
-<span class="k">object</span><span class="w"> </span><span class="nc">Gen</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">App</span><span class="p">{</span>
-<span class="w">  </span><span class="nc">SpinalVerilog</span><span class="p">{</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">plugins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ArrayBuffer</span><span class="p">[</span><span class="nc">FiberPlugin</span><span class="p">]()</span>
-<span class="w">    </span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">LoadStorePlugin</span><span class="p">()</span>
-<span class="w">    </span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">MmuPlugin</span><span class="p">()</span>
-<span class="w">    </span><span class="nc">VexiiRiscv</span><span class="p">(</span><span class="n">plugins</span><span class="p">)</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
+<span class="k">object</span><span class="w"> </span><span class="nc">Gen</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">App</span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nc">SpinalVerilog</span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">plugins</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">ArrayBuffer</span><span class="p">[</span><span class="nc">FiberPlugin</span><span class="p">]()</span><span class="w"></span>
+<span class="w">    </span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">LoadStorePlugin</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">MmuPlugin</span><span class="p">()</span><span class="w"></span>
+<span class="w">    </span><span class="nc">VexiiRiscv</span><span class="p">(</span><span class="n">plugins</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>This will generate the following hardware :</p>
-<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="n">module</span><span class="w"> </span><span class="nc">VexiiRiscv</span><span class="w"> </span><span class="p">(</span>
-<span class="w">  </span><span class="n">input</span><span class="w">  </span><span class="n">wire</span><span class="w">          </span><span class="n">clk</span><span class="p">,</span>
-<span class="w">  </span><span class="n">input</span><span class="w">  </span><span class="n">wire</span><span class="w">          </span><span class="n">reset</span>
-<span class="p">);</span>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="n">module</span><span class="w"> </span><span class="nc">VexiiRiscv</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">  </span><span class="n">input</span><span class="w">  </span><span class="n">wire</span><span class="w">          </span><span class="n">clk</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="n">input</span><span class="w">  </span><span class="n">wire</span><span class="w">          </span><span class="n">reset</span><span class="w"></span>
+<span class="p">);</span><span class="w"></span>
 
-<span class="w">  </span><span class="n">reg</span><span class="w">        </span><span class="p">[</span><span class="mi">38</span><span class="p">:</span><span class="mi">0</span><span class="p">]</span><span class="w">   </span><span class="nc">LoadStorePlugin_logic_address</span><span class="p">;</span>
-<span class="n">endmodule</span>
+<span class="w">  </span><span class="n">reg</span><span class="w">        </span><span class="p">[</span><span class="mi">38</span><span class="p">:</span><span class="mi">0</span><span class="p">]</span><span class="w">   </span><span class="nc">LoadStorePlugin_logic_address</span><span class="p">;</span><span class="w"></span>
+<span class="n">endmodule</span><span class="w"></span>
 </pre></div>
 </div>
 <p>Keep in mind that if our toplevel had to instantiate two VexiiRiscv, each of them would have it own dedicated VIRTUAL_WIDTH.get value, while using the same VIRTUAL_WIDTH key to access it.</p>
@@ -591,69 +591,69 @@ meaning that each Plugin can very easily add and extract things on pipeline.</p>
 <div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">import</span><span class="w"> </span><span class="nn">spinal</span><span class="p">.</span><span class="nn">core</span><span class="p">.</span><span class="n">_</span>
 <span class="k">import</span><span class="w"> </span><span class="nn">spinal</span><span class="p">.</span><span class="nn">lib</span><span class="p">.</span><span class="nn">misc</span><span class="p">.</span><span class="nn">pipeline</span><span class="p">.</span><span class="n">_</span>
 
-<span class="k">class</span><span class="w"> </span><span class="nc">PipelineExample</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Component</span><span class="p">{</span>
+<span class="k">class</span><span class="w"> </span><span class="nc">PipelineExample</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Component</span><span class="p">{</span><span class="w"></span>
 <span class="w">  </span><span class="c1">// Lets define a few inputs/outputs</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="w"> </span><span class="n">bits</span><span class="p">)</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">out</span><span class="p">(</span><span class="nc">UInt</span><span class="p">(</span><span class="mi">16</span><span class="w"> </span><span class="n">bits</span><span class="p">))</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">a</span><span class="p">,</span><span class="n">b</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">in</span><span class="w"> </span><span class="nc">UInt</span><span class="p">(</span><span class="mi">8</span><span class="w"> </span><span class="n">bits</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">out</span><span class="p">(</span><span class="nc">UInt</span><span class="p">(</span><span class="mi">16</span><span class="w"> </span><span class="n">bits</span><span class="p">))</span><span class="w"></span>
 
 <span class="w">  </span><span class="c1">// Lets create the pipelining tool.</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">pip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">StagePipeline</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">pip</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">StagePipeline</span><span class="w"></span>
 
 <span class="w">  </span><span class="c1">// Lets insert a and b into the pipeline at stage 0</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="nc">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pip</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="n">insert</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="nc">B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pip</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="n">insert</span><span class="p">(</span><span class="n">b</span><span class="p">)</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="nc">A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pip</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="n">insert</span><span class="p">(</span><span class="n">a</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="nc">B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pip</span><span class="p">(</span><span class="mi">0</span><span class="p">).</span><span class="n">insert</span><span class="p">(</span><span class="n">b</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">  </span><span class="c1">// Lets insert the sum of A and B into the stage 1 of our pipeline</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="nc">SUM</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pip</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="n">insert</span><span class="p">(</span><span class="n">pip</span><span class="p">(</span><span class="mi">1</span><span class="p">)(</span><span class="nc">A</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">pip</span><span class="p">(</span><span class="mi">1</span><span class="p">)(</span><span class="nc">B</span><span class="p">))</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="nc">SUM</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pip</span><span class="p">(</span><span class="mi">1</span><span class="p">).</span><span class="n">insert</span><span class="p">(</span><span class="n">pip</span><span class="p">(</span><span class="mi">1</span><span class="p">)(</span><span class="nc">A</span><span class="p">)</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">pip</span><span class="p">(</span><span class="mi">1</span><span class="p">)(</span><span class="nc">B</span><span class="p">))</span><span class="w"></span>
 
 <span class="w">  </span><span class="c1">// Clearly, i don&#39;t want to say pip(x)(y) on every pipelined thing.</span>
 <span class="w">  </span><span class="c1">// So instead we can create a pip.Area(x) which will provide a scope which work in stage &quot;x&quot;</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">onSquare</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">pip</span><span class="p">.</span><span class="nc">Area</span><span class="p">(</span><span class="mi">2</span><span class="p">){</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nc">VALUE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">insert</span><span class="p">(</span><span class="nc">SUM</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nc">SUM</span><span class="p">)</span>
-<span class="w">  </span><span class="p">}</span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">onSquare</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">pip</span><span class="p">.</span><span class="nc">Area</span><span class="p">(</span><span class="mi">2</span><span class="p">){</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="nc">VALUE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">insert</span><span class="p">(</span><span class="nc">SUM</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="nc">SUM</span><span class="p">)</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
 
 <span class="w">  </span><span class="c1">// Lets assign our output result from stage 3</span>
-<span class="w">  </span><span class="n">result</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">pip</span><span class="p">(</span><span class="mi">3</span><span class="p">)(</span><span class="n">onSquare</span><span class="p">.</span><span class="nc">VALUE</span><span class="p">)</span>
+<span class="w">  </span><span class="n">result</span><span class="w"> </span><span class="o">:=</span><span class="w"> </span><span class="n">pip</span><span class="p">(</span><span class="mi">3</span><span class="p">)(</span><span class="n">onSquare</span><span class="p">.</span><span class="nc">VALUE</span><span class="p">)</span><span class="w"></span>
 
 <span class="w">  </span><span class="c1">// Now that everything is specified, we can build the pipeline</span>
-<span class="w">  </span><span class="n">pip</span><span class="p">.</span><span class="n">build</span><span class="p">()</span>
-<span class="p">}</span>
+<span class="w">  </span><span class="n">pip</span><span class="p">.</span><span class="n">build</span><span class="p">()</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 
-<span class="k">object</span><span class="w"> </span><span class="nc">PipelineExampleGen</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">App</span><span class="p">{</span>
-<span class="w">  </span><span class="nc">SpinalVerilog</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="nc">PipelineExample</span><span class="p">)</span>
-<span class="p">}</span>
+<span class="k">object</span><span class="w"> </span><span class="nc">PipelineExampleGen</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">App</span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="nc">SpinalVerilog</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="nc">PipelineExample</span><span class="p">)</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>This will generate the following verilog :</p>
-<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span><span class="w"> </span><span class="n">PipelineExample</span><span class="w"> </span><span class="p">(</span>
-<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">a</span><span class="p">,</span>
-<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">b</span><span class="p">,</span>
-<span class="w">  </span><span class="k">output</span><span class="w"> </span><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">   </span><span class="n">result</span><span class="p">,</span>
-<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w">          </span><span class="n">clk</span><span class="p">,</span>
-<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w">          </span><span class="n">reset</span>
-<span class="p">);</span>
+<div class="highlight-verilog notranslate"><div class="highlight"><pre><span></span><span class="k">module</span><span class="w"> </span><span class="n">PipelineExample</span><span class="w"> </span><span class="p">(</span><span class="w"></span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">a</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">b</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="k">output</span><span class="w"> </span><span class="kt">wire</span><span class="w"> </span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">   </span><span class="n">result</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w">          </span><span class="n">clk</span><span class="p">,</span><span class="w"></span>
+<span class="w">  </span><span class="k">input</span><span class="w">  </span><span class="kt">wire</span><span class="w">          </span><span class="n">reset</span><span class="w"></span>
+<span class="p">);</span><span class="w"></span>
 
-<span class="w">  </span><span class="kt">reg</span><span class="w">        </span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">   </span><span class="n">pip_node_3_onSquare_VALUE</span><span class="p">;</span>
-<span class="w">  </span><span class="kt">wire</span><span class="w">       </span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">   </span><span class="n">pip_node_2_onSquare_VALUE</span><span class="p">;</span>
-<span class="w">  </span><span class="kt">reg</span><span class="w">        </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">pip_node_2_SUM</span><span class="p">;</span>
-<span class="w">  </span><span class="kt">wire</span><span class="w">       </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">pip_node_1_SUM</span><span class="p">;</span>
-<span class="w">  </span><span class="kt">reg</span><span class="w">        </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">pip_node_1_B</span><span class="p">;</span>
-<span class="w">  </span><span class="kt">reg</span><span class="w">        </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">pip_node_1_A</span><span class="p">;</span>
-<span class="w">  </span><span class="kt">wire</span><span class="w">       </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">pip_node_0_B</span><span class="p">;</span>
-<span class="w">  </span><span class="kt">wire</span><span class="w">       </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">pip_node_0_A</span><span class="p">;</span>
+<span class="w">  </span><span class="kt">reg</span><span class="w">        </span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">   </span><span class="n">pip_node_3_onSquare_VALUE</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">wire</span><span class="w">       </span><span class="p">[</span><span class="mh">15</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">   </span><span class="n">pip_node_2_onSquare_VALUE</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">reg</span><span class="w">        </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">pip_node_2_SUM</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">wire</span><span class="w">       </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">pip_node_1_SUM</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">reg</span><span class="w">        </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">pip_node_1_B</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">reg</span><span class="w">        </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">pip_node_1_A</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">wire</span><span class="w">       </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">pip_node_0_B</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="kt">wire</span><span class="w">       </span><span class="p">[</span><span class="mh">7</span><span class="o">:</span><span class="mh">0</span><span class="p">]</span><span class="w">    </span><span class="n">pip_node_0_A</span><span class="p">;</span><span class="w"></span>
 
-<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">pip_node_0_A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span>
-<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">pip_node_0_B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span>
-<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">pip_node_1_SUM</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">pip_node_1_A</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">pip_node_1_B</span><span class="p">);</span>
-<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">pip_node_2_onSquare_VALUE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">pip_node_2_SUM</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pip_node_2_SUM</span><span class="p">);</span>
-<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pip_node_3_onSquare_VALUE</span><span class="p">;</span>
-<span class="w">  </span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span>
-<span class="w">    </span><span class="n">pip_node_1_A</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">pip_node_0_A</span><span class="p">;</span>
-<span class="w">    </span><span class="n">pip_node_1_B</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">pip_node_0_B</span><span class="p">;</span>
-<span class="w">    </span><span class="n">pip_node_2_SUM</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">pip_node_1_SUM</span><span class="p">;</span>
-<span class="w">    </span><span class="n">pip_node_3_onSquare_VALUE</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">pip_node_2_onSquare_VALUE</span><span class="p">;</span>
-<span class="w">  </span><span class="k">end</span>
-<span class="k">endmodule</span>
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">pip_node_0_A</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">a</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">pip_node_0_B</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">b</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">pip_node_1_SUM</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">pip_node_1_A</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">pip_node_1_B</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">pip_node_2_onSquare_VALUE</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="p">(</span><span class="n">pip_node_2_SUM</span><span class="w"> </span><span class="o">*</span><span class="w"> </span><span class="n">pip_node_2_SUM</span><span class="p">);</span><span class="w"></span>
+<span class="w">  </span><span class="k">assign</span><span class="w"> </span><span class="n">result</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">pip_node_3_onSquare_VALUE</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">always</span><span class="w"> </span><span class="p">@(</span><span class="k">posedge</span><span class="w"> </span><span class="n">clk</span><span class="p">)</span><span class="w"> </span><span class="k">begin</span><span class="w"></span>
+<span class="w">    </span><span class="n">pip_node_1_A</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">pip_node_0_A</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">pip_node_1_B</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">pip_node_0_B</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">pip_node_2_SUM</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">pip_node_1_SUM</span><span class="p">;</span><span class="w"></span>
+<span class="w">    </span><span class="n">pip_node_3_onSquare_VALUE</span><span class="w"> </span><span class="o">&lt;=</span><span class="w"> </span><span class="n">pip_node_2_onSquare_VALUE</span><span class="p">;</span><span class="w"></span>
+<span class="w">  </span><span class="k">end</span><span class="w"></span>
+<span class="k">endmodule</span><span class="w"></span>
 </pre></div>
 </div>
 <p>More documentation about it in :</p>
@@ -692,7 +692,7 @@ meaning that each Plugin can very easily add and extract things on pipeline.</p>
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~20f99b5 2024-11-26
+    Version: master git~50df064 2024-11-28
     </p></div>
     
 

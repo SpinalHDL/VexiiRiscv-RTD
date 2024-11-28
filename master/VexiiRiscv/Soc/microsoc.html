@@ -304,11 +304,11 @@
 <h2>Verilog generation<a class="headerlink" href="#verilog-generation" title="Permalink to this heading"></a></h2>
 <p>To generate the SoC verilog, you can run :</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Default configuration</span>
-sbt<span class="w"> </span><span class="s2">&quot;runMain vexiiriscv.soc.micro.MicroSocGen&quot;</span>
+sbt <span class="s2">&quot;runMain vexiiriscv.soc.micro.MicroSocGen&quot;</span>
 <span class="c1"># SoC with 32 KB + RV32IMC running at 50 Mhz:</span>
-sbt<span class="w"> </span><span class="s2">&quot;runMain vexiiriscv.soc.micro.MicroSocGen --ram-bytes=32768 --with-rvm --with-rvc --system-frequency=50000000&quot;</span>
+sbt <span class="s2">&quot;runMain vexiiriscv.soc.micro.MicroSocGen --ram-bytes=32768 --with-rvm --with-rvc --system-frequency=50000000&quot;</span>
 <span class="c1"># List all the parameters available</span>
-sbt<span class="w"> </span><span class="s2">&quot;runMain vexiiriscv.soc.micro.MicroSocGen --help&quot;</span>
+sbt <span class="s2">&quot;runMain vexiiriscv.soc.micro.MicroSocGen --help&quot;</span>
 </pre></div>
 </div>
 </section>
@@ -316,9 +316,9 @@ sbt<span class="w"> </span><span class="s2">&quot;runMain vexiiriscv.soc.micro.M
 <h2>Simulation (SpinalSim / Verilator)<a class="headerlink" href="#simulation-spinalsim-verilator" title="Permalink to this heading"></a></h2>
 <p>If you have Verilator installed, you can run a simulation by doing :</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Default configuration</span>
-sbt<span class="w"> </span><span class="s2">&quot;runMain vexiiriscv.soc.micro.MicroSocSim&quot;</span>
+sbt <span class="s2">&quot;runMain vexiiriscv.soc.micro.MicroSocSim&quot;</span>
 <span class="c1"># List all the parameters available</span>
-sbt<span class="w"> </span><span class="s2">&quot;runMain vexiiriscv.soc.micro.MicroSocSim --help&quot;</span>
+sbt <span class="s2">&quot;runMain vexiiriscv.soc.micro.MicroSocSim --help&quot;</span>
 </pre></div>
 </div>
 <p>Here is a set of important command line arguments :</p>
@@ -347,7 +347,7 @@ sbt<span class="w"> </span><span class="s2">&quot;runMain vexiiriscv.soc.micro.M
 </table>
 <p>Note that the default VexiiRiscv configuration is RV32I, with a relatively low area/performance. You can for instance get more performance by adding <cite>--allow-bypass-from=0 --with-rvm --with-btb --with-ras --with-gshare</cite></p>
 <p>While the simulation is running you can connect to it using openocd as if it was real hardware :</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>openocd<span class="w"> </span>-f<span class="w"> </span>src/main/tcl/openocd/vexiiriscv_sim.tcl
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>openocd -f src/main/tcl/openocd/vexiiriscv_sim.tcl
 </pre></div>
 </div>
 </section>
@@ -369,9 +369,9 @@ It handle the Tilelink parameters negotiation / propagation, aswell as exporting
 <li><p>Node : This is an instance of the tilelink bus in our SoC. It is used for parameter negotiation/propagation as well as to get the hardware bus instance.</p></li>
 </ul>
 <p>You can then add that peripheral in the toplevel around the other peripherals by :</p>
-<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="kd">val</span><span class="w"> </span><span class="n">demo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">PeripheralDemoFiber</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="nc">PeripheralDemoParam</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">16</span><span class="p">))</span>
-<span class="n">demo</span><span class="p">.</span><span class="n">node</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="mh">0x10003000</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">bus32</span>
-<span class="n">plic</span><span class="p">.</span><span class="n">mapUpInterrupt</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">demo</span><span class="p">.</span><span class="n">interrupt</span><span class="p">)</span>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="kd">val</span><span class="w"> </span><span class="n">demo</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">PeripheralDemoFiber</span><span class="p">(</span><span class="k">new</span><span class="w"> </span><span class="nc">PeripheralDemoParam</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span><span class="mi">16</span><span class="p">))</span><span class="w"></span>
+<span class="n">demo</span><span class="p">.</span><span class="n">node</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="mh">0x10003000</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">bus32</span><span class="w"></span>
+<span class="n">plic</span><span class="p">.</span><span class="n">mapUpInterrupt</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span><span class="w"> </span><span class="n">demo</span><span class="p">.</span><span class="n">interrupt</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 </div>
 <p>This peripheral is already integrated into MicroSoC as a demo but disabled by default. To enable it, will need to provide a specific command line parameter. For instance :</p>
@@ -381,53 +381,53 @@ It handle the Tilelink parameters negotiation / propagation, aswell as exporting
 <h2>Exporting an APB3 bus to the toplevel<a class="headerlink" href="#exporting-an-apb3-bus-to-the-toplevel" title="Permalink to this heading"></a></h2>
 <p>Let's say you want to allow the CPU to access a APB3 peripheral which stand outside the SoC toplevel.
 Here is how you can do so by adding code to the MicroSoc.system.peripheral area :</p>
-<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MicroSoc</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nc">MicroSocParam</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Component</span><span class="w"> </span><span class="p">{</span>
-<span class="w">  </span><span class="p">..</span>
-<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">system</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">ClockingArea</span><span class="p">(</span><span class="n">socCtrl</span><span class="p">.</span><span class="n">system</span><span class="p">.</span><span class="n">cd</span><span class="p">)</span><span class="w"> </span><span class="p">{</span>
-<span class="w">    </span><span class="p">..</span>
-<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">peripheral</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="w"> </span><span class="p">{</span>
-<span class="w">      </span><span class="p">..</span>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="k">class</span><span class="w"> </span><span class="nc">MicroSoc</span><span class="p">(</span><span class="n">p</span><span class="w"> </span><span class="p">:</span><span class="w"> </span><span class="nc">MicroSocParam</span><span class="p">)</span><span class="w"> </span><span class="k">extends</span><span class="w"> </span><span class="nc">Component</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">  </span><span class="p">..</span><span class="w"></span>
+<span class="w">  </span><span class="kd">val</span><span class="w"> </span><span class="n">system</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">ClockingArea</span><span class="p">(</span><span class="n">socCtrl</span><span class="p">.</span><span class="n">system</span><span class="p">.</span><span class="n">cd</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="p">..</span><span class="w"></span>
+<span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">peripheral</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="p">..</span><span class="w"></span>
 <span class="w">      </span><span class="c1">// Let&#39;s define a namespace to contains all our logic</span>
-<span class="w">      </span><span class="kd">val</span><span class="w"> </span><span class="n">exported</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="p">{</span>
+<span class="w">      </span><span class="kd">val</span><span class="w"> </span><span class="n">exported</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="c1">// Let&#39;s define tl as our Tilelink peripheral endpoint (before the APB3 bridge)</span>
-<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="n">tl</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">tilelink</span><span class="p">.</span><span class="n">fabric</span><span class="p">.</span><span class="nc">Node</span><span class="p">.</span><span class="n">slave</span><span class="p">()</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="n">tl</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">tilelink</span><span class="p">.</span><span class="n">fabric</span><span class="p">.</span><span class="nc">Node</span><span class="p">.</span><span class="n">slave</span><span class="p">()</span><span class="w"></span>
 <span class="w">        </span><span class="n">tl</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="mh">0x10006000</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">bus32</span><span class="w"> </span><span class="c1">// Lets map our tilelink bus in the memory space</span>
 
 <span class="w">        </span><span class="c1">// Let&#39;s define our APB3 bus which will be exposed to the IO of the SoC</span>
-<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="n">bus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">master</span><span class="p">(</span><span class="nc">Apb3</span><span class="p">(</span><span class="n">addressWidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="n">dataWidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">))</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="n">bus</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">master</span><span class="p">(</span><span class="nc">Apb3</span><span class="p">(</span><span class="n">addressWidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">12</span><span class="p">,</span><span class="w"> </span><span class="n">dataWidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">32</span><span class="p">))</span><span class="w"></span>
 
 <span class="w">        </span><span class="c1">// Let&#39;s define a Fiber thread which will</span>
 <span class="w">        </span><span class="c1">// - Handle the tilelink parameter negotiation</span>
 <span class="w">        </span><span class="c1">// - Instantiate the APB3 bridge and connect the buses</span>
-<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="n">fiber</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Fiber</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="p">{</span>
+<span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="n">fiber</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">Fiber</span><span class="w"> </span><span class="n">build</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="p">{</span><span class="w"></span>
 <span class="w">          </span><span class="c1">// Here we go with the tilelink negotiation</span>
-<span class="w">          </span><span class="n">tl</span><span class="p">.</span><span class="n">m2s</span><span class="p">.</span><span class="n">supported</span><span class="p">.</span><span class="n">load</span><span class="p">(</span>
-<span class="w">            </span><span class="nc">M2sSupport</span><span class="p">(</span>
-<span class="w">              </span><span class="n">addressWidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bus</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">addressWidth</span><span class="p">,</span>
-<span class="w">              </span><span class="n">dataWidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bus</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">dataWidth</span><span class="p">,</span>
-<span class="w">              </span><span class="n">transfers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">M2sTransfers</span><span class="p">(</span>
-<span class="w">                </span><span class="n">get</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tilelink</span><span class="p">.</span><span class="nc">SizeRange</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span>
-<span class="w">                </span><span class="n">putFull</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tilelink</span><span class="p">.</span><span class="nc">SizeRange</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span>
-<span class="w">              </span><span class="p">)</span>
-<span class="w">            </span><span class="p">)</span>
-<span class="w">          </span><span class="p">)</span>
-<span class="w">          </span><span class="n">tl</span><span class="p">.</span><span class="n">s2m</span><span class="p">.</span><span class="n">none</span><span class="p">()</span>
+<span class="w">          </span><span class="n">tl</span><span class="p">.</span><span class="n">m2s</span><span class="p">.</span><span class="n">supported</span><span class="p">.</span><span class="n">load</span><span class="p">(</span><span class="w"></span>
+<span class="w">            </span><span class="nc">M2sSupport</span><span class="p">(</span><span class="w"></span>
+<span class="w">              </span><span class="n">addressWidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bus</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">addressWidth</span><span class="p">,</span><span class="w"></span>
+<span class="w">              </span><span class="n">dataWidth</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">bus</span><span class="p">.</span><span class="n">config</span><span class="p">.</span><span class="n">dataWidth</span><span class="p">,</span><span class="w"></span>
+<span class="w">              </span><span class="n">transfers</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="nc">M2sTransfers</span><span class="p">(</span><span class="w"></span>
+<span class="w">                </span><span class="n">get</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tilelink</span><span class="p">.</span><span class="nc">SizeRange</span><span class="p">(</span><span class="mi">4</span><span class="p">),</span><span class="w"></span>
+<span class="w">                </span><span class="n">putFull</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">tilelink</span><span class="p">.</span><span class="nc">SizeRange</span><span class="p">(</span><span class="mi">4</span><span class="p">)</span><span class="w"></span>
+<span class="w">              </span><span class="p">)</span><span class="w"></span>
+<span class="w">            </span><span class="p">)</span><span class="w"></span>
+<span class="w">          </span><span class="p">)</span><span class="w"></span>
+<span class="w">          </span><span class="n">tl</span><span class="p">.</span><span class="n">s2m</span><span class="p">.</span><span class="n">none</span><span class="p">()</span><span class="w"></span>
 
 <span class="w">          </span><span class="c1">// Create the hardware bridge from tilelink to APB3 and connect the buses</span>
-<span class="w">          </span><span class="kd">val</span><span class="w"> </span><span class="n">bridge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">tilelink</span><span class="p">.</span><span class="nc">Apb3Bridge</span><span class="p">(</span><span class="n">tl</span><span class="p">.</span><span class="n">bus</span><span class="p">.</span><span class="n">p</span><span class="p">.</span><span class="n">node</span><span class="p">)</span>
-<span class="w">          </span><span class="n">bridge</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">up</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">tl</span><span class="p">.</span><span class="n">bus</span>
-<span class="w">          </span><span class="n">bridge</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">down</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">bus</span>
-<span class="w">        </span><span class="p">}</span>
-<span class="w">      </span><span class="p">}</span>
-<span class="w">    </span><span class="p">}</span>
-<span class="w">  </span><span class="p">}</span>
-<span class="p">}</span>
+<span class="w">          </span><span class="kd">val</span><span class="w"> </span><span class="n">bridge</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">tilelink</span><span class="p">.</span><span class="nc">Apb3Bridge</span><span class="p">(</span><span class="n">tl</span><span class="p">.</span><span class="n">bus</span><span class="p">.</span><span class="n">p</span><span class="p">.</span><span class="n">node</span><span class="p">)</span><span class="w"></span>
+<span class="w">          </span><span class="n">bridge</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">up</span><span class="w"> </span><span class="o">&lt;&lt;</span><span class="w"> </span><span class="n">tl</span><span class="p">.</span><span class="n">bus</span><span class="w"></span>
+<span class="w">          </span><span class="n">bridge</span><span class="p">.</span><span class="n">io</span><span class="p">.</span><span class="n">down</span><span class="w"> </span><span class="o">&gt;&gt;</span><span class="w"> </span><span class="n">bus</span><span class="w"></span>
+<span class="w">        </span><span class="p">}</span><span class="w"></span>
+<span class="w">      </span><span class="p">}</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="w">  </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
 <p>If you want the CPU to be able to execute code located in the APB3 peripheral, then you will need to tag the tl bus with :</p>
-<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="kd">val</span><span class="w"> </span><span class="n">tl</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">tilelink</span><span class="p">.</span><span class="n">fabric</span><span class="p">.</span><span class="nc">Node</span><span class="p">.</span><span class="n">slave</span><span class="p">()</span>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="kd">val</span><span class="w"> </span><span class="n">tl</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">tilelink</span><span class="p">.</span><span class="n">fabric</span><span class="p">.</span><span class="nc">Node</span><span class="p">.</span><span class="n">slave</span><span class="p">()</span><span class="w"></span>
 <span class="n">tl</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="mh">0x10006000</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">bus32</span><span class="w"> </span><span class="c1">// Lets map our tilelink bus in the memory space</span>
-<span class="n">tl</span><span class="p">.</span><span class="n">addTag</span><span class="p">(</span><span class="n">spinal</span><span class="p">.</span><span class="n">lib</span><span class="p">.</span><span class="n">system</span><span class="p">.</span><span class="n">tag</span><span class="p">.</span><span class="nc">PMA</span><span class="p">.</span><span class="nc">EXECUTABLE</span><span class="p">)</span>
+<span class="n">tl</span><span class="p">.</span><span class="n">addTag</span><span class="p">(</span><span class="n">spinal</span><span class="p">.</span><span class="n">lib</span><span class="p">.</span><span class="n">system</span><span class="p">.</span><span class="n">tag</span><span class="p">.</span><span class="nc">PMA</span><span class="p">.</span><span class="nc">EXECUTABLE</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 </div>
 </section>
@@ -435,16 +435,16 @@ Here is how you can do so by adding code to the MicroSoc.system.peripheral area 
 <h2>Adding a custom instruction<a class="headerlink" href="#adding-a-custom-instruction" title="Permalink to this heading"></a></h2>
 <p>Let's say you want to add a custom instruction to the MicroSoc. Let's use the <a class="reference internal" href="../Execute/custom.html#custom-plugin-impl"><span class="std std-ref">Plugin implementation</span></a> which does SIMD add.</p>
 <p>In the MicroSoc, you can find :</p>
-<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="kd">val</span><span class="w"> </span><span class="n">cpu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">TilelinkVexiiRiscvFiber</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">vexii</span><span class="p">.</span><span class="n">plugins</span><span class="p">())</span>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="kd">val</span><span class="w"> </span><span class="n">cpu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">TilelinkVexiiRiscvFiber</span><span class="p">(</span><span class="n">p</span><span class="p">.</span><span class="n">vexii</span><span class="p">.</span><span class="n">plugins</span><span class="p">())</span><span class="w"></span>
 </pre></div>
 </div>
 <p>We need to edit this into :</p>
 <div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="c1">// Instantiate all the plugins from the command line arguments</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">pluginsArea</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">vexii</span><span class="p">.</span><span class="n">pluginsArea</span><span class="p">()</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">pluginsArea</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">p</span><span class="p">.</span><span class="n">vexii</span><span class="p">.</span><span class="n">pluginsArea</span><span class="p">()</span><span class="w"></span>
 <span class="c1">// Add our custom plugin, pluginsArea.early0 refer to the default execute lane of the CPU</span>
-<span class="n">pluginsArea</span><span class="p">.</span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">vexiiriscv</span><span class="p">.</span><span class="n">execute</span><span class="p">.</span><span class="nc">SimdAddPlugin</span><span class="p">(</span><span class="n">pluginsArea</span><span class="p">.</span><span class="n">early0</span><span class="p">)</span>
+<span class="n">pluginsArea</span><span class="p">.</span><span class="n">plugins</span><span class="w"> </span><span class="o">+=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="n">vexiiriscv</span><span class="p">.</span><span class="n">execute</span><span class="p">.</span><span class="nc">SimdAddPlugin</span><span class="p">(</span><span class="n">pluginsArea</span><span class="p">.</span><span class="n">early0</span><span class="p">)</span><span class="w"></span>
 <span class="c1">// Build the CPU</span>
-<span class="kd">val</span><span class="w"> </span><span class="n">cpu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">TilelinkVexiiRiscvFiber</span><span class="p">(</span><span class="n">pluginsArea</span><span class="p">.</span><span class="n">plugins</span><span class="p">)</span>
+<span class="kd">val</span><span class="w"> </span><span class="n">cpu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">TilelinkVexiiRiscvFiber</span><span class="p">(</span><span class="n">pluginsArea</span><span class="p">.</span><span class="n">plugins</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 </div>
 <p>TODO add software example</p>
@@ -480,7 +480,7 @@ Here is how you can do so by adding code to the MicroSoc.system.peripheral area 
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~20f99b5 2024-11-26
+    Version: master git~50df064 2024-11-28
     </p></div>
     
 

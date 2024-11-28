@@ -310,7 +310,7 @@ Writing this CSR will automatically push the value to the debug module</p></li>
 </ul>
 <p>If you run a simulation (for instance : <a class="reference internal" href="../HowToUse/index.html#simulation"><span class="std std-ref">Run a simulation</span></a> with the --debug-jtag-tap argument), then you can connect to the simulated JTAG
 via openocd and its TCP remote_bitbang bridge as if it was real hardware:</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>openocd<span class="w"> </span>-f<span class="w"> </span>src/main/tcl/openocd/vexiiriscv_sim.tcl
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>openocd -f src/main/tcl/openocd/vexiiriscv_sim.tcl
 </pre></div>
 </div>
 <p>But note that the speed will be quite low (as it is a hardware simulation)</p>
@@ -352,7 +352,7 @@ the VexiiRiscv. This simplify its deployment, but can only be used in single cor
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~20f99b5 2024-11-26
+    Version: master git~50df064 2024-11-28
     </p></div>
     
 

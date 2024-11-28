@@ -287,11 +287,11 @@
 <li><p><a class="reference external" href="https://github.com/SpinalHDL/VexiiRiscv/tree/dev/doc/litex">https://github.com/SpinalHDL/VexiiRiscv/tree/dev/doc/litex</a></p></li>
 </ul>
 <p>For instance, you can run the following litex command to generate a linux capable SoC on the digilent_nexys_video dev kit (RV32IMA):</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>litex_boards.targets.digilent_nexys_video<span class="w"> </span>--cpu-type<span class="o">=</span>vexiiriscv<span class="w"> </span>--cpu-variant<span class="o">=</span>linux<span class="w"> </span>--cpu-count<span class="o">=</span><span class="m">1</span><span class="w"> </span>--build<span class="w"> </span>--load
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python3 -m litex_boards.targets.digilent_nexys_video --cpu-type<span class="o">=</span>vexiiriscv --cpu-variant<span class="o">=</span>linux --cpu-count<span class="o">=</span><span class="m">1</span> --build --load
 </pre></div>
 </div>
 <p>Here is an example for a dual core, debian capable  (RV64GC) with L2 cache and a few other peripherals :</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>litex_boards.targets.digilent_nexys_video<span class="w"> </span>--cpu-type<span class="o">=</span>vexiiriscv<span class="w"> </span>--cpu-variant<span class="o">=</span>debian<span class="w">  </span>--cpu-count<span class="o">=</span><span class="m">2</span><span class="w"> </span>--with-video-framebuffer<span class="w"> </span>--with-sdcard<span class="w"> </span>--with-ethernet<span class="w"> </span>--with-coherent-dma<span class="w"> </span>--l2-byte<span class="o">=</span><span class="m">262144</span><span class="w"> </span>--build<span class="w"> </span>--load
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python3 -m litex_boards.targets.digilent_nexys_video --cpu-type<span class="o">=</span>vexiiriscv --cpu-variant<span class="o">=</span>debian  --cpu-count<span class="o">=</span><span class="m">2</span> --with-video-framebuffer --with-sdcard --with-ethernet --with-coherent-dma --l2-byte<span class="o">=</span><span class="m">262144</span> --build --load
 </pre></div>
 </div>
 <p>Additional arguments can be provided to customize the VexiiRiscv configuration, for instance the following will enable the PMU, 0 cycle latency register file, multiple outstanding D$ refill/writeback and store buffer:</p>
@@ -299,34 +299,34 @@
 </pre></div>
 </div>
 <p>To generate a DTS, I recommend adding <cite>--soc-json build/csr.json</cite> to the command line, and then running :</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python3<span class="w"> </span>-m<span class="w"> </span>litex.tools.litex_json2dts_linux<span class="w"> </span>build/csr.json<span class="w"> </span>&gt;<span class="w"> </span>build/linux.dts
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>python3 -m litex.tools.litex_json2dts_linux build/csr.json &gt; build/linux.dts
 </pre></div>
 </div>
 <p>That linux.dts will miss the CLINT definition (used by opensbi), so you need to patch in (in the soc region, for instance for a quad core) :</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>clint@f0010000<span class="w"> </span><span class="o">{</span>
-<span class="w">  </span><span class="nv">compatible</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s2">&quot;riscv,clint0&quot;</span><span class="p">;</span>
-<span class="w">      </span>interrupts-extended<span class="w"> </span><span class="o">=</span><span class="w"> </span>&lt;
-<span class="w">            </span><span class="p">&amp;</span>L0<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="p">&amp;</span>L0<span class="w"> </span><span class="m">7</span>
-<span class="w">            </span><span class="p">&amp;</span>L1<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="p">&amp;</span>L1<span class="w"> </span><span class="m">7</span>
-<span class="w">            </span><span class="p">&amp;</span>L2<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="p">&amp;</span>L2<span class="w"> </span><span class="m">7</span>
-<span class="w">            </span><span class="p">&amp;</span>L3<span class="w"> </span><span class="m">3</span><span class="w"> </span><span class="p">&amp;</span>L3<span class="w"> </span><span class="m">7</span>&gt;<span class="p">;</span>
-<span class="w">  </span><span class="nv">reg</span><span class="w"> </span><span class="o">=</span><span class="w"> </span>&lt;0xf0010000<span class="w"> </span>0x10000&gt;<span class="p">;</span>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>clint@f0010000 <span class="o">{</span>
+  <span class="nv">compatible</span> <span class="o">=</span> <span class="s2">&quot;riscv,clint0&quot;</span><span class="p">;</span>
+      interrupts-extended <span class="o">=</span> &lt;
+            <span class="p">&amp;</span>L0 <span class="m">3</span> <span class="p">&amp;</span>L0 <span class="m">7</span>
+            <span class="p">&amp;</span>L1 <span class="m">3</span> <span class="p">&amp;</span>L1 <span class="m">7</span>
+            <span class="p">&amp;</span>L2 <span class="m">3</span> <span class="p">&amp;</span>L2 <span class="m">7</span>
+            <span class="p">&amp;</span>L3 <span class="m">3</span> <span class="p">&amp;</span>L3 <span class="m">7</span>&gt;<span class="p">;</span>
+  <span class="nv">reg</span> <span class="o">=</span> &lt;0xf0010000 0x10000&gt;<span class="p">;</span>
 <span class="o">}</span><span class="p">;</span>
 </pre></div>
 </div>
 <p>Then you can convert the linux.dts into linux.dtb via :</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>dtc<span class="w"> </span>-O<span class="w"> </span>dtb<span class="w"> </span>-o<span class="w"> </span>build/linux.dtb<span class="w"> </span>build/linux.dts
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>dtc -O dtb -o build/linux.dtb build/linux.dts
 </pre></div>
 </div>
 <p>To run debian, you would need to change the dts boot device to your block device, as well as removing the initrd from the dts. You can find more information about how to setup the debian images on <a class="reference external" href="https://github.com/SpinalHDL/NaxSoftware/tree/main/debian_litex">https://github.com/SpinalHDL/NaxSoftware/tree/main/debian_litex</a></p>
 <p>But note that for opensbi, use instead the following (official upstream opensbi using the generic platform, which will also contains the dtb):</p>
-<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git<span class="w"> </span>clone<span class="w"> </span>https://github.com/riscv-software-src/opensbi.git
-<span class="nb">cd</span><span class="w"> </span>opensbi
-make<span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o">=</span>riscv-none-embed-<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="nv">PLATFORM</span><span class="o">=</span>generic<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="nv">FW_FDT_PATH</span><span class="o">=</span>../build/linux.dtb<span class="w"> </span><span class="se">\</span>
-<span class="w">     </span><span class="nv">FW_JUMP_ADDR</span><span class="o">=</span>0x41000000<span class="w">  </span><span class="se">\</span>
-<span class="w">     </span><span class="nv">FW_JUMP_FDT_ADDR</span><span class="o">=</span>0x46000000
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/riscv-software-src/opensbi.git
+<span class="nb">cd</span> opensbi
+make <span class="nv">CROSS_COMPILE</span><span class="o">=</span>riscv-none-embed- <span class="se">\</span>
+     <span class="nv">PLATFORM</span><span class="o">=</span>generic <span class="se">\</span>
+     <span class="nv">FW_FDT_PATH</span><span class="o">=</span>../build/linux.dtb <span class="se">\</span>
+     <span class="nv">FW_JUMP_ADDR</span><span class="o">=</span>0x41000000  <span class="se">\</span>
+     <span class="nv">FW_JUMP_FDT_ADDR</span><span class="o">=</span>0x46000000
 </pre></div>
 </div>
 </section>
@@ -359,7 +359,7 @@ make<span class="w"> </span><span class="nv">CROSS_COMPILE</span><span class="o"
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~20f99b5 2024-11-26
+    Version: master git~50df064 2024-11-28
     </p></div>
     
 

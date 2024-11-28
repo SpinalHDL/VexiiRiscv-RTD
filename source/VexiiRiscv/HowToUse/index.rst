@@ -1,9 +1,27 @@
 How to use
 ==============
 
+For getting started you have two options.
 
-Dependencies
+Either you compile it from scratch or you use our Docker container which provides all the dependencies readily installed.
+
+Docker Container
+----------------
+
+Probably the easiest way to get started:
+
+Simply run
+
+.. code-block:: bash
+
+    docker pull leviathanch/vexiiriscv
+
+and fetch the Docker image with the RISC-V tools, sbt and all the other essentials installed
+
+Compilation
 ---------------
+
+**Dependencies**
 
 You will need :
 
@@ -62,8 +80,7 @@ On debian :
     echo 'export PATH=/opt/riscv/bin:$PATH' >> ~/.bashrc
 
 
-Repo setup
-----------------
+**Repo setup**
 
 After installing the dependencies (see above) :
 

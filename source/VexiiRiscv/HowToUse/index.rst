@@ -16,7 +16,17 @@ Simply run
 
     docker pull leviathanch/vexiiriscv
 
-and fetch the Docker image with the RISC-V tools, sbt and all the other essentials installed
+and fetch the Docker image with the RISC-V tools, sbt and all the other essentials installed.
+
+After than clone the repository, checkout its submodules and start the docker container
+
+.. code-block:: bash
+
+    git clone --recursive https://github.com/SpinalHDL/VexiiRiscv.git
+    cd VexiiRiscv
+    docker run -v `pwd`:/work -it leviathanch/vexiiriscv
+
+Now you should be able to run all the commands listed below, after the compile chapter
 
 Compilation
 ---------------

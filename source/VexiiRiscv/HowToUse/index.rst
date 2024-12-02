@@ -24,9 +24,15 @@ After than clone the repository, checkout its submodules and start the docker co
 
     git clone --recursive https://github.com/SpinalHDL/VexiiRiscv.git
     cd VexiiRiscv
-    docker run -v `pwd`:/work -it leviathanch/vexiiriscv
+    docker run -e DISPLAY=$DISPLAY -v /tmp/.X11-unix:/tmp/.X11-unix -v `pwd`:/work -it leviathanch/vexiiriscv
+
+* Enabling to start X applications from within Docker
+    * The -e parameter passes your display info to the container environment
+    * The -v /tmp/.X11-unix:/tmp/.X11-unix instruction maps your X socket to the container
+* The -v `pwd`:/work -it leviathanch/vexiiriscv parameter tells docker what image to start
 
 Now you should be able to run all the commands listed below, after the compile chapter
+
 
 Compilation
 ---------------

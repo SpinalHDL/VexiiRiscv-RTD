@@ -292,5 +292,7 @@ Here are a set of design guideline to keep a memory system lean and efficient (d
 - DMA should avoid doing multiple accesses in a 64 byte block if possible, and instead use a single access.
   This can preserve the DRAM controller bandwidth (see DDR3/4/5 comments above),
   but also, L2/L3 cache designs may block any additional memory request targeting a memory block which is already under operation.
+- When a DMA start a write burst, it has to complet as fast as possible. The reason is that the interconnect can lock itself on your burst until you finish it.  
+- When a DMA start a read burst, it should avoid putting backpresure on the read responses. The reason is that the interconnect can lock itself on your burst until you finish it.
 
 

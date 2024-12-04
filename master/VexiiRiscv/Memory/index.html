@@ -579,6 +579,8 @@ as long as the bulk of the memory bandwidth is not doing it.</p></li>
 <li><p>DMA should avoid doing multiple accesses in a 64 byte block if possible, and instead use a single access.
 This can preserve the DRAM controller bandwidth (see DDR3/4/5 comments above),
 but also, L2/L3 cache designs may block any additional memory request targeting a memory block which is already under operation.</p></li>
+<li><p>When a DMA start a write burst, it has to complet as fast as possible. The reason is that the interconnect can lock itself on your burst until you finish it.</p></li>
+<li><p>When a DMA start a read burst, it should avoid putting backpresure on the read responses. The reason is that the interconnect can lock itself on your burst until you finish it.</p></li>
 </ul>
 </section>
 </section>
@@ -614,7 +616,7 @@ but also, L2/L3 cache designs may block any additional memory request targeting 
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~8ea1603 2024-12-04
+    Version: master git~b503512 2024-12-04
     </p></div>
     
 

@@ -92,6 +92,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#opening-the-traces-with-konata">Opening the traces with Konata</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#opening-intellij-idea">Opening Intellij IDEA</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#shutting-down-the-container">Shutting down the Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-the-build-environment">Using the build environment</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Framework/index.html">Framework</a><ul>
@@ -351,8 +352,9 @@ code by simply running the following command from within the terminal.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~/generate_verilog.sh
 </pre></div>
 </div>
-<p>This script simply contains the following command</p>
+<p>Take care that the path is correct, then press enter</p>
 <a class="reference internal image-reference" href="../../_images/Screenshot_20241203_165329.png"><img alt="Generate Command" src="../../_images/Screenshot_20241203_165329.png" style="width: 400px;" /></a>
+<p>This script simply contains the following command:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
 sbt <span class="s2">&quot;Test/runMain vexiiriscv.Generate&quot;</span>
 </pre></div>
@@ -376,6 +378,7 @@ sbt <span class="s2">&quot;Test/runMain vexiiriscv.tester.TestBench --with-mul -
 </div>
 <p>This will run through for a moment, and should look like this, finishing without errors</p>
 <a class="reference internal image-reference" href="../../_images/Screenshot_20241203_165858.png"><img alt="Run simulation" src="../../_images/Screenshot_20241203_165858.png" style="width: 400px;" /></a>
+<p>After the simulation has run through, you should now have a wave file in simWorkspace/VexiiRiscv/test/</p>
 </section>
 <section id="opening-the-traces-with-gtkwave">
 <h2>Opening the traces with GTKWave<a class="headerlink" href="#opening-the-traces-with-gtkwave" title="Permalink to this heading"></a></h2>
@@ -387,6 +390,7 @@ it with GTKWve, which is already installed in the Docker image.</p>
 </div>
 <p>This will start GTKWave.</p>
 <a class="reference internal image-reference" href="../../_images/Screenshot_20241203_170009.png"><img alt="Start GTKWave" src="../../_images/Screenshot_20241203_170009.png" style="width: 400px;" /></a>
+<p>You can now select signal lines and add them to the viewer</p>
 <a class="reference internal image-reference" href="../../_images/Screenshot_20241203_170056.png"><img alt="GTKWave open" src="../../_images/Screenshot_20241203_170056.png" style="width: 400px;" /></a>
 </section>
 <section id="opening-the-traces-with-konata">
@@ -427,6 +431,19 @@ make the process stop and the container terminate</p>
 <p>Confirm that you wanna log out</p>
 <a class="reference internal image-reference" href="../../_images/Screenshot_20241203_164155.png"><img alt="Confirm Logout" src="../../_images/Screenshot_20241203_164155.png" style="width: 400px;" /></a>
 </section>
+<section id="using-the-build-environment">
+<h2>Using the build environment<a class="headerlink" href="#using-the-build-environment" title="Permalink to this heading"></a></h2>
+<p>Now that your build environment is up and running and you've got Intellij running as well as are familiar with the shell, you can now take your first dive into modifying the configurations and generating and testing your own modified version of the VexiiRiscv</p>
+<p>Here are some ideas of things to try:</p>
+<ul class="simple">
+<li><p>How to add a custom instruction and how to test it:
+<a class="reference external" href="https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Execute/custom.html">https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Execute/custom.html</a></p></li>
+<li><p>How to add that custom instruction the MicroSoc:
+<a class="reference external" href="https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Soc/microsoc.html#adding-a-custom-instruction">https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Soc/microsoc.html#adding-a-custom-instruction</a></p></li>
+<li><p>How to export an APB3 bus from the MicroSoc toplevel:
+<a class="reference external" href="https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Soc/microsoc.html#exporting-an-apb3-bus-to-the-toplevel">https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Soc/microsoc.html#exporting-an-apb3-bus-to-the-toplevel</a></p></li>
+</ul>
+</section>
 </section>
 
     <script type="text/javascript">
@@ -458,7 +475,7 @@ make the process stop and the container terminate</p>
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~b503512 2024-12-04
+    Version: master git~667cb54 2024-12-04
     </p></div>
     
 

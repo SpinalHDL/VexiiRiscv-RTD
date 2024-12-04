@@ -14,9 +14,10 @@ Simply run
 
 .. code-block:: bash
 
-    docker pull leviathanch/vexiiriscv
+    ./run_docker.sh
 
-and fetch the Docker image with the RISC-V tools, sbt and all the other essentials installed
+Refer to the self contained tutorial for further instructions
+
 
 Compilation
 ---------------

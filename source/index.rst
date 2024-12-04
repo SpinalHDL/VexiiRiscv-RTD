@@ -8,6 +8,7 @@ Welcome to VexiiRiscv's documentation!
    :maxdepth: 1
 
    VexiiRiscv/Introduction/index
+   VexiiRiscv/Tutorial/index
    VexiiRiscv/Framework/index
    VexiiRiscv/Fetch/index
    VexiiRiscv/Decode/index

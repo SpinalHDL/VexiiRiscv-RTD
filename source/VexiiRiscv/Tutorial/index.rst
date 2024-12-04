@@ -87,17 +87,21 @@ Make sure however that you're in the proper folder
 .. code-block:: bash
 
     ~/generate_verilog.sh
-    
-This script simply contains the following command
+
+Take care that the path is correct, then press enter
 
 .. image:: Screenshot_20241203_165329.png
   :width: 400
   :alt: Generate Command
 
+This script simply contains the following command:
+
 .. code-block:: bash
 
     #!/bin/bash
     sbt "Test/runMain vexiiriscv.Generate"
+
+
 
 After it has been running through, you should now have a file called "VexiiRiscv.v"
 right there in your source folder
@@ -134,6 +138,7 @@ This will run through for a moment, and should look like this, finishing without
   :width: 400
   :alt: Run simulation
 
+After the simulation has run through, you should now have a wave file in simWorkspace/VexiiRiscv/test/
 
 Opening the traces with GTKWave
 -------------------------------
@@ -154,9 +159,12 @@ This will start GTKWave.
   :width: 400
   :alt: Start GTKWave
 
+You can now select signal lines and add them to the viewer
+
 .. image:: Screenshot_20241203_170056.png
   :width: 400
   :alt: GTKWave open
+
 
 Opening the traces with Konata
 ------------------------------
@@ -241,4 +249,18 @@ Confirm that you wanna log out
 .. image:: Screenshot_20241203_164155.png
   :width: 400
   :alt: Confirm Logout
-  
+
+
+Using the build environment
+---------------------------
+
+Now that your build environment is up and running and you've got Intellij running as well as are familiar with the shell, you can now take your first dive into modifying the configurations and generating and testing your own modified version of the VexiiRiscv
+
+Here are some ideas of things to try:
+
+* How to add a custom instruction and how to test it:
+  https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Execute/custom.html
+* How to add that custom instruction the MicroSoc:
+  https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Soc/microsoc.html#adding-a-custom-instruction
+* How to export an APB3 bus from the MicroSoc toplevel:
+  https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Soc/microsoc.html#exporting-an-apb3-bus-to-the-toplevel

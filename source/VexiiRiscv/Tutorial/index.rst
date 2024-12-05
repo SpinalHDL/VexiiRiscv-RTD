@@ -1,266 +1,383 @@
+=======================
 Self Contained Tutorial
 =======================
 
-This self contained tutorial will show you how to pull a Docker container with all the
-dependencies preinstalled so that you can start right away without having to compile any
-of the dependencies from scratch.
+In this tutorial you will:
 
-Simply pull the Docker image from the Docker hub and get started.
+* Write some assembly
+* Assemble (compile) it
+* Add a bug
+* Run your code in a simulator
+* Debug the bug
+* Learn how to show important signals from the wave
+* Fix the bug
 
-The scope of this tutorial is:
+Tooling
+=======
 
-* Fetching the Docker image
-* Generating the verilog
-* Running a simulation
-* Opening the traces (gtkwave + konata)
+You have two options for getting start:
 
-**Important**
+* You can use the Docker image with all the dependencies preinstalled
+* You can use the How To Use guide on how to install all the stuff you need locally on your machine
 
-Starting the Docker image might take much longer, when your own user owning the folder
-where you cloned the repo to doesn't have the same uid as the ubuntu user inside the
-Docker container! The uid of the ubuntu user is 1000
+Assembler
+=========
 
-Linux and MacOS X
+Looking at examples
+-------------------
+
+In case you haven't done so, you should bring your repo up to speed and init+update all the submodules
+
+.. code-block:: bash
+
+    cd VexiiRiscv
+    git pull
+    git submodule update --init --recursive 
+
+After that you can find many test programes in `ext/NaxSoftware/baremetal`, mostly written in assembly. For instance : 
+
+- pmp : is used to test the RISC-V PMP, which allows the machine mode to restrict memory accesses of the supervisor/user mode to specific ranges (Physical Memory Protection)
+- simdAdd : is used to test a custom instruction which implements 4 bytes adder in a single instruction
+- machine_vexii : is used to test most of the RISC-V machine mode privilegied spec, as for instance, unaligned memory load exception, ...
+
+Writting tests in assembly is often the only viable way to test low level features for a few reasons : 
+
+- It avoid all the noise which would come from C/C++ languages. 
+- It allow to restrict the features of the CPU being used in the tests, which is very usefull for bring up.
+- It allows to create very precise sequances of instruction, allowing you to trigger specific corner cases
+
+Write the assembler code
+-------------------------
+
+So first of all, create a folder in your repository root ("/work" inside the Docker environment, or otherwisde simply VexiiRiscv. The folder you cloned the repository into) called "mytest"... basically
+
+.. code-block:: bash
+
+    cd VexiiRiscv
+    mkdir -p mytest/src
+    cd mytest
+
+or in Docker
+
+.. code-block:: bash
+
+    cd /work
+    mkdir -p mytest/src
+    cd mytest
+    
+
+then create an assembler file inside the src folder called "crt.S" containing the following code
+
+.. code-block:: nasm
+
+    .option arch, +zicsr
+
+    .global _start
+    _start:
+      li x1, 42 // Write the value 42 in the register x1
+
+Build the assembler Code
+------------------------
+
+Now, it's time to create a GNU make file, using the NaxSoftware infrastructure,
+so that we can turn our assembly code.
+
+In the same mytest folder as above create a Makefile file containing the following
+
+.. code-block:: make
+
+    PROJ_NAME=mytest
+    STANDALONE=../ext/NaxSoftware/baremetal
+    include ../ext/NaxSoftware/baremetal/common/asm.mk
+
+After running make in your bash shell respectively Cygwin shell (assuming you have installed everything),
+you should now be able to find a folder named "build", containing a bin file, and asm file and most importantly
+the ELF and map file.
+
+.. code-block::
+
+    leviathan@harvey:~/VexiiRiscv/mytest> ls build/
+    mytest.asm  mytest.bin  mytest.elf  mytest.map
+
+
+Initial run (Error)
+-------------------
+
+In order to run the assembly code we just made, we have to tell sbt to load our ELF file into the VexiiRiscv simulator by running the following command in the root source folder (/work respectively VexiiRiscv)
+
+.. code-block:: bash
+
+    cd ..
+    sbt "Test/runMain vexiiriscv.tester.TestBench --with-rvm --allow-bypass-from=0 --load-elf mytest/build/mytest.elf --trace-all"
+
+Here are what the options are for : 
+
+- --with-rvm : Will turn on the RISC-V RVM extentions, allowing the exection of mul/div instruction.
+- --allow-bypass-from=0 : Will enable the execute pipeline to forward results from the ALU back to new instruction before they commited, 
+  so you can execute ALU instruction back to back, even when they depend on each others.
+- --load-elf : This will ask the testbench to load the simulated memory with the content of the elf file before the CPU stats. 
+  Additionaly, if the testbench detect that the CPU reached the pass/fail symbols of the elf file, it will end the simulation with a success/failure event.
+- --trace-all : This will ask the simulation to capture a whole set of simulation traces that you can find in `simWorkspace/VexiiRiscv/test`, including the simulation waveform (wave.fst),
+  a representation of the CPU pipeline status (konata.log).
+
+Now it's running
+
+.. image:: Screenshot_20241205_142640.png
+
+
+But... ooopsie. It failed.
+
+.. image:: Screenshot_20241205_142659.png
+
+**Question:** Why??
+
+**Answer** The CPU is locked into a illegal instruction exception loop of doom.
+
+Here is the full scénario : 
+
+- Once the CPU had executed `li x1, 42`, it then reach a portion of memory which isn't loaded with code but instead has a random value (the testbench is designed that way). 
+- So it is very likely that the CPU try to execute a portion of memory which isn't reconized as an instruction, which produce a `illegal instruction exception`.
+- This results into the CPU jumping to its trap vector (mtvec).
+- This trap vector being initialized by the CPU reset to 0, will make the CPU jump/trap to PC=0
+- At PC=0 there is aswell some random values, which likely will produce another `illegal instruction exception`, again and again, forever.
+- Then, the testbench detect that the CPU isn't doing any `commit` anymore (forward progress) and call it a failure.
+
+Fixing the Error
+----------------
+
+We can fix this error quickly by adding those two additional lines to our assembler file
+
+.. code-block:: nasm
+    
+    pass:
+      j pass
+
+Which results in the following code
+
+.. code-block:: nasm
+
+    .option arch, +zicsr
+
+    .global _start
+    _start:
+      li x1, 42 // Write the value 42 in the register x1
+    pass:
+      j pass   
+
+After that we run the make command again.
+
+Now the simulation won't fail anymore, and exit gracfully, as the testbench will detect that the CPU reached the `pass` symbol.
+
+However, an endless loop which doesn't anything isn't very useful.
+
+
+The assembler "hello world"
+---------------------------
+
+Since we can't really print out a "hello world" in this context because we're simulating a CPU
+and the execution of assembler code on it, we go for the next best thing: A for loop
+
+
+.. code-block:: c
+
+    uint32_t sum = 0;
+    
+    for(int i = 0; i<5; i++) {
+        sum = sum + i;
+    }
+
+As RISC-V assembly this looks like that:
+
+.. code-block:: nasm
+
+    .option arch, +zicsr
+
+    .global _start
+    _start:
+
+        addi a0, zero, 0 # Initialize sum
+
+        addi t0, zero, 0 # Counter with start value
+        addi t1, zero, 5 # Counter with start value
+
+    sum_loop:
+        bge t0, t1, pass # i == 5
+        add a0, a0, t0
+        addi t0, t0, 1
+        j sum_loop
+
+    pass:
+        j pass
+        
+Also, note that if you are interrested into more C to assembly comparison, you can use the Compiler Explorer tool. Here is an example : 
+
+https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1',fontScale:14,fontUsePx:'0',j:1,lang:___c,selection:(endColumn:2,endLineNumber:7,positionColumn:2,positionLineNumber:7,selectionStartColumn:2,selectionStartLineNumber:7,startColumn:2,startLineNumber:7),source:'int+miaou()%7B%0A++++int+count+%3D+1000%3B%0A++++while(count+!!%3D+0)%7B%0A++++++++asm(%22nop%22)%3B%0A++++++++count--%3B%0A++++%7D%0A%7D'),l:'5',n:'0',o:'C+source+%231',t:'0')),k:44.29215489283432,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:compiler,i:(compiler:rv32-cgcctrunk,filters:(b:'0',binary:'1',binaryObject:'0',commentOnly:'0',debugCalls:'1',demangle:'0',directives:'0',execute:'1',intel:'0',libraryCode:'0',trim:'1',verboseDemangling:'0'),flagsViewOpen:'1',fontScale:14,fontUsePx:'0',j:2,lang:___c,libs:!(),options:'-O3',overrides:!(),selection:(endColumn:5,endLineNumber:10,positionColumn:5,positionLineNumber:10,selectionStartColumn:5,selectionStartLineNumber:10,startColumn:5,startLineNumber:10),source:1),l:'5',n:'0',o:'+RISC-V+(32-bits)+gcc+(trunk)+(Editor+%231)',t:'0')),k:55.707845107165674,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4     
+
+Looking at the pipeline
+-----------------------
+
+Opening the pipeline trace in Konata, we can see that it goes five times through the loop.
+
+.. image:: Screenshot_20241205_172115.png
+
+There you go. Our i < 5 condition was successfully executed
+
+
+C code "hello world" (literally)
+=================================
+
+Here's a simple example how you can use C and sim_putchar for printing out stuff directly through the simulation environment, allowing you to output debug messages from within the firmware you're developing.
+
+Write the C code
+-----------------
+
+So first of all, create a folder in your repository root ("/work" inside the Docker environment, or otherwisde simply VexiiRiscv. The folder you cloned the repository into) called "mytest"... basically
+
+.. code-block:: bash
+
+    cd VexiiRiscv
+    mkdir -p helloworld/src
+    cd helloworld
+
+or in Docker
+
+.. code-block:: bash
+
+    cd /work
+    mkdir -p helloworld/src
+    cd helloworld
+    
+Create a file in src, called main.c
+
+The content of src/main.c should look like that:
+
+.. code-block:: c
+
+    #include <sim.h>
+
+    void main(){
+        for(int i=0;i<10;i++) {
+            char *str = "hello world";
+            while(*str) sim_putchar(*str++);
+        }
+    }
+
+Compiling the Code
 ------------------
 
-There's a bash script called run_docker.sh which automatically pulls the most
-recent Docker image, starts it and then launches a VNC viewer.
+Now, it's time to create a GNU make file, using the NaxSoftware infrastructure,
+so that we can turn our c code into an ELF file which we can load in the simulator.
 
-Just make sure that you have Tiger VNC, bash and of course Docker installed
-and that the Docker demon is running.
+In the same helloworld folder as above create a Makefile file containing the following
 
-Then you can simply run
+.. code-block:: make
 
-.. code-block:: bash
+    PROJ_NAME=helloworld
+    DEBUG=yes
+    BENCH=no
+    STANDALONE=../ext/NaxSoftware/baremetal
+    SRCS =  $(wildcard src/*.c) \
+            $(wildcard src/*.cpp) \
+            $(wildcard src/*.S) \
+            ${STANDALONE}/common/start.S
+    include ../ext/NaxSoftware/baremetal/common/app.mk
 
-    ./run_docker.sh
+After running make in your bash shell respectively Cygwin shell (assuming you have installed everything),
+you should now be able to find a folder named "build", containing a bin file, and asm file and most importantly
+the ELF and map file.
 
-After the image has been fetched and the virtual X server has started you should
-be greated with an XFCE4 desktop in a VNC viewer
+.. code-block::
 
-Windows
--------
-
-Windows is a bit trickier, but similar as what we do on Linux and Mac
-
-In the Power Shell, first fetch the Docker image, then start it as demon and check
-with the inspect command what the IP of the container is.
-
-After that, you should be able to connect with a VNC client.
-
-TigerVNC also exists for Windows: https://sourceforge.net/projects/tigervnc
-
-.. code-block:: bash
-
-    docker.exe pull leviathanch/vexiiriscv
-    docker.exe run -v `pwd`:/work --privileged=true -idt leviathanch/vexiiriscv
-
-After that, run the inspect command with the container ID docker returns when starting
-the image as a demonized process.
-
-.. code-block:: bash
-
-    docker.ext inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' $container_id
+    leviathan@harvey:~/VexiiRiscv/helloworld> make
+    CC src/main.c
+    CC ../ext/NaxSoftware/baremetal/common/start.S
+    LD helloworld
+    /opt/riscv/lib/gcc/riscv64-unknown-elf/13.2.0/../../../../riscv64-unknown-elf/bin/ld: warning: build/helloworld.elf has a LOAD segment with RWX permissions
+    Memory region         Used Size  Region Size  %age Used
+                 ram:        4848 B       256 KB      1.85%
+    leviathan@harvey:~/VexiiRiscv/helloworld> ls
+    build  Makefile  src
+    leviathan@harvey:~/VexiiRiscv/helloworld> ls build/
+    helloworld.asm  helloworld.bin  helloworld.elf  helloworld.map  home
 
 
-Next run the Tiger VNC vncviewer
+Compilation error
+-----------------
 
-.. code-block:: bash
+There might be a compilation error going somewhat like that
 
-    vncviewer.exe $ip
+.. code-block::
+
+    leviathan@harvey:~/VexiiRiscv/helloworld> make
+    CC src/fix.S
+    CC ../ext/NaxSoftware/baremetal/common/start.S
+    ../ext/NaxSoftware/baremetal/common/start.S: Assembler messages:
+    ../ext/NaxSoftware/baremetal/common/start.S:55: Error: unrecognized opcode `csrc mstatus,x1', extension `zicsr' required
+    ../ext/NaxSoftware/baremetal/common/start.S:57: Error: unrecognized opcode `csrs mstatus,x1', extension `zicsr' required
 
 
-Generating the verilog
-----------------------
+This happens because newer builds of the RISC-V toolchain have this feature disabled by default now and you've got to manually enable it,
+which can easily be achieved by adding the following on line 1 of ext/NaxSoftware/baremetal/common/start.S
 
-First open the terminal by clicking the terminal icon as shown below
+.. code-block:: nasm
 
-.. image:: Screenshot_20241203_152813.png
-  :width: 400
-  :alt: Shell Icon
+    .option arch, +zicsr
+    ...
 
-As soon as you've started the Docker container as shown above you can obtain the Verilog
-code by simply running the following command from within the terminal.
 
-Make sure however that you're in the proper folder
+Running the code
+----------------
 
-.. code-block:: bash
-
-    ~/generate_verilog.sh
-
-Take care that the path is correct, then press enter
-
-.. image:: Screenshot_20241203_165329.png
-  :width: 400
-  :alt: Generate Command
-
-This script simply contains the following command:
+You can now use SBT in order to run the elf file in your simulation
 
 .. code-block:: bash
 
-    #!/bin/bash
-    sbt "Test/runMain vexiiriscv.Generate"
+    cd ..
+    sbt "Test/runMain vexiiriscv.tester.TestBench --with-rvm --allow-bypass-from=0 --load-elf helloworld/build/helloworld.elf --trace-all --no-probe --debug-privileged --no-rvls-check"
 
+This should now print 10 times "hello world" on your terminal
 
+.. code-block::
 
-After it has been running through, you should now have a file called "VexiiRiscv.v"
-right there in your source folder
+    leviathan@harvey:~/VexiiRiscv> sbt "Test/runMain vexiiriscv.tester.TestBench --with-rvm --allow-bypass-from=0 --load-elf helloworld/build/helloworld.elf --trace-all --no-probe --debug-privileged --no-rvls-check"
+    WARNING: An illegal reflective access operation has occurred
+    WARNING: Illegal reflective access by org.jline.terminal.impl.exec.ExecTerminalProvider$ReflectionRedirectPipeCreator (file:/home/leviathan/.sbt/boot/scala-2.12.19/org.scala-sbt/sbt/1.10.0/jline-terminal-3.24.1.jar) to constructor java.lang.ProcessBuilder$RedirectPipeImpl()
+    WARNING: Please consider reporting this to the maintainers of org.jline.terminal.impl.exec.ExecTerminalProvider$ReflectionRedirectPipeCreator
+    WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+    WARNING: All illegal access operations will be denied in a future release
+    [info] welcome to sbt 1.10.0 (Oracle Corporation Java 11.0.25)
+    [info] loading settings for project vexiiriscv-build from plugins.sbt ...
+    [info] loading project definition from /home/leviathan/VexiiRiscv/project
+    [info] loading settings for project ret from build.sbt ...
+    [info] loading settings for project spinalhdl-build from plugin.sbt ...
+    [info] loading project definition from /home/leviathan/VexiiRiscv/ext/SpinalHDL/project
+    [info] loading settings for project all from build.sbt ...
+    [info] set current project to VexiiRiscv (in build file:/home/leviathan/VexiiRiscv/)
+    [info] running (fork) vexiiriscv.tester.TestBench --with-rvm --allow-bypass-from=0 --load-elf helloworld/build/helloworld.elf --trace-all --no-probe --debug-privileged --no-rvls-check
+    [info] With Vexiiriscv parm :
+    [info]  - rv32im_d1At1_l1_disAt1_rfsDp_fclF0dw32_lsuP0F0dw32_bp0_rsrc_d2Area_pdbg
+    [info] [Runtime] SpinalHDL dev    git head : 4ea15953aa8a888e636e4ae5d7445770f2e0e73c
+    [info] [Runtime] JVM max memory : 1826.0MiB
+    [info] [Runtime] Current date : 2024.12.05 20:01:11
+    [info] [Progress] at 0.000 : Elaborate components
+    [info] [Progress] at 1.790 : Checks and transforms
+    [info] [Progress] at 2.290 : Generate Verilog to ./simWorkspace/tmp/job_1
+    [info] [Warning] toplevel/FetchCachelessPlugin_logic_buffer_words : Mem[2*33 bits].readAsync can only be write first into Verilog
+    [info] [Warning] 546 signals were pruned. You can call printPruned on the backend report to get more informations.
+    [info] [Done] at 2.555
+    [info] [Progress] Simulation workspace in /home/leviathan/VexiiRiscv/./simWorkspace/VexiiRiscv
+    [info] [Progress] Verilator compilation started
+    [info] [info] Found cached verilator binaries
+    [info] [Progress] Verilator compilation done in 632.813 ms
+    [info] [Progress] Start VexiiRiscv test simulation with seed 2
+    [info] hello world
+    [info] hello world
+    [info] hello world
+    [info] hello world
+    [info] hello world
+    [info] hello world
+    [info] hello world
+    [info] hello world
+    [info] hello world
+    [info] hello world
 
-.. image:: Screenshot_20241203_152940.png
-  :width: 400
-  :alt: Generation Result
-
-
-Running a simulation
---------------------
-
-Running a simulation also is straight forward, in the same shell as you used for generating
-the Verilog code.
-
-.. image:: Screenshot_20241203_165608.png
-  :width: 400
-  :alt: Run simulation
-
-.. code-block:: bash
-
-    ~/run_simulation.sh
-
-This readily available script contains the simple command
-
-.. code-block:: bash
-
-    #!/bin/bash
-    sbt "Test/runMain vexiiriscv.tester.TestBench --with-mul --with-div --load-elf ext/NaxSoftware/baremetal/dhrystone/build/rv32ima/dhrystone.elf --trace-all"
-
-This will run through for a moment, and should look like this, finishing without errors
-
-.. image:: Screenshot_20241203_165858.png
-  :width: 400
-  :alt: Run simulation
-
-After the simulation has run through, you should now have a wave file in simWorkspace/VexiiRiscv/test/
-
-Opening the traces with GTKWave
--------------------------------
-
-You can convert the wave file from the simulation into the VCD format and view it by opening
-it with GTKWve, which is already installed in the Docker image.
-
-To do so, simply run in the shell
-
-.. code-block:: bash
-
-    gtkwave simWorkspace/VexiiRiscv/test/wave.fst
-
-
-This will start GTKWave.
-
-.. image:: Screenshot_20241203_170009.png
-  :width: 400
-  :alt: Start GTKWave
-
-You can now select signal lines and add them to the viewer
-
-.. image:: Screenshot_20241203_170056.png
-  :width: 400
-  :alt: GTKWave open
-
-
-Opening the traces with Konata
-------------------------------
-
-In order to visualize the instruction pipeline, you may wanna open Konata.
-For doing so, click on the Konata icon
-
-.. image:: Screenshot_20241203_151217.png
-  :width: 400
-  :alt: Konata Icon
-
-Next load the konata log by going into the folder as shown in the picture
-
-.. image:: Screenshot_20241203_151018.png
-  :width: 400
-  :alt: Load konata log
-
-You should be greated with a colorful representation of the instructions
-in the RISC-V pipeline during boot up
-
-.. image:: Screenshot_20241203_151124.png
-  :width: 400
-  :alt: Pipeline visualization
-
-Opening Intellij IDEA
-----------------------
-
-First click onto the Intellij IDEA icon
-
-.. image:: Screenshot_20241203_153149.png
-  :width: 400
-  :alt: Intellij IDEA: Icon
-
-Accept the terms and conditions
-
-.. image:: Screenshot_20241203_153048.png
-  :width: 400
-  :alt: Intellij IDEA: Terms and conditions
-
-We don't send data
-
-.. image:: Screenshot_20241203_163222.png
-  :width: 400
-  :alt: Intellij IDEA: No telemetry
-
-Load the VexiiRiscv project
-
-.. image:: Screenshot_20241203_153226.png
-  :width: 400
-  :alt: Intellij IDEA: New projects
-
-Enter the folder where your cloned repo is mounted to from outside, which is
-configured to be /work.
-
-Then press OK
-
-.. image:: Screenshot_20241203_163411.png
-  :width: 400
-  :alt: Intellij IDEA: Load Project
-
-Confirm that you trust the project
-
-.. image:: Screenshot_20241203_163438.png
-  :width: 400
-  :alt: Intellij IDEA: Trust project
-
-After that it will take a while until the entire project has been loaded
-and indexed. Make a cup of coffee or tea in the meanwhile.
-
-Shutting down the Container
----------------------------
-
-In order to shut down the container, simply logout from XFCE4 which will
-make the process stop and the container terminate
-
-.. image:: Screenshot_20241203_153436.png
-  :width: 400
-  :alt: Logout
-
-Confirm that you wanna log out
-
-.. image:: Screenshot_20241203_164155.png
-  :width: 400
-  :alt: Confirm Logout
-
-
-Using the build environment
----------------------------
-
-Now that your build environment is up and running and you've got Intellij running as well as are familiar with the shell, you can now take your first dive into modifying the configurations and generating and testing your own modified version of the VexiiRiscv
-
-Here are some ideas of things to try:
-
-* How to add a custom instruction and how to test it:
-  https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Execute/custom.html
-* How to add that custom instruction the MicroSoc:
-  https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Soc/microsoc.html#adding-a-custom-instruction
-* How to export an APB3 bus from the MicroSoc toplevel:
-  https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Soc/microsoc.html#exporting-an-apb3-bus-to-the-toplevel

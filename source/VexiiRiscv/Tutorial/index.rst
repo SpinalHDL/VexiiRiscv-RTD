@@ -36,8 +36,8 @@ In case you haven't done so, you should bring your repo up to speed and init+upd
 
 After that you can find many test programes in `ext/NaxSoftware/baremetal`, mostly written in assembly. For instance : 
 
-- pmp : is used to test the RISC-V PMP, which allows the machine mode to restrict memory accesses of the supervisor/user mode to specific ranges (Physical Memory Protection)
 - simdAdd : is used to test a custom instruction which implements 4 bytes adder in a single instruction
+- pmp : is used to test the RISC-V PMP, which allows the machine mode to restrict memory accesses of the supervisor/user mode to specific ranges (Physical Memory Protection)
 - machine_vexii : is used to test most of the RISC-V machine mode privilegied spec, as for instance, unaligned memory load exception, ...
 
 Writting tests in assembly is often the only viable way to test low level features for a few reasons : 
@@ -74,7 +74,7 @@ then create an assembler file inside the src folder called "crt.S" containing th
 
     .global _start
     _start:
-      li x1, 42 // Write the value 42 in the register x1
+      li x1, 42 // Write the literal value 42 in the integer register x1
 
 Build the assembler Code
 ------------------------
@@ -82,7 +82,7 @@ Build the assembler Code
 Now, it's time to create a GNU make file, using the NaxSoftware infrastructure,
 so that we can turn our assembly code.
 
-In the same mytest folder as above create a Makefile file containing the following
+In the mytest folder, create a Makefile file containing the following
 
 .. code-block:: make
 
@@ -98,6 +98,13 @@ the ELF and map file.
 
     leviathan@harvey:~/VexiiRiscv/mytest> ls build/
     mytest.asm  mytest.bin  mytest.elf  mytest.map
+
+In short, here is what those files are for : 
+
+- mytest.elf : This is the primary output of the compiler, it contains all the informations about our compiled program (instruction, data, symbole locations, ..). If you need to backup a compiled program, backup this file, as all 3 others (bin/asm/map) files are generated from this elf.
+- mytest.bin : Raw binary file of your program. In our case, if this binary file was directly loaded in the memory at the reset vector of the CPU (0x80000000), we would be good to go.
+- mytest.asm : A text file which tells you the every instructions contained in your compiled program, as well as their location in the memory space, which is quite usefull when you debug the CPU itself.
+- mytest.map : Specify the memory location of every section/symbol/variable of your program. Not so usefull in general, but can allow to track the access to specific memory variables from a waveform.
 
 
 Initial run (Error)
@@ -120,6 +127,8 @@ Here are what the options are for :
 - --trace-all : This will ask the simulation to capture a whole set of simulation traces that you can find in `simWorkspace/VexiiRiscv/test`, including the simulation waveform (wave.fst),
   a representation of the CPU pipeline status (konata.log).
 
+Keep in mind, by default, VexiiRiscv is configured with most of its features disabled. no branch prediction, no cache, no mmu, no ...
+
 Now it's running
 
 .. image:: Screenshot_20241205_142640.png
@@ -131,7 +140,7 @@ But... ooopsie. It failed.
 
 **Question:** Why??
 
-**Answer** The CPU is locked into a illegal instruction exception loop of doom.
+**Answer** The CPU is locked into a `illegal instruction exception` loop of doom.
 
 Here is the full scénario : 
 
@@ -164,11 +173,13 @@ Which results in the following code
     pass:
       j pass   
 
-After that we run the make command again.
+After that we run the make/sbt command again.
 
 Now the simulation won't fail anymore, and exit gracfully, as the testbench will detect that the CPU reached the `pass` symbol.
 
 However, an endless loop which doesn't anything isn't very useful.
+
+Note, running SBT every time with `sbt "Test/runMain vexiiriscv.tester.TestBench ...` is slow and painefull. What you can do instead is just to run the `sbt` command without arguments, which will bring you in the SBT shell, and there you can run your `Test/runMain vexiiriscv.tester.TestBench ...` with much less overhead.
 
 
 The assembler "hello world"
@@ -195,10 +206,9 @@ As RISC-V assembly this looks like that:
     .global _start
     _start:
 
-        addi a0, zero, 0 # Initialize sum
-
-        addi t0, zero, 0 # Counter with start value
-        addi t1, zero, 5 # Counter with start value
+        li a0, 0 # Initialize sum
+        li t0, 0 # counter start value
+        li t1, 5 # counter end value
 
     sum_loop:
         bge t0, t1, pass # i == 5
@@ -213,15 +223,147 @@ Also, note that if you are interrested into more C to assembly comparison, you c
 
 https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1',fontScale:14,fontUsePx:'0',j:1,lang:___c,selection:(endColumn:2,endLineNumber:7,positionColumn:2,positionLineNumber:7,selectionStartColumn:2,selectionStartLineNumber:7,startColumn:2,startLineNumber:7),source:'int+miaou()%7B%0A++++int+count+%3D+1000%3B%0A++++while(count+!!%3D+0)%7B%0A++++++++asm(%22nop%22)%3B%0A++++++++count--%3B%0A++++%7D%0A%7D'),l:'5',n:'0',o:'C+source+%231',t:'0')),k:44.29215489283432,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:compiler,i:(compiler:rv32-cgcctrunk,filters:(b:'0',binary:'1',binaryObject:'0',commentOnly:'0',debugCalls:'1',demangle:'0',directives:'0',execute:'1',intel:'0',libraryCode:'0',trim:'1',verboseDemangling:'0'),flagsViewOpen:'1',fontScale:14,fontUsePx:'0',j:2,lang:___c,libs:!(),options:'-O3',overrides:!(),selection:(endColumn:5,endLineNumber:10,positionColumn:5,positionLineNumber:10,selectionStartColumn:5,selectionStartLineNumber:10,startColumn:5,startLineNumber:10),source:1),l:'5',n:'0',o:'+RISC-V+(32-bits)+gcc+(trunk)+(Editor+%231)',t:'0')),k:55.707845107165674,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4     
 
+Note, you can see that this assembly example use register names as a0, t1, while the previous example was using x1. RISC-V has two why of naming the registers : 
+
+- Via their `raw name` : x0, x1, x2, ..., x31
+- Via their `ABI Mnemonic` : zero, ra, sp, gp, tp, t0-t6, s0-s11, a0-a7
+
+All of this is defined the RISC-V ABI register conventions (https://github.com/riscv-non-isa/riscv-elf-psabi-doc/blob/master/riscv-cc.adoc#register-convention), and GCC suports both.
+So, in general, if you write lowlevel assembly tests, you can go for the `raw name`, else just go with the `ABI Mnemonic` names.
+
 Looking at the pipeline
 -----------------------
 
-Opening the pipeline trace in Konata, we can see that it goes five times through the loop.
+Opening the pipeline trace (located in simWorkspace/VexiiRiscv/test/konata.log) using Konata , we can see that it goes five times through the loop.
 
 .. image:: Screenshot_20241205_172115.png
 
+Here are a few explenation now to read those Konata traces : 
+
+- Horizontally, you have the time axes
+- Vertically, you have every instruction that reached the CPU decode stage (and futher).
+- If on the left margin, you see some "???", it mean that you need to compile the ext/riscv-isa-sim and ext/rvls. See ext/rvls/README.md
+- The reset vector of VexiiRiscv being by default 0x80000000, you can see on the top left it is where it starts.
+- the A/F/D/I/E symboles represent when a given instruction is in which part of the FPU
+- A : Address generation of the instruction PC
+- F : Fetch, when the CPU is reading the instruction from the memory (or its cache)
+- D : Decode/dispatch, when the CPU is figuring out what the instruction is about, wait until the time is right to schedule the instruction to the execute pipeline, and read the register file
+- E : Execute, when the instruction is being processed.
+- Instruction in vivide colors are the one which sucessfuly executed (commited instruction)
+- Instruction in dark colors are the one which failed to execute (ex : flushed by an un-predicted/miss-predicted branch/jump)
+
 There you go. Our i < 5 condition was successfully executed
 
+Enabling branch prediction
+--------------------------
+
+By default, the VexiiRiscv branch prediction feature is disabled. You can turn on a partial version of it on by adding `--with-btb` argument to your simulation command.
+
+This will enable the Branch Target Buffer (BTB), which allow VexiiRiscv to predict a few things very early in the fetch pipeline, things as : 
+
+- For a given PC, is the instruction a jump/branch ? 
+- If it is, what would be its target PC ?
+- If it is a branch, is it likely to be taken ?
+
+You can observe the effects of the branch prediction easily via the Konata trace :
+
+.. image:: Screenshot_2024-12-06_10-53-53.png
+
+Looking at the waveform
+--------------------------
+
+Opening the simulation waveform (located in simWorkspace/VexiiRiscv/test/wave.fst) using gtkwave you can visualize every signals of the simulated CPU across the whole simulation.
+
+.. image:: Screenshot_2024-12-06-10-07-10.png
+
+So here the difficulty is to know what to look at in this ocean of wires. Here is a few tips about that.
+
+- The WhiteboxerPlugin collects many key events from the CPU for debug purposes, in particular its whiteboxerPlugin_logic_commits signals will tell you when the CPU commits an instruction.
+- DispatchPlugin_logic_candidates signals will tell you every instruction currently waiting to be dispatched to the execution pipeline, aswell as their context.
+- There is a few pipeline signals as : fetch_logic_ctrl, decode_ctrl execute_ctrl. Note that to know if there is a actual transaction in a given pipeline varies between the pipelines.
+  For the fetch, you can probe `fetch\.*ctrl\.*_valid`, for decode it is `decode\.*LANE_SEL_\.$`, for execute it is `execute.*LANE_SEL_lane.$`. 
+
+Introducing a bug
+--------------------------
+
+Let's say you want to change the way the integer ALU is implemented, the easiest way to do so would be to modify the IntAluPlugin.scala (https://github.com/SpinalHDL/VexiiRiscv/blob/977633e2866b0ab0ffbfc402b459803e2b6f8a0a/src/main/scala/vexiiriscv/execute/IntAluPlugin.scala#L72)
+
+Lets corrupt the XOR instruction to behave like a bitwise OR : 
+
+.. code-block:: scala
+
+    AluBitwiseCtrlEnum.XOR  -> (srcp.SRC1 ^ srcp.SRC2),
+    //into
+    AluBitwiseCtrlEnum.XOR  -> (srcp.SRC1 | srcp.SRC2),
+
+Then lets run this assembly code in the simulation : 
+
+.. code-block:: nasm
+
+    .option arch, +zicsr
+
+    .global _start
+    _start:
+        li x1, 0x0101 // First operand
+        li x2, 0x1100 // Second operand
+        li x3, 0x0110 // Expected result for a xor
+        xor x4, x1, x2
+        bne x4, x3, fail
+    pass:
+        j pass
+    fail:
+        j fail
+
+Then you compile the test and run it in the simulator, then, if you have ext/riscv-isa-sim and ext/rvls compliled, you should get the following testbench failure (as it should) : 
+
+.. code-block:: 
+
+    [Progress] Start VexiiRiscv test simulation with seed 2
+    [Error] Simulation failed at time=600
+    ### Stats ###
+    kind :  miss / times     miss  taken
+    J/B  :     0 /     0   0.0%   0.0%
+      B  :     0 /     0   0.0%   0.0%
+    Dispatch  0   :      36 /      44  81.8%
+    Dispatch  1   :       7 /      44  15.9%
+    Candidate 0   :      36 /      44  81.8%
+    Candidate 1   :       7 /      44  15.9%
+    Dispatch halt :       0 /      44   0.0%
+    Execute  halt :       0 /      44   0.0%
+    IPC           :       6 /      44  13.6%
+
+    Exception in thread "main" java.lang.Exception: INTEGER WRITE MISSMATCH DUT=1110 REF=110
+    ..
+
+So, the interesting thing here, is that the testbench didn't failed because we reached the fail symbol, 
+but because the testbench checks what is happening on every instruction commited by the CPU and detected some bad behaviour.
+It does that by running RVLS as a golden reference, in a lockstep manner with the simulated VexiiRiscv. 
+This way, as soon as any hardware bug appear in VexiiRiscv, it is automaticaly catched by the testbench, and report it as an error. 
+In our case, it detected that the register file was written with 0x1110 by VexiiRiscv (Device Under Test), instead of 0x0110 by RVLS (Reference).
+
+In other words, you don't need to check that the xor instruction is executing properly by adding assembly code (bne x4, x3, fail), just executing the instruction is enough :D.
+This is very very usefull when you run for instance a simulation of VexiiRiscv booting linux. This take a lot of time (~20mn), and if the CPU is doing bad things, without this lock-step checking, 
+it would be very very hard to figure out when things went bad for a few reasons : 
+
+- CPU bugs may not make the software crash instantly, or at all. Symptoms and causes can be very very far apparts (in time).
+- Long simulation (ex booting linux) are about 400'000'000 cycles long, you can't save all of it in a wave, as that is way too much data.
+
+Note, if you look into simWorkspace/VexiiRiscv/test/spike.log, you can see the riscv-isa-sim logs, which gives you a better insight about what was expected : 
+
+.. code-block:: 
+
+    core   0: 0x80000000 (0x000010b7) lui     ra, 0x1
+    core   0: 3 0x80000000 (0x000010b7) x 1 0x00001000
+    core   0: 0x80000004 (0x01008093) addi    ra, ra, 16
+    core   0: 3 0x80000004 (0x01008093) x 1 0x00001010
+    core   0: 0x80000008 (0x00001137) lui     sp, 0x1
+    core   0: 3 0x80000008 (0x00001137) x 2 0x00001000
+    core   0: 0x8000000c (0x10010113) addi    sp, sp, 256
+    core   0: 3 0x8000000c (0x10010113) x 2 0x00001100
+    core   0: 0x80000010 (0x11000193) li      gp, 272
+    core   0: 3 0x80000010 (0x11000193) x 3 0x00000110
+    core   0: 0x80000014 (0x0020c233) xor     tp, ra, sp
+    core   0: 3 0x80000014 (0x0020c233) x 4 0x00000110
 
 C code "hello world" (literally)
 =================================
@@ -273,8 +415,6 @@ In the same helloworld folder as above create a Makefile file containing the fol
 .. code-block:: make
 
     PROJ_NAME=helloworld
-    DEBUG=yes
-    BENCH=no
     STANDALONE=../ext/NaxSoftware/baremetal
     SRCS =  $(wildcard src/*.c) \
             $(wildcard src/*.cpp) \

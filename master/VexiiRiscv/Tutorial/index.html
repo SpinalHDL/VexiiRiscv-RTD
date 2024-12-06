@@ -31,8 +31,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Framework" href="../Framework/index.html" />
-    <link rel="prev" title="Introduction" href="../Introduction/index.html" />
+    <link rel="next" title="Ready made Docker environment" href="../Docker/index.html" />
+    <link rel="prev" title="How to use" href="../HowToUse/index.html" />
      
     <!-- source/_templates/layout.html -->
     
@@ -83,16 +83,61 @@
 <li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#check-list">Check list</a></li>
 </ul>
 </li>
+<li class="toctree-l1"><a class="reference internal" href="../HowToUse/index.html">How to use</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#environment-dependencies">Environment (Dependencies)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../HowToUse/index.html#docker-container">Docker Container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../HowToUse/index.html#setup-dependencies">Setup dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../HowToUse/index.html#repo-setup">Repo setup</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#generate-verilog">Generate verilog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#run-a-simulation">Run a simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#synthesis">Synthesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#other-resources">Other resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#using-intellij-idea">Using IntelliJ IDEA</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../HowToUse/index.html#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../HowToUse/index.html#known-issues">Known issues</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#using-konata">Using Konata</a></li>
+</ul>
+</li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Self Contained Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#linux-and-macos-x">Linux and MacOS X</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#windows">Windows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#generating-the-verilog">Generating the verilog</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#running-a-simulation">Running a simulation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#opening-the-traces-with-gtkwave">Opening the traces with GTKWave</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#opening-the-traces-with-konata">Opening the traces with Konata</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#opening-intellij-idea">Opening Intellij IDEA</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#shutting-down-the-container">Shutting down the Container</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#using-the-build-environment">Using the build environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#tooling">Tooling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#assembler">Assembler</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#looking-at-examples">Looking at examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#write-the-assembler-code">Write the assembler code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-the-assembler-code">Build the assembler Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#initial-run-error">Initial run (Error)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#fixing-the-error">Fixing the Error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#the-assembler-hello-world">The assembler &quot;hello world&quot;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#looking-at-the-pipeline">Looking at the pipeline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#enabling-branch-prediction">Enabling branch prediction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#looking-at-the-waveform">Looking at the waveform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#introducing-a-bug">Introducing a bug</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#experimenting-with-privilege-levels">Experimenting with privilege levels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#connecting-with-openocd-to-the-simulation">Connecting with openocd to the simulation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#c-code-hello-world-literally">C code &quot;hello world&quot; (literally)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#write-the-c-code">Write the C code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#compiling-the-code">Compiling the Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#compilation-error">Compilation error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#running-the-code">Running the code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Docker/index.html">Ready made Docker environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Docker/index.html#linux-and-macos-x">Linux and MacOS X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Docker/index.html#windows">Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Docker/index.html#generating-the-verilog">Generating the verilog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Docker/index.html#running-a-simulation">Running a simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Docker/index.html#opening-the-traces-with-gtkwave">Opening the traces with GTKWave</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Docker/index.html#opening-the-traces-with-konata">Opening the traces with Konata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Docker/index.html#opening-intellij-idea">Opening Intellij IDEA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Docker/index.html#shutting-down-the-container">Shutting down the Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Docker/index.html#using-the-build-environment">Using the build environment</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Framework/index.html">Framework</a><ul>
@@ -220,16 +265,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../Debug/index.html#embeddedriscvjtag">EmbeddedRiscvJtag</a></li>
 </ul>
 </li>
-<li class="toctree-l1"><a class="reference internal" href="../HowToUse/index.html">How to use</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#docker-container">Docker Container</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#compilation">Compilation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#generate-verilog">Generate verilog</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#run-a-simulation">Run a simulation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#synthesis">Synthesis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#other-resources">Other resources</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#using-intellij-idea">Using IntelliJ IDEA</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="../Performance/index.html">Performance / Area / FMax</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../Performance/index.html#tuning">Tuning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Performance/index.html#critical-paths-tool">Critical paths tool</a></li>
@@ -293,156 +328,579 @@
 
   <section id="self-contained-tutorial">
 <h1>Self Contained Tutorial<a class="headerlink" href="#self-contained-tutorial" title="Permalink to this heading"></a></h1>
-<p>This self contained tutorial will show you how to pull a Docker container with all the
-dependencies preinstalled so that you can start right away without having to compile any
-of the dependencies from scratch.</p>
-<p>Simply pull the Docker image from the Docker hub and get started.</p>
-<p>The scope of this tutorial is:</p>
+<p>In this tutorial you will:</p>
 <ul class="simple">
-<li><p>Fetching the Docker image</p></li>
-<li><p>Generating the verilog</p></li>
-<li><p>Running a simulation</p></li>
-<li><p>Opening the traces (gtkwave + konata)</p></li>
+<li><p>Write some assembly</p></li>
+<li><p>Assemble (compile) it</p></li>
+<li><p>Add a bug</p></li>
+<li><p>Run your code in a simulator</p></li>
+<li><p>Debug the bug</p></li>
+<li><p>Learn how to show important signals from the wave</p></li>
+<li><p>Fix the bug</p></li>
 </ul>
-<p><strong>Important</strong></p>
-<p>Starting the Docker image might take much longer, when your own user owning the folder
-where you cloned the repo to doesn't have the same uid as the ubuntu user inside the
-Docker container! The uid of the ubuntu user is 1000</p>
-<section id="linux-and-macos-x">
-<h2>Linux and MacOS X<a class="headerlink" href="#linux-and-macos-x" title="Permalink to this heading"></a></h2>
-<p>There's a bash script called run_docker.sh which automatically pulls the most
-recent Docker image, starts it and then launches a VNC viewer.</p>
-<p>Just make sure that you have Tiger VNC, bash and of course Docker installed
-and that the Docker demon is running.</p>
-<p>Then you can simply run</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run_docker.sh
-</pre></div>
-</div>
-<p>After the image has been fetched and the virtual X server has started you should
-be greated with an XFCE4 desktop in a VNC viewer</p>
-</section>
-<section id="windows">
-<h2>Windows<a class="headerlink" href="#windows" title="Permalink to this heading"></a></h2>
-<p>Windows is a bit trickier, but similar as what we do on Linux and Mac</p>
-<p>In the Power Shell, first fetch the Docker image, then start it as demon and check
-with the inspect command what the IP of the container is.</p>
-<p>After that, you should be able to connect with a VNC client.</p>
-<p>TigerVNC also exists for Windows: <a class="reference external" href="https://sourceforge.net/projects/tigervnc">https://sourceforge.net/projects/tigervnc</a></p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker.exe pull leviathanch/vexiiriscv
-docker.exe run -v <span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>:/work --privileged<span class="o">=</span><span class="nb">true</span> -idt leviathanch/vexiiriscv
-</pre></div>
-</div>
-<p>After that, run the inspect command with the container ID docker returns when starting
-the image as a demonized process.</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker.ext inspect -f <span class="s1">&#39;{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}&#39;</span> <span class="nv">$container_id</span>
-</pre></div>
-</div>
-<p>Next run the Tiger VNC vncviewer</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vncviewer.exe <span class="nv">$ip</span>
-</pre></div>
-</div>
-</section>
-<section id="generating-the-verilog">
-<h2>Generating the verilog<a class="headerlink" href="#generating-the-verilog" title="Permalink to this heading"></a></h2>
-<p>First open the terminal by clicking the terminal icon as shown below</p>
-<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_152813.png"><img alt="Shell Icon" src="../../_images/Screenshot_20241203_152813.png" style="width: 400px;" /></a>
-<p>As soon as you've started the Docker container as shown above you can obtain the Verilog
-code by simply running the following command from within the terminal.</p>
-<p>Make sure however that you're in the proper folder</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~/generate_verilog.sh
-</pre></div>
-</div>
-<p>Take care that the path is correct, then press enter</p>
-<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_165329.png"><img alt="Generate Command" src="../../_images/Screenshot_20241203_165329.png" style="width: 400px;" /></a>
-<p>This script simply contains the following command:</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
-sbt <span class="s2">&quot;Test/runMain vexiiriscv.Generate&quot;</span>
-</pre></div>
-</div>
-<p>After it has been running through, you should now have a file called &quot;VexiiRiscv.v&quot;
-right there in your source folder</p>
-<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_152940.png"><img alt="Generation Result" src="../../_images/Screenshot_20241203_152940.png" style="width: 400px;" /></a>
-</section>
-<section id="running-a-simulation">
-<h2>Running a simulation<a class="headerlink" href="#running-a-simulation" title="Permalink to this heading"></a></h2>
-<p>Running a simulation also is straight forward, in the same shell as you used for generating
-the Verilog code.</p>
-<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_165608.png"><img alt="Run simulation" src="../../_images/Screenshot_20241203_165608.png" style="width: 400px;" /></a>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~/run_simulation.sh
-</pre></div>
-</div>
-<p>This readily available script contains the simple command</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
-sbt <span class="s2">&quot;Test/runMain vexiiriscv.tester.TestBench --with-mul --with-div --load-elf ext/NaxSoftware/baremetal/dhrystone/build/rv32ima/dhrystone.elf --trace-all&quot;</span>
-</pre></div>
-</div>
-<p>This will run through for a moment, and should look like this, finishing without errors</p>
-<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_165858.png"><img alt="Run simulation" src="../../_images/Screenshot_20241203_165858.png" style="width: 400px;" /></a>
-<p>After the simulation has run through, you should now have a wave file in simWorkspace/VexiiRiscv/test/</p>
-</section>
-<section id="opening-the-traces-with-gtkwave">
-<h2>Opening the traces with GTKWave<a class="headerlink" href="#opening-the-traces-with-gtkwave" title="Permalink to this heading"></a></h2>
-<p>You can convert the wave file from the simulation into the VCD format and view it by opening
-it with GTKWve, which is already installed in the Docker image.</p>
-<p>To do so, simply run in the shell</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gtkwave simWorkspace/VexiiRiscv/test/wave.fst
-</pre></div>
-</div>
-<p>This will start GTKWave.</p>
-<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_170009.png"><img alt="Start GTKWave" src="../../_images/Screenshot_20241203_170009.png" style="width: 400px;" /></a>
-<p>You can now select signal lines and add them to the viewer</p>
-<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_170056.png"><img alt="GTKWave open" src="../../_images/Screenshot_20241203_170056.png" style="width: 400px;" /></a>
-</section>
-<section id="opening-the-traces-with-konata">
-<h2>Opening the traces with Konata<a class="headerlink" href="#opening-the-traces-with-konata" title="Permalink to this heading"></a></h2>
-<p>In order to visualize the instruction pipeline, you may wanna open Konata.
-For doing so, click on the Konata icon</p>
-<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_151217.png"><img alt="Konata Icon" src="../../_images/Screenshot_20241203_151217.png" style="width: 400px;" /></a>
-<p>Next load the konata log by going into the folder as shown in the picture</p>
-<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_151018.png"><img alt="Load konata log" src="../../_images/Screenshot_20241203_151018.png" style="width: 400px;" /></a>
-<p>You should be greated with a colorful representation of the instructions
-in the RISC-V pipeline during boot up</p>
-<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_151124.png"><img alt="Pipeline visualization" src="../../_images/Screenshot_20241203_151124.png" style="width: 400px;" /></a>
-</section>
-<section id="opening-intellij-idea">
-<h2>Opening Intellij IDEA<a class="headerlink" href="#opening-intellij-idea" title="Permalink to this heading"></a></h2>
-<p>First click onto the Intellij IDEA icon</p>
-<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_153149.png"><img alt="Intellij IDEA: Icon" src="../../_images/Screenshot_20241203_153149.png" style="width: 400px;" /></a>
-<p>Accept the terms and conditions</p>
-<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_153048.png"><img alt="Intellij IDEA: Terms and conditions" src="../../_images/Screenshot_20241203_153048.png" style="width: 400px;" /></a>
-<p>We don't send data</p>
-<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_163222.png"><img alt="Intellij IDEA: No telemetry" src="../../_images/Screenshot_20241203_163222.png" style="width: 400px;" /></a>
-<p>Load the VexiiRiscv project</p>
-<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_153226.png"><img alt="Intellij IDEA: New projects" src="../../_images/Screenshot_20241203_153226.png" style="width: 400px;" /></a>
-<p>Enter the folder where your cloned repo is mounted to from outside, which is
-configured to be /work.</p>
-<p>Then press OK</p>
-<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_163411.png"><img alt="Intellij IDEA: Load Project" src="../../_images/Screenshot_20241203_163411.png" style="width: 400px;" /></a>
-<p>Confirm that you trust the project</p>
-<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_163438.png"><img alt="Intellij IDEA: Trust project" src="../../_images/Screenshot_20241203_163438.png" style="width: 400px;" /></a>
-<p>After that it will take a while until the entire project has been loaded
-and indexed. Make a cup of coffee or tea in the meanwhile.</p>
-</section>
-<section id="shutting-down-the-container">
-<h2>Shutting down the Container<a class="headerlink" href="#shutting-down-the-container" title="Permalink to this heading"></a></h2>
-<p>In order to shut down the container, simply logout from XFCE4 which will
-make the process stop and the container terminate</p>
-<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_153436.png"><img alt="Logout" src="../../_images/Screenshot_20241203_153436.png" style="width: 400px;" /></a>
-<p>Confirm that you wanna log out</p>
-<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_164155.png"><img alt="Confirm Logout" src="../../_images/Screenshot_20241203_164155.png" style="width: 400px;" /></a>
-</section>
-<section id="using-the-build-environment">
-<h2>Using the build environment<a class="headerlink" href="#using-the-build-environment" title="Permalink to this heading"></a></h2>
-<p>Now that your build environment is up and running and you've got Intellij running as well as are familiar with the shell, you can now take your first dive into modifying the configurations and generating and testing your own modified version of the VexiiRiscv</p>
-<p>Here are some ideas of things to try:</p>
+<section id="tooling">
+<h2>Tooling<a class="headerlink" href="#tooling" title="Permalink to this heading"></a></h2>
+<p>You have two options for getting start:</p>
 <ul class="simple">
-<li><p>How to add a custom instruction and how to test it:
-<a class="reference external" href="https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Execute/custom.html">https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Execute/custom.html</a></p></li>
-<li><p>How to add that custom instruction the MicroSoc:
-<a class="reference external" href="https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Soc/microsoc.html#adding-a-custom-instruction">https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Soc/microsoc.html#adding-a-custom-instruction</a></p></li>
-<li><p>How to export an APB3 bus from the MicroSoc toplevel:
-<a class="reference external" href="https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Soc/microsoc.html#exporting-an-apb3-bus-to-the-toplevel">https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Soc/microsoc.html#exporting-an-apb3-bus-to-the-toplevel</a></p></li>
+<li><p>You can use the Docker image with all the dependencies preinstalled</p></li>
+<li><p>You can use the How To Use guide on how to install all the stuff you need locally on your machine</p></li>
 </ul>
+</section>
+<section id="assembler">
+<h2>Assembler<a class="headerlink" href="#assembler" title="Permalink to this heading"></a></h2>
+<section id="looking-at-examples">
+<h3>Looking at examples<a class="headerlink" href="#looking-at-examples" title="Permalink to this heading"></a></h3>
+<p>In case you haven't done so, you should bring your repo up to speed and init+update all the submodules</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> VexiiRiscv
+git pull
+git submodule update --init --recursive
+</pre></div>
+</div>
+<p>After that you can find many test programes in <cite>ext/NaxSoftware/baremetal</cite>, mostly written in assembly. For instance :</p>
+<ul class="simple">
+<li><p>simdAdd : is used to test a custom instruction which implements 4 bytes adder in a single instruction</p></li>
+<li><p>pmp : is used to test the RISC-V PMP, which allows the machine mode to restrict memory accesses of the supervisor/user mode to specific ranges (Physical Memory Protection)</p></li>
+<li><p>machine_vexii : is used to test most of the RISC-V machine mode privilegied spec, as for instance, unaligned memory load exception, ...</p></li>
+</ul>
+<p>Writting tests in assembly is often the only viable way to test low level features for a few reasons :</p>
+<ul class="simple">
+<li><p>It avoid all the noise which would come from C/C++ languages.</p></li>
+<li><p>It allow to restrict the features of the CPU being used in the tests, which is very usefull for bring up.</p></li>
+<li><p>It allows to create very precise sequances of instruction, allowing you to trigger specific corner cases</p></li>
+</ul>
+</section>
+<section id="write-the-assembler-code">
+<h3>Write the assembler code<a class="headerlink" href="#write-the-assembler-code" title="Permalink to this heading"></a></h3>
+<p>So first of all, create a folder in your repository root (&quot;/work&quot; inside the Docker environment, or otherwisde simply VexiiRiscv. The folder you cloned the repository into) called &quot;mytest&quot;... basically</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> VexiiRiscv
+mkdir -p mytest/src
+<span class="nb">cd</span> mytest
+</pre></div>
+</div>
+<p>or in Docker</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> /work
+mkdir -p mytest/src
+<span class="nb">cd</span> mytest
+</pre></div>
+</div>
+<p>then create an assembler file inside the src folder called &quot;crt.S&quot; containing the following code</p>
+<div class="highlight-nasm notranslate"><div class="highlight"><pre><span></span><span class="nf">.option</span><span class="w"> </span><span class="nv">arch</span><span class="p">,</span><span class="w"> </span><span class="o">+</span><span class="nv">zicsr</span><span class="w"></span>
+
+<span class="nf">.global</span><span class="w"> </span><span class="nv">_start</span><span class="w"></span>
+<span class="nl">_start:</span><span class="w"></span>
+<span class="w">  </span><span class="nf">li</span><span class="w"> </span><span class="nv">x1</span><span class="p">,</span><span class="w"> </span><span class="mi">42</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="nv">Write</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">literal</span><span class="w"> </span><span class="nv">value</span><span class="w"> </span><span class="mi">42</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">integer</span><span class="w"> </span><span class="nv">register</span><span class="w"> </span><span class="nv">x1</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="build-the-assembler-code">
+<h3>Build the assembler Code<a class="headerlink" href="#build-the-assembler-code" title="Permalink to this heading"></a></h3>
+<p>Now, it's time to create a GNU make file, using the NaxSoftware infrastructure,
+so that we can turn our assembly code.</p>
+<p>In the mytest folder, create a Makefile file containing the following</p>
+<div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nv">PROJ_NAME</span><span class="o">=</span>mytest
+<span class="nv">STANDALONE</span><span class="o">=</span>../ext/NaxSoftware/baremetal
+<span class="cp">include ../ext/NaxSoftware/baremetal/common/asm.mk</span>
+</pre></div>
+</div>
+<p>After running make in your bash shell respectively Cygwin shell (assuming you have installed everything),
+you should now be able to find a folder named &quot;build&quot;, containing a bin file, and asm file and most importantly
+the ELF and map file.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">leviathan</span><span class="nd">@harvey</span><span class="p">:</span><span class="o">~/</span><span class="n">VexiiRiscv</span><span class="o">/</span><span class="n">mytest</span><span class="o">&gt;</span> <span class="n">ls</span> <span class="n">build</span><span class="o">/</span>
+<span class="n">mytest</span><span class="o">.</span><span class="n">asm</span>  <span class="n">mytest</span><span class="o">.</span><span class="n">bin</span>  <span class="n">mytest</span><span class="o">.</span><span class="n">elf</span>  <span class="n">mytest</span><span class="o">.</span><span class="n">map</span>
+</pre></div>
+</div>
+<p>In short, here is what those files are for :</p>
+<ul class="simple">
+<li><p>mytest.elf : This is the primary output of the compiler, it contains all the informations about our compiled program (instruction, data, symbole locations, ..). If you need to backup a compiled program, backup this file, as all 3 others (bin/asm/map) files are generated from this elf.</p></li>
+<li><p>mytest.bin : Raw binary file of your program. In our case, if this binary file was directly loaded in the memory at the reset vector of the CPU (0x80000000), we would be good to go.</p></li>
+<li><p>mytest.asm : A text file which tells you the every instructions contained in your compiled program, as well as their location in the memory space, which is quite usefull when you debug the CPU itself.</p></li>
+<li><p>mytest.map : Specify the memory location of every section/symbol/variable of your program. Not so usefull in general, but can allow to track the access to specific memory variables from a waveform.</p></li>
+</ul>
+</section>
+<section id="initial-run-error">
+<h3>Initial run (Error)<a class="headerlink" href="#initial-run-error" title="Permalink to this heading"></a></h3>
+<p>In order to run the assembly code we just made, we have to tell sbt to load our ELF file into the VexiiRiscv simulator by running the following command in the root source folder (/work respectively VexiiRiscv)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ..
+sbt <span class="s2">&quot;Test/runMain vexiiriscv.tester.TestBench --with-rvm --allow-bypass-from=0 --load-elf mytest/build/mytest.elf --trace-all&quot;</span>
+</pre></div>
+</div>
+<p>Here are what the options are for :</p>
+<ul class="simple">
+<li><p>--with-rvm : Will turn on the RISC-V RVM extentions, allowing the exection of mul/div instruction.</p></li>
+<li><p>--allow-bypass-from=0 : Will enable the execute pipeline to forward results from the ALU back to new instruction before they commited,
+so you can execute ALU instruction back to back, even when they depend on each others.</p></li>
+<li><p>--load-elf : This will ask the testbench to load the simulated memory with the content of the elf file before the CPU stats.
+Additionaly, if the testbench detect that the CPU reached the pass/fail symbols of the elf file, it will end the simulation with a success/failure event.</p></li>
+<li><p>--trace-all : This will ask the simulation to capture a whole set of simulation traces that you can find in <cite>simWorkspace/VexiiRiscv/test</cite>, including the simulation waveform (wave.fst),
+a representation of the CPU pipeline status (konata.log).</p></li>
+</ul>
+<p>Keep in mind, by default, VexiiRiscv is configured with most of its features disabled. no branch prediction, no cache, no mmu, no ...</p>
+<p>Now it's running</p>
+<img alt="../../_images/Screenshot_20241205_142640.png" src="../../_images/Screenshot_20241205_142640.png" />
+<p>But... ooopsie. It failed.</p>
+<img alt="../../_images/Screenshot_20241205_142659.png" src="../../_images/Screenshot_20241205_142659.png" />
+<p><strong>Question:</strong> Why??</p>
+<p><strong>Answer</strong> The CPU is locked into a <cite>illegal instruction exception</cite> loop of doom.</p>
+<p>Here is the full scénario :</p>
+<ul class="simple">
+<li><p>Once the CPU had executed <cite>li x1, 42</cite>, it then reach a portion of memory which isn't loaded with code but instead has a random value (the testbench is designed that way).</p></li>
+<li><p>So it is very likely that the CPU try to execute a portion of memory which isn't reconized as an instruction, which produce a <cite>illegal instruction exception</cite>.</p></li>
+<li><p>This results into the CPU jumping to its trap vector (mtvec).</p></li>
+<li><p>This trap vector being initialized by the CPU reset to 0, will make the CPU jump/trap to PC=0</p></li>
+<li><p>At PC=0 there is aswell some random values, which likely will produce another <cite>illegal instruction exception</cite>, again and again, forever.</p></li>
+<li><p>Then, the testbench detect that the CPU isn't doing any <cite>commit</cite> anymore (forward progress) and call it a failure.</p></li>
+</ul>
+</section>
+<section id="fixing-the-error">
+<h3>Fixing the Error<a class="headerlink" href="#fixing-the-error" title="Permalink to this heading"></a></h3>
+<p>We can fix this error quickly by adding those two additional lines to our assembler file</p>
+<div class="highlight-nasm notranslate"><div class="highlight"><pre><span></span><span class="nl">pass:</span><span class="w"></span>
+<span class="w">  </span><span class="nf">j</span><span class="w"> </span><span class="nv">pass</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Which results in the following code</p>
+<div class="highlight-nasm notranslate"><div class="highlight"><pre><span></span><span class="nf">.option</span><span class="w"> </span><span class="nv">arch</span><span class="p">,</span><span class="w"> </span><span class="o">+</span><span class="nv">zicsr</span><span class="w"></span>
+
+<span class="nf">.global</span><span class="w"> </span><span class="nv">_start</span><span class="w"></span>
+<span class="nl">_start:</span><span class="w"></span>
+<span class="w">  </span><span class="nf">li</span><span class="w"> </span><span class="nv">x1</span><span class="p">,</span><span class="w"> </span><span class="mi">42</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="nv">Write</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">value</span><span class="w"> </span><span class="mi">42</span><span class="w"> </span><span class="nv">in</span><span class="w"> </span><span class="nv">the</span><span class="w"> </span><span class="nv">register</span><span class="w"> </span><span class="nv">x1</span><span class="w"></span>
+<span class="nl">pass:</span><span class="w"></span>
+<span class="w">  </span><span class="nf">j</span><span class="w"> </span><span class="nv">pass</span><span class="w"></span>
+</pre></div>
+</div>
+<p>After that we run the make/sbt command again.</p>
+<p>Now the simulation won't fail anymore, and exit gracfully, as the testbench will detect that the CPU reached the <cite>pass</cite> symbol.</p>
+<p>However, an endless loop which doesn't anything isn't very useful.</p>
+<p>Note, running SBT every time with <cite>sbt &quot;Test/runMain vexiiriscv.tester.TestBench ...</cite> is slow and painefull. What you can do instead is just to run the <cite>sbt</cite> command without arguments, which will bring you in the SBT shell, and there you can run your <cite>Test/runMain vexiiriscv.tester.TestBench ...</cite> with much less overhead.</p>
+</section>
+<section id="the-assembler-hello-world">
+<h3>The assembler &quot;hello world&quot;<a class="headerlink" href="#the-assembler-hello-world" title="Permalink to this heading"></a></h3>
+<p>Since we can't really print out a &quot;hello world&quot; in this context because we're simulating a CPU
+and the execution of assembler code on it, we go for the next best thing: A for loop</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
+
+<span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">&lt;</span><span class="mi">5</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">i</span><span class="p">;</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>As RISC-V assembly this looks like that:</p>
+<div class="highlight-nasm notranslate"><div class="highlight"><pre><span></span><span class="nf">.option</span><span class="w"> </span><span class="nv">arch</span><span class="p">,</span><span class="w"> </span><span class="o">+</span><span class="nv">zicsr</span><span class="w"></span>
+
+<span class="nf">.global</span><span class="w"> </span><span class="nv">_start</span><span class="w"></span>
+<span class="nl">_start:</span><span class="w"></span>
+
+<span class="w">    </span><span class="nf">li</span><span class="w"> </span><span class="nv">a0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="c1"># Initialize sum</span><span class="w"></span>
+<span class="w">    </span><span class="nf">li</span><span class="w"> </span><span class="nv">t0</span><span class="p">,</span><span class="w"> </span><span class="mi">0</span><span class="w"> </span><span class="c1"># counter start value</span><span class="w"></span>
+<span class="w">    </span><span class="nf">li</span><span class="w"> </span><span class="nv">t1</span><span class="p">,</span><span class="w"> </span><span class="mi">5</span><span class="w"> </span><span class="c1"># counter end value</span><span class="w"></span>
+
+<span class="nl">sum_loop:</span><span class="w"></span>
+<span class="w">    </span><span class="nf">bge</span><span class="w"> </span><span class="nv">t0</span><span class="p">,</span><span class="w"> </span><span class="nv">t1</span><span class="p">,</span><span class="w"> </span><span class="nv">pass</span><span class="w"> </span><span class="c1"># i == 5</span><span class="w"></span>
+<span class="w">    </span><span class="nf">add</span><span class="w"> </span><span class="nv">a0</span><span class="p">,</span><span class="w"> </span><span class="nv">a0</span><span class="p">,</span><span class="w"> </span><span class="nv">t0</span><span class="w"></span>
+<span class="w">    </span><span class="nf">addi</span><span class="w"> </span><span class="nv">t0</span><span class="p">,</span><span class="w"> </span><span class="nv">t0</span><span class="p">,</span><span class="w"> </span><span class="mi">1</span><span class="w"></span>
+<span class="w">    </span><span class="nf">j</span><span class="w"> </span><span class="nv">sum_loop</span><span class="w"></span>
+
+<span class="nl">pass:</span><span class="w"></span>
+<span class="w">    </span><span class="nf">j</span><span class="w"> </span><span class="nv">pass</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Also, note that if you are interrested into more C to assembly comparison, you can use the Compiler Explorer tool. Here is an example :</p>
+<p><a class="reference external" href="https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1',fontScale:14,fontUsePx:'0',j:1,lang:___c,selection:(endColumn:2,endLineNumber:7,positionColumn:2,positionLineNumber:7,selectionStartColumn:2,selectionStartLineNumber:7,startColumn:2,startLineNumber:7),source:'int+miaou()%7B%0A++++int+count+%3D+1000%3B%0A++++while(count+!!%3D+0)%7B%0A++++++++asm(%22nop%22)%3B%0A++++++++count--%3B%0A++++%7D%0A%7D'),l:'5',n:'0',o:'C+source+%231',t:'0')),k:44.29215489283432,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:compiler,i:(compiler:rv32-cgcctrunk,filters:(b:'0',binary:'1',binaryObject:'0',commentOnly:'0',debugCalls:'1',demangle:'0',directives:'0',execute:'1',intel:'0',libraryCode:'0',trim:'1',verboseDemangling:'0'),flagsViewOpen:'1',fontScale:14,fontUsePx:'0',j:2,lang:___c,libs:!(),options:'-O3',overrides:!(),selection:(endColumn:5,endLineNumber:10,positionColumn:5,positionLineNumber:10,selectionStartColumn:5,selectionStartLineNumber:10,startColumn:5,startLineNumber:10),source:1),l:'5',n:'0',o:'+RISC-V+(32-bits)+gcc+(trunk)+(Editor+%231)',t:'0')),k:55.707845107165674,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4">https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1',fontScale:14,fontUsePx:'0',j:1,lang:___c,selection:(endColumn:2,endLineNumber:7,positionColumn:2,positionLineNumber:7,selectionStartColumn:2,selectionStartLineNumber:7,startColumn:2,startLineNumber:7),source:'int+miaou()%7B%0A++++int+count+%3D+1000%3B%0A++++while(count+!!%3D+0)%7B%0A++++++++asm(%22nop%22)%3B%0A++++++++count--%3B%0A++++%7D%0A%7D'),l:'5',n:'0',o:'C+source+%231',t:'0')),k:44.29215489283432,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:compiler,i:(compiler:rv32-cgcctrunk,filters:(b:'0',binary:'1',binaryObject:'0',commentOnly:'0',debugCalls:'1',demangle:'0',directives:'0',execute:'1',intel:'0',libraryCode:'0',trim:'1',verboseDemangling:'0'),flagsViewOpen:'1',fontScale:14,fontUsePx:'0',j:2,lang:___c,libs:!(),options:'-O3',overrides:!(),selection:(endColumn:5,endLineNumber:10,positionColumn:5,positionLineNumber:10,selectionStartColumn:5,selectionStartLineNumber:10,startColumn:5,startLineNumber:10),source:1),l:'5',n:'0',o:'+RISC-V+(32-bits)+gcc+(trunk)+(Editor+%231)',t:'0')),k:55.707845107165674,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4</a></p>
+<p>Note, you can see that this assembly example use register names as a0, t1, while the previous example was using x1. RISC-V has two why of naming the registers :</p>
+<ul class="simple">
+<li><p>Via their <cite>raw name</cite> : x0, x1, x2, ..., x31</p></li>
+<li><p>Via their <cite>ABI Mnemonic</cite> : zero, ra, sp, gp, tp, t0-t6, s0-s11, a0-a7</p></li>
+</ul>
+<p>All of this is defined the RISC-V ABI register conventions (<a class="reference external" href="https://github.com/riscv-non-isa/riscv-elf-psabi-doc/blob/master/riscv-cc.adoc#register-convention">https://github.com/riscv-non-isa/riscv-elf-psabi-doc/blob/master/riscv-cc.adoc#register-convention</a>), and GCC suports both.
+So, in general, if you write lowlevel assembly tests, you can go for the <cite>raw name</cite>, else just go with the <cite>ABI Mnemonic</cite> names.</p>
+</section>
+<section id="looking-at-the-pipeline">
+<h3>Looking at the pipeline<a class="headerlink" href="#looking-at-the-pipeline" title="Permalink to this heading"></a></h3>
+<p>Opening the pipeline trace (located in simWorkspace/VexiiRiscv/test/konata.log) using Konata , we can see that it goes five times through the loop.</p>
+<img alt="../../_images/Screenshot_20241205_172115.png" src="../../_images/Screenshot_20241205_172115.png" />
+<p>Here are a few explenation now to read those Konata traces :</p>
+<ul class="simple">
+<li><p>Horizontally, you have the time axes</p></li>
+<li><p>Vertically, you have every instruction that reached the CPU decode stage (and futher).</p></li>
+<li><p>If on the left margin, you see some &quot;???&quot;, it mean that you need to compile the ext/riscv-isa-sim and ext/rvls. See ext/rvls/README.md</p></li>
+<li><p>The reset vector of VexiiRiscv being by default 0x80000000, you can see on the top left it is where it starts.</p></li>
+<li><p>the A/F/D/I/E symboles represent when a given instruction is in which part of the FPU</p></li>
+<li><p>A : Address generation of the instruction PC</p></li>
+<li><p>F : Fetch, when the CPU is reading the instruction from the memory (or its cache)</p></li>
+<li><p>D : Decode/dispatch, when the CPU is figuring out what the instruction is about, wait until the time is right to schedule the instruction to the execute pipeline, and read the register file</p></li>
+<li><p>E : Execute, when the instruction is being processed.</p></li>
+<li><p>Instruction in vivide colors are the one which sucessfuly executed (commited instruction)</p></li>
+<li><p>Instruction in dark colors are the one which failed to execute (ex : flushed by an un-predicted/miss-predicted branch/jump)</p></li>
+</ul>
+<p>There you go. Our i &lt; 5 condition was successfully executed</p>
+</section>
+<section id="enabling-branch-prediction">
+<h3>Enabling branch prediction<a class="headerlink" href="#enabling-branch-prediction" title="Permalink to this heading"></a></h3>
+<p>By default, the VexiiRiscv branch prediction feature is disabled. You can turn on a partial version of it on by adding <cite>--with-btb</cite> argument to your simulation command.</p>
+<p>This will enable the Branch Target Buffer (BTB), which allow VexiiRiscv to predict a few things very early in the fetch pipeline, things as :</p>
+<ul class="simple">
+<li><p>For a given PC, is the instruction a jump/branch ?</p></li>
+<li><p>If it is, what would be its target PC ?</p></li>
+<li><p>If it is a branch, is it likely to be taken ?</p></li>
+</ul>
+<p>You can observe the effects of the branch prediction easily via the Konata trace :</p>
+<img alt="../../_images/Screenshot_2024-12-06_10-53-53.png" src="../../_images/Screenshot_2024-12-06_10-53-53.png" />
+</section>
+<section id="looking-at-the-waveform">
+<h3>Looking at the waveform<a class="headerlink" href="#looking-at-the-waveform" title="Permalink to this heading"></a></h3>
+<p>Opening the simulation waveform (located in simWorkspace/VexiiRiscv/test/wave.fst) using gtkwave you can visualize every signals of the simulated CPU across the whole simulation.</p>
+<img alt="../../_images/Screenshot_2024-12-06-10-07-10.png" src="../../_images/Screenshot_2024-12-06-10-07-10.png" />
+<p>So here the difficulty is to know what to look at in this ocean of wires. Here is a few tips about that.</p>
+<ul class="simple">
+<li><p>The WhiteboxerPlugin collects many key events from the CPU for debug purposes, in particular its whiteboxerPlugin_logic_commits signals will tell you when the CPU commits an instruction.</p></li>
+<li><p>DispatchPlugin_logic_candidates signals will tell you every instruction currently waiting to be dispatched to the execution pipeline, aswell as their context.</p></li>
+<li><p>There is a few pipeline signals as : fetch_logic_ctrl, decode_ctrl execute_ctrl. Note that to know if there is a actual transaction in a given pipeline varies between the pipelines.
+For the fetch, you can probe <cite>fetch.*ctrl.*_valid</cite>, for decode it is <cite>decode.*LANE_SEL_.$</cite>, for execute it is <cite>execute.*LANE_SEL_lane.$</cite>.</p></li>
+</ul>
+</section>
+<section id="introducing-a-bug">
+<h3>Introducing a bug<a class="headerlink" href="#introducing-a-bug" title="Permalink to this heading"></a></h3>
+<p>Let's say you want to change the way the integer ALU is implemented, the easiest way to do so would be to modify the IntAluPlugin.scala (<a class="reference external" href="https://github.com/SpinalHDL/VexiiRiscv/blob/977633e2866b0ab0ffbfc402b459803e2b6f8a0a/src/main/scala/vexiiriscv/execute/IntAluPlugin.scala#L72">https://github.com/SpinalHDL/VexiiRiscv/blob/977633e2866b0ab0ffbfc402b459803e2b6f8a0a/src/main/scala/vexiiriscv/execute/IntAluPlugin.scala#L72</a>)</p>
+<p>Lets corrupt the XOR instruction to behave like a bitwise OR :</p>
+<div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="nc">AluBitwiseCtrlEnum</span><span class="p">.</span><span class="nc">XOR</span><span class="w">  </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">srcp</span><span class="p">.</span><span class="nc">SRC1</span><span class="w"> </span><span class="n">^</span><span class="w"> </span><span class="n">srcp</span><span class="p">.</span><span class="nc">SRC2</span><span class="p">),</span><span class="w"></span>
+<span class="c1">//into</span>
+<span class="nc">AluBitwiseCtrlEnum</span><span class="p">.</span><span class="nc">XOR</span><span class="w">  </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">srcp</span><span class="p">.</span><span class="nc">SRC1</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">srcp</span><span class="p">.</span><span class="nc">SRC2</span><span class="p">),</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Then lets run this assembly code in the simulation :</p>
+<div class="highlight-nasm notranslate"><div class="highlight"><pre><span></span><span class="nf">.option</span><span class="w"> </span><span class="nv">arch</span><span class="p">,</span><span class="w"> </span><span class="o">+</span><span class="nv">zicsr</span><span class="w"></span>
+
+<span class="nf">.global</span><span class="w"> </span><span class="nv">_start</span><span class="w"></span>
+<span class="nl">_start:</span><span class="w"></span>
+<span class="w">    </span><span class="nf">li</span><span class="w"> </span><span class="nv">x1</span><span class="p">,</span><span class="w"> </span><span class="mh">0x0101</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="nv">First</span><span class="w"> </span><span class="nv">operand</span><span class="w"></span>
+<span class="w">    </span><span class="nf">li</span><span class="w"> </span><span class="nv">x2</span><span class="p">,</span><span class="w"> </span><span class="mh">0x1100</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="nv">Second</span><span class="w"> </span><span class="nv">operand</span><span class="w"></span>
+<span class="w">    </span><span class="nf">li</span><span class="w"> </span><span class="nv">x3</span><span class="p">,</span><span class="w"> </span><span class="mh">0x0110</span><span class="w"> </span><span class="o">//</span><span class="w"> </span><span class="nv">Expected</span><span class="w"> </span><span class="nv">result</span><span class="w"> </span><span class="nv">for</span><span class="w"> </span><span class="nv">a</span><span class="w"> </span><span class="nv">xor</span><span class="w"></span>
+<span class="w">    </span><span class="nf">xor</span><span class="w"> </span><span class="nv">x4</span><span class="p">,</span><span class="w"> </span><span class="nv">x1</span><span class="p">,</span><span class="w"> </span><span class="nv">x2</span><span class="w"></span>
+<span class="w">    </span><span class="nf">bne</span><span class="w"> </span><span class="nv">x4</span><span class="p">,</span><span class="w"> </span><span class="nv">x3</span><span class="p">,</span><span class="w"> </span><span class="nv">fail</span><span class="w"></span>
+<span class="nl">pass:</span><span class="w"></span>
+<span class="w">    </span><span class="nf">j</span><span class="w"> </span><span class="nv">pass</span><span class="w"></span>
+<span class="nl">fail:</span><span class="w"></span>
+<span class="w">    </span><span class="nf">j</span><span class="w"> </span><span class="nv">fail</span><span class="w"></span>
+</pre></div>
+</div>
+<p>Then you compile the test and run it in the simulator, then, if you have ext/riscv-isa-sim and ext/rvls compliled, you should get the following testbench failure (as it should) :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Progress</span><span class="p">]</span> <span class="n">Start</span> <span class="n">VexiiRiscv</span> <span class="n">test</span> <span class="n">simulation</span> <span class="k">with</span> <span class="n">seed</span> <span class="mi">2</span>
+<span class="p">[</span><span class="n">Error</span><span class="p">]</span> <span class="n">Simulation</span> <span class="n">failed</span> <span class="n">at</span> <span class="n">time</span><span class="o">=</span><span class="mi">600</span>
+<span class="c1">### Stats ###</span>
+<span class="n">kind</span> <span class="p">:</span>  <span class="n">miss</span> <span class="o">/</span> <span class="n">times</span>     <span class="n">miss</span>  <span class="n">taken</span>
+<span class="n">J</span><span class="o">/</span><span class="n">B</span>  <span class="p">:</span>     <span class="mi">0</span> <span class="o">/</span>     <span class="mi">0</span>   <span class="mf">0.0</span><span class="o">%</span>   <span class="mf">0.0</span><span class="o">%</span>
+  <span class="n">B</span>  <span class="p">:</span>     <span class="mi">0</span> <span class="o">/</span>     <span class="mi">0</span>   <span class="mf">0.0</span><span class="o">%</span>   <span class="mf">0.0</span><span class="o">%</span>
+<span class="n">Dispatch</span>  <span class="mi">0</span>   <span class="p">:</span>      <span class="mi">36</span> <span class="o">/</span>      <span class="mi">44</span>  <span class="mf">81.8</span><span class="o">%</span>
+<span class="n">Dispatch</span>  <span class="mi">1</span>   <span class="p">:</span>       <span class="mi">7</span> <span class="o">/</span>      <span class="mi">44</span>  <span class="mf">15.9</span><span class="o">%</span>
+<span class="n">Candidate</span> <span class="mi">0</span>   <span class="p">:</span>      <span class="mi">36</span> <span class="o">/</span>      <span class="mi">44</span>  <span class="mf">81.8</span><span class="o">%</span>
+<span class="n">Candidate</span> <span class="mi">1</span>   <span class="p">:</span>       <span class="mi">7</span> <span class="o">/</span>      <span class="mi">44</span>  <span class="mf">15.9</span><span class="o">%</span>
+<span class="n">Dispatch</span> <span class="n">halt</span> <span class="p">:</span>       <span class="mi">0</span> <span class="o">/</span>      <span class="mi">44</span>   <span class="mf">0.0</span><span class="o">%</span>
+<span class="n">Execute</span>  <span class="n">halt</span> <span class="p">:</span>       <span class="mi">0</span> <span class="o">/</span>      <span class="mi">44</span>   <span class="mf">0.0</span><span class="o">%</span>
+<span class="n">IPC</span>           <span class="p">:</span>       <span class="mi">6</span> <span class="o">/</span>      <span class="mi">44</span>  <span class="mf">13.6</span><span class="o">%</span>
+
+<span class="ne">Exception</span> <span class="ow">in</span> <span class="n">thread</span> <span class="s2">&quot;main&quot;</span> <span class="n">java</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">Exception</span><span class="p">:</span> <span class="n">INTEGER</span> <span class="n">WRITE</span> <span class="n">MISSMATCH</span> <span class="n">DUT</span><span class="o">=</span><span class="mi">1110</span> <span class="n">REF</span><span class="o">=</span><span class="mi">110</span>
+<span class="o">..</span>
+</pre></div>
+</div>
+<p>So, the interesting thing here, is that the testbench didn't failed because we reached the fail symbol,
+but because the testbench checks what is happening on every instruction commited by the CPU and detected some bad behaviour.
+It does that by running RVLS as a golden reference, in a lockstep manner with the simulated VexiiRiscv.
+This way, as soon as any hardware bug appear in VexiiRiscv, it is automaticaly catched by the testbench, and report it as an error.
+In our case, it detected that the register file was written with 0x1110 by VexiiRiscv (Device Under Test), instead of 0x0110 by RVLS (Reference).</p>
+<p>In other words, you don't need to check that the xor instruction is executing properly by adding assembly code (bne x4, x3, fail), just executing the instruction is enough :D.
+This is very very usefull when you run for instance a simulation of VexiiRiscv booting linux. This take a lot of time (~20mn), and if the CPU is doing bad things, without this lock-step checking,
+it would be very very hard to figure out when things went bad for a few reasons :</p>
+<ul class="simple">
+<li><p>CPU bugs may not make the software crash instantly, or at all. Symptoms and causes can be very very far apparts (in time).</p></li>
+<li><p>Long simulation (ex booting linux) are about 400'000'000 cycles long, you can't save all of it in a wave, as that is way too much data.</p></li>
+</ul>
+<p>Note, if you look into simWorkspace/VexiiRiscv/test/spike.log, you can see the riscv-isa-sim logs, which gives you a better insight about what was expected :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">core</span>   <span class="mi">0</span><span class="p">:</span> <span class="mh">0x80000000</span> <span class="p">(</span><span class="mh">0x000010b7</span><span class="p">)</span> <span class="n">lui</span>     <span class="n">ra</span><span class="p">,</span> <span class="mh">0x1</span>
+<span class="n">core</span>   <span class="mi">0</span><span class="p">:</span> <span class="mi">3</span> <span class="mh">0x80000000</span> <span class="p">(</span><span class="mh">0x000010b7</span><span class="p">)</span> <span class="n">x</span> <span class="mi">1</span> <span class="mh">0x00001000</span>
+<span class="n">core</span>   <span class="mi">0</span><span class="p">:</span> <span class="mh">0x80000004</span> <span class="p">(</span><span class="mh">0x01008093</span><span class="p">)</span> <span class="n">addi</span>    <span class="n">ra</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="mi">16</span>
+<span class="n">core</span>   <span class="mi">0</span><span class="p">:</span> <span class="mi">3</span> <span class="mh">0x80000004</span> <span class="p">(</span><span class="mh">0x01008093</span><span class="p">)</span> <span class="n">x</span> <span class="mi">1</span> <span class="mh">0x00001010</span>
+<span class="n">core</span>   <span class="mi">0</span><span class="p">:</span> <span class="mh">0x80000008</span> <span class="p">(</span><span class="mh">0x00001137</span><span class="p">)</span> <span class="n">lui</span>     <span class="n">sp</span><span class="p">,</span> <span class="mh">0x1</span>
+<span class="n">core</span>   <span class="mi">0</span><span class="p">:</span> <span class="mi">3</span> <span class="mh">0x80000008</span> <span class="p">(</span><span class="mh">0x00001137</span><span class="p">)</span> <span class="n">x</span> <span class="mi">2</span> <span class="mh">0x00001000</span>
+<span class="n">core</span>   <span class="mi">0</span><span class="p">:</span> <span class="mh">0x8000000c</span> <span class="p">(</span><span class="mh">0x10010113</span><span class="p">)</span> <span class="n">addi</span>    <span class="n">sp</span><span class="p">,</span> <span class="n">sp</span><span class="p">,</span> <span class="mi">256</span>
+<span class="n">core</span>   <span class="mi">0</span><span class="p">:</span> <span class="mi">3</span> <span class="mh">0x8000000c</span> <span class="p">(</span><span class="mh">0x10010113</span><span class="p">)</span> <span class="n">x</span> <span class="mi">2</span> <span class="mh">0x00001100</span>
+<span class="n">core</span>   <span class="mi">0</span><span class="p">:</span> <span class="mh">0x80000010</span> <span class="p">(</span><span class="mh">0x11000193</span><span class="p">)</span> <span class="n">li</span>      <span class="n">gp</span><span class="p">,</span> <span class="mi">272</span>
+<span class="n">core</span>   <span class="mi">0</span><span class="p">:</span> <span class="mi">3</span> <span class="mh">0x80000010</span> <span class="p">(</span><span class="mh">0x11000193</span><span class="p">)</span> <span class="n">x</span> <span class="mi">3</span> <span class="mh">0x00000110</span>
+<span class="n">core</span>   <span class="mi">0</span><span class="p">:</span> <span class="mh">0x80000014</span> <span class="p">(</span><span class="mh">0x0020c233</span><span class="p">)</span> <span class="n">xor</span>     <span class="n">tp</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="n">sp</span>
+<span class="n">core</span>   <span class="mi">0</span><span class="p">:</span> <span class="mi">3</span> <span class="mh">0x80000014</span> <span class="p">(</span><span class="mh">0x0020c233</span><span class="p">)</span> <span class="n">x</span> <span class="mi">4</span> <span class="mh">0x00000110</span>
+</pre></div>
+</div>
+</section>
+<section id="experimenting-with-privilege-levels">
+<h3>Experimenting with privilege levels<a class="headerlink" href="#experimenting-with-privilege-levels" title="Permalink to this heading"></a></h3>
+<p>The RISC-V privileged specification specify 3 levels in which the CPU can be to execute code :</p>
+<ul class="simple">
+<li><p>Machine mode : This is privilege level which can access everything. When the CPU get out of reset, it spawn in machine mode. Typicaly the machine mode will be used to run bootloaders, bios and baremetal applications.</p></li>
+<li><p>Supervisor mode : This is the privilge mode which would be used to run operating systems/kernels which want to take advantage of the RISC-V MMU.</p></li>
+<li><p>User mode : Operating systems/kernels will typicaly use the user mode to run applications. You can see user mode as a sandbox to avoid applications to harm things around.</p></li>
+</ul>
+<p>So, the RISC-V privileged specification is very hard to read if you don't already have some good knowledge about what to expect.
+What this example aim at doing is to show you how you can navigate your CPU between privilege modes.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">.</span><span class="n">option</span> <span class="n">arch</span><span class="p">,</span> <span class="o">+</span><span class="n">zicsr</span>
+
+<span class="o">.</span><span class="k">global</span> <span class="n">_start</span>
+<span class="n">_start</span><span class="p">:</span>
+<span class="c1">#define MSTATUS_MPP_SUPERVISOR         0x00000800</span>
+<span class="c1">#define MSTATUS_MPP_USER               0x00000000</span>
+<span class="c1">#define CAUSE_ILLEGAL_INSTRUCTION 2</span>
+
+    <span class="o">//</span> <span class="n">Specify</span> <span class="n">where</span> <span class="n">the</span> <span class="n">CPU</span> <span class="n">should</span> <span class="n">jump</span> <span class="n">after</span> <span class="n">executing</span> <span class="n">the</span> <span class="n">mret</span> <span class="n">instruction</span>
+    <span class="n">la</span> <span class="n">x1</span><span class="p">,</span> <span class="n">supervisor_entry</span><span class="p">;</span> <span class="n">csrw</span> <span class="n">mepc</span><span class="p">,</span> <span class="n">x1</span>
+    <span class="o">//</span> <span class="n">Specify</span> <span class="n">where</span> <span class="n">the</span> <span class="n">CPU</span> <span class="n">should</span> <span class="n">jump</span> <span class="n">when</span> <span class="n">it</span> <span class="n">got</span> <span class="n">a</span> <span class="n">interruption</span><span class="o">/</span><span class="n">exception</span> <span class="k">for</span> <span class="n">the</span> <span class="n">machine</span> <span class="n">mode</span>
+    <span class="n">la</span> <span class="n">x1</span><span class="p">,</span> <span class="n">supervisor_exit</span><span class="p">;</span> <span class="n">csrw</span> <span class="n">mtvec</span><span class="p">,</span> <span class="n">x1</span>
+    <span class="o">//</span> <span class="n">Specify</span> <span class="n">that</span> <span class="n">the</span> <span class="n">CPU</span> <span class="n">should</span> <span class="n">go</span> <span class="ow">in</span> <span class="n">supervisor</span> <span class="n">mode</span> <span class="n">after</span> <span class="n">executing</span> <span class="n">the</span> <span class="n">mret</span> <span class="n">instruction</span>
+    <span class="n">li</span> <span class="n">x1</span><span class="p">,</span> <span class="n">MSTATUS_MPP_SUPERVISOR</span><span class="p">;</span> <span class="n">csrw</span> <span class="n">mstatus</span><span class="p">,</span> <span class="n">x1</span>
+    <span class="o">//</span> <span class="n">Engage</span> <span class="n">the</span> <span class="n">privilege</span> <span class="n">transition</span><span class="o">.</span>
+    <span class="n">mret</span>
+
+    <span class="o">//</span> <span class="n">The</span> <span class="n">CPU</span> <span class="n">should</span> <span class="n">never</span> <span class="n">reach</span> <span class="n">this</span> <span class="n">point</span>
+    <span class="n">j</span> <span class="n">fail</span>
+
+<span class="n">supervisor_entry</span><span class="p">:</span>
+    <span class="o">//</span><span class="n">Welcome</span> <span class="ow">in</span> <span class="n">supervisor</span> <span class="n">mode</span> <span class="p">:</span><span class="n">D</span>
+    <span class="n">li</span> <span class="n">x1</span><span class="p">,</span> <span class="mi">666</span>
+    <span class="o">//</span> <span class="n">Lets</span> <span class="n">run</span> <span class="n">a</span> <span class="n">illegal</span> <span class="n">instruction</span><span class="p">,</span> <span class="n">we</span> <span class="n">aren</span><span class="s1">&#39;t allowd to access machine mode CSR from supervisor mode !</span>
+    <span class="n">csrr</span> <span class="n">x1</span><span class="p">,</span> <span class="n">mepc</span>
+    <span class="o">//</span> <span class="n">We</span> <span class="n">should</span> <span class="ow">not</span> <span class="n">be</span> <span class="n">able</span> <span class="n">to</span> <span class="n">reach</span> <span class="n">this</span> <span class="n">point</span><span class="p">,</span> <span class="k">as</span> <span class="n">the</span> <span class="n">previous</span> <span class="n">instruction</span> <span class="n">whould</span> <span class="n">have</span> <span class="n">produce</span> <span class="n">a</span> <span class="n">illegal</span> <span class="n">instruction</span> <span class="n">exception</span>
+    <span class="n">j</span> <span class="n">fail</span>
+
+<span class="n">supervisor_exit</span><span class="p">:</span>
+    <span class="o">//</span> <span class="n">Welcome</span> <span class="n">back</span> <span class="ow">in</span> <span class="n">machine</span> <span class="n">mode</span> <span class="p">:</span><span class="n">D</span>
+    <span class="n">li</span> <span class="n">x1</span><span class="p">,</span> <span class="mi">42</span>
+    <span class="o">//</span> <span class="n">Lets</span> <span class="n">read</span> <span class="n">the</span> <span class="n">CSR</span> <span class="n">which</span> <span class="n">indicate</span> <span class="n">the</span> <span class="n">reason</span> <span class="n">why</span> <span class="n">we</span> <span class="n">back</span> <span class="n">to</span> <span class="n">machine</span> <span class="n">mode</span><span class="p">,</span> <span class="ow">and</span> <span class="n">check</span> <span class="n">it</span> <span class="ow">is</span> <span class="n">because</span> <span class="n">of</span> <span class="n">CAUSE_ILLEGAL_INSTRUCTION</span>
+    <span class="n">csrr</span> <span class="n">x1</span><span class="p">,</span> <span class="n">mcause</span>
+    <span class="n">li</span> <span class="n">x2</span><span class="p">,</span> <span class="n">CAUSE_ILLEGAL_INSTRUCTION</span><span class="p">;</span> <span class="n">bne</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">fail</span>
+    <span class="o">//</span> <span class="n">lets</span> <span class="n">read</span> <span class="n">which</span> <span class="n">instruction</span> <span class="p">(</span><span class="n">PC</span><span class="p">)</span> <span class="n">caused</span> <span class="n">it</span>
+    <span class="n">csrr</span> <span class="n">x1</span><span class="p">,</span> <span class="n">mcause</span>
+
+<span class="k">pass</span><span class="p">:</span>
+    <span class="n">j</span> <span class="k">pass</span>
+<span class="n">fail</span><span class="p">:</span>
+    <span class="n">j</span> <span class="n">fail</span>
+</pre></div>
+</div>
+<p>Then, compile it, but to run it in the simulation, you will need to add the <cite>--with-supervisor</cite>, as the VexiiRiscv only support machine mode by default.</p>
+<p>Here is a wave with a few key signals to figure out what the CPU is doing :</p>
+<img alt="../../_images/Screenshot-2024-12-06-20-13-17.png" src="../../_images/Screenshot-2024-12-06-20-13-17.png" />
+<p>Note the TrapPlugin_logic_harts_0_trap_fsm_stateReg_string signal, which is a special state machine in VexiiRiscv which is used to handle a few corner case, as interrupts, exceptions, replay of failed instructions, and a few other things.</p>
+<p>Also, note that ext/NaxSoftware/baremetal/driver/privileged.h contains a bunch of very usefull macro to do similar things.</p>
+</section>
+<section id="connecting-with-openocd-to-the-simulation">
+<h3>Connecting with openocd to the simulation<a class="headerlink" href="#connecting-with-openocd-to-the-simulation" title="Permalink to this heading"></a></h3>
+<p>Openocd is a tool generaly used to connect your PC to a micro-controller and debug/reprogram it through a USB to JTAG dongle.</p>
+<p>One interresting thing is that there is ways to simulate that jtag connection between openocd and the VexiiRiscv simulation by using a TCP connection. Here is how you can do it :</p>
+<p>First, install openocd (a regular version should be fine)</p>
+<p>Then, let a simulation run in one terminal with the following additional arguments <cite>--no-probe --no-rvls-check --debug-privileged --debug-jtag-tap --jtag-remote</cite>. Do not forget to remove the --trace-all, as it will create very big log files if you let it run long as well as slowing down the simulation.</p>
+<ul class="simple">
+<li><p>--no-probe : Will disable the testbench CPU inactivity watchdog (as we can stop the CPU activity totaly using the jtag)</p></li>
+<li><p>--no-rvls-check : Will disable the RVLS golden model checking, as it isn't supported with the jtag connection yet</p></li>
+<li><p>--debug-privileged : Will enable the CPU debug interface aswell as all the required special CSR (Control Status Register)</p></li>
+<li><p>--debug-jtag-tap : Will add in the CPU all the required logic to drive the CPU debug interface from a JTAG interface</p></li>
+<li><p>--jtag-remote : Will ask the testbench to implement the TCP to simulated JTAG bridge</p></li>
+</ul>
+<p>Then you can start openocd via :</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="o">(</span><span class="nb">cd</span> src/main/tcl/openocd/ <span class="o">&amp;&amp;</span> openocd -f vexiiriscv_sim.tcl<span class="o">)</span>
+</pre></div>
+</div>
+<p>This should give you the following message :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>rawrr@rawrr-pc:/media/data2/proj/vexii/VexiiRiscv$ (cd src/main/tcl/openocd/ &amp;&amp; openocd -f vexiiriscv_sim.tcl)
+Open On-Chip Debugger 0.11.0
+Licensed under GNU GPL v2
+For bug reports, read
+        http://openocd.org/doc/doxygen/bugs.html
+Info : only one transport option; autoselect &#39;jtag&#39;
+Info : set servers polling period to 400ms
+Info : Initializing remote_bitbang driver
+Info : Connecting to localhost:44853
+Info : remote_bitbang driver initialized
+Info : This adapter doesn&#39;t support configurable speed
+Info : JTAG tap: riscv.cpu tap/device found: 0x10002fff (mfg: 0x7ff (&lt;invalid&gt;), part: 0x0002, ver: 0x1)
+Info : datacount=1 progbufsize=2
+Info : Disabling abstract command reads from CSRs.
+Info : Examined RISC-V core; found 1 harts
+Info :  hart 0: XLEN=32, misa=0x40000100
+Info : starting gdb server for riscv.cpu.0 on 3333
+Info : Listening on port 3333 for gdb connections
+Ready for Remote Connections
+Info : Listening on port 6666 for tcl connections
+Info : Listening on port 4444 for telnet connections
+</pre></div>
+</div>
+<p>Meaning that the connection is successful !</p>
+<p>You can then connect to openocd in a few ways :</p>
+<ul class="simple">
+<li><p>Using GDB, which would allow you to have a fully fledge debugger</p></li>
+<li><p>Using telnet, to ask openocd to execute basic commands.</p></li>
+</ul>
+<p>The issue with GDB, for very low level debugging, is that it often has a lot of overhead/noise, even for simple tasks.
+So in general using telnet is a better first step.</p>
+<p>Here is an example of telnet connection to openocd :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">telnet</span> <span class="n">localhost</span> <span class="mi">4444</span>
+<span class="n">Trying</span> <span class="mf">127.0.0.1</span><span class="o">...</span>
+<span class="n">Connected</span> <span class="n">to</span> <span class="n">localhost</span><span class="o">.</span>
+<span class="n">Escape</span> <span class="n">character</span> <span class="ow">is</span> <span class="s1">&#39;^]&#39;</span><span class="o">.</span>
+<span class="n">Open</span> <span class="n">On</span><span class="o">-</span><span class="n">Chip</span> <span class="n">Debugger</span>
+<span class="o">&gt;</span>
+</pre></div>
+</div>
+<p>Then you can run various commands as :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="c1"># Read a 32 bits word at the address 0x80000000</span>
+<span class="n">mdw</span> <span class="mh">0x80000000</span>
+
+<span class="c1"># Write a 32 bits word (0x04200513, which is a &quot;li a0, 0x42&quot; instruction) at the address 0x80000000</span>
+<span class="n">mww</span> <span class="mh">0x80000000</span> <span class="mh">0x04200513</span>
+
+<span class="c1"># Move the CPU PC to the instruction we just wrote at 0x80000000</span>
+<span class="n">reg</span> <span class="n">pc</span> <span class="mh">0x80000000</span>
+
+<span class="c1"># Ask the CPU to execute a single instruction</span>
+<span class="n">step</span>
+
+<span class="c1"># Read the CPU PC, it should be 0x80000004</span>
+<span class="n">reg</span> <span class="n">pc</span>
+
+<span class="c1"># Read the CPU register a0, it should be 0x42 (just written by the instruction we step)</span>
+<span class="n">reg</span> <span class="n">a0</span>
+</pre></div>
+</div>
+<p>There is plenty other commands available. For instance you could load the opensbi, device tree, linux, buildroot binary files in the memory from the JTAG, and boot linux, all from the JTAG ! (maybe not in simulation, it would take too long to load the images :D)</p>
+</section>
+</section>
+<section id="c-code-hello-world-literally">
+<h2>C code &quot;hello world&quot; (literally)<a class="headerlink" href="#c-code-hello-world-literally" title="Permalink to this heading"></a></h2>
+<p>Here's a simple example how you can use C and sim_putchar for printing out stuff directly through the simulation environment, allowing you to output debug messages from within the firmware you're developing.</p>
+<section id="write-the-c-code">
+<h3>Write the C code<a class="headerlink" href="#write-the-c-code" title="Permalink to this heading"></a></h3>
+<p>So first of all, create a folder in your repository root (&quot;/work&quot; inside the Docker environment, or otherwisde simply VexiiRiscv. The folder you cloned the repository into) called &quot;mytest&quot;... basically</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> VexiiRiscv
+mkdir -p helloworld/src
+<span class="nb">cd</span> helloworld
+</pre></div>
+</div>
+<p>or in Docker</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> /work
+mkdir -p helloworld/src
+<span class="nb">cd</span> helloworld
+</pre></div>
+</div>
+<p>Create a file in src, called main.c</p>
+<p>The content of src/main.c should look like that:</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sim.h&gt;</span><span class="cp"></span>
+
+<span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span><span class="w"></span>
+<span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">        </span><span class="kt">char</span><span class="w"> </span><span class="o">*</span><span class="n">str</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="s">&quot;hello world&quot;</span><span class="p">;</span><span class="w"></span>
+<span class="w">        </span><span class="k">while</span><span class="p">(</span><span class="o">*</span><span class="n">str</span><span class="p">)</span><span class="w"> </span><span class="n">sim_putchar</span><span class="p">(</span><span class="o">*</span><span class="n">str</span><span class="o">++</span><span class="p">);</span><span class="w"></span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="compiling-the-code">
+<h3>Compiling the Code<a class="headerlink" href="#compiling-the-code" title="Permalink to this heading"></a></h3>
+<p>Now, it's time to create a GNU make file, using the NaxSoftware infrastructure,
+so that we can turn our c code into an ELF file which we can load in the simulator.</p>
+<p>In the same helloworld folder as above create a Makefile file containing the following</p>
+<div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nv">PROJ_NAME</span><span class="o">=</span>helloworld
+<span class="nv">STANDALONE</span><span class="o">=</span>../ext/NaxSoftware/baremetal
+<span class="nv">SRCS</span> <span class="o">=</span>  <span class="k">$(</span>wildcard src/*.c<span class="k">)</span> <span class="se">\</span>
+        <span class="k">$(</span>wildcard src/*.cpp<span class="k">)</span> <span class="se">\</span>
+        <span class="k">$(</span>wildcard src/*.S<span class="k">)</span> <span class="se">\</span>
+        <span class="si">${</span><span class="nv">STANDALONE</span><span class="si">}</span>/common/start.S
+<span class="cp">include ../ext/NaxSoftware/baremetal/common/app.mk</span>
+</pre></div>
+</div>
+<p>After running make in your bash shell respectively Cygwin shell (assuming you have installed everything),
+you should now be able to find a folder named &quot;build&quot;, containing a bin file, and asm file and most importantly
+the ELF and map file.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">leviathan</span><span class="nd">@harvey</span><span class="p">:</span><span class="o">~/</span><span class="n">VexiiRiscv</span><span class="o">/</span><span class="n">helloworld</span><span class="o">&gt;</span> <span class="n">make</span>
+<span class="n">CC</span> <span class="n">src</span><span class="o">/</span><span class="n">main</span><span class="o">.</span><span class="n">c</span>
+<span class="n">CC</span> <span class="o">../</span><span class="n">ext</span><span class="o">/</span><span class="n">NaxSoftware</span><span class="o">/</span><span class="n">baremetal</span><span class="o">/</span><span class="n">common</span><span class="o">/</span><span class="n">start</span><span class="o">.</span><span class="n">S</span>
+<span class="n">LD</span> <span class="n">helloworld</span>
+<span class="o">/</span><span class="n">opt</span><span class="o">/</span><span class="n">riscv</span><span class="o">/</span><span class="n">lib</span><span class="o">/</span><span class="n">gcc</span><span class="o">/</span><span class="n">riscv64</span><span class="o">-</span><span class="n">unknown</span><span class="o">-</span><span class="n">elf</span><span class="o">/</span><span class="mf">13.2.0</span><span class="o">/../../../../</span><span class="n">riscv64</span><span class="o">-</span><span class="n">unknown</span><span class="o">-</span><span class="n">elf</span><span class="o">/</span><span class="nb">bin</span><span class="o">/</span><span class="n">ld</span><span class="p">:</span> <span class="n">warning</span><span class="p">:</span> <span class="n">build</span><span class="o">/</span><span class="n">helloworld</span><span class="o">.</span><span class="n">elf</span> <span class="n">has</span> <span class="n">a</span> <span class="n">LOAD</span> <span class="n">segment</span> <span class="k">with</span> <span class="n">RWX</span> <span class="n">permissions</span>
+<span class="n">Memory</span> <span class="n">region</span>         <span class="n">Used</span> <span class="n">Size</span>  <span class="n">Region</span> <span class="n">Size</span>  <span class="o">%</span><span class="n">age</span> <span class="n">Used</span>
+             <span class="n">ram</span><span class="p">:</span>        <span class="mi">4848</span> <span class="n">B</span>       <span class="mi">256</span> <span class="n">KB</span>      <span class="mf">1.85</span><span class="o">%</span>
+<span class="n">leviathan</span><span class="nd">@harvey</span><span class="p">:</span><span class="o">~/</span><span class="n">VexiiRiscv</span><span class="o">/</span><span class="n">helloworld</span><span class="o">&gt;</span> <span class="n">ls</span>
+<span class="n">build</span>  <span class="n">Makefile</span>  <span class="n">src</span>
+<span class="n">leviathan</span><span class="nd">@harvey</span><span class="p">:</span><span class="o">~/</span><span class="n">VexiiRiscv</span><span class="o">/</span><span class="n">helloworld</span><span class="o">&gt;</span> <span class="n">ls</span> <span class="n">build</span><span class="o">/</span>
+<span class="n">helloworld</span><span class="o">.</span><span class="n">asm</span>  <span class="n">helloworld</span><span class="o">.</span><span class="n">bin</span>  <span class="n">helloworld</span><span class="o">.</span><span class="n">elf</span>  <span class="n">helloworld</span><span class="o">.</span><span class="n">map</span>  <span class="n">home</span>
+</pre></div>
+</div>
+</section>
+<section id="compilation-error">
+<h3>Compilation error<a class="headerlink" href="#compilation-error" title="Permalink to this heading"></a></h3>
+<p>There might be a compilation error going somewhat like that</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>leviathan@harvey:~/VexiiRiscv/helloworld&gt; make
+CC src/fix.S
+CC ../ext/NaxSoftware/baremetal/common/start.S
+../ext/NaxSoftware/baremetal/common/start.S: Assembler messages:
+../ext/NaxSoftware/baremetal/common/start.S:55: Error: unrecognized opcode `csrc mstatus,x1&#39;, extension `zicsr&#39; required
+../ext/NaxSoftware/baremetal/common/start.S:57: Error: unrecognized opcode `csrs mstatus,x1&#39;, extension `zicsr&#39; required
+</pre></div>
+</div>
+<p>This happens because newer builds of the RISC-V toolchain have this feature disabled by default now and you've got to manually enable it,
+which can easily be achieved by adding the following on line 1 of ext/NaxSoftware/baremetal/common/start.S</p>
+<div class="highlight-nasm notranslate"><div class="highlight"><pre><span></span><span class="nf">.option</span><span class="w"> </span><span class="nv">arch</span><span class="p">,</span><span class="w"> </span><span class="o">+</span><span class="nv">zicsr</span><span class="w"></span>
+<span class="nf">...</span><span class="w"></span>
+</pre></div>
+</div>
+</section>
+<section id="running-the-code">
+<h3>Running the code<a class="headerlink" href="#running-the-code" title="Permalink to this heading"></a></h3>
+<p>You can now use SBT in order to run the elf file in your simulation</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ..
+sbt <span class="s2">&quot;Test/runMain vexiiriscv.tester.TestBench --with-rvm --allow-bypass-from=0 --load-elf helloworld/build/helloworld.elf --trace-all --no-probe --debug-privileged --no-rvls-check&quot;</span>
+</pre></div>
+</div>
+<p>This should now print 10 times &quot;hello world&quot; on your terminal</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>leviathan@harvey:~/VexiiRiscv&gt; sbt &quot;Test/runMain vexiiriscv.tester.TestBench --with-rvm --allow-bypass-from=0 --load-elf helloworld/build/helloworld.elf --trace-all --no-probe --debug-privileged --no-rvls-check&quot;
+WARNING: An illegal reflective access operation has occurred
+WARNING: Illegal reflective access by org.jline.terminal.impl.exec.ExecTerminalProvider$ReflectionRedirectPipeCreator (file:/home/leviathan/.sbt/boot/scala-2.12.19/org.scala-sbt/sbt/1.10.0/jline-terminal-3.24.1.jar) to constructor java.lang.ProcessBuilder$RedirectPipeImpl()
+WARNING: Please consider reporting this to the maintainers of org.jline.terminal.impl.exec.ExecTerminalProvider$ReflectionRedirectPipeCreator
+WARNING: Use --illegal-access=warn to enable warnings of further illegal reflective access operations
+WARNING: All illegal access operations will be denied in a future release
+[info] welcome to sbt 1.10.0 (Oracle Corporation Java 11.0.25)
+[info] loading settings for project vexiiriscv-build from plugins.sbt ...
+[info] loading project definition from /home/leviathan/VexiiRiscv/project
+[info] loading settings for project ret from build.sbt ...
+[info] loading settings for project spinalhdl-build from plugin.sbt ...
+[info] loading project definition from /home/leviathan/VexiiRiscv/ext/SpinalHDL/project
+[info] loading settings for project all from build.sbt ...
+[info] set current project to VexiiRiscv (in build file:/home/leviathan/VexiiRiscv/)
+[info] running (fork) vexiiriscv.tester.TestBench --with-rvm --allow-bypass-from=0 --load-elf helloworld/build/helloworld.elf --trace-all --no-probe --debug-privileged --no-rvls-check
+[info] With Vexiiriscv parm :
+[info]  - rv32im_d1At1_l1_disAt1_rfsDp_fclF0dw32_lsuP0F0dw32_bp0_rsrc_d2Area_pdbg
+[info] [Runtime] SpinalHDL dev    git head : 4ea15953aa8a888e636e4ae5d7445770f2e0e73c
+[info] [Runtime] JVM max memory : 1826.0MiB
+[info] [Runtime] Current date : 2024.12.05 20:01:11
+[info] [Progress] at 0.000 : Elaborate components
+[info] [Progress] at 1.790 : Checks and transforms
+[info] [Progress] at 2.290 : Generate Verilog to ./simWorkspace/tmp/job_1
+[info] [Warning] toplevel/FetchCachelessPlugin_logic_buffer_words : Mem[2*33 bits].readAsync can only be write first into Verilog
+[info] [Warning] 546 signals were pruned. You can call printPruned on the backend report to get more informations.
+[info] [Done] at 2.555
+[info] [Progress] Simulation workspace in /home/leviathan/VexiiRiscv/./simWorkspace/VexiiRiscv
+[info] [Progress] Verilator compilation started
+[info] [info] Found cached verilator binaries
+[info] [Progress] Verilator compilation done in 632.813 ms
+[info] [Progress] Start VexiiRiscv test simulation with seed 2
+[info] hello world
+[info] hello world
+[info] hello world
+[info] hello world
+[info] hello world
+[info] hello world
+[info] hello world
+[info] hello world
+[info] hello world
+[info] hello world
+</pre></div>
+</div>
+</section>
 </section>
 </section>
 
@@ -457,8 +915,8 @@ make the process stop and the container terminate</p>
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../Introduction/index.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../Framework/index.html" class="btn btn-neutral float-right" title="Framework" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../HowToUse/index.html" class="btn btn-neutral float-left" title="How to use" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../Docker/index.html" class="btn btn-neutral float-right" title="Ready made Docker environment" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -475,7 +933,7 @@ make the process stop and the container terminate</p>
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~667cb54 2024-12-04
+    Version: master git~adc4368 2024-12-06
     </p></div>
     
 

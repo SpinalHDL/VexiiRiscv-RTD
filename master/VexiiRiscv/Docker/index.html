@@ -1,0 +1,555 @@
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" >
+<head>
+  <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ready made Docker environment &mdash; VexiiRiscv  documentation</title>
+      <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/gh-fork-ribbon.css" type="text/css" />
+      <link rel="stylesheet" href="../../_static/vexiiriscv.css" type="text/css" />
+    <link rel="shortcut icon" href="../../_static/logo3_32x32.png"/>
+    <link rel="canonical" href="https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Docker/index.html" />
+  <!--[if lt IE 9]>
+    <script src="../../_static/js/html5shiv.min.js"></script>
+  <![endif]-->
+  
+        <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+        <script src="../../_static/jquery.js"></script>
+        <script src="../../_static/underscore.js"></script>
+        <script src="../../_static/_sphinx_javascript_frameworks_compat.js"></script>
+        <script src="../../_static/doctools.js"></script>
+        <script src="../../_static/sphinx_highlight.js"></script>
+        <script src="../../_static/clipboard.min.js"></script>
+        <script src="../../_static/copybutton.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/wavedrom/2.6.8/skins/default.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/wavedrom/2.6.8/wavedrom.min.js"></script>
+        <script src="../../_static/dialog.js"></script>
+    <script src="../../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="Framework" href="../Framework/index.html" />
+    <link rel="prev" title="Self Contained Tutorial" href="../Tutorial/index.html" />
+     
+    <!-- source/_templates/layout.html -->
+    
+    
+    
+
+</head>
+
+<body class="wy-body-for-nav">
+     
+    
+    
+    
+    <div class="div-svg-github-corner github-corner-abs">
+    <a href="https://github.com/SpinalHDL/VexiiRiscv-RTD/blob/master/source/VexiiRiscv/Docker/index.rst" class="github-corner github-fork-ribbon" aria-label="Edit on GitHub" data-ribbon="Edit on GitHub" title="Edit on GitHub">
+      <object id="svg-github-corner" data="../../_static/github-corner-right.svg" class="svg-github-corner github-corner-abs" width="80" height="80"></object>
+    </a>
+    </div>
+    
+    
+    
+
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../../index.html" class="icon icon-home">
+            VexiiRiscv
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="../Introduction/index.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#other-doc-media-talks">Other doc / media / talks</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#technicalities">Technicalities</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#navigating-the-code">Navigating the code</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#about-risc-v">About RISC-V</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#about-vexriscv-not-vexiiriscv">About VexRiscv (not VexiiRiscv)</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#check-list">Check list</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../HowToUse/index.html">How to use</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#environment-dependencies">Environment (Dependencies)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../HowToUse/index.html#docker-container">Docker Container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../HowToUse/index.html#setup-dependencies">Setup dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../HowToUse/index.html#repo-setup">Repo setup</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#generate-verilog">Generate verilog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#run-a-simulation">Run a simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#synthesis">Synthesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#other-resources">Other resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#using-intellij-idea">Using IntelliJ IDEA</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../HowToUse/index.html#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../HowToUse/index.html#known-issues">Known issues</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../HowToUse/index.html#using-konata">Using Konata</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Tutorial/index.html">Self Contained Tutorial</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial/index.html#tooling">Tooling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial/index.html#assembler">Assembler</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#looking-at-examples">Looking at examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#write-the-assembler-code">Write the assembler code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#build-the-assembler-code">Build the assembler Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#initial-run-error">Initial run (Error)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#fixing-the-error">Fixing the Error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#the-assembler-hello-world">The assembler &quot;hello world&quot;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#looking-at-the-pipeline">Looking at the pipeline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#enabling-branch-prediction">Enabling branch prediction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#looking-at-the-waveform">Looking at the waveform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#introducing-a-bug">Introducing a bug</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#experimenting-with-privilege-levels">Experimenting with privilege levels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#connecting-with-openocd-to-the-simulation">Connecting with openocd to the simulation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial/index.html#c-code-hello-world-literally">C code &quot;hello world&quot; (literally)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#write-the-c-code">Write the C code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#compiling-the-code">Compiling the Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#compilation-error">Compilation error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#running-the-code">Running the code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Ready made Docker environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#linux-and-macos-x">Linux and MacOS X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#windows">Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#generating-the-verilog">Generating the verilog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#running-a-simulation">Running a simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#opening-the-traces-with-gtkwave">Opening the traces with GTKWave</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#opening-the-traces-with-konata">Opening the traces with Konata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#opening-intellij-idea">Opening Intellij IDEA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#shutting-down-the-container">Shutting down the Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-the-build-environment">Using the build environment</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Framework/index.html">Framework</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#tools-and-api">Tools and API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#scala-spinalhdl">Scala / SpinalHDL</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#plugin-fiber-retainer">Plugin / Fiber / Retainer</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#simple-all-in-one-example">Simple all-in-one example</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Framework/index.html#negotiation-example">Negotiation example</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#database">Database</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#pipeline-api">Pipeline API</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Fetch/index.html">Fetch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#fetchpipelineplugin">FetchPipelinePlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#pcplugin">PcPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#fetchcachelessplugin">FetchCachelessPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#fetchl1plugin">FetchL1Plugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#prefetchernextlineplugin">PrefetcherNextLinePlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#btbplugin">BtbPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#gshareplugin">GSharePlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Fetch/index.html#historyplugin">HistoryPlugin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Decode/index.html">Decode</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#decodepipelineplugin">DecodePipelinePlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#alignerplugin">AlignerPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#decoderplugin">DecoderPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Decode/index.html#dispatchplugin">DispatchPlugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Decode/index.html#architecture">Architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Decode/index.html#elaboration">Elaboration</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Execute/index.html">Execute</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/introduction.html">Introduction</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/plugins.html">Plugins</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/plugins.html#infrastructures">Infrastructures</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#executepipelineplugin">ExecutePipelinePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#executelaneplugin">ExecuteLanePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#regfileplugin">RegFilePlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#srcplugin">SrcPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#rsunsignedplugin">RsUnsignedPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#intformatplugin">IntFormatPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#writebackplugin">WriteBackPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#learnplugin">LearnPlugin</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/plugins.html#instructions">Instructions</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#intaluplugin">IntAluPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#barrelshifterplugin">BarrelShifterPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#branchplugin">BranchPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#mulplugin">MulPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#divplugin">DivPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#lsucachelessplugin">LsuCachelessPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#lsuplugin">LsuPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#csraccessplugin">CsrAccessPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/plugins.html#envplugin">EnvPlugin</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/custom.html">Custom instruction</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/custom.html#simd-add">SIMD add</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/custom.html#plugin-implementation">Plugin implementation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/custom.html#vexiiriscv-generation">VexiiRiscv generation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/custom.html#software-test">Software test</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/custom.html#simulation">Simulation</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Execute/custom.html#conclusion">Conclusion</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Execute/fpu.html">FPU</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/fpu.html#plugins-architecture">Plugins architecture</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/fpu.html#area-timings-options">Area / Timings options</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Execute/fpu.html#optimized-software">Optimized software</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../BranchPrediction/index.html">Branch</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#btbplugin">BtbPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#gshareplugin">GSharePlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#decodeplugin">DecodePlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#branchplugin">BranchPlugin</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#learnplugin">LearnPlugin</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Memory/index.html">Memory (LSU)</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Memory/index.html#without-l1">Without L1</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Memory/index.html#with-l1">With L1</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Memory/index.html#prefetching">Prefetching</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Memory/index.html#prefetchrptplugin">PrefetchRptPlugin</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Memory/index.html#performance-measurements">performance measurements</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="../Memory/index.html#hardware-memory-coherency">Hardware Memory coherency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Memory/index.html#memory-system">Memory system</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="../Memory/index.html#why-tilelink">Why Tilelink</a></li>
+<li class="toctree-l4"><a class="reference internal" href="../Memory/index.html#efficiency-cookbook">Efficiency cookbook</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Privileges/index.html">Privileges</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Privileges/index.html#csraccessplugin">CsrAccessPlugin</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#privilegedplugin">PrivilegedPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#csrramplugin">CsrRamPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#trapplugin">TrapPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#performancecounterplugin">PerformanceCounterPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#envplugin">EnvPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#mmuplugin">MmuPlugin</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Privileges/index.html#pmpplugin">PmpPlugin</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Debug/index.html">Debug support</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Debug/index.html#architecture">Architecture</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Debug/index.html#embeddedriscvjtag">EmbeddedRiscvJtag</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Performance/index.html">Performance / Area / FMax</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Performance/index.html#tuning">Tuning</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Performance/index.html#critical-paths-tool">Critical paths tool</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Soc/index.html">SoC</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Soc/microsoc.html">MicroSoc</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Soc/microsoc.html#verilog-generation">Verilog generation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Soc/microsoc.html#simulation-spinalsim-verilator">Simulation (SpinalSim / Verilator)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Soc/microsoc.html#adding-a-custom-peripheral">Adding a custom peripheral</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Soc/microsoc.html#exporting-an-apb3-bus-to-the-toplevel">Exporting an APB3 bus to the toplevel</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Soc/microsoc.html#adding-a-custom-instruction">Adding a custom instruction</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Soc/litex.html">Litex</a></li>
+</ul>
+</li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../../index.html">VexiiRiscv</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Ready made Docker environment</li>
+      <li class="wy-breadcrumbs-aside">
+              <a href="https://github.com/SpinalHDL/VexiiRiscv-RTD/blob/master/source/VexiiRiscv/Docker/index.rst" class="fa fa-github"> Edit on GitHub</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             <dialog id="doc-dialog-version" role="dialog" class="collapse-once" aria-modal="false" data-default-state="close" data-current-version="master" data-latest-version="master">
+<p class="doc-version-warning-banner">
+  <strong>
+    
+    You're reading an pre-release version of this documentation.<br/>
+    For the latest stable release version, please have a look at <a href="index.html">master</a>.
+    
+  </strong>
+  <div>
+    <form>
+      <button formmethod="dialog" type="submit" class="doc-dialog-dismiss" aria-label="close">Dismiss</button>
+    </form>
+  </div>
+</p>
+</dialog>
+
+
+
+
+  <section id="ready-made-docker-environment">
+<h1>Ready made Docker environment<a class="headerlink" href="#ready-made-docker-environment" title="Permalink to this heading"></a></h1>
+<p>This self contained tutorial will show you how to pull a Docker container with all the
+dependencies preinstalled so that you can start right away without having to compile any
+of the dependencies from scratch.</p>
+<p>Simply pull the Docker image from the Docker hub and get started.</p>
+<p>The scope of this tutorial is:</p>
+<ul class="simple">
+<li><p>Fetching the Docker image</p></li>
+<li><p>Generating the verilog</p></li>
+<li><p>Running a simulation</p></li>
+<li><p>Opening the traces (gtkwave + konata)</p></li>
+</ul>
+<p><strong>Important</strong></p>
+<p>Starting the Docker image might take much longer, when your own user owning the folder
+where you cloned the repo to doesn't have the same uid as the ubuntu user inside the
+Docker container! The uid of the ubuntu user is 1000</p>
+<section id="linux-and-macos-x">
+<h2>Linux and MacOS X<a class="headerlink" href="#linux-and-macos-x" title="Permalink to this heading"></a></h2>
+<p>There's a bash script called run_docker.sh which automatically pulls the most
+recent Docker image, starts it and then launches a VNC viewer.</p>
+<p>Just make sure that you have Tiger VNC, bash and of course Docker installed
+and that the Docker demon is running.</p>
+<p>Then you can simply run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run_docker.sh
+</pre></div>
+</div>
+<p>After the image has been fetched and the virtual X server has started you should
+be greated with an XFCE4 desktop in a VNC viewer</p>
+</section>
+<section id="windows">
+<h2>Windows<a class="headerlink" href="#windows" title="Permalink to this heading"></a></h2>
+<p>Windows is a bit trickier, but similar as what we do on Linux and Mac</p>
+<p>In the Power Shell, first fetch the Docker image, then start it as demon and check
+with the inspect command what the IP of the container is.</p>
+<p>After that, you should be able to connect with a VNC client.</p>
+<p>TigerVNC also exists for Windows: <a class="reference external" href="https://sourceforge.net/projects/tigervnc">https://sourceforge.net/projects/tigervnc</a></p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker.exe pull leviathanch/vexiiriscv
+docker.exe run -v <span class="sb">`</span><span class="nb">pwd</span><span class="sb">`</span>:/work --privileged<span class="o">=</span><span class="nb">true</span> -idt leviathanch/vexiiriscv
+</pre></div>
+</div>
+<p>After that, run the inspect command with the container ID docker returns when starting
+the image as a demonized process.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker.ext inspect -f <span class="s1">&#39;{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}&#39;</span> <span class="nv">$container_id</span>
+</pre></div>
+</div>
+<p>Next run the Tiger VNC vncviewer</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>vncviewer.exe <span class="nv">$ip</span>
+</pre></div>
+</div>
+</section>
+<section id="generating-the-verilog">
+<h2>Generating the verilog<a class="headerlink" href="#generating-the-verilog" title="Permalink to this heading"></a></h2>
+<p>First open the terminal by clicking the terminal icon as shown below</p>
+<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_152813.png"><img alt="Shell Icon" src="../../_images/Screenshot_20241203_152813.png" style="width: 400px;" /></a>
+<p>As soon as you've started the Docker container as shown above you can obtain the Verilog
+code by simply running the following command from within the terminal.</p>
+<p>Make sure however that you're in the proper folder</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~/generate_verilog.sh
+</pre></div>
+</div>
+<p>Take care that the path is correct, then press enter</p>
+<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_165329.png"><img alt="Generate Command" src="../../_images/Screenshot_20241203_165329.png" style="width: 400px;" /></a>
+<p>This script simply contains the following command:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+sbt <span class="s2">&quot;Test/runMain vexiiriscv.Generate&quot;</span>
+</pre></div>
+</div>
+<p>After it has been running through, you should now have a file called &quot;VexiiRiscv.v&quot;
+right there in your source folder</p>
+<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_152940.png"><img alt="Generation Result" src="../../_images/Screenshot_20241203_152940.png" style="width: 400px;" /></a>
+</section>
+<section id="running-a-simulation">
+<h2>Running a simulation<a class="headerlink" href="#running-a-simulation" title="Permalink to this heading"></a></h2>
+<p>Running a simulation also is straight forward, in the same shell as you used for generating
+the Verilog code.</p>
+<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_165608.png"><img alt="Run simulation" src="../../_images/Screenshot_20241203_165608.png" style="width: 400px;" /></a>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>~/run_simulation.sh
+</pre></div>
+</div>
+<p>This readily available script contains the simple command</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+sbt <span class="s2">&quot;Test/runMain vexiiriscv.tester.TestBench --with-mul --with-div --load-elf ext/NaxSoftware/baremetal/dhrystone/build/rv32ima/dhrystone.elf --trace-all&quot;</span>
+</pre></div>
+</div>
+<p>This will run through for a moment, and should look like this, finishing without errors</p>
+<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_165858.png"><img alt="Run simulation" src="../../_images/Screenshot_20241203_165858.png" style="width: 400px;" /></a>
+<p>After the simulation has run through, you should now have a wave file in simWorkspace/VexiiRiscv/test/</p>
+</section>
+<section id="opening-the-traces-with-gtkwave">
+<h2>Opening the traces with GTKWave<a class="headerlink" href="#opening-the-traces-with-gtkwave" title="Permalink to this heading"></a></h2>
+<p>You can convert the wave file from the simulation into the VCD format and view it by opening
+it with GTKWve, which is already installed in the Docker image.</p>
+<p>To do so, simply run in the shell</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>gtkwave simWorkspace/VexiiRiscv/test/wave.fst
+</pre></div>
+</div>
+<p>This will start GTKWave.</p>
+<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_170009.png"><img alt="Start GTKWave" src="../../_images/Screenshot_20241203_170009.png" style="width: 400px;" /></a>
+<p>You can now select signal lines and add them to the viewer</p>
+<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_170056.png"><img alt="GTKWave open" src="../../_images/Screenshot_20241203_170056.png" style="width: 400px;" /></a>
+</section>
+<section id="opening-the-traces-with-konata">
+<h2>Opening the traces with Konata<a class="headerlink" href="#opening-the-traces-with-konata" title="Permalink to this heading"></a></h2>
+<p>In order to visualize the instruction pipeline, you may wanna open Konata.
+For doing so, click on the Konata icon</p>
+<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_151217.png"><img alt="Konata Icon" src="../../_images/Screenshot_20241203_151217.png" style="width: 400px;" /></a>
+<p>Next load the konata log by going into the folder as shown in the picture</p>
+<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_151018.png"><img alt="Load konata log" src="../../_images/Screenshot_20241203_151018.png" style="width: 400px;" /></a>
+<p>You should be greated with a colorful representation of the instructions
+in the RISC-V pipeline during boot up</p>
+<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_151124.png"><img alt="Pipeline visualization" src="../../_images/Screenshot_20241203_151124.png" style="width: 400px;" /></a>
+</section>
+<section id="opening-intellij-idea">
+<h2>Opening Intellij IDEA<a class="headerlink" href="#opening-intellij-idea" title="Permalink to this heading"></a></h2>
+<p>First click onto the Intellij IDEA icon</p>
+<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_153149.png"><img alt="Intellij IDEA: Icon" src="../../_images/Screenshot_20241203_153149.png" style="width: 400px;" /></a>
+<p>Accept the terms and conditions</p>
+<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_153048.png"><img alt="Intellij IDEA: Terms and conditions" src="../../_images/Screenshot_20241203_153048.png" style="width: 400px;" /></a>
+<p>We don't send data</p>
+<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_163222.png"><img alt="Intellij IDEA: No telemetry" src="../../_images/Screenshot_20241203_163222.png" style="width: 400px;" /></a>
+<p>Load the VexiiRiscv project</p>
+<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_153226.png"><img alt="Intellij IDEA: New projects" src="../../_images/Screenshot_20241203_153226.png" style="width: 400px;" /></a>
+<p>Enter the folder where your cloned repo is mounted to from outside, which is
+configured to be /work.</p>
+<p>Then press OK</p>
+<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_163411.png"><img alt="Intellij IDEA: Load Project" src="../../_images/Screenshot_20241203_163411.png" style="width: 400px;" /></a>
+<p>Confirm that you trust the project</p>
+<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_163438.png"><img alt="Intellij IDEA: Trust project" src="../../_images/Screenshot_20241203_163438.png" style="width: 400px;" /></a>
+<p>After that it will take a while until the entire project has been loaded
+and indexed. Make a cup of coffee or tea in the meanwhile.</p>
+</section>
+<section id="shutting-down-the-container">
+<h2>Shutting down the Container<a class="headerlink" href="#shutting-down-the-container" title="Permalink to this heading"></a></h2>
+<p>In order to shut down the container, simply logout from XFCE4 which will
+make the process stop and the container terminate</p>
+<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_153436.png"><img alt="Logout" src="../../_images/Screenshot_20241203_153436.png" style="width: 400px;" /></a>
+<p>Confirm that you wanna log out</p>
+<a class="reference internal image-reference" href="../../_images/Screenshot_20241203_164155.png"><img alt="Confirm Logout" src="../../_images/Screenshot_20241203_164155.png" style="width: 400px;" /></a>
+</section>
+<section id="using-the-build-environment">
+<h2>Using the build environment<a class="headerlink" href="#using-the-build-environment" title="Permalink to this heading"></a></h2>
+<p>Now that your build environment is up and running and you've got Intellij running as well as are familiar with the shell, you can now take your first dive into modifying the configurations and generating and testing your own modified version of the VexiiRiscv</p>
+<p>Here are some ideas of things to try:</p>
+<ul class="simple">
+<li><p>How to add a custom instruction and how to test it:
+<a class="reference external" href="https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Execute/custom.html">https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Execute/custom.html</a></p></li>
+<li><p>How to add that custom instruction the MicroSoc:
+<a class="reference external" href="https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Soc/microsoc.html#adding-a-custom-instruction">https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Soc/microsoc.html#adding-a-custom-instruction</a></p></li>
+<li><p>How to export an APB3 bus from the MicroSoc toplevel:
+<a class="reference external" href="https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Soc/microsoc.html#exporting-an-apb3-bus-to-the-toplevel">https://spinalhdl.github.io/VexiiRiscv-RTD/master/VexiiRiscv/Soc/microsoc.html#exporting-an-apb3-bus-to-the-toplevel</a></p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/javascript">
+        function init() {
+            WaveDrom.ProcessAll();
+        }
+        window.onload = init;
+    </script>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../Tutorial/index.html" class="btn btn-neutral float-left" title="Self Contained Tutorial" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../Framework/index.html" class="btn btn-neutral float-right" title="Framework" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2023 - 2024, VexiiRiscv.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+  
+     
+    <!-- source/_templates/footer.html -->
+    
+    <div class="doc-footer-current-version"><p>
+    Version: master git~adc4368 2024-12-06
+    </p></div>
+    
+
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  
+<div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+  <span class="rst-current-version" data-toggle="rst-current-version">
+    <span class="fa fa-book"> Other Versions</span>
+    v: master
+    <span class="fa fa-caret-down"></span>
+  </span>
+  <div class="rst-other-versions">
+    <dl>
+       <dt>Languages</dt>
+       <dd class="rtd-current-item">
+         <a href="#">en</a>
+       </dd>
+    </dl>
+    <dl>
+      <dt>Branches</dt>
+      <dd><a href="index.html">master</a></dd>
+    </dl>
+    <dl>
+      <dt>Downloads</dt>
+      <dd><a href="../../artefacts/VexiiRiscv_docs-master.">HTML</a></dd>
+      <dd><a href="../../artefacts/VexiiRiscv_docs-master-SingleHTML.zip">SingleHTML</a></dd>
+      <dd><a href="../../artefacts/VexiiRiscv_docs-master.pdf">PDF</a></dd>
+    </dl>
+  </div>
+</div><script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>

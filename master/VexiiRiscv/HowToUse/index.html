@@ -31,8 +31,8 @@
     <script src="../../_static/js/theme.js"></script>
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" />
-    <link rel="next" title="Performance / Area / FMax" href="../Performance/index.html" />
-    <link rel="prev" title="Debug support" href="../Debug/index.html" />
+    <link rel="next" title="Self Contained Tutorial" href="../Tutorial/index.html" />
+    <link rel="prev" title="Introduction" href="../Introduction/index.html" />
      
     <!-- source/_templates/layout.html -->
     
@@ -83,16 +83,61 @@
 <li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#check-list">Check list</a></li>
 </ul>
 </li>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">How to use</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#environment-dependencies">Environment (Dependencies)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#docker-container">Docker Container</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#setup-dependencies">Setup dependencies</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#repo-setup">Repo setup</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#generate-verilog">Generate verilog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#run-a-simulation">Run a simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#synthesis">Synthesis</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#other-resources">Other resources</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#using-intellij-idea">Using IntelliJ IDEA</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#setup">Setup</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#known-issues">Known issues</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#using-konata">Using Konata</a></li>
+</ul>
+</li>
 <li class="toctree-l1"><a class="reference internal" href="../Tutorial/index.html">Self Contained Tutorial</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="../Tutorial/index.html#linux-and-macos-x">Linux and MacOS X</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Tutorial/index.html#windows">Windows</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Tutorial/index.html#generating-the-verilog">Generating the verilog</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Tutorial/index.html#running-a-simulation">Running a simulation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Tutorial/index.html#opening-the-traces-with-gtkwave">Opening the traces with GTKWave</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Tutorial/index.html#opening-the-traces-with-konata">Opening the traces with Konata</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Tutorial/index.html#opening-intellij-idea">Opening Intellij IDEA</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Tutorial/index.html#shutting-down-the-container">Shutting down the Container</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Tutorial/index.html#using-the-build-environment">Using the build environment</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial/index.html#tooling">Tooling</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial/index.html#assembler">Assembler</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#looking-at-examples">Looking at examples</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#write-the-assembler-code">Write the assembler code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#build-the-assembler-code">Build the assembler Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#initial-run-error">Initial run (Error)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#fixing-the-error">Fixing the Error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#the-assembler-hello-world">The assembler &quot;hello world&quot;</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#looking-at-the-pipeline">Looking at the pipeline</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#enabling-branch-prediction">Enabling branch prediction</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#looking-at-the-waveform">Looking at the waveform</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#introducing-a-bug">Introducing a bug</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#experimenting-with-privilege-levels">Experimenting with privilege levels</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#connecting-with-openocd-to-the-simulation">Connecting with openocd to the simulation</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../Tutorial/index.html#c-code-hello-world-literally">C code &quot;hello world&quot; (literally)</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#write-the-c-code">Write the C code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#compiling-the-code">Compiling the Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#compilation-error">Compilation error</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Tutorial/index.html#running-the-code">Running the code</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="../Docker/index.html">Ready made Docker environment</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="../Docker/index.html#linux-and-macos-x">Linux and MacOS X</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Docker/index.html#windows">Windows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Docker/index.html#generating-the-verilog">Generating the verilog</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Docker/index.html#running-a-simulation">Running a simulation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Docker/index.html#opening-the-traces-with-gtkwave">Opening the traces with GTKWave</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Docker/index.html#opening-the-traces-with-konata">Opening the traces with Konata</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Docker/index.html#opening-intellij-idea">Opening Intellij IDEA</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Docker/index.html#shutting-down-the-container">Shutting down the Container</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Docker/index.html#using-the-build-environment">Using the build environment</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Framework/index.html">Framework</a><ul>
@@ -220,16 +265,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../Debug/index.html#embeddedriscvjtag">EmbeddedRiscvJtag</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">How to use</a><ul>
-<li class="toctree-l2"><a class="reference internal" href="#docker-container">Docker Container</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#compilation">Compilation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#generate-verilog">Generate verilog</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#run-a-simulation">Run a simulation</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#synthesis">Synthesis</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#other-resources">Other resources</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#using-intellij-idea">Using IntelliJ IDEA</a></li>
-</ul>
-</li>
 <li class="toctree-l1"><a class="reference internal" href="../Performance/index.html">Performance / Area / FMax</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="../Performance/index.html#tuning">Tuning</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Performance/index.html#critical-paths-tool">Critical paths tool</a></li>
@@ -295,18 +330,8 @@
 <h1>How to use<a class="headerlink" href="#how-to-use" title="Permalink to this heading"></a></h1>
 <p>For getting started you have two options.</p>
 <p>Either you compile it from scratch or you use our Docker container which provides all the dependencies readily installed.</p>
-<section id="docker-container">
-<h2>Docker Container<a class="headerlink" href="#docker-container" title="Permalink to this heading"></a></h2>
-<p>Probably the easiest way to get started:</p>
-<p>Simply run</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run_docker.sh
-</pre></div>
-</div>
-<p>Refer to the self contained tutorial for further instructions</p>
-</section>
-<section id="compilation">
-<h2>Compilation<a class="headerlink" href="#compilation" title="Permalink to this heading"></a></h2>
-<p><strong>Dependencies</strong></p>
+<section id="environment-dependencies">
+<h2>Environment (Dependencies)<a class="headerlink" href="#environment-dependencies" title="Permalink to this heading"></a></h2>
 <p>You will need :</p>
 <ul class="simple">
 <li><p>A java JDK</p></li>
@@ -315,23 +340,41 @@
 <li><p>RVLS / Spike dependencies (optional, if you want to have lock-step simulations checking)</p></li>
 <li><p>GCC for RISC-V (optional, if you want to compile some code)</p></li>
 </ul>
-<p>On debian :</p>
-<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># JAVA JDK</span>
-sudo add-apt-repository -y ppa:openjdk-r/ppa
-sudo apt-get update
-sudo apt-get install openjdk-19-jdk -y <span class="c1"># You don&#39;t exactly need that version</span>
-sudo update-alternatives --config java
-sudo update-alternatives --config javac
-
-<span class="c1"># Install SBT - https://www.scala-sbt.org/</span>
-<span class="nb">echo</span> <span class="s2">&quot;deb https://repo.scala-sbt.org/scalasbt/debian all main&quot;</span> <span class="p">|</span> sudo tee /etc/apt/sources.list.d/sbt.list
-<span class="nb">echo</span> <span class="s2">&quot;deb https://repo.scala-sbt.org/scalasbt/debian /&quot;</span> <span class="p">|</span> sudo tee /etc/apt/sources.list.d/sbt_old.list
-curl -sL <span class="s2">&quot;https://keyserver.ubuntu.com/pks/lookup?op=get&amp;search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823&quot;</span> <span class="p">|</span> sudo apt-key add
-sudo apt-get update
-sudo apt-get install sbt
-
-<span class="c1"># Verilator (optional, for simulations)</span>
-sudo apt-get install git make autoconf g++ flex bison help2man
+<section id="docker-container">
+<h3>Docker Container<a class="headerlink" href="#docker-container" title="Permalink to this heading"></a></h3>
+<p>Probably the easiest way to get started:</p>
+<p>Simply run</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>./run_docker.sh
+</pre></div>
+</div>
+<p>Refer to the chapter about the ready made Docker container, in order to get a step by step
+guide on how to get started with the XFCE4 desktop and the tools provided in the installation.</p>
+</section>
+<section id="setup-dependencies">
+<h3>Setup dependencies<a class="headerlink" href="#setup-dependencies" title="Permalink to this heading"></a></h3>
+<p>Setting the tools up locally on your machine is a bit more work than just starting a Docker
+container, but speeds up things a lot because there's no virtual environment anymore.</p>
+<p><strong>For Windows Users</strong>
+In order to build RISC-V 64 toolchain you require GCC, so you will have to download Cygwin: <a class="reference external" href="https://www.cygwin.com">https://www.cygwin.com</a></p>
+<p>You should be able to install the latest GCC, as well as GIT for cloning repositories following this article:
+<a class="reference external" href="https://preshing.com/20141108/how-to-install-the-latest-gcc-on-windows">https://preshing.com/20141108/how-to-install-the-latest-gcc-on-windows</a></p>
+<p><strong>For Linux and Mac users</strong>
+You can get the RISC-V toolchain directly from</p>
+<ul class="simple">
+<li><p><strong>Java</strong>
+* On Linux, simply install the most recent openjdk-&lt;version available&gt;-jdk, using your package manager.
+* On MacOS you can either install openjdk with brew or download it from the official Oracle Java website
+* On Windows, you'll have to build <a class="reference external" href="https://www.royvanrijn.com/blog/2013/10/building-openjdk-on-windows">https://www.royvanrijn.com/blog/2013/10/building-openjdk-on-windows</a>) Java yourself within Cygwin</p></li>
+<li><p><strong>SBT</strong>
+Go to the release page of SBT (<a class="reference external" href="https://github.com/sbt/sbt/releases">https://github.com/sbt/sbt/releases</a>)
+Just download the tar xvf the tar file in your home directory and add $HOME/sbt/bin
+to your search path (PATH).</p></li>
+</ul>
+<p><strong>Compiling and installing Verilator</strong></p>
+<p>In case the package manager of your platform provides the current Verilator as a precompiled package,
+you can just install Verilator with you package manager, like apt-get, zypper or brew install.</p>
+<p>In case you're on Windows or an old Debian, you'll have to compile it from the sources yourself, however.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>sudo apt-get install git make autoconf g++ flex bison help2man
 git clone https://github.com/verilator/verilator
 unsetenv VERILATOR_ROOT  <span class="c1"># For csh; ignore error if on bash</span>
 <span class="nb">unset</span> VERILATOR_ROOT  <span class="c1"># For bash</span>
@@ -342,8 +385,11 @@ autoconf        <span class="c1"># Create ./configure script</span>
 ./configure
 make
 sudo make install
-
-<span class="c1"># RVLS / Spike dependencies (optional, for simulations)</span>
+</pre></div>
+</div>
+<p><strong>Compiling and installing ELFIO</strong></p>
+<p>Some essential headers, you'll have to install yourself on every platform basically.</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># RVLS / Spike dependencies (optional, for simulations)</span>
 sudo apt-get install device-tree-compiler libboost-all-dev
 <span class="c1"># Install ELFIO, used to load elf file in the sim</span>
 git clone https://github.com/serge1/ELFIO.git
@@ -351,8 +397,23 @@ git clone https://github.com/serge1/ELFIO.git
 git checkout d251da09a07dff40af0b63b8f6c8ae71d2d1938d <span class="c1"># Avoid C++17</span>
 sudo cp -R elfio /usr/include
 <span class="nb">cd</span> .. <span class="o">&amp;&amp;</span> rm -rf ELFIO
-
-<span class="c1"># Getting a RISC-V toolchain (optional, if you want to compile RISC-V software)</span>
+</pre></div>
+</div>
+<p><strong>Compiling and installing the RISC-V toolchain</strong></p>
+<p>On MacOS and Windows, at least, you will have to compile the toolchain yourself from scratch
+in the terminal of your MacOS or the Cygwin shell alternatively, if you're under Windows</p>
+<p>(The make command will automatically make sure to check init and update any submodules needed
+for building the toolchain, so no recursive flag is needed. I didn't forget to add it)</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/riscv/riscv-gnu-toolchain
+<span class="nb">cd</span> riscv-gnu-toolchain
+./configure --prefix<span class="o">=</span>/opt/riscv
+make
+make install
+<span class="nb">echo</span> <span class="s1">&#39;export PATH=/opt/riscv/bin:$PATH&#39;</span> &gt;&gt; ~/.bashrc
+</pre></div>
+</div>
+<p>On GNU/Linux you can alternatively also download the precompiled bundle</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Getting a RISC-V toolchain (optional, if you want to compile RISC-V software)</span>
 <span class="nv">version</span><span class="o">=</span>riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14
 wget -O riscv64-unknown-elf-gcc.tar.gz riscv https://static.dev.sifive.com/dev-tools/<span class="nv">$version</span>.tar.gz
 tar -xzvf riscv64-unknown-elf-gcc.tar.gz
@@ -360,7 +421,9 @@ sudo mv <span class="nv">$version</span> /opt/riscv
 <span class="nb">echo</span> <span class="s1">&#39;export PATH=/opt/riscv/bin:$PATH&#39;</span> &gt;&gt; ~/.bashrc
 </pre></div>
 </div>
-<p><strong>Repo setup</strong></p>
+</section>
+<section id="repo-setup">
+<h3>Repo setup<a class="headerlink" href="#repo-setup" title="Permalink to this heading"></a></h3>
 <p>After installing the dependencies (see above) :</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone --recursive https://github.com/SpinalHDL/VexiiRiscv.git
 <span class="nb">cd</span> VexiiRiscv
@@ -379,6 +442,7 @@ make -j<span class="k">$(</span>nproc<span class="k">)</span>
 <span class="nb">cd</span> ../..
 </pre></div>
 </div>
+</section>
 </section>
 <section id="generate-verilog">
 <h2>Generate verilog<a class="headerlink" href="#generate-verilog" title="Permalink to this heading"></a></h2>
@@ -526,12 +590,36 @@ on ASIC maybe some of those could be redesigned to be single port rams instead (
 <section id="using-intellij-idea">
 <h2>Using IntelliJ IDEA<a class="headerlink" href="#using-intellij-idea" title="Permalink to this heading"></a></h2>
 <p>IntelliJ IDEA is a Java/Scala IDE which can help a lot navigating the codebase. You can get its community edition for free.
-Then you just need to install the scala plugin (asked the first time you run the IDE), and open the VexiiRiscv folder with it.</p>
+Then you just need to install the scala plugin (asked the first time you run the IDE), and open the VexiiRiscv folder with it.
+(See the screenshots in the Ready To Use Docker guide)</p>
+<section id="setup">
+<h3>Setup<a class="headerlink" href="#setup" title="Permalink to this heading"></a></h3>
+<p>To download IntelliJ IDEA, got to <a class="reference external" href="https://www.jetbrains.com/idea/download">https://www.jetbrains.com/idea/download</a>, select your platform, which is either Mac, Windows or Linux,
+and make sure to scroll all the way down to the community edition, so that you don't download the 30 days limited trial Ultimate edition
+instead accidentally.</p>
+<p>We have this script for building the Docker image, which does the downloading, unpacking and installing, all by itself:
+<a class="reference external" href="https://github.com/SpinalHDL/VexiiRiscv/blob/dev/docker/setup_intellij.sh">https://github.com/SpinalHDL/VexiiRiscv/blob/dev/docker/setup_intellij.sh</a></p>
+</section>
+<section id="known-issues">
+<h3>Known issues<a class="headerlink" href="#known-issues" title="Permalink to this heading"></a></h3>
 <p>The one issue is that it has a bug, and will give you a :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="nb">object</span> <span class="n">Info</span> <span class="ow">is</span> <span class="ow">not</span> <span class="n">a</span> <span class="n">member</span> <span class="n">of</span> <span class="n">package</span> <span class="n">spinal</span><span class="o">.</span><span class="n">core</span>
 </pre></div>
 </div>
 <p>The workaround is that you need to run the &quot;sbt compile&quot; command in a terminal in the VexiiRiscv folder once.</p>
+</section>
+</section>
+<section id="using-konata">
+<h2>Using Konata<a class="headerlink" href="#using-konata" title="Permalink to this heading"></a></h2>
+<p>Konata is a Node JS application started with Electron, so you will have to install npm with your package manager of your system.</p>
+<p>You can setup and start Konata by cloning it and using npm</p>
+<p>The make comman will execute npm electron ., which will open the Konata window</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/shioyadan/konata.git
+<span class="nb">cd</span> konata
+npm install
+make
+</pre></div>
+</div>
 </section>
 </section>
 
@@ -546,8 +634,8 @@ Then you just need to install the scala plugin (asked the first time you run the
            </div>
           </div>
           <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
-        <a href="../Debug/index.html" class="btn btn-neutral float-left" title="Debug support" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
-        <a href="../Performance/index.html" class="btn btn-neutral float-right" title="Performance / Area / FMax" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+        <a href="../Introduction/index.html" class="btn btn-neutral float-left" title="Introduction" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../Tutorial/index.html" class="btn btn-neutral float-right" title="Self Contained Tutorial" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
     </div>
 
   <hr/>
@@ -564,7 +652,7 @@ Then you just need to install the scala plugin (asked the first time you run the
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~667cb54 2024-12-04
+    Version: master git~adc4368 2024-12-06
     </p></div>
     
 

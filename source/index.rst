@@ -8,7 +8,9 @@ Welcome to VexiiRiscv's documentation!
    :maxdepth: 1
 
    VexiiRiscv/Introduction/index
+   VexiiRiscv/HowToUse/index
    VexiiRiscv/Tutorial/index
+   VexiiRiscv/Docker/index
    VexiiRiscv/Framework/index
    VexiiRiscv/Fetch/index
    VexiiRiscv/Decode/index
@@ -17,7 +19,6 @@ Welcome to VexiiRiscv's documentation!
    VexiiRiscv/Memory/index
    VexiiRiscv/Privileges/index
    VexiiRiscv/Debug/index
-   VexiiRiscv/HowToUse/index
    VexiiRiscv/Performance/index
    VexiiRiscv/Soc/index
 

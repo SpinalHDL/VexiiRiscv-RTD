@@ -1,9 +1,22 @@
+==========
 How to use
-==============
+==========
 
 For getting started you have two options.
 
 Either you compile it from scratch or you use our Docker container which provides all the dependencies readily installed.
+
+Environment (Dependencies)
+==========================
+
+You will need :
+
+- A java JDK
+- SBT (Scala build tool)
+- Verilator (optional, for simulations)
+- RVLS / Spike dependencies (optional, if you want to have lock-step simulations checking)
+- GCC for RISC-V (optional, if you want to compile some code)
+
 
 Docker Container
 ----------------
@@ -16,42 +29,44 @@ Simply run
 
     ./run_docker.sh
 
-Refer to the self contained tutorial for further instructions
+Refer to the chapter about the ready made Docker container, in order to get a step by step
+guide on how to get started with the XFCE4 desktop and the tools provided in the installation.
 
 
-Compilation
----------------
+Setup dependencies
+------------------
 
-**Dependencies**
+Setting the tools up locally on your machine is a bit more work than just starting a Docker
+container, but speeds up things a lot because there's no virtual environment anymore.
 
-You will need :
+**For Windows Users**
+In order to build RISC-V 64 toolchain you require GCC, so you will have to download Cygwin: https://www.cygwin.com
 
-- A java JDK
-- SBT (Scala build tool)
-- Verilator (optional, for simulations)
-- RVLS / Spike dependencies (optional, if you want to have lock-step simulations checking)
-- GCC for RISC-V (optional, if you want to compile some code)
+You should be able to install the latest GCC, as well as GIT for cloning repositories following this article:
+https://preshing.com/20141108/how-to-install-the-latest-gcc-on-windows
+
+**For Linux and Mac users**
+You can get the RISC-V toolchain directly from 
+
+* **Java**
+  * On Linux, simply install the most recent openjdk-<version available>-jdk, using your package manager.
+  * On MacOS you can either install openjdk with brew or download it from the official Oracle Java website
+  * On Windows, you'll have to build https://www.royvanrijn.com/blog/2013/10/building-openjdk-on-windows) Java yourself within Cygwin
+* **SBT**
+  Go to the release page of SBT (https://github.com/sbt/sbt/releases)
+  Just download the tar xvf the tar file in your home directory and add $HOME/sbt/bin
+  to your search path (PATH).
 
 
-On debian :
+**Compiling and installing Verilator**
+
+In case the package manager of your platform provides the current Verilator as a precompiled package,
+you can just install Verilator with you package manager, like apt-get, zypper or brew install.
+
+In case you're on Windows or an old Debian, you'll have to compile it from the sources yourself, however.
 
 .. code-block:: bash
 
-    # JAVA JDK
-    sudo add-apt-repository -y ppa:openjdk-r/ppa
-    sudo apt-get update
-    sudo apt-get install openjdk-19-jdk -y # You don't exactly need that version
-    sudo update-alternatives --config java
-    sudo update-alternatives --config javac
-
-    # Install SBT - https://www.scala-sbt.org/
-    echo "deb https://repo.scala-sbt.org/scalasbt/debian all main" | sudo tee /etc/apt/sources.list.d/sbt.list
-    echo "deb https://repo.scala-sbt.org/scalasbt/debian /" | sudo tee /etc/apt/sources.list.d/sbt_old.list
-    curl -sL "https://keyserver.ubuntu.com/pks/lookup?op=get&search=0x2EE0EA64E40A89B84B2DF73499E82A75642AC823" | sudo apt-key add
-    sudo apt-get update
-    sudo apt-get install sbt
-
-    # Verilator (optional, for simulations)
     sudo apt-get install git make autoconf g++ flex bison help2man
     git clone https://github.com/verilator/verilator
     unsetenv VERILATOR_ROOT  # For csh; ignore error if on bash
@@ -64,6 +79,13 @@ On debian :
     make
     sudo make install
 
+
+**Compiling and installing ELFIO**
+
+Some essential headers, you'll have to install yourself on every platform basically.
+
+.. code-block:: bash
+
     # RVLS / Spike dependencies (optional, for simulations)
     sudo apt-get install device-tree-compiler libboost-all-dev
     # Install ELFIO, used to load elf file in the sim
@@ -73,6 +95,28 @@ On debian :
     sudo cp -R elfio /usr/include
     cd .. && rm -rf ELFIO
 
+**Compiling and installing the RISC-V toolchain**
+
+On MacOS and Windows, at least, you will have to compile the toolchain yourself from scratch
+in the terminal of your MacOS or the Cygwin shell alternatively, if you're under Windows
+
+(The make command will automatically make sure to check init and update any submodules needed
+for building the toolchain, so no recursive flag is needed. I didn't forget to add it)
+
+.. code-block:: bash
+
+    git clone https://github.com/riscv/riscv-gnu-toolchain
+    cd riscv-gnu-toolchain
+    ./configure --prefix=/opt/riscv
+    make
+    make install
+    echo 'export PATH=/opt/riscv/bin:$PATH' >> ~/.bashrc
+
+
+On GNU/Linux you can alternatively also download the precompiled bundle
+
+.. code-block:: bash
+
     # Getting a RISC-V toolchain (optional, if you want to compile RISC-V software)
     version=riscv64-unknown-elf-gcc-8.3.0-2019.08.0-x86_64-linux-ubuntu14
     wget -O riscv64-unknown-elf-gcc.tar.gz riscv https://static.dev.sifive.com/dev-tools/$version.tar.gz
@@ -81,7 +125,8 @@ On debian :
     echo 'export PATH=/opt/riscv/bin:$PATH' >> ~/.bashrc
 
 
-**Repo setup**
+Repo setup
+----------
 
 After installing the dependencies (see above) :
 
@@ -104,7 +149,7 @@ After installing the dependencies (see above) :
     cd ../..
 
 Generate verilog
------------------
+================
 
 .. code-block:: bash
 
@@ -179,7 +224,7 @@ There is a lot more parameters which can be turned.
 .. _simulation:
 
 Run a simulation
-----------------
+================
 
 .. important::
    If you take a VexiiRiscv core and use it with a simulator which does x-prop (not verilator), you will need to add the following option : --with-boot-mem-init.
@@ -214,7 +259,7 @@ Here is a screen shot of a cache-less VexiiRiscv booting linux :
 
 
 Synthesis
------------------------
+=========
 
 VexiiRiscv is designed in a way which should make it easy to deploy on all FPGA.
 including the ones without support for asynchronous memory read
@@ -232,7 +277,7 @@ Currently all memories used are "simple dual port ram". While this is the best f
 on ASIC maybe some of those could be redesigned to be single port rams instead (todo).
 
 Other resources
-------------------
+===============
 
 There a few other ways to start using VexiiRiscv :
 
@@ -240,11 +285,24 @@ There a few other ways to start using VexiiRiscv :
 - Through Litex, a tool to build SoC w(:ref:`litex`)
 
 Using IntelliJ IDEA
--------------------------
+===================
 
 IntelliJ IDEA is a Java/Scala IDE which can help a lot navigating the codebase. You can get its community edition for free.
 Then you just need to install the scala plugin (asked the first time you run the IDE), and open the VexiiRiscv folder with it.
+(See the screenshots in the Ready To Use Docker guide)
 
+Setup
+-----
+
+To download IntelliJ IDEA, got to https://www.jetbrains.com/idea/download, select your platform, which is either Mac, Windows or Linux,
+and make sure to scroll all the way down to the community edition, so that you don't download the 30 days limited trial Ultimate edition
+instead accidentally.
+
+We have this script for building the Docker image, which does the downloading, unpacking and installing, all by itself:
+https://github.com/SpinalHDL/VexiiRiscv/blob/dev/docker/setup_intellij.sh
+
+Known issues
+------------
 The one issue is that it has a bug, and will give you a :
 
 .. code-block::
@@ -252,3 +310,19 @@ The one issue is that it has a bug, and will give you a :
     object Info is not a member of package spinal.core
 
 The workaround is that you need to run the "sbt compile" command in a terminal in the VexiiRiscv folder once.
+
+Using Konata
+============
+
+Konata is a Node JS application started with Electron, so you will have to install npm with your package manager of your system.
+
+You can setup and start Konata by cloning it and using npm
+
+The make comman will execute npm electron ., which will open the Konata window
+
+.. code-block:: bash
+
+    git clone https://github.com/shioyadan/konata.git
+    cd konata
+    npm install
+    make

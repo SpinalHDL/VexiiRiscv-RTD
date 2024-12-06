@@ -365,6 +365,168 @@ Note, if you look into simWorkspace/VexiiRiscv/test/spike.log, you can see the r
     core   0: 0x80000014 (0x0020c233) xor     tp, ra, sp
     core   0: 3 0x80000014 (0x0020c233) x 4 0x00000110
 
+Experimenting with privilege levels
+----------------------------------------------------
+
+The RISC-V privileged specification specify 3 levels in which the CPU can be to execute code : 
+
+- Machine mode : This is privilege level which can access everything. When the CPU get out of reset, it spawn in machine mode. Typicaly the machine mode will be used to run bootloaders, bios and baremetal applications.
+- Supervisor mode : This is the privilge mode which would be used to run operating systems/kernels which want to take advantage of the RISC-V MMU.
+- User mode : Operating systems/kernels will typicaly use the user mode to run applications. You can see user mode as a sandbox to avoid applications to harm things around.
+
+So, the RISC-V privileged specification is very hard to read if you don't already have some good knowledge about what to expect.
+What this example aim at doing is to show you how you can navigate your CPU between privilege modes.
+
+.. code-block:: 
+
+    .option arch, +zicsr
+
+    .global _start
+    _start:
+    #define MSTATUS_MPP_SUPERVISOR         0x00000800
+    #define MSTATUS_MPP_USER               0x00000000
+    #define CAUSE_ILLEGAL_INSTRUCTION 2
+
+        // Specify where the CPU should jump after executing the mret instruction
+        la x1, supervisor_entry; csrw mepc, x1
+        // Specify where the CPU should jump when it got a interruption/exception for the machine mode
+        la x1, supervisor_exit; csrw mtvec, x1
+        // Specify that the CPU should go in supervisor mode after executing the mret instruction
+        li x1, MSTATUS_MPP_SUPERVISOR; csrw mstatus, x1
+        // Engage the privilege transition.
+        mret
+
+        // The CPU should never reach this point
+        j fail
+
+    supervisor_entry:
+        //Welcome in supervisor mode :D
+        li x1, 666
+        // Lets run a illegal instruction, we aren't allowd to access machine mode CSR from supervisor mode !
+        csrr x1, mepc
+        // We should not be able to reach this point, as the previous instruction whould have produce a illegal instruction exception
+        j fail
+
+    supervisor_exit:
+        // Welcome back in machine mode :D
+        li x1, 42
+        // Lets read the CSR which indicate the reason why we back to machine mode, and check it is because of CAUSE_ILLEGAL_INSTRUCTION
+        csrr x1, mcause
+        li x2, CAUSE_ILLEGAL_INSTRUCTION; bne x1, x2, fail
+        // lets read which instruction (PC) caused it
+        csrr x1, mcause
+
+    pass:
+        j pass
+    fail:
+        j fail
+
+Then, compile it, but to run it in the simulation, you will need to add the `--with-supervisor`, as the VexiiRiscv only support machine mode by default.
+
+Here is a wave with a few key signals to figure out what the CPU is doing : 
+
+.. image:: Screenshot-2024-12-06-20-13-17.png
+
+Note the TrapPlugin_logic_harts_0_trap_fsm_stateReg_string signal, which is a special state machine in VexiiRiscv which is used to handle a few corner case, as interrupts, exceptions, replay of failed instructions, and a few other things.
+
+Also, note that ext/NaxSoftware/baremetal/driver/privileged.h contains a bunch of very usefull macro to do similar things.
+
+
+Connecting with openocd to the simulation
+----------------------------------------------------
+
+Openocd is a tool generaly used to connect your PC to a micro-controller and debug/reprogram it through a USB to JTAG dongle.
+
+One interresting thing is that there is ways to simulate that jtag connection between openocd and the VexiiRiscv simulation by using a TCP connection. Here is how you can do it :
+
+First, install openocd (a regular version should be fine)
+
+Then, let a simulation run in one terminal with the following additional arguments `--no-probe --no-rvls-check --debug-privileged --debug-jtag-tap --jtag-remote`. Do not forget to remove the --trace-all, as it will create very big log files if you let it run long as well as slowing down the simulation.
+
+- --no-probe : Will disable the testbench CPU inactivity watchdog (as we can stop the CPU activity totaly using the jtag)
+- --no-rvls-check : Will disable the RVLS golden model checking, as it isn't supported with the jtag connection yet
+- --debug-privileged : Will enable the CPU debug interface aswell as all the required special CSR (Control Status Register)
+- --debug-jtag-tap : Will add in the CPU all the required logic to drive the CPU debug interface from a JTAG interface
+- --jtag-remote : Will ask the testbench to implement the TCP to simulated JTAG bridge
+
+Then you can start openocd via :
+
+.. code-block:: shell
+    
+    (cd src/main/tcl/openocd/ && openocd -f vexiiriscv_sim.tcl)
+
+This should give you the following message :
+
+.. code-block:: 
+
+    rawrr@rawrr-pc:/media/data2/proj/vexii/VexiiRiscv$ (cd src/main/tcl/openocd/ && openocd -f vexiiriscv_sim.tcl)
+    Open On-Chip Debugger 0.11.0
+    Licensed under GNU GPL v2
+    For bug reports, read
+            http://openocd.org/doc/doxygen/bugs.html
+    Info : only one transport option; autoselect 'jtag'
+    Info : set servers polling period to 400ms
+    Info : Initializing remote_bitbang driver
+    Info : Connecting to localhost:44853
+    Info : remote_bitbang driver initialized
+    Info : This adapter doesn't support configurable speed
+    Info : JTAG tap: riscv.cpu tap/device found: 0x10002fff (mfg: 0x7ff (<invalid>), part: 0x0002, ver: 0x1)
+    Info : datacount=1 progbufsize=2
+    Info : Disabling abstract command reads from CSRs.
+    Info : Examined RISC-V core; found 1 harts
+    Info :  hart 0: XLEN=32, misa=0x40000100
+    Info : starting gdb server for riscv.cpu.0 on 3333
+    Info : Listening on port 3333 for gdb connections
+    Ready for Remote Connections
+    Info : Listening on port 6666 for tcl connections
+    Info : Listening on port 4444 for telnet connections
+
+Meaning that the connection is successful !
+
+You can then connect to openocd in a few ways :
+
+- Using GDB, which would allow you to have a fully fledge debugger
+- Using telnet, to ask openocd to execute basic commands.
+
+The issue with GDB, for very low level debugging, is that it often has a lot of overhead/noise, even for simple tasks. 
+So in general using telnet is a better first step.
+
+Here is an example of telnet connection to openocd : 
+
+.. code-block:: 
+
+    telnet localhost 4444
+    Trying 127.0.0.1...
+    Connected to localhost.
+    Escape character is '^]'.
+    Open On-Chip Debugger
+    > 
+
+Then you can run various commands as : 
+
+.. code-block:: 
+    
+    # Read a 32 bits word at the address 0x80000000
+    mdw 0x80000000
+
+    # Write a 32 bits word (0x04200513, which is a "li a0, 0x42" instruction) at the address 0x80000000
+    mww 0x80000000 0x04200513
+
+    # Move the CPU PC to the instruction we just wrote at 0x80000000
+    reg pc 0x80000000
+
+    # Ask the CPU to execute a single instruction
+    step
+
+    # Read the CPU PC, it should be 0x80000004
+    reg pc
+
+    # Read the CPU register a0, it should be 0x42 (just written by the instruction we step)
+    reg a0
+
+There is plenty other commands available. For instance you could load the opensbi, device tree, linux, buildroot binary files in the memory from the JTAG, and boot linux, all from the JTAG ! (maybe not in simulation, it would take too long to load the images :D)
+
+
 C code "hello world" (literally)
 =================================
 

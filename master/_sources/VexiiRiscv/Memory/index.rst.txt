@@ -284,7 +284,7 @@ Here are a set of design guideline to keep a memory system lean and efficient (d
   CPU cache lines, L2 and L3 designs follow that 64 bytes block "rule" as well.
   Their coherency dictionary will be designed to handle 64 bytes memory blocks too.
   AMBA 5 CHI enforce 64 bytes cache lines, and doesn't support memory transfers with more than 64 bytes.
-- DMA should use one unique ID (axi/tilelink) for each inflight transactions and not expect any ordering between inflight transactions. That keep them highly portable and relax the memory system.
+- DMA should not reuse the same transaction ID (axi/tilelink) between multiple inflight transactions and should not expect any ordering between inflight transactions. That keep them highly portable and relax the memory system.
 - DMA should access up to 64 aligned bytes per burst, this should be enough to reach peak bandwidth. No need for 4KB Rambo bursts.
 - DMA should only do burst aligned memory accesses (to keep them easily portable to Tilelink)
 - It is fine for DMA to over fetch (let's say you need 48 bytes, but access aligned 64 bytes instead),

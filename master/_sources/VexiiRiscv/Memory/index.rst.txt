@@ -286,6 +286,9 @@ Here are a set of design guideline to keep a memory system lean and efficient (d
   AMBA 5 CHI enforce 64 bytes cache lines, and doesn't support memory transfers with more than 64 bytes.
 - DMA should not reuse the same transaction ID (axi/tilelink) between multiple inflight transactions and should not expect any ordering between inflight transactions. That keep them highly portable and relax the memory system.
 - DMA should access up to 64 aligned bytes per burst, this should be enough to reach peak bandwidth. No need for 4KB Rambo bursts.
+  Asking a system to support bursts bigger than 64 aligned bytes can lead to extra cost, as it create new ordering constraints between the memory block of the burst. 
+  For instance in a L2 cache it can lead to implementation of a reorder buffer to deal between transaction which hit/miss the cache. Adding extra complexity/area/timings to deal with.
+  Additionaly, big burst can create high latency spike for other agents (CPU/DMA).
 - DMA should only do burst aligned memory accesses (to keep them easily portable to Tilelink)
 - It is fine for DMA to over fetch (let's say you need 48 bytes, but access aligned 64 bytes instead),
   as long as the bulk of the memory bandwidth is not doing it.

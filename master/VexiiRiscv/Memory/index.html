@@ -608,7 +608,10 @@ CPU cache lines, L2 and L3 designs follow that 64 bytes block &quot;rule&quot; a
 Their coherency dictionary will be designed to handle 64 bytes memory blocks too.
 AMBA 5 CHI enforce 64 bytes cache lines, and doesn't support memory transfers with more than 64 bytes.</p></li>
 <li><p>DMA should not reuse the same transaction ID (axi/tilelink) between multiple inflight transactions and should not expect any ordering between inflight transactions. That keep them highly portable and relax the memory system.</p></li>
-<li><p>DMA should access up to 64 aligned bytes per burst, this should be enough to reach peak bandwidth. No need for 4KB Rambo bursts.</p></li>
+<li><p>DMA should access up to 64 aligned bytes per burst, this should be enough to reach peak bandwidth. No need for 4KB Rambo bursts.
+Asking a system to support bursts bigger than 64 aligned bytes can lead to extra cost, as it create new ordering constraints between the memory block of the burst.
+For instance in a L2 cache it can lead to implementation of a reorder buffer to deal between transaction which hit/miss the cache. Adding extra complexity/area/timings to deal with.
+Additionaly, big burst can create high latency spike for other agents (CPU/DMA).</p></li>
 <li><p>DMA should only do burst aligned memory accesses (to keep them easily portable to Tilelink)</p></li>
 <li><p>It is fine for DMA to over fetch (let's say you need 48 bytes, but access aligned 64 bytes instead),
 as long as the bulk of the memory bandwidth is not doing it.</p></li>
@@ -652,7 +655,7 @@ but also, L2/L3 cache designs may block any additional memory request targeting 
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~7a5e580 2024-12-08
+    Version: master git~f919693 2024-12-09
     </p></div>
     
 

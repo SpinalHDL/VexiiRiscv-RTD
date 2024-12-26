@@ -1,7 +1,7 @@
 .. _lsu:
 
 Memory (LSU)
-###################
+############
 
 LSU stand for Load Store Unit, VexiiRiscv has currently 2 implementations for it:
 
@@ -9,7 +9,7 @@ LSU stand for Load Store Unit, VexiiRiscv has currently 2 implementations for it
 - LsuPlugin / LsuL1Plugin which can work together to implement load and store through an L1 cache
 
 Without L1
-====================
+==========
 
 Implemented by the LsuCachelessPlugin, it should be noted that to
 reach good frequencies on FPGA SoC, forking the memory request at
@@ -19,7 +19,7 @@ as it relax the AGU timings as well as the PMA (Physical Memory Attributes) chec
 .. image:: /asset/picture/lsu_nol1.png
 
 With L1
-====================
+=======
 
 This configuration supports :
 
@@ -97,13 +97,13 @@ To improve the performances, consider first increasing the number of cache ways 
 
 The store buffer will help a lot with the store bandwidth by allowing the CPU to not be blocked by every store miss.
 The hardware prefetcher will help with both store/load bandwidth (but if the store buffer is already enabled, it will not
-realy increase the store bandwidth).
+really increase the store bandwidth).
 
 For the hardware prefetcher to stretch its leg, consider using 4 refill/writeback slots. This will also help the store buffer.
 
 
 Prefetching
-----------------------
+-----------
 
 Currently there is two implementation of prefetching
 
@@ -173,11 +173,11 @@ Also, prefetch which fail (ex : because of hazards in L1) aren't replayed.
 The prefetcher can be turned off by setting the CSR 0x7FF bit 1.
 
 performance measurements
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 Here are a few performance gain measurements done on litex with a :
 
-- quad-core RV64GC running at 200 Mhz
+- quad-core RV64GC running at 200 MHz
 - 16 KB L1 cache for each core
 - 512 KB of l2 cache shared (128 bits data bus)
 - 4 refill slots + 4 writeback slots + 32 entry store queue + 4 slots store queue
@@ -206,19 +206,19 @@ Here are a few performance gain measurements done on litex with a :
      - 50.2 fps
 
 Hardware Memory coherency
---------------------------------------------
+-------------------------
 
 Hardware memory coherency, is the feature which allows multiple memory agents (ex : CPU, DMA, ...)
 to work on the same memory locations and notify each others when they change their contents.
-Without it, the CPU software would have to manualy flush/invalidate their L1 caches to keep things in sync.
+Without it, the CPU software would have to manually flush/invalidate their L1 caches to keep things in sync.
 
 There is mostly 2 kinds of hardware memory coherency architecture :
 
 - By invalidation : When a CPU/DMA write some memory, it notifies the other CPU caches that they should invalidate any
-  old copy that they have of the written memory locations. This is generaly used for write-through L1 caches.
+  old copy that they have of the written memory locations. This is generally used for write-through L1 caches.
   This isn't what VexiiRiscv implements.
-- By permition : Memory blocks copies (typicaly 64 aligned bytes blocks which resides in L1 cache lines) can have multiple states.
-  Some of which provide read only accesses, while others provide read/write accesses. This is generaly used in write-back L1 caches,
+- By permission : Memory blocks copies (typically 64 aligned bytes blocks which resides in L1 cache lines) can have multiple states.
+  Some of which provide read only accesses, while others provide read/write accesses. This is generally used in write-back L1 caches,
   and this is what VexiiRiscv uses.
 
 In VexiiRiscv, the hardware memory coherency (L1) with other memory agents (CPU, DMA, L2, ..) is supported though a MESI implementation which can be bridged to a tilelink memory bus.
@@ -249,32 +249,32 @@ Here is the hardware interfaces :
   When data need to be written back, it will be done through the write_cmd channel.
 
 Memory system
-----------------------
+-------------
 
 Currently, VexiiRiscv can be used with the Tilelink memory interconnect from SpinalHDL and Chipyard (https://chipyard.readthedocs.io/en/latest/Generators/VexiiRiscv.html).
 
 Why Tilelink
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^
 
 So, why using Tilelink, while most of the FPGA industry is using AXI4 ? Here are some issues / complexities that AXI4 bring with it.
-(Dolu1990 opinions, with the perspective of using it in FPGA, with limited man power, don't see this as an absolute truth)
+(Dolu1990 opinions, with the perspective of using it in FPGA, with limited manpower, don't see this as an absolute truth)
 
 - The AXI4 memory ordering, while allowing CPU/DMA to get preserved ordering between transactions with the same ID,
   is creating complexities and bottlenecks in the memory system. Typically in the interconnect decoders
-  to avoid dead-locks, but even more in L2 caches and DRAM controllers  which ideally would handle every request out of order.
+  to avoid dead-locks, but even more in L2 caches and DRAM controllers which ideally would handle every request out of order.
   Tilelink instead specify that the CPU/DMAs shouldn't assume any memory ordering between inflight transactions.
 - AXI4 specifies that memory read response channel can interleave between multiple ongoing bursts.
   While this can be use full for very large burst (which in itself is a bad idea, see next chapter),
   this can lead to big area overhead for memory bridges, especially with width adapters.
-  Tilelink doesn't allows this behaviour.
-- AXI4 splits write address from write data, which add additional synchronisations points in the interconnect decoders/arbiters and peripherals (bad for timings)
+  Tilelink doesn't allows this behavior.
+- AXI4 splits write address from write data, which add additional synchronizations points in the interconnect decoders/arbiters and peripherals (bad for timings)
   as well as potentially decrease performances when integrating multiple AXI4 modules which do not use similar address/data timings.
 - AXI4 isn't great for low latency memory interconnects, mostly because of the previous point.
 - AXI4 splits read and write channels (ar r / aw w b), which mostly double the area cost of address decoding/routing for DMA and non-coherent CPUs.
 - AXI4 specifies a few "low values" features which increase complexity and area (ex: WRAP/FIXED bursts, unaligned memory accesses).
 
 Efficiency cookbook
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^
 
 Here are a set of design guideline to keep a memory system lean and efficient (don't see this as an absolute truth) :
 
@@ -288,14 +288,14 @@ Here are a set of design guideline to keep a memory system lean and efficient (d
 - DMA should access up to 64 aligned bytes per burst, this should be enough to reach peak bandwidth. No need for 4KB Rambo bursts.
   Asking a system to support bursts bigger than 64 aligned bytes can lead to extra cost, as it create new ordering constraints between the memory block of the burst. 
   For instance in a L2 cache it can lead to implementation of a reorder buffer to deal between transaction which hit/miss the cache. Adding extra complexity/area/timings to deal with.
-  Additionaly, big burst can create high latency spike for other agents (CPU/DMA).
+  Additionally, big burst can create high latency spike for other agents (CPU/DMA).
 - DMA should only do burst aligned memory accesses (to keep them easily portable to Tilelink)
 - It is fine for DMA to over fetch (let's say you need 48 bytes, but access aligned 64 bytes instead),
   as long as the bulk of the memory bandwidth is not doing it.
 - DMA should avoid doing multiple accesses in a 64 byte block if possible, and instead use a single access.
   This can preserve the DRAM controller bandwidth (see DDR3/4/5 comments above),
   but also, L2/L3 cache designs may block any additional memory request targeting a memory block which is already under operation.
-- When a DMA start a write burst, it has to complet as fast as possible. The reason is that the interconnect can lock itself on your burst until you finish it.  
-- When a DMA start a read burst, it should avoid putting backpresure on the read responses. The reason is that the interconnect can lock itself on your burst until you finish it.
+- When a DMA start a write burst, it has to complete as fast as possible. The reason is that the interconnect can lock itself on your burst until you finish it.  
+- When a DMA start a read burst, it should avoid putting backpressure on the read responses. The reason is that the interconnect can lock itself on your burst until you finish it.
 
 

@@ -1,15 +1,15 @@
 .. _privileges:
 
 Privileges
-###################
+##########
 
 RISC-V specifies in "Volume 2, Privileged Specification" most of its special registers (CSR) which allows to handle things as :
 
 - Traps (interrupts + exceptions)
 - Memory protections (MMU, PMP)
-- Privilege modes (Machine, Superivisor, User)
+- Privilege modes (Machine, Supervisor, User)
 
-A microcontroller will typicaly only need Machine mode, maybe User mode, while a Linux capable CPU will normaly need them all.
+A microcontroller will typically only need Machine mode, maybe User mode, while a Linux capable CPU will normaly need them all.
 
 - Machine mode : Baremetal / Bootloader / BIOS / OpenSBI / RTOS
 - Supervisor mode : Kernel / Linux
@@ -97,14 +97,14 @@ MmuPlugin
 - Implements supervisor mode memory protections
 - Include a hardware page walker
 - Has a TLB to store the page walker results
-- TLB are stored in multiples directly mapped memories. Typicaly 2 way x 32 TLB for 4KB pages + 1 way x 32 TLB for mega pages
-- Map very well with FPGA which supports asyncronous read memory (LUT based RAM)
-- Can be configured to work with syncronous read memory (block ram), but will likely be your critical path for timings
+- TLB are stored in multiples directly mapped memories. Typically 2 way x 32 TLB for 4KB pages + 1 way x 32 TLB for mega pages
+- Map very well with FPGA which supports asynchronous read memory (LUT based RAM)
+- Can be configured to work with synchronous read memory (block ram), but will likely be your critical path for timings
 
 This plugin is enabled via `--with-mmu` or `--with-supervisor`
 
 PmpPlugin
-----------
+---------
 
 - Allows the machine mode to restrict memory accesses of the supervisor/user mode to specific ranges (Physical Memory Protection)
 - Quite expensive in resources and timings.
@@ -114,5 +114,5 @@ PmpPlugin
 - You can set the granularity of the memory regions (to improve timings and area usage). This throw away some of the address LSB bits.
   By default, the granularity is 4KB (--pmp-granularity=4096). Minimum allowed is 4.
 - By default, the PmpPlugin is disabled, but you can enable it via, for instance, `--pmp-size=4`,
-  which will enable 4 hardware PMP registres, allowing you to set up to 4 memory regions.
+  which will enable 4 hardware PMP registers, allowing you to set up to 4 memory regions.
 

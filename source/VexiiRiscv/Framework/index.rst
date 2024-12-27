@@ -2,7 +2,7 @@ Framework
 =========
 
 Tools and API
-------------------------
+-------------
 
 Overall VexiiRiscv is based on a few tools and API which aim at describing hardware in more productive/flexible ways than with Verilog/VHDL.
 

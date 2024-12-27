@@ -1,8 +1,8 @@
 Debug support
-================================================
+=============
 
 Architecture
--------------------
+------------
 VexiiRiscv support hardware debugging by implementing the official RISC-V debug spec.
 
 - Compatible with OpenOCD (and maybe some other closed vendor, but untested)
@@ -40,7 +40,7 @@ via openocd and its TCP remote_bitbang bridge as if it was real hardware:
 But note that the speed will be quite low (as it is a hardware simulation)
 
 EmbeddedRiscvJtag
--------------------
+-----------------
 
 EmbeddedRiscvJtag is a plugin which can be used to integrate the RISC-V debug module and its JTAG TAP directly inside
 the VexiiRiscv. This simplify its deployment, but can only be used in single core configs.

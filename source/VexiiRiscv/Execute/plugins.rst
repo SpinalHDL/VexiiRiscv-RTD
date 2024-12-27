@@ -131,11 +131,11 @@ CsrAccessPlugin
 - Implement the CSR read and write instruction in the execute pipeline
 - Provide an API for other plugins to specify the mapping between the CSR registers and the CSR instruction
 
-See the :ref:`privileges` chapter for more informations.
+See the :ref:`privileges` chapter for more information.
 
 EnvPlugin
 ^^^^^^^^^^^^^^^
 
-See the :ref:`privileges` chapter for more informations.
+See the :ref:`privileges` chapter for more information.
 
 - Implement a few instructions as MRET, SRET, ECALL, EBREAK, FENCE.I, WFI by producing hardware traps

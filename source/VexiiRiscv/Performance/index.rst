@@ -38,67 +38,67 @@ Here are a few synthesis results :
 
     rv32i_noBypass ->
     - 0.78 Dhrystone/MHz 0.60 Coremark/MHz
-    - Artix 7    -> 210 Mhz 1182 LUT 1759 FF 
-    - Cyclone V  -> 159 Mhz 1,015 ALMs
-    - Cyclone IV -> 130 Mhz 1,987 LUT 2,017 FF 
-    - Trion      -> 94 Mhz LUT 1847   FF 1990
-    - Titanium   -> 320 Mhz LUT 2005   FF 2030
+    - Artix 7    -> 210 MHz 1182 LUT 1759 FF 
+    - Cyclone V  -> 159 MHz 1,015 ALMs
+    - Cyclone IV -> 130 MHz 1,987 LUT 2,017 FF 
+    - Trion      -> 94 MHz LUT 1847   FF 1990
+    - Titanium   -> 320 MHz LUT 2005   FF 2030
 
     rv32i ->
     - 1.12 Dhrystone/MHz 0.87 Coremark/MHz
-    - Artix 7    -> 206 Mhz 1413 LUT 1761 FF 
-    - Cyclone V  -> 138 Mhz 1,244 ALMs
-    - Cyclone IV -> 124 Mhz 2,188 LUT 2,019 FF 
-    - Trion      -> 78 Mhz LUT 2252   FF 1962
-    - Titanium   -> 300 Mhz LUT 2347   FF 2000
+    - Artix 7    -> 206 MHz 1413 LUT 1761 FF 
+    - Cyclone V  -> 138 MHz 1,244 ALMs
+    - Cyclone IV -> 124 MHz 2,188 LUT 2,019 FF 
+    - Trion      -> 78 MHz LUT 2252   FF 1962
+    - Titanium   -> 300 MHz LUT 2347   FF 2000
 
     rv64i ->
     - 1.18 Dhrystone/MHz 0.77 Coremark/MHz
-    - Artix 7    -> 186 Mhz 2157 LUT 2332 FF 
-    - Cyclone V  -> 117 Mhz 1,760 ALMs
-    - Cyclone IV -> 113 Mhz 3,432 LUT 2,770 FF 
-    - Trion      -> 83 Mhz LUT 3883   FF 2681
-    - Titanium   -> 278 Mhz LUT 3909   FF 2783
+    - Artix 7    -> 186 MHz 2157 LUT 2332 FF 
+    - Cyclone V  -> 117 MHz 1,760 ALMs
+    - Cyclone IV -> 113 MHz 3,432 LUT 2,770 FF 
+    - Trion      -> 83 MHz LUT 3883   FF 2681
+    - Titanium   -> 278 MHz LUT 3909   FF 2783
 
     rv32im ->
     - 1.20 Dhrystone/MHz 2.70 Coremark/MHz
-    - Artix 7    -> 190 Mhz 1815 LUT 2078 FF 
-    - Cyclone V  -> 131 Mhz 1,474 ALMs
-    - Cyclone IV -> 125 Mhz 2,781 LUT 2,266 FF 
-    - Trion      -> 83 Mhz LUT 2643   FF 2209
-    - Titanium   -> 324 Mhz LUT 2685   FF 2279
+    - Artix 7    -> 190 MHz 1815 LUT 2078 FF 
+    - Cyclone V  -> 131 MHz 1,474 ALMs
+    - Cyclone IV -> 125 MHz 2,781 LUT 2,266 FF 
+    - Trion      -> 83 MHz LUT 2643   FF 2209
+    - Titanium   -> 324 MHz LUT 2685   FF 2279
 
     rv32im_branchPredict ->
     - 1.45 Dhrystone/MHz 2.99 Coremark/MHz
-    - Artix 7    -> 195 Mhz 2066 LUT 2438 FF 
-    - Cyclone V  -> 136 Mhz 1,648 ALMs
-    - Cyclone IV -> 117 Mhz 3,093 LUT 2,597 FF 
-    - Trion      -> 86 Mhz LUT 2963   FF 2568
-    - Titanium   -> 327 Mhz LUT 3015   FF 2636
+    - Artix 7    -> 195 MHz 2066 LUT 2438 FF 
+    - Cyclone V  -> 136 MHz 1,648 ALMs
+    - Cyclone IV -> 117 MHz 3,093 LUT 2,597 FF 
+    - Trion      -> 86 MHz LUT 2963   FF 2568
+    - Titanium   -> 327 MHz LUT 3015   FF 2636
 
     rv32im_branchPredict_cached8k8k ->
     - 1.45 Dhrystone/MHz 2.97 Coremark/MHz
-    - Artix 7    -> 210 Mhz 2721 LUT 3477 FF 
-    - Cyclone V  -> 137 Mhz 1,953 ALMs
-    - Cyclone IV -> 127 Mhz 3,648 LUT 3,153 FF 
-    - Trion      -> 93 Mhz LUT 3388   FF 3204
-    - Titanium   -> 314 Mhz LUT 3432   FF 3274
+    - Artix 7    -> 210 MHz 2721 LUT 3477 FF 
+    - Cyclone V  -> 137 MHz 1,953 ALMs
+    - Cyclone IV -> 127 MHz 3,648 LUT 3,153 FF 
+    - Trion      -> 93 MHz LUT 3388   FF 3204
+    - Titanium   -> 314 MHz LUT 3432   FF 3274
 
     rv32imasu_cached_branchPredict_cached8k8k_linux ->
     - 1.45 Dhrystone/MHz 2.96 Coremark/MHz
-    - Artix 7    -> 199 Mhz 3351 LUT 3833 FF 
-    - Cyclone V  -> 131 Mhz 2,612 ALMs
-    - Cyclone IV -> 109 Mhz 4,909 LUT 3,897 FF 
-    - Trion      -> 73 Mhz LUT 4367   FF 3613
-    - Titanium   -> 270 Mhz LUT 4409   FF 3724
+    - Artix 7    -> 199 MHz 3351 LUT 3833 FF 
+    - Cyclone V  -> 131 MHz 2,612 ALMs
+    - Cyclone IV -> 109 MHz 4,909 LUT 3,897 FF 
+    - Trion      -> 73 MHz LUT 4367   FF 3613
+    - Titanium   -> 270 MHz LUT 4409   FF 3724
 
     rv32im_branchPredictStressed_cached8k8k_ipcMax_lateAlu ->
     - 1.74 Dhrystone/MHz 3.41 Coremark/MHz
-    - Artix 7    -> 140 Mhz 3247 LUT 3755 FF 
-    - Cyclone V  -> 99 Mhz 2,477 ALMs
-    - Cyclone IV -> 85 Mhz 4,835 LUT 3,765 FF 
-    - Trion      -> 60 Mhz LUT 4438   FF 3832
-    - Titanium   -> 228 Mhz LUT 4459   FF 3963
+    - Artix 7    -> 140 MHz 3247 LUT 3755 FF 
+    - Cyclone V  -> 99 MHz 2,477 ALMs
+    - Cyclone IV -> 85 MHz 4,835 LUT 3,765 FF 
+    - Trion      -> 60 MHz LUT 4438   FF 3832
+    - Titanium   -> 228 MHz LUT 4459   FF 3963
 
 
 Tuning
@@ -128,7 +128,7 @@ On FPGA there is a few options which can be key in order to scale up the IPC whi
 
 
 Critical paths tool
---------------------------------
+-------------------
 
 At the end of your synthesis/place/route tools, you get a critical path report where hopefully, the source and destination registers are well named.
 The issue is that in between, all the combinatorial logic and signals names become unrecognizable or misleading most of the time.

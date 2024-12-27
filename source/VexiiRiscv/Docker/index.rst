@@ -22,7 +22,7 @@ where you cloned the repo to doesn't have the same uid as the ubuntu user inside
 Docker container! The uid of the ubuntu user is 1000
 
 Linux and MacOS X
-------------------
+-----------------
 
 There's a bash script called run_docker.sh which automatically pulls the most
 recent Docker image, starts it and then launches a VNC viewer.
@@ -37,7 +37,7 @@ Then you can simply run
     ./run_docker.sh
 
 After the image has been fetched and the virtual X server has started you should
-be greated with an XFCE4 desktop in a VNC viewer
+be greeted with an XFCE4 desktop in a VNC viewer
 
 Windows
 -------
@@ -183,7 +183,7 @@ Next load the konata log by going into the folder as shown in the picture
   :width: 400
   :alt: Load konata log
 
-You should be greated with a colorful representation of the instructions
+You should be greeted with a colorful representation of the instructions
 in the RISC-V pipeline during boot up
 
 .. image:: Screenshot_20241203_151124.png

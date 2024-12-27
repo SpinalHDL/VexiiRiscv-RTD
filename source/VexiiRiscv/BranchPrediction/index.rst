@@ -37,7 +37,7 @@ Will :
 Note that it may help to not make the BTB learn when there has been a non-taken branch.
 
 - The BTB don't need to predict non-taken branch
-- Keep the BTB entry for something more usefull
+- Keep the BTB entry for something more useful
 - For configs in which multiple instruction can reside in a single fetch word (ex dual issue with RVC), 
   multiple branch/jump instruction can reside in a single fetch word => need for compromises, 
   and hope that some of the branch/jump in the chunk are rarely taken.

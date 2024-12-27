@@ -29,7 +29,7 @@ You can find its implementation here https://github.com/SpinalHDL/VexiiRiscv/blo
 The MicroSoC code is commented in a way which should help non-initiated to understand what is happening. (this is an invitation to read the code ^^)
 
 Verilog generation
-^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^
 
 To generate the SoC verilog, you can run :
 
@@ -37,13 +37,13 @@ To generate the SoC verilog, you can run :
 
     # Default configuration
     sbt "runMain vexiiriscv.soc.micro.MicroSocGen"
-    # SoC with 32 KB + RV32IMC running at 50 Mhz:
+    # SoC with 32 KB + RV32IMC running at 50 MHz:
     sbt "runMain vexiiriscv.soc.micro.MicroSocGen --ram-bytes=32768 --with-rvm --with-rvc --system-frequency=50000000"
     # List all the parameters available
     sbt "runMain vexiiriscv.soc.micro.MicroSocGen --help"
 
 Simulation (SpinalSim / Verilator)
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 If you have Verilator installed, you can run a simulation by doing :
 
@@ -78,7 +78,7 @@ While the simulation is running you can connect to it using openocd as if it was
     openocd -f src/main/tcl/openocd/vexiiriscv_sim.tcl
 
 Adding a custom peripheral
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Let's say you want to design a peripheral and then add it to the SoC, the MicroSoc contains one example of that via PeripheralDemo.scala.
 Take a look at it, its code is extensively commented :
@@ -96,7 +96,7 @@ You can see in the diagram above :
   Instead of having stuff like big switch case on the bus address, you just need to say "Create a RW register at this address" in a more natural language.
 - BufferCC : Used to avoid metastability when we use the buttons value in our hardware (this is a chain of 2 flip-flop)
 - PeripheralDemoFiber : This is sort of the integration layer for our PeripheralDemo into a SoC. This serve a few purposes.
-  It handle the Tilelink parameters negotiation / propagation, aswell as exporting the leds and buttons directly to the MicroSoc io.
+  It handle the Tilelink parameters negotiation / propagation, as well as exporting the leds and buttons directly to the MicroSoc io.
 - Node : This is an instance of the tilelink bus in our SoC. It is used for parameter negotiation/propagation as well as to get the hardware bus instance.
 
 You can then add that peripheral in the toplevel around the other peripherals by :
@@ -112,7 +112,7 @@ This peripheral is already integrated into MicroSoC as a demo but disabled by de
 sbt "runMain vexiiriscv.soc.micro.MicroSocSim --demo-peripheral leds=16,buttons=12"
 
 Exporting an APB3 bus to the toplevel
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Let's say you want to allow the CPU to access a APB3 peripheral which stand outside the SoC toplevel.
 Here is how you can do so by adding code to the MicroSoc.system.peripheral area :
@@ -126,7 +126,7 @@ Here is how you can do so by adding code to the MicroSoc.system.peripheral area 
         val peripheral = new Area {
           ..
           // Let's define a namespace to contains all our logic
-          val exported = new Area{
+          val exported = new Area {
             // Let's define tl as our Tilelink peripheral endpoint (before the APB3 bridge)
             val tl  = tilelink.fabric.Node.slave()
             tl at 0x10006000 of bus32 // Lets map our tilelink bus in the memory space
@@ -170,7 +170,7 @@ If you want the CPU to be able to execute code located in the APB3 peripheral, t
             tl.addTag(spinal.lib.system.tag.PMA.EXECUTABLE)
 
 Adding a custom instruction
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 Let's say you want to add a custom instruction to the MicroSoc. Let's use the :ref:`custom_plugin_impl` which does SIMD add.
 

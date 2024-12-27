@@ -406,7 +406,7 @@ in the terminal of your MacOS or the Cygwin shell alternatively, if you're under
 for building the toolchain, so no recursive flag is needed. I didn't forget to add it)</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/riscv/riscv-gnu-toolchain
 <span class="nb">cd</span> riscv-gnu-toolchain
-./configure --prefix<span class="o">=</span>/opt/riscv
+./configure --prefix<span class="o">=</span>/opt/riscv --enable-multilib
 make
 make install
 <span class="nb">echo</span> <span class="s1">&#39;export PATH=/opt/riscv/bin:$PATH&#39;</span> &gt;&gt; ~/.bashrc
@@ -652,7 +652,7 @@ make
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~f919693 2024-12-09
+    Version: master git~666c586 2024-12-27
     </p></div>
     
 

@@ -332,9 +332,9 @@
 <ul class="simple">
 <li><p>Traps (interrupts + exceptions)</p></li>
 <li><p>Memory protections (MMU, PMP)</p></li>
-<li><p>Privilege modes (Machine, Superivisor, User)</p></li>
+<li><p>Privilege modes (Machine, Supervisor, User)</p></li>
 </ul>
-<p>A microcontroller will typicaly only need Machine mode, maybe User mode, while a Linux capable CPU will normaly need them all.</p>
+<p>A microcontroller will typically only need Machine mode, maybe User mode, while a Linux capable CPU will normaly need them all.</p>
 <ul class="simple">
 <li><p>Machine mode : Baremetal / Bootloader / BIOS / OpenSBI / RTOS</p></li>
 <li><p>Supervisor mode : Kernel / Linux</p></li>
@@ -421,9 +421,9 @@ or to jump to the next one after a full pipeline flush (NEXT).</p></li>
 <li><p>Implements supervisor mode memory protections</p></li>
 <li><p>Include a hardware page walker</p></li>
 <li><p>Has a TLB to store the page walker results</p></li>
-<li><p>TLB are stored in multiples directly mapped memories. Typicaly 2 way x 32 TLB for 4KB pages + 1 way x 32 TLB for mega pages</p></li>
-<li><p>Map very well with FPGA which supports asyncronous read memory (LUT based RAM)</p></li>
-<li><p>Can be configured to work with syncronous read memory (block ram), but will likely be your critical path for timings</p></li>
+<li><p>TLB are stored in multiples directly mapped memories. Typically 2 way x 32 TLB for 4KB pages + 1 way x 32 TLB for mega pages</p></li>
+<li><p>Map very well with FPGA which supports asynchronous read memory (LUT based RAM)</p></li>
+<li><p>Can be configured to work with synchronous read memory (block ram), but will likely be your critical path for timings</p></li>
 </ul>
 <p>This plugin is enabled via <cite>--with-mmu</cite> or <cite>--with-supervisor</cite></p>
 </section>
@@ -438,7 +438,7 @@ or to jump to the next one after a full pipeline flush (NEXT).</p></li>
 <li><p>You can set the granularity of the memory regions (to improve timings and area usage). This throw away some of the address LSB bits.
 By default, the granularity is 4KB (--pmp-granularity=4096). Minimum allowed is 4.</p></li>
 <li><p>By default, the PmpPlugin is disabled, but you can enable it via, for instance, <cite>--pmp-size=4</cite>,
-which will enable 4 hardware PMP registres, allowing you to set up to 4 memory regions.</p></li>
+which will enable 4 hardware PMP registers, allowing you to set up to 4 memory regions.</p></li>
 </ul>
 </section>
 </section>
@@ -473,7 +473,7 @@ which will enable 4 hardware PMP registres, allowing you to set up to 4 memory r
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~666c586 2024-12-27
+    Version: master git~43a5652 2024-12-27
     </p></div>
     
 

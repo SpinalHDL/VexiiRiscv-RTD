@@ -3,10 +3,10 @@ Fetch
 =====
 
 The goal of the fetch pipeline is to provide the CPU with a stream of words in which the instructions to execute are presents.
-So more precisely, the fetch pipeline doesn't realy have the notion of instruction, but instead, just provide memory aligned chunks of memory block (ex 64 bits).
+So more precisely, the fetch pipeline doesn't really have the notion of instruction, but instead, just provide memory aligned chunks of memory block (ex 64 bits).
 Those chunks of memory (word) will later be handled by the "AlignerPlugin" to extract the instruction to be executed (and also handle the decompression in the case of RVC).
 
-Here is an example of fetch architecture with an instruction cache, branch predictor aswell as a prefetcher.
+Here is an example of fetch architecture with an instruction cache, branch predictor as well as a prefetcher.
 
 .. image:: /asset/picture/fetch_l1.png
 
@@ -87,7 +87,7 @@ Will :
 
 To improve the performances, consider first increasing the number of cache ways to 4.
 The hardware prefetcher can help, but it is very variable in function of the workload. If you enable it, then consider
-increasing the number of refill slots to at least 2, idealy 3.
+increasing the number of refill slots to at least 2, ideally 3.
 
 
 

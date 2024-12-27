@@ -430,7 +430,7 @@ which will flush the pipeline and reschedule the failed instruction to the fetch
 <p>To improve the performances, consider first increasing the number of cache ways to 4.</p>
 <p>The store buffer will help a lot with the store bandwidth by allowing the CPU to not be blocked by every store miss.
 The hardware prefetcher will help with both store/load bandwidth (but if the store buffer is already enabled, it will not
-realy increase the store bandwidth).</p>
+really increase the store bandwidth).</p>
 <p>For the hardware prefetcher to stretch its leg, consider using 4 refill/writeback slots. This will also help the store buffer.</p>
 <section id="prefetching">
 <h3>Prefetching<a class="headerlink" href="#prefetching" title="Permalink to this heading"></a></h3>
@@ -492,7 +492,7 @@ have enough hardware refill/writeback slots in the LsuL1Plugin.</p>
 <h4>performance measurements<a class="headerlink" href="#performance-measurements" title="Permalink to this heading"></a></h4>
 <p>Here are a few performance gain measurements done on litex with a :</p>
 <ul class="simple">
-<li><p>quad-core RV64GC running at 200 Mhz</p></li>
+<li><p>quad-core RV64GC running at 200 MHz</p></li>
 <li><p>16 KB L1 cache for each core</p></li>
 <li><p>512 KB of l2 cache shared (128 bits data bus)</p></li>
 <li><p>4 refill slots + 4 writeback slots + 32 entry store queue + 4 slots store queue</p></li>
@@ -539,14 +539,14 @@ have enough hardware refill/writeback slots in the LsuL1Plugin.</p>
 <h3>Hardware Memory coherency<a class="headerlink" href="#hardware-memory-coherency" title="Permalink to this heading"></a></h3>
 <p>Hardware memory coherency, is the feature which allows multiple memory agents (ex : CPU, DMA, ...)
 to work on the same memory locations and notify each others when they change their contents.
-Without it, the CPU software would have to manualy flush/invalidate their L1 caches to keep things in sync.</p>
+Without it, the CPU software would have to manually flush/invalidate their L1 caches to keep things in sync.</p>
 <p>There is mostly 2 kinds of hardware memory coherency architecture :</p>
 <ul class="simple">
 <li><p>By invalidation : When a CPU/DMA write some memory, it notifies the other CPU caches that they should invalidate any
-old copy that they have of the written memory locations. This is generaly used for write-through L1 caches.
+old copy that they have of the written memory locations. This is generally used for write-through L1 caches.
 This isn't what VexiiRiscv implements.</p></li>
-<li><p>By permition : Memory blocks copies (typicaly 64 aligned bytes blocks which resides in L1 cache lines) can have multiple states.
-Some of which provide read only accesses, while others provide read/write accesses. This is generaly used in write-back L1 caches,
+<li><p>By permission : Memory blocks copies (typically 64 aligned bytes blocks which resides in L1 cache lines) can have multiple states.
+Some of which provide read only accesses, while others provide read/write accesses. This is generally used in write-back L1 caches,
 and this is what VexiiRiscv uses.</p></li>
 </ul>
 <p>In VexiiRiscv, the hardware memory coherency (L1) with other memory agents (CPU, DMA, L2, ..) is supported though a MESI implementation which can be bridged to a tilelink memory bus.</p>
@@ -580,17 +580,17 @@ When data need to be written back, it will be done through the write_cmd channel
 <section id="why-tilelink">
 <h4>Why Tilelink<a class="headerlink" href="#why-tilelink" title="Permalink to this heading"></a></h4>
 <p>So, why using Tilelink, while most of the FPGA industry is using AXI4 ? Here are some issues / complexities that AXI4 bring with it.
-(Dolu1990 opinions, with the perspective of using it in FPGA, with limited man power, don't see this as an absolute truth)</p>
+(Dolu1990 opinions, with the perspective of using it in FPGA, with limited manpower, don't see this as an absolute truth)</p>
 <ul class="simple">
 <li><p>The AXI4 memory ordering, while allowing CPU/DMA to get preserved ordering between transactions with the same ID,
 is creating complexities and bottlenecks in the memory system. Typically in the interconnect decoders
-to avoid dead-locks, but even more in L2 caches and DRAM controllers  which ideally would handle every request out of order.
+to avoid dead-locks, but even more in L2 caches and DRAM controllers which ideally would handle every request out of order.
 Tilelink instead specify that the CPU/DMAs shouldn't assume any memory ordering between inflight transactions.</p></li>
 <li><p>AXI4 specifies that memory read response channel can interleave between multiple ongoing bursts.
 While this can be use full for very large burst (which in itself is a bad idea, see next chapter),
 this can lead to big area overhead for memory bridges, especially with width adapters.
-Tilelink doesn't allows this behaviour.</p></li>
-<li><p>AXI4 splits write address from write data, which add additional synchronisations points in the interconnect decoders/arbiters and peripherals (bad for timings)
+Tilelink doesn't allows this behavior.</p></li>
+<li><p>AXI4 splits write address from write data, which add additional synchronizations points in the interconnect decoders/arbiters and peripherals (bad for timings)
 as well as potentially decrease performances when integrating multiple AXI4 modules which do not use similar address/data timings.</p></li>
 <li><p>AXI4 isn't great for low latency memory interconnects, mostly because of the previous point.</p></li>
 <li><p>AXI4 splits read and write channels (ar r / aw w b), which mostly double the area cost of address decoding/routing for DMA and non-coherent CPUs.</p></li>
@@ -611,15 +611,15 @@ AMBA 5 CHI enforce 64 bytes cache lines, and doesn't support memory transfers wi
 <li><p>DMA should access up to 64 aligned bytes per burst, this should be enough to reach peak bandwidth. No need for 4KB Rambo bursts.
 Asking a system to support bursts bigger than 64 aligned bytes can lead to extra cost, as it create new ordering constraints between the memory block of the burst.
 For instance in a L2 cache it can lead to implementation of a reorder buffer to deal between transaction which hit/miss the cache. Adding extra complexity/area/timings to deal with.
-Additionaly, big burst can create high latency spike for other agents (CPU/DMA).</p></li>
+Additionally, big burst can create high latency spike for other agents (CPU/DMA).</p></li>
 <li><p>DMA should only do burst aligned memory accesses (to keep them easily portable to Tilelink)</p></li>
 <li><p>It is fine for DMA to over fetch (let's say you need 48 bytes, but access aligned 64 bytes instead),
 as long as the bulk of the memory bandwidth is not doing it.</p></li>
 <li><p>DMA should avoid doing multiple accesses in a 64 byte block if possible, and instead use a single access.
 This can preserve the DRAM controller bandwidth (see DDR3/4/5 comments above),
 but also, L2/L3 cache designs may block any additional memory request targeting a memory block which is already under operation.</p></li>
-<li><p>When a DMA start a write burst, it has to complet as fast as possible. The reason is that the interconnect can lock itself on your burst until you finish it.</p></li>
-<li><p>When a DMA start a read burst, it should avoid putting backpresure on the read responses. The reason is that the interconnect can lock itself on your burst until you finish it.</p></li>
+<li><p>When a DMA start a write burst, it has to complete as fast as possible. The reason is that the interconnect can lock itself on your burst until you finish it.</p></li>
+<li><p>When a DMA start a read burst, it should avoid putting backpressure on the read responses. The reason is that the interconnect can lock itself on your burst until you finish it.</p></li>
 </ul>
 </section>
 </section>
@@ -655,7 +655,7 @@ but also, L2/L3 cache designs may block any additional memory request targeting 
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~666c586 2024-12-27
+    Version: master git~43a5652 2024-12-27
     </p></div>
     
 

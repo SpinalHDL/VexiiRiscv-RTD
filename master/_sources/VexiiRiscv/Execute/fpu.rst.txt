@@ -29,7 +29,7 @@ There is a few foundation plugins that compose the FPU :
 .. image:: /asset/picture/fpu.png
 
 Area / Timings options
------------------------
+----------------------
 
 To improve the FPU area and timings (especially on FPGA), there is currently two main options implemented.
 
@@ -49,7 +49,7 @@ and if the user provide floating point constants which are subnormals number,
 they will be considered as 2^exp_subnormal numbers.
 
 In practice those two option do not seems to creates issues (for regular use cases),
-as it was tested by running debian with various software and graphical environnements.
+as it was tested by running debian with various software and graphical environments.
 
 Optimized software
 ------------------

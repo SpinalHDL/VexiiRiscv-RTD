@@ -352,7 +352,7 @@
 <p>To generate the SoC verilog, you can run :</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="c1"># Default configuration</span>
 sbt <span class="s2">&quot;runMain vexiiriscv.soc.micro.MicroSocGen&quot;</span>
-<span class="c1"># SoC with 32 KB + RV32IMC running at 50 Mhz:</span>
+<span class="c1"># SoC with 32 KB + RV32IMC running at 50 MHz:</span>
 sbt <span class="s2">&quot;runMain vexiiriscv.soc.micro.MicroSocGen --ram-bytes=32768 --with-rvm --with-rvc --system-frequency=50000000&quot;</span>
 <span class="c1"># List all the parameters available</span>
 sbt <span class="s2">&quot;runMain vexiiriscv.soc.micro.MicroSocGen --help&quot;</span>
@@ -412,7 +412,7 @@ Take a look at it, its code is extensively commented :</p>
 Instead of having stuff like big switch case on the bus address, you just need to say &quot;Create a RW register at this address&quot; in a more natural language.</p></li>
 <li><p>BufferCC : Used to avoid metastability when we use the buttons value in our hardware (this is a chain of 2 flip-flop)</p></li>
 <li><p>PeripheralDemoFiber : This is sort of the integration layer for our PeripheralDemo into a SoC. This serve a few purposes.
-It handle the Tilelink parameters negotiation / propagation, aswell as exporting the leds and buttons directly to the MicroSoc io.</p></li>
+It handle the Tilelink parameters negotiation / propagation, as well as exporting the leds and buttons directly to the MicroSoc io.</p></li>
 <li><p>Node : This is an instance of the tilelink bus in our SoC. It is used for parameter negotiation/propagation as well as to get the hardware bus instance.</p></li>
 </ul>
 <p>You can then add that peripheral in the toplevel around the other peripherals by :</p>
@@ -435,7 +435,7 @@ Here is how you can do so by adding code to the MicroSoc.system.peripheral area 
 <span class="w">    </span><span class="kd">val</span><span class="w"> </span><span class="n">peripheral</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">      </span><span class="p">..</span><span class="w"></span>
 <span class="w">      </span><span class="c1">// Let&#39;s define a namespace to contains all our logic</span>
-<span class="w">      </span><span class="kd">val</span><span class="w"> </span><span class="n">exported</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="p">{</span><span class="w"></span>
+<span class="w">      </span><span class="kd">val</span><span class="w"> </span><span class="n">exported</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">Area</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
 <span class="w">        </span><span class="c1">// Let&#39;s define tl as our Tilelink peripheral endpoint (before the APB3 bridge)</span>
 <span class="w">        </span><span class="kd">val</span><span class="w"> </span><span class="n">tl</span><span class="w">  </span><span class="o">=</span><span class="w"> </span><span class="n">tilelink</span><span class="p">.</span><span class="n">fabric</span><span class="p">.</span><span class="nc">Node</span><span class="p">.</span><span class="n">slave</span><span class="p">()</span><span class="w"></span>
 <span class="w">        </span><span class="n">tl</span><span class="w"> </span><span class="n">at</span><span class="w"> </span><span class="mh">0x10006000</span><span class="w"> </span><span class="n">of</span><span class="w"> </span><span class="n">bus32</span><span class="w"> </span><span class="c1">// Lets map our tilelink bus in the memory space</span>
@@ -527,7 +527,7 @@ Here is how you can do so by adding code to the MicroSoc.system.peripheral area 
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~666c586 2024-12-27
+    Version: master git~43a5652 2024-12-27
     </p></div>
     
 

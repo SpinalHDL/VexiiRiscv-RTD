@@ -318,7 +318,7 @@ Konata is a Node JS application started with Electron, so you will have to insta
 
 You can setup and start Konata by cloning it and using npm
 
-The make comman will execute npm electron ., which will open the Konata window
+The make command will execute npm electron ., which will open the Konata window
 
 .. code-block:: bash
 

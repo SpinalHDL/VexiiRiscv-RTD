@@ -107,7 +107,7 @@ for building the toolchain, so no recursive flag is needed. I didn't forget to a
 
     git clone https://github.com/riscv/riscv-gnu-toolchain
     cd riscv-gnu-toolchain
-    ./configure --prefix=/opt/riscv
+    ./configure --prefix=/opt/riscv --enable-multilib
     make
     make install
     echo 'export PATH=/opt/riscv/bin:$PATH' >> ~/.bashrc

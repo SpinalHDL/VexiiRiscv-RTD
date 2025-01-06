@@ -80,7 +80,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#navigating-the-code">Navigating the code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#about-risc-v">About RISC-V</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#about-vexriscv-not-vexiiriscv">About VexRiscv (not VexiiRiscv)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#check-list">Check list</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../HowToUse/index.html">How to use</a><ul>
@@ -150,6 +149,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="#database">Database</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#pipeline-api">Pipeline API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#vexiiriscv-assumptions">VexiiRiscv assumptions</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Fetch/index.html">Fetch</a><ul>
@@ -274,6 +274,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../Soc/microsoc.html">MicroSoc</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="../Soc/microsoc.html#verilog-generation">Verilog generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../Soc/microsoc.html#simulation-spinalsim-verilator">Simulation (SpinalSim / Verilator)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../Soc/microsoc.html#compiling-and-running-c-c-with-cmake">Compiling and running C/C++ with CMake</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../Soc/microsoc.html#adding-a-custom-peripheral">Adding a custom peripheral</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../Soc/microsoc.html#exporting-an-apb3-bus-to-the-toplevel">Exporting an APB3 bus to the toplevel</a></li>
 <li class="toctree-l3"><a class="reference internal" href="../Soc/microsoc.html#adding-a-custom-instruction">Adding a custom instruction</a></li>
@@ -708,6 +709,15 @@ meaning that each Plugin can very easily add and extract things on pipeline.</p>
 <li><p><a class="reference external" href="https://spinalhdl.github.io/SpinalDoc-RTD/master/SpinalHDL/Libraries/Pipeline/index.html">https://spinalhdl.github.io/SpinalDoc-RTD/master/SpinalHDL/Libraries/Pipeline/index.html</a></p></li>
 </ul>
 </section>
+<section id="vexiiriscv-assumptions">
+<h2>VexiiRiscv assumptions<a class="headerlink" href="#vexiiriscv-assumptions" title="Permalink to this heading"></a></h2>
+<p>Here is a list of important design assumptions and things to know about :</p>
+<ul class="simple">
+<li><p>trap/flush/pc request from the pipeline, once asserted one cycle can not be undone. This also mean that while a given instruction is stuck somewhere, if that instruction did raised on of those request, nothing should change the execution path. For instance, a sudden cache line refill completion should not lift the request from the LSU asking a redo (due to cache refill hazard).</p></li>
+<li><p>In the execute pipeline, stage.up(RS1/RS2) is the value which can be read, (not stage.down(RS1/RS2) as it implement the bypassing for the next stage, stage.down(RS1/RS2) is equivalent to stage(RS1/RS2))</p></li>
+<li><p>Fetch.ctrl(0) isn't persistent (meaning the PC requested can change at any time)</p></li>
+</ul>
+</section>
 </section>
 
     <script type="text/javascript">
@@ -728,7 +738,7 @@ meaning that each Plugin can very easily add and extract things on pipeline.</p>
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2023 - 2024, VexiiRiscv.</p>
+    <p>&#169; Copyright 2023 - 2025, VexiiRiscv.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
@@ -739,7 +749,7 @@ meaning that each Plugin can very easily add and extract things on pipeline.</p>
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~43a5652 2024-12-27
+    Version: master git~4c248df 2025-01-06
     </p></div>
     
 

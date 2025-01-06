@@ -80,7 +80,6 @@
 <li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#navigating-the-code">Navigating the code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#about-risc-v">About RISC-V</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#about-vexriscv-not-vexiiriscv">About VexRiscv (not VexiiRiscv)</a></li>
-<li class="toctree-l2"><a class="reference internal" href="../Introduction/index.html#check-list">Check list</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../HowToUse/index.html">How to use</a><ul>
@@ -150,6 +149,7 @@
 </li>
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#database">Database</a></li>
 <li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#pipeline-api">Pipeline API</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../Framework/index.html#vexiiriscv-assumptions">VexiiRiscv assumptions</a></li>
 </ul>
 </li>
 <li class="toctree-l1"><a class="reference internal" href="../Fetch/index.html">Fetch</a><ul>
@@ -274,6 +274,7 @@
 <li class="toctree-l2 current"><a class="current reference internal" href="#">MicroSoc</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#verilog-generation">Verilog generation</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#simulation-spinalsim-verilator">Simulation (SpinalSim / Verilator)</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#compiling-and-running-c-c-with-cmake">Compiling and running C/C++ with CMake</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#adding-a-custom-peripheral">Adding a custom peripheral</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#exporting-an-apb3-bus-to-the-toplevel">Exporting an APB3 bus to the toplevel</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#adding-a-custom-instruction">Adding a custom instruction</a></li>
@@ -398,6 +399,40 @@ sbt <span class="s2">&quot;runMain vexiiriscv.soc.micro.MicroSocSim --help&quot;
 </pre></div>
 </div>
 </section>
+<section id="compiling-and-running-c-c-with-cmake">
+<h2>Compiling and running C/C++ with CMake<a class="headerlink" href="#compiling-and-running-c-c-with-cmake" title="Permalink to this heading"></a></h2>
+<p>There is a template CMake project which can be used to write baremetal applications in C/C++ on the MicroSoc.</p>
+<p>Here is how you use it to compile a simple UART example :</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>git clone https://github.com/SpinalHDL/VexiiFirmware.git
+<span class="nb">cd</span> VexiiFirmware
+<span class="nb">export</span> <span class="nv">VEXII_FIRMWARE</span><span class="o">=</span><span class="nv">$PWD</span>
+cmake -S . -B build -DSOC<span class="o">=</span>microsoc/default -DDEVICE<span class="o">=</span>microsoc_sim
+make -C build example-uart
+</pre></div>
+</div>
+<p>Here is a few explenation :</p>
+<ul class="simple">
+<li><p>-DSOC=microsoc/default specifies that we use the microsoc default configuration (it rever to the soc/microsoc/default folder)</p></li>
+<li><p>-DDEVICE=microsoc_sim specifies that the SoC is running in the simulation &quot;device&quot;, which mostly specifies that the clock speed is quite slow. (it refer to the device/microsoc_sim folder)</p></li>
+</ul>
+<p>You can then run a simulation of that software via :</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> <span class="nv">$VEXIIRISCV</span>
+sbt <span class="s2">&quot;runMain vexiiriscv.soc.micro.MicroSocSim --load-elf </span><span class="nv">$VEXII_FIRMWARE</span><span class="s2">/build/app/uart/example-uart.elf --regfile-async --allow-bypass-from=0&quot;</span>
+</pre></div>
+</div>
+<p>It should the produce :</p>
+<div class="highlight-shell notranslate"><div class="highlight"><pre><span></span>...
+<span class="o">[</span>info<span class="o">]</span> <span class="o">[</span>Progress<span class="o">]</span> Start MicroSocSim <span class="nb">test</span> simulation with seed <span class="m">42</span>
+<span class="o">[</span>info<span class="o">]</span> WAITING FOR TCP JTAG CONNECTION
+<span class="o">[</span>info<span class="o">]</span> Hello Vexii!
+<span class="o">[</span>info<span class="o">]</span> *
+<span class="o">[</span>info<span class="o">]</span> *
+...
+</pre></div>
+</div>
+<p>You can also add the --trace-fst --trace-konata arguments if you want to capture some traces, but be carefull to not let it run too long, as it will generate big file traces.</p>
+<p>The &quot;WAITING FOR TCP JTAG CONNECTION&quot; is just a notification that you can connect from openocd (see the Simulation chapter above)</p>
+</section>
 <section id="adding-a-custom-peripheral">
 <h2>Adding a custom peripheral<a class="headerlink" href="#adding-a-custom-peripheral" title="Permalink to this heading"></a></h2>
 <p>Let's say you want to design a peripheral and then add it to the SoC, the MicroSoc contains one example of that via PeripheralDemo.scala.
@@ -494,7 +529,6 @@ Here is how you can do so by adding code to the MicroSoc.system.peripheral area 
 <span class="kd">val</span><span class="w"> </span><span class="n">cpu</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="k">new</span><span class="w"> </span><span class="nc">TilelinkVexiiRiscvFiber</span><span class="p">(</span><span class="n">pluginsArea</span><span class="p">.</span><span class="n">plugins</span><span class="p">)</span><span class="w"></span>
 </pre></div>
 </div>
-<p>TODO add software example</p>
 </section>
 </section>
 
@@ -516,7 +550,7 @@ Here is how you can do so by adding code to the MicroSoc.system.peripheral area 
   <hr/>
 
   <div role="contentinfo">
-    <p>&#169; Copyright 2023 - 2024, VexiiRiscv.</p>
+    <p>&#169; Copyright 2023 - 2025, VexiiRiscv.</p>
   </div>
 
   Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
@@ -527,7 +561,7 @@ Here is how you can do so by adding code to the MicroSoc.system.peripheral area 
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~43a5652 2024-12-27
+    Version: master git~4c248df 2025-01-06
     </p></div>
     
 

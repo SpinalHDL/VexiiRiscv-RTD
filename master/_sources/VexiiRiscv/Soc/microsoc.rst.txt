@@ -77,6 +77,51 @@ While the simulation is running you can connect to it using openocd as if it was
 
     openocd -f src/main/tcl/openocd/vexiiriscv_sim.tcl
 
+
+Compiling and running C/C++ with CMake
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+There is a template CMake project which can be used to write baremetal applications in C/C++ on the MicroSoc.
+
+Here is how you use it to compile a simple UART example : 
+
+.. code:: shell
+
+    git clone https://github.com/SpinalHDL/VexiiFirmware.git
+    cd VexiiFirmware
+    export VEXII_FIRMWARE=$PWD
+    cmake -S . -B build -DSOC=microsoc/default -DDEVICE=microsoc_sim
+    make -C build example-uart
+
+Here is a few explenation : 
+
+- -DSOC=microsoc/default specifies that we use the microsoc default configuration (it rever to the soc/microsoc/default folder)
+- -DDEVICE=microsoc_sim specifies that the SoC is running in the simulation "device", which mostly specifies that the clock speed is quite slow. (it refer to the device/microsoc_sim folder)
+
+You can then run a simulation of that software via : 
+
+.. code:: shell
+
+    cd $VEXIIRISCV
+    sbt "runMain vexiiriscv.soc.micro.MicroSocSim --load-elf $VEXII_FIRMWARE/build/app/uart/example-uart.elf --regfile-async --allow-bypass-from=0"
+
+It should the produce : 
+
+.. code:: shell
+
+    ...
+    [info] [Progress] Start MicroSocSim test simulation with seed 42
+    [info] WAITING FOR TCP JTAG CONNECTION
+    [info] Hello Vexii!
+    [info] *
+    [info] *
+    ...
+
+
+You can also add the --trace-fst --trace-konata arguments if you want to capture some traces, but be carefull to not let it run too long, as it will generate big file traces.
+
+The "WAITING FOR TCP JTAG CONNECTION" is just a notification that you can connect from openocd (see the Simulation chapter above)
+
 Adding a custom peripheral
 ^^^^^^^^^^^^^^^^^^^^^^^^^^
 
@@ -191,4 +236,3 @@ We need to edit this into :
     // Build the CPU
     val cpu = new TilelinkVexiiRiscvFiber(pluginsArea.plugins)
 
-TODO add software example

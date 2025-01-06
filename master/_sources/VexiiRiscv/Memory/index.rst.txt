@@ -254,7 +254,7 @@ Here is the hardware interfaces :
 - probe_rsp : to send responses from the above requests (isInvalid/isShared/isUnique).
   When data need to be written back, it will be done through the write_cmd channel.
 
-AMO
+Atomic Memory Operation
 -------------------------
 
 AMO stand for Atomic Memory Operations (ex : atomic swap, atomic add, ...)
@@ -280,8 +280,8 @@ When memory coherency is enabled, here is how AMO instruction are implemented in
 - While the cache line is locked, the atomic ALU will process the readed value, then write the result into the cache and release the cache line lock.
 
 
-LR / SC
-------------------------
+Load Reserve / Store Conditional
+---------------------------------
 
 LR stand for Load Reserve, SC stand for Store Conditional.
 Those two instruction work in pairs and allows to implement atomic memory operations quite differently from the AMO instruction.

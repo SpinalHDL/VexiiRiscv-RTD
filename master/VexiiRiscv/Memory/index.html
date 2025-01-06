@@ -238,8 +238,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#hardware-memory-coherency">Hardware Memory coherency</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#amo">AMO</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#lr-sc">LR / SC</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#atomic-memory-operation">Atomic Memory Operation</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#load-reserve-store-conditional">Load Reserve / Store Conditional</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#memory-system">Memory system</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#why-tilelink">Why Tilelink</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#efficiency-cookbook">Efficiency cookbook</a></li>
@@ -583,8 +583,8 @@ Here is the hardware interfaces :</p>
 When data need to be written back, it will be done through the write_cmd channel.</p></li>
 </ul>
 </section>
-<section id="amo">
-<h3>AMO<a class="headerlink" href="#amo" title="Permalink to this heading"></a></h3>
+<section id="atomic-memory-operation">
+<h3>Atomic Memory Operation<a class="headerlink" href="#atomic-memory-operation" title="Permalink to this heading"></a></h3>
 <p>AMO stand for Atomic Memory Operations (ex : atomic swap, atomic add, ...)</p>
 <p>Typicaly, an AMO execute the following pseudo code (ex : atomic add).</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">amoadd</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">address</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">add_alu</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -605,8 +605,8 @@ The combination of the cache line locking and exclusive state ensure that no oth
 <li><p>While the cache line is locked, the atomic ALU will process the readed value, then write the result into the cache and release the cache line lock.</p></li>
 </ul>
 </section>
-<section id="lr-sc">
-<h3>LR / SC<a class="headerlink" href="#lr-sc" title="Permalink to this heading"></a></h3>
+<section id="load-reserve-store-conditional">
+<h3>Load Reserve / Store Conditional<a class="headerlink" href="#load-reserve-store-conditional" title="Permalink to this heading"></a></h3>
 <p>LR stand for Load Reserve, SC stand for Store Conditional.
 Those two instruction work in pairs and allows to implement atomic memory operations quite differently from the AMO instruction.</p>
 <p>The idea is:</p>
@@ -722,7 +722,7 @@ but also, L2/L3 cache designs may block any additional memory request targeting 
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~4531e33 2025-01-06
+    Version: master git~ad1be62 2025-01-06
     </p></div>
     
 

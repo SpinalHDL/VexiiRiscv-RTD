@@ -83,6 +83,24 @@ RISC-V has 4 main specification :
 
 To figure out more about those specification, check https://riscv.org/technical/specifications/
 
+Glossary
+------------------
+
+Here is a few acronyms commonly used across the documentation :
+
+- **CPU** : Central Processing Unit
+- **HART** : Hardware Thread. One CPU core can for instance implement multiple HART, meaning that it will execute multiple threads concurently.
+  **For** instance, most modern PC CPUs implement 2 Hardware Thread per CPU core (this feature is called hyper-threading)
+- **ALU** : Arithmetic Logical Unit
+- **FPU** : Floating Point Unit
+- **LSU** : Load Store Unit
+- **AMO** : Atomic Memory Operation
+- **MMU** : Memory Management Unit. Translate virtual addresses into pyhsical ones, aswell as check access permitions.
+- **PMP** : Physical Memory Protection. Check physical address access permitions.
+- **I$** : Instruction Cache
+- **D$** : Data Cache
+- **IO** : Input Output. Most of the time it mean LOAD/Store instruction which target peripherals (instead of general purpose memory)
+
 About VexRiscv (not VexiiRiscv)
 -------------------------------
 

@@ -79,6 +79,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#technicalities">Technicalities</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#navigating-the-code">Navigating the code</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#about-risc-v">About RISC-V</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#glossary">Glossary</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#about-vexriscv-not-vexiiriscv">About VexRiscv (not VexiiRiscv)</a></li>
 </ul>
 </li>
@@ -407,6 +408,24 @@ interruptions, exceptions, traps, virtual memory, memory protections, machine/su
 </ul>
 <p>To figure out more about those specification, check <a class="reference external" href="https://riscv.org/technical/specifications/">https://riscv.org/technical/specifications/</a></p>
 </section>
+<section id="glossary">
+<h2>Glossary<a class="headerlink" href="#glossary" title="Permalink to this heading"></a></h2>
+<p>Here is a few acronyms commonly used across the documentation :</p>
+<ul class="simple">
+<li><p><strong>CPU</strong> : Central Processing Unit</p></li>
+<li><p><strong>HART</strong> : Hardware Thread. One CPU core can for instance implement multiple HART, meaning that it will execute multiple threads concurently.
+<strong>For</strong> instance, most modern PC CPUs implement 2 Hardware Thread per CPU core (this feature is called hyper-threading)</p></li>
+<li><p><strong>ALU</strong> : Arithmetic Logical Unit</p></li>
+<li><p><strong>FPU</strong> : Floating Point Unit</p></li>
+<li><p><strong>LSU</strong> : Load Store Unit</p></li>
+<li><p><strong>AMO</strong> : Atomic Memory Operation</p></li>
+<li><p><strong>MMU</strong> : Memory Management Unit. Translate virtual addresses into pyhsical ones, aswell as check access permitions.</p></li>
+<li><p><strong>PMP</strong> : Physical Memory Protection. Check physical address access permitions.</p></li>
+<li><p><strong>I$</strong> : Instruction Cache</p></li>
+<li><p><strong>D$</strong> : Data Cache</p></li>
+<li><p><strong>IO</strong> : Input Output. Most of the time it mean LOAD/Store instruction which target peripherals (instead of general purpose memory)</p></li>
+</ul>
+</section>
 <section id="about-vexriscv-not-vexiiriscv">
 <h2>About VexRiscv (not VexiiRiscv)<a class="headerlink" href="#about-vexriscv-not-vexiiriscv" title="Permalink to this heading"></a></h2>
 <p>There is few reasons why VexiiRiscv exists instead of doing incremental upgrade on VexRiscv</p>
@@ -452,7 +471,7 @@ interruptions, exceptions, traps, virtual memory, memory protections, machine/su
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~ad1be62 2025-01-06
+    Version: master git~4b1c97d 2025-01-06
     </p></div>
     
 

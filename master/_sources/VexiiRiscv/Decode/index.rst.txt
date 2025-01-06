@@ -1,14 +1,13 @@
 Decode
 ======
 
-A few plugins operate in the fetch stage :
+The Decode pipeline has a few tasks :
 
-- DecodePipelinePlugin
-- AlignerPlugin
-- DecoderPlugin
-- DispatchPlugin
-- DecodePredictionPlugin
-
+- Translating the stream of fetched words into individual instructions
+- Figuring out instructions needs, mostly "does it need to read/write the register file ?"
+- Checking the execution lanes compatibility with incoming instruction. For instance, a memory load instruction can only be scheduled to the execute lane with the LSU
+- Ensuring that all branch prediction done in the fetch pipeline were done on real branch instructions.
+- Feed the execution lanes with instructions
 
 DecodePipelinePlugin
 --------------------

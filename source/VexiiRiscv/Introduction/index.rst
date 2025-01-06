@@ -97,13 +97,3 @@ There is few reasons why VexiiRiscv exists instead of doing incremental upgrade 
 - The VexRiscv verification infrastructure based on its own golden model isn't great.
 
 So, enough is enough, it was time to start fresh :D
-
-Check list
-----------
-
-Here is a list of important design assumptions and things to know about :
-
-- trap/flush/pc request from the pipeline, once asserted one cycle can not be undone. This also mean that while a given instruction is stuck somewhere, if that instruction did raised on of those request, nothing should change the execution path. For instance, a sudden cache line refill completion should not lift the request from the LSU asking a redo (due to cache refill hazard).
-- In the execute pipeline, stage.up(RS1/RS2) is the value to be used, (not stage.down(RS1/RS2) as it implement the bypassing for the next stage)
-- Fetch.ctrl(0) isn't persistent (meaning the PC requested can change at any time)
-

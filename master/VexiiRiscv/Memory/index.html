@@ -4,7 +4,7 @@
   <meta charset="utf-8" /><meta name="generator" content="Docutils 0.18.1: http://docutils.sourceforge.net/" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Memory (LSU) &mdash; VexiiRiscv  documentation</title>
+  <title>LSU / Memory &mdash; VexiiRiscv  documentation</title>
       <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
       <link rel="stylesheet" href="../../_static/copybutton.css" type="text/css" />
@@ -229,7 +229,7 @@
 <li class="toctree-l2"><a class="reference internal" href="../BranchPrediction/index.html#learnplugin">LearnPlugin</a></li>
 </ul>
 </li>
-<li class="toctree-l1 current"><a class="current reference internal" href="#">Memory (LSU)</a><ul>
+<li class="toctree-l1 current"><a class="current reference internal" href="#">LSU / Memory</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#without-l1">Without L1</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#with-l1">With L1</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#prefetching">Prefetching</a><ul>
@@ -238,6 +238,8 @@
 </ul>
 </li>
 <li class="toctree-l3"><a class="reference internal" href="#hardware-memory-coherency">Hardware Memory coherency</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#amo">AMO</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#lr-sc">LR / SC</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#memory-system">Memory system</a><ul>
 <li class="toctree-l4"><a class="reference internal" href="#why-tilelink">Why Tilelink</a></li>
 <li class="toctree-l4"><a class="reference internal" href="#efficiency-cookbook">Efficiency cookbook</a></li>
@@ -299,7 +301,7 @@
           <div role="navigation" aria-label="Page navigation">
   <ul class="wy-breadcrumbs">
       <li><a href="../../index.html" class="icon icon-home" aria-label="Home"></a></li>
-      <li class="breadcrumb-item active">Memory (LSU)</li>
+      <li class="breadcrumb-item active">LSU / Memory</li>
       <li class="wy-breadcrumbs-aside">
               <a href="https://github.com/SpinalHDL/VexiiRiscv-RTD/blob/master/source/VexiiRiscv/Memory/index.rst" class="fa fa-github"> Edit on GitHub</a>
       </li>
@@ -327,9 +329,15 @@
 
 
 
-  <section id="memory-lsu">
-<span id="lsu"></span><h1>Memory (LSU)<a class="headerlink" href="#memory-lsu" title="Permalink to this heading"></a></h1>
-<p>LSU stand for Load Store Unit, VexiiRiscv has currently 2 implementations for it:</p>
+  <section id="lsu-memory">
+<span id="lsu"></span><h1>LSU / Memory<a class="headerlink" href="#lsu-memory" title="Permalink to this heading"></a></h1>
+<p>This chapter will handle things related to :</p>
+<ul class="simple">
+<li><p>Load / Store instructions</p></li>
+<li><p>Atomic memory instructions</p></li>
+<li><p>Load reserve / Store conditional instructions</p></li>
+</ul>
+<p>VexiiRiscv has currently 2 implementations for it:</p>
 <ul class="simple">
 <li><p>LsuCachelessPlugin for microcontrollers, which doesn't implement any cache</p></li>
 <li><p>LsuPlugin / LsuL1Plugin which can work together to implement load and store through an L1 cache</p></li>
@@ -575,6 +583,64 @@ Here is the hardware interfaces :</p>
 When data need to be written back, it will be done through the write_cmd channel.</p></li>
 </ul>
 </section>
+<section id="amo">
+<h3>AMO<a class="headerlink" href="#amo" title="Permalink to this heading"></a></h3>
+<p>AMO stand for Atomic Memory Operations (ex : atomic swap, atomic add, ...)</p>
+<p>Typicaly, an AMO execute the following pseudo code (ex : atomic add).</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">amoadd</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">address</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">add_alu</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="c1">// Atomic section</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">read_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">address</span><span class="p">[</span><span class="mi">0</span><span class="p">];</span><span class="w">           </span><span class="c1">// Read memory</span>
+<span class="w">    </span><span class="kt">int</span><span class="w"> </span><span class="n">alu_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read_value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">add_alue</span><span class="p">;</span><span class="w"> </span><span class="c1">// Process data</span>
+<span class="w">    </span><span class="n">address</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">alu_value</span><span class="p">;</span><span class="w">                </span><span class="c1">// Write memory</span>
+<span class="w">    </span><span class="c1">// End of atomic section, write read_value to the register file</span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>When memory coherency is enabled, here is how AMO instruction are implemented in VexiiRiscv :</p>
+<ul class="simple">
+<li><p>AMO starts like a regular memory Load</p></li>
+<li><p>Once it reach the last stage of the cache (execute stage 2), if there is a cache miss, or the cache line isn't in a exclusive state, the instruction fail and is retried.</p></li>
+<li><p>If the above condition is successfull, the LSU will lock the given cache line for a few cycles, preventing any writeback.
+The combination of the cache line locking and exclusive state ensure that no other agent can modify the memory block while the atomic operation is done.</p></li>
+<li><p>While the cache line is locked, the atomic ALU will process the readed value, then write the result into the cache and release the cache line lock.</p></li>
+</ul>
+</section>
+<section id="lr-sc">
+<h3>LR / SC<a class="headerlink" href="#lr-sc" title="Permalink to this heading"></a></h3>
+<p>LR stand for Load Reserve, SC stand for Store Conditional.
+Those two instruction work in pairs and allows to implement atomic memory operations quite differently from the AMO instruction.</p>
+<p>The idea is:</p>
+<ul class="simple">
+<li><p>First, the CPU attempts to load and reserve a given portion of memory via the LR instruction.</p></li>
+<li><p>Then the CPU process the loaded data using regular integer instruction (it has a limited time to do it and a few other restrictions)</p></li>
+<li><p>Finaly, the CPU store a modified value using the SC instruction.</p></li>
+</ul>
+<p>The trick is that the store instruction may fail, and will fail in a few conditions :</p>
+<ul class="simple">
+<li><p>If another memory agent wrote the reserved memory location</p></li>
+<li><p>The CPU was too slow to process the loaded data</p></li>
+<li><p>...</p></li>
+</ul>
+<p>So an AMOADD could be emulated via :</p>
+<div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">void</span><span class="w"> </span><span class="nf">amoadd</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="o">*</span><span class="n">address</span><span class="p">,</span><span class="w"> </span><span class="kt">int</span><span class="w"> </span><span class="n">add_alu</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
+<span class="w">    </span><span class="k">while</span><span class="p">(</span><span class="mi">1</span><span class="p">){</span><span class="w"></span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">read_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">LR</span><span class="p">(</span><span class="n">address</span><span class="p">);</span><span class="w">                  </span><span class="c1">// Load Reserve</span>
+<span class="w">        </span><span class="kt">int</span><span class="w"> </span><span class="n">alu_value</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="n">read_value</span><span class="w"> </span><span class="o">+</span><span class="w"> </span><span class="n">add_alue</span><span class="p">;</span><span class="w">         </span><span class="c1">// Process data</span>
+<span class="w">        </span><span class="k">if</span><span class="p">(</span><span class="n">SC</span><span class="p">(</span><span class="n">address</span><span class="p">,</span><span class="w"> </span><span class="n">alu_value</span><span class="p">)</span><span class="w"> </span><span class="o">==</span><span class="w"> </span><span class="n">SUCCESS</span><span class="p">)</span><span class="w"> </span><span class="k">break</span><span class="p">;</span><span class="w">   </span><span class="c1">// Store Conditional</span>
+<span class="w">    </span><span class="p">}</span><span class="w"></span>
+<span class="p">}</span><span class="w"></span>
+</pre></div>
+</div>
+<p>In VexiiRiscv, the LR / SC instruction are implemented the following way :</p>
+<ul class="simple">
+<li><p>LR mostly behave like a regular memory load, but will require the cache line to be in a exclusive state to successed.
+Also, the cache line will be locked for a 32 cycles to ensure other memory agent would not remove the cache line via probes systematicaly.</p></li>
+<li><p>SC mostly behave like a regular memory store, but will check that the lock is still active, else it will skip the memory store and notify the CPU of the failure</p></li>
+</ul>
+<p>Also, note that if one CPU pull a memory value using LR in a for loop (this is done in a few place in the linux kernel, ex : spinlock), it shouldn't be able to refresh the lock,
+as this would completely prevent another CPU from acquiring the memory block. So, for this reason, VexiiRiscv does not set the reservation on a LR,
+but instead toggle the reservation status.</p>
+</section>
 <section id="memory-system">
 <h3>Memory system<a class="headerlink" href="#memory-system" title="Permalink to this heading"></a></h3>
 <p>Currently, VexiiRiscv can be used with the Tilelink memory interconnect from SpinalHDL and Chipyard (<a class="reference external" href="https://chipyard.readthedocs.io/en/latest/Generators/VexiiRiscv.html">https://chipyard.readthedocs.io/en/latest/Generators/VexiiRiscv.html</a>).</p>
@@ -656,7 +722,7 @@ but also, L2/L3 cache designs may block any additional memory request targeting 
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~4c248df 2025-01-06
+    Version: master git~4531e33 2025-01-06
     </p></div>
     
 

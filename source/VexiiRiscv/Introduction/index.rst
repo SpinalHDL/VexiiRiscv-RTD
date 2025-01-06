@@ -91,6 +91,7 @@ Here is a few acronyms commonly used across the documentation :
 - **CPU** : Central Processing Unit
 - **HART** : Hardware Thread. One CPU core can for instance implement multiple HART, meaning that it will execute multiple threads concurently.
   **For** instance, most modern PC CPUs implement 2 Hardware Thread per CPU core (this feature is called hyper-threading)
+- **RF** : Register file
 - **ALU** : Arithmetic Logical Unit
 - **FPU** : Floating Point Unit
 - **LSU** : Load Store Unit

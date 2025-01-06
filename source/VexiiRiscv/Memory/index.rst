@@ -1,9 +1,15 @@
 .. _lsu:
 
-Memory (LSU)
+LSU / Memory
 ############
 
-LSU stand for Load Store Unit, VexiiRiscv has currently 2 implementations for it:
+This chapter will handle things related to :
+
+- Load / Store instructions
+- Atomic memory instructions
+- Load reserve / Store conditional instructions
+
+VexiiRiscv has currently 2 implementations for it:
 
 - LsuCachelessPlugin for microcontrollers, which doesn't implement any cache
 - LsuPlugin / LsuL1Plugin which can work together to implement load and store through an L1 cache
@@ -247,6 +253,73 @@ Here is the hardware interfaces :
 - probe_cmd : To receive probe requests (toInvalid/toShared/toUnique)
 - probe_rsp : to send responses from the above requests (isInvalid/isShared/isUnique).
   When data need to be written back, it will be done through the write_cmd channel.
+
+AMO
+-------------------------
+
+AMO stand for Atomic Memory Operations (ex : atomic swap, atomic add, ...)
+
+Typicaly, an AMO execute the following pseudo code (ex : atomic add).
+
+.. code-block:: c
+
+    void amoadd(int *address, int add_alu) {
+        // Atomic section
+        int read_value = address[0];           // Read memory
+        int alu_value = read_value + add_alue; // Process data
+        address[0] = alu_value;                // Write memory
+        // End of atomic section, write read_value to the register file
+    }
+
+When memory coherency is enabled, here is how AMO instruction are implemented in VexiiRiscv :
+
+- AMO starts like a regular memory Load
+- Once it reach the last stage of the cache (execute stage 2), if there is a cache miss, or the cache line isn't in a exclusive state, the instruction fail and is retried.
+- If the above condition is successfull, the LSU will lock the given cache line for a few cycles, preventing any writeback.
+  The combination of the cache line locking and exclusive state ensure that no other agent can modify the memory block while the atomic operation is done.
+- While the cache line is locked, the atomic ALU will process the readed value, then write the result into the cache and release the cache line lock.
+
+
+LR / SC
+------------------------
+
+LR stand for Load Reserve, SC stand for Store Conditional.
+Those two instruction work in pairs and allows to implement atomic memory operations quite differently from the AMO instruction.
+
+The idea is:
+
+- First, the CPU attempts to load and reserve a given portion of memory via the LR instruction.
+- Then the CPU process the loaded data using regular integer instruction (it has a limited time to do it and a few other restrictions)
+- Finaly, the CPU store a modified value using the SC instruction.
+
+The trick is that the store instruction may fail, and will fail in a few conditions :
+
+- If another memory agent wrote the reserved memory location
+- The CPU was too slow to process the loaded data
+- ...
+
+So an AMOADD could be emulated via :
+
+.. code-block:: c
+
+    void amoadd(int *address, int add_alu) {
+        while(1){
+            int read_value = LR(address);                  // Load Reserve
+            int alu_value = read_value + add_alue;         // Process data
+            if(SC(address, alu_value) == SUCCESS) break;   // Store Conditional
+        }
+    }
+
+
+In VexiiRiscv, the LR / SC instruction are implemented the following way :
+
+- LR mostly behave like a regular memory load, but will require the cache line to be in a exclusive state to successed.
+  Also, the cache line will be locked for a 32 cycles to ensure other memory agent would not remove the cache line via probes systematicaly.
+- SC mostly behave like a regular memory store, but will check that the lock is still active, else it will skip the memory store and notify the CPU of the failure
+
+Also, note that if one CPU pull a memory value using LR in a for loop (this is done in a few place in the linux kernel, ex : spinlock), it shouldn't be able to refresh the lock,
+as this would completely prevent another CPU from acquiring the memory block. So, for this reason, VexiiRiscv does not set the reservation on a LR,
+but instead toggle the reservation status.
 
 Memory system
 -------------

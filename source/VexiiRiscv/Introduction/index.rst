@@ -5,7 +5,8 @@ In a few words, VexiiRiscv :
 
 - Is an project which implement an hardware CPU as well as a few SoC
 - Follows the RISC-V instruction set
-- Is free / open-source
+- Can run baremetal applications aswell as Linux / Buildroot / Debian / ...
+- Is free / open-source (MIT license)
 - Should fit well on all FPGA families but also be portable to ASIC
 
 Other doc / media / talks
@@ -38,11 +39,12 @@ On this date (07/01/2025) the status is :
 - Can run baremetal applications (2.50 dhrystone/MHz, 5.24 coremark/MHz)
 - Can run linux/buildroot/debian on FPGA hardware (via litex)
 - single/dual issue supported
-- late-alu supported
+- early + late alu supported
 - BTB/RAS/GShare branch prediction supported
 - MMU SV32/SV39 supported
 - PMP supported
 - LSU store buffer supported
+- Multi-core memory coherency supported
 - Non-blocking I$ D$ supported
 - Hardware/Software D$ prefetch supported
 - Hardware I$ prefetch supported
@@ -57,8 +59,9 @@ Navigating the code
 -------------------
 
 VexiiRiscv isn't implemented in Verilog nor VHDL. Instead it is written in scala and use the SpinalHDL API to generate hardware.
-This allows to leverage an advanced elaboration time paradigm in order to generate hardware in a very flexible manner.
+You can learn more about SpinalHDL here : https://spinalhdl.github.io/SpinalDoc-RTD/master/index.html
 
+This allows to leverage an advanced elaboration time paradigm in order to generate hardware in a very flexible manner.
 Here are a few key / typical code examples :
 
 - Integer ALU plugin ; src/main/scala/vexiiriscv/execute/IntAluPlugin.scala
@@ -93,7 +96,7 @@ Here is a few acronyms commonly used across the documentation :
 
 - **CPU** : Central Processing Unit
 - **HART** : Hardware Thread. One CPU core can for instance implement multiple HART, meaning that it will execute multiple threads concurently.
-  **For** instance, most modern PC CPUs implement 2 Hardware Thread per CPU core (this feature is called hyper-threading)
+  For instance, most modern PC CPUs implement 2 Hardware Thread per CPU core (this feature is called hyper-threading)
 - **RF** : Register file
 - **ALU** : Arithmetic Logical Unit
 - **FPU** : Floating Point Unit
@@ -104,6 +107,25 @@ Here is a few acronyms commonly used across the documentation :
 - **I$** : Instruction Cache
 - **D$** : Data Cache
 - **IO** : Input Output. Most of the time it mean LOAD/Store instruction which target peripherals (instead of general purpose memory)
+
+Here is a few more terms commonly used in the CPU context:
+
+- **Fetching** : The act of reading the data which contains the instructions from the memory.
+- **Decoding** : Figuring out what should be done in the CPU for a given instruction.
+- **Dispatching** : Sending a given instruction to one execution units, once all its dependencies are available.
+- **Executing** : Processing the data used by an instruction
+- **Commiting** : Going past the point were a given instruction can not be canceled/reverted anymore.
+
+Here is a few more terms commonly used when talking about caches :
+
+- **Line** : A cache line is a block of memory in the cache (typicaly 64 bytes) which will act as a temporary copy of the main memory.
+- **Way** : The number of ways in a CPU specifies how many cache lines could be used to map a given address interchangeably.
+  A high number of ways gives the CPU more choices, when a new cache line need to be allocated, to evict the least usefull cache line.
+- **Set** : The number of sets specifies how parts of the cache lines addresses are staticaly mapped to portions of the memory.
+- **Refill** : The action which load a cache line with a new memory copy
+- **Writeback** : The action which free a modified cache line by writting is back to the main memory
+- **Blocking** : A blocking cache will not accept any new CPU request while performing a refill or a writeback
+- **Prefetching** : Anticipating future CPU needs by refilling yet unrequested memory blocks in the cache (driven by predictions)
 
 About VexRiscv (not VexiiRiscv)
 -------------------------------

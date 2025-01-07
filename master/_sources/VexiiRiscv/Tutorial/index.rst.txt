@@ -683,3 +683,69 @@ This should now print 10 times "hello world" on your terminal
     [info] hello world
     [info] hello world
 
+Reading a CSR
+----------------
+
+In the CPU, there is the mcycle CSR which is a hardware counter which increment every clock cycles.
+Let's say we want to print its value 10 times.
+
+Reading a CSR (Control Status Register) in assembly is straight forward (ex : csrr x1, mstatus). But to do that in C, you need to wrap it a bit.
+
+
+.. code-block:: c
+
+    #include <sim.h>
+    void main(){
+        for(int i=0;i<10;i++) {
+            int value;
+            asm volatile ("csrr %0,  mcycle": "=r" (value));
+            sim_puthex(value);
+            sim_putchar('\n');
+        }
+    }
+
+Here are a few explenations :
+
+- **asm** : To start specifying some assembly inside some C code
+- **volatile** : To ensure GCC do not optimize away the given assembly code (not realy necessary in our case)
+- **"csrr %0,  mcycle"** :  Read the mcycle CSR and write its value into %0, %0 refering to the value variable
+- **"=r" (value)** : Define a write only output operand binded to the C "value" variable
+
+I will not go more into the details of the GCC asm("") syntax, as i'm not good at it and it is quite complicated.
+
+Hopefully, there is the riscv.h header you can include, which wrap all of those asm("") commands into easy to use macros :
+
+.. code-block:: c
+
+    #include <sim.h>
+    #include <riscv.h>
+
+    void main(){
+        for(int i=0;i<10;i++) {
+            sim_puthex(csr_read(mcycle));
+            sim_putchar('\n');
+        }
+    }
+
+Then, running it via :
+
+sbt "Test/runMain vexiiriscv.tester.TestBench --with-rvm --allow-bypass-from=0 --load-elf helloworld/build/helloworld.elf --trace-all --no-probe --debug-privileged --no-rvls-check --performance-counters=0"
+
+Will print the following in the terminal
+
+.. code-block::
+
+    [info] [Progress] Start VexiiRiscv test simulation with seed 2
+    [info] 00000094
+    [info] 000000a6
+    [info] 000000b8
+    [info] 000000ca
+    [info] 000000dc
+    [info] 000000ee
+    [info] 00000100
+    [info] 00000112
+    [info] 00000124
+    [info] 00000136
+
+Note, we added the --performance-counters=0 VexiiRiscv argument, as the mcycle isn't implemented otherwise.
+The RISC-V architecture specifies various 64 bits counters which aren't cheap in FPGA, so VexiiRiscv do not implement them by default.

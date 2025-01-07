@@ -960,6 +960,12 @@ Let's say we want to print its value 10 times.</p>
 </div>
 <p>Note, we added the --performance-counters=0 VexiiRiscv argument, as the mcycle isn't implemented otherwise.
 The RISC-V architecture specifies various 64 bits counters which aren't cheap in FPGA, so VexiiRiscv do not implement them by default.</p>
+<p>Note, there is some cycles overhead to execute a CSR instruction :</p>
+<ul class="simple">
+<li><p>In VexiiRiscv, the instruction dispatcher willwait that the execute pipeline is empty before dispatching a CSR access.</p></li>
+<li><p>In VexiiRiscv, the CSR access themself are executed inside a little state machine which takes a few cycle to decode/read/write the CSR instruction.</p></li>
+<li><p>In VexiiRiscv, all the performance counters aswell as mcycle/minstret CSR are implemented using a shared memory (to save area). Accessing that memory takes a few cycles.</p></li>
+</ul>
 </section>
 </section>
 </section>
@@ -993,7 +999,7 @@ The RISC-V architecture specifies various 64 bits counters which aren't cheap in
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master git~6c6a1e5 2025-01-07
+    Version: master git~9f7528f 2025-01-07
     </p></div>
     
 

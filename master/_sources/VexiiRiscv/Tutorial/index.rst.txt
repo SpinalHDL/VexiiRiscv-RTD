@@ -749,3 +749,9 @@ Will print the following in the terminal
 
 Note, we added the --performance-counters=0 VexiiRiscv argument, as the mcycle isn't implemented otherwise.
 The RISC-V architecture specifies various 64 bits counters which aren't cheap in FPGA, so VexiiRiscv do not implement them by default.
+
+Note, there is some cycles overhead to execute a CSR instruction :
+
+- In VexiiRiscv, the instruction dispatcher willwait that the execute pipeline is empty before dispatching a CSR access.
+- In VexiiRiscv, the CSR access themself are executed inside a little state machine which takes a few cycle to decode/read/write the CSR instruction.
+- In VexiiRiscv, all the performance counters aswell as mcycle/minstret CSR are implemented using a shared memory (to save area). Accessing that memory takes a few cycles.

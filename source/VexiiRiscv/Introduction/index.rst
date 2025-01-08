@@ -5,8 +5,9 @@ In a few words, VexiiRiscv :
 
 - Is an project which implement an hardware CPU as well as a few SoC
 - Follows the RISC-V instruction set
+- Aims at covering most of the in-order CPU design-space. From small microcontroller to applicative multi-core systems
 - Can run baremetal applications aswell as Linux / Buildroot / Debian / ...
-- Is free / open-source (MIT license)
+- Is free / open-source (MIT license) (https://github.com/SpinalHDL/VexiiRiscv)
 - Should fit well on all FPGA families but also be portable to ASIC
 
 Other doc / media / talks
@@ -17,6 +18,7 @@ Here is a list of links to resources which present or document VexiiRiscv :
 - FSiC 2024   : https://wiki.f-si.org/index.php?title=Moving_toward_VexiiRiscv
 - COSCUP 2024 : https://coscup.org/2024/en/session/PVAHAS
 - ORConf 2024 : https://fossi-foundation.org/orconf/2024#vexiiriscv--a-debian-demonstration
+- Running debian with VexiiRiscv : https://youtu.be/dR_jqS13D2c?t=112
 
 Glossary
 ------------------
@@ -106,22 +108,6 @@ Here is a diagram with 2 issue / early+late alu / 6 stages configuration (note t
 
 .. image:: /asset/picture/architecture_all_1.png
 
-Navigating the code
--------------------
-
-VexiiRiscv isn't implemented in Verilog nor VHDL. Instead it is written in scala and use the SpinalHDL API to generate hardware.
-You can learn more about SpinalHDL here : https://spinalhdl.github.io/SpinalDoc-RTD/master/index.html
-
-This allows to leverage an advanced elaboration time paradigm in order to generate hardware in a very flexible manner.
-Here are a few key / typical code examples :
-
-- Integer ALU plugin ; src/main/scala/vexiiriscv/execute/IntAluPlugin.scala
-- A cpu configuration generator : dev/src/main/scala/vexiiriscv/Param.scala
-- The CPU toplevel src/main/scala/vexiiriscv/VexiiRiscv.scala
-- Some globally shared definitions : src/main/scala/vexiiriscv/Global.scala
-
-Also due to the nested structure of the code base, a text editor / IDE which support curly brace folding can be very usefull.
-
 About RISC-V
 ------------------
 
@@ -154,3 +140,19 @@ There is few reasons why VexiiRiscv exists instead of doing incremental upgrade 
 - The VexRiscv verification infrastructure based on its own golden model isn't great.
 
 So, enough is enough, it was time to start fresh :D
+
+Navigating the code
+-------------------
+
+VexiiRiscv isn't implemented in Verilog nor VHDL. Instead it is written in scala and use the SpinalHDL API to generate hardware.
+You can learn more about SpinalHDL here : https://spinalhdl.github.io/SpinalDoc-RTD/master/index.html
+
+This allows to leverage an advanced elaboration time paradigm in order to generate hardware in a very flexible manner.
+Here are a few key / typical code examples :
+
+- Integer ALU plugin ; src/main/scala/vexiiriscv/execute/IntAluPlugin.scala
+- A cpu configuration generator : dev/src/main/scala/vexiiriscv/Param.scala
+- The CPU toplevel src/main/scala/vexiiriscv/VexiiRiscv.scala
+- Some globally shared definitions : src/main/scala/vexiiriscv/Global.scala
+
+Also due to the nested structure of the code base, a text editor / IDE which support curly brace folding can be very usefull.

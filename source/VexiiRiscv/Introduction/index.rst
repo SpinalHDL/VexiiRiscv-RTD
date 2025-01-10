@@ -25,15 +25,15 @@ Glossary
 
 Here is a few acronyms commonly used across the documentation :
 
-- **CPU** : Central Processing Unit
+- **CPU** : Central Processing Unit. A CPU core refer to the hardware which is capable of executing software but without all the peripherals and memory interconnect that could be on the same chip.
 - **HART** : Hardware Thread. One CPU core can for instance implement multiple HART, meaning that it will execute multiple threads concurently.
   For instance, most modern PC CPUs implements 2 Hardware Thread per CPU core (this feature is called hyper-threading)
-- **RF** : Register file
+- **RF** : Register file. Local memory on the CPU used by most instructions to read their operands and write their results.
 - **CSR** : Control Status Register, those are the special register in the CPU which allows to handle interruptions, exceptions aswell as configuring things like the MMU.
-- **ALU** : Arithmetic Logical Unit
+- **ALU** : Arithmetic Logical Unit. Were most of the integer processing is done (add, sub, or, and, ...)
 - **FPU** : Floating Point Unit
-- **LSU** : Load Store Unit
-- **AMO** : Atomic Memory Operation
+- **LSU** : Load Store Unit. This is the part of the CPU which will mostly keep track of inflight load and store instructions to ensure proper memory ordering and interface with the L1 data cache.
+- **AMO** : Atomic Memory Operation. Set of instruction which allows to read-modify the main memory with a single access. No other memory access can be observed to happen in between the read and modify operations.
 - **MMU** : Memory Management Unit. Translate virtual addresses into pyhsical ones, aswell as check access permitions.
 - **PMP** : Physical Memory Protection. Check physical address access permitions.
 - **I$** : Instruction Cache

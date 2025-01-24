@@ -19,6 +19,8 @@ Here is a list of links to resources which present or document VexiiRiscv :
 - COSCUP 2024 : https://coscup.org/2024/en/session/PVAHAS
 - ORConf 2024 : https://fossi-foundation.org/orconf/2024#vexiiriscv--a-debian-demonstration
 - Running debian with VexiiRiscv : https://youtu.be/dR_jqS13D2c?t=112
+- Scala doc : https://spinalhdl.github.io/VexiiRiscv/doc/vexiiriscv/index.html
+
 
 Glossary
 ------------------

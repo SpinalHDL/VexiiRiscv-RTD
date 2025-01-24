@@ -538,9 +538,36 @@ make -j<span class="k">$(</span>nproc<span class="k">)</span>
 <tr class="row-odd"><td><p>--with-jtag-tap</p></td>
 <td><p>Enable the RISC-V JTAG debugging.</p></td>
 </tr>
+<tr class="row-even"><td><p>--report-model</p></td>
+<td><p>This is a special arguments. When used, after the hardware generation, the whole execution pipeline model will be printed in the terminal,
+aswell as how each instruction integrate itself in it (timings, ressource used, ...)</p></td>
+</tr>
 </tbody>
 </table>
-<p>There is a lot more parameters which can be turned.</p>
+<p>There is a lot more parameters which can be turned on.</p>
+<p>About the --report-model, here is an example of its output :</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">Execute</span> <span class="n">lane</span> <span class="p">:</span> <span class="n">lane0</span>
+<span class="o">-</span> <span class="n">Layer</span> <span class="p">:</span> <span class="n">early0</span>
+  <span class="o">-</span> <span class="n">instruction</span> <span class="p">:</span> <span class="n">Rvi_ADD</span>
+    <span class="o">-</span> <span class="n">read</span>  <span class="n">integer</span><span class="p">[</span><span class="n">RS1</span><span class="p">],</span> <span class="n">stage</span> <span class="mi">0</span>
+    <span class="o">-</span> <span class="n">read</span>  <span class="n">integer</span><span class="p">[</span><span class="n">RS2</span><span class="p">],</span> <span class="n">stage</span> <span class="mi">0</span>
+    <span class="o">-</span> <span class="n">write</span> <span class="n">integer</span><span class="p">[</span><span class="n">RD</span><span class="p">],</span> <span class="n">stage</span> <span class="mi">0</span>
+    <span class="o">-</span> <span class="n">completion</span> <span class="n">stage</span> <span class="mi">0</span>
+    <span class="o">-</span> <span class="n">decodes</span> <span class="n">early0_IntAluPlugin_SEL</span> <span class="o">/</span> <span class="n">early0_IntAluPlugin_ALU_ADD_SUB</span> <span class="o">/</span> <span class="n">early0_IntAluPlugin_ALU_SLTX</span> <span class="o">/</span> <span class="n">early0_IntAluPlugin_ALU_BITWISE_CTRL</span> <span class="o">/</span> <span class="n">SrcStageables_REVERT</span> <span class="o">/</span> <span class="n">SrcStageables_ZERO</span> <span class="o">/</span> <span class="n">early0_SrcPlugin_logic_SRC1_CTRL</span> <span class="o">/</span> <span class="n">early0_SrcPlugin_logic_SRC2_CTRL</span> <span class="o">/</span> <span class="n">lane0_IntFormatPlugin_logic_SIGNED</span> <span class="o">/</span> <span class="n">lane0_IntFormatPlugin_logic_WIDTH_ID</span> <span class="o">/</span> <span class="n">lane0_integer_WriteBackPlugin_SEL</span> <span class="o">/</span> <span class="n">COMPLETION_AT_2</span> <span class="o">/</span> <span class="n">BYPASSED_AT_2</span> <span class="o">/</span> <span class="n">BYPASSED_AT_3</span> <span class="o">/</span> <span class="n">execute_lane0_logic_completions_onCtrl_0_ENABLE</span>
+  <span class="o">-</span> <span class="n">instruction</span> <span class="p">:</span> <span class="n">Rvi_SW</span>
+    <span class="o">-</span> <span class="n">read</span>  <span class="n">integer</span><span class="p">[</span><span class="n">RS1</span><span class="p">],</span> <span class="n">stage</span> <span class="mi">0</span>
+    <span class="o">-</span> <span class="n">read</span>  <span class="n">integer</span><span class="p">[</span><span class="n">RS2</span><span class="p">],</span> <span class="n">stage</span> <span class="mi">0</span>
+    <span class="o">-</span> <span class="n">completion</span> <span class="n">stage</span> <span class="mi">1</span>
+    <span class="o">-</span> <span class="n">may</span> <span class="n">flush</span> <span class="n">up</span> <span class="n">to</span> <span class="n">stage</span> <span class="mi">0</span>
+    <span class="o">-</span> <span class="n">dont</span> <span class="n">flush</span> <span class="kn">from</span> <span class="nn">stage</span> <span class="mi">1</span>
+    <span class="o">-</span> <span class="n">decodes</span> <span class="n">AguPlugin_SEL</span> <span class="o">/</span> <span class="n">AguPlugin_LOAD</span> <span class="o">/</span> <span class="n">AguPlugin_STORE</span> <span class="o">/</span> <span class="n">AguPlugin_ATOMIC</span> <span class="o">/</span> <span class="n">AguPlugin_FLOAT</span> <span class="o">/</span> <span class="n">SrcStageables_REVERT</span> <span class="o">/</span> <span class="n">SrcStageables_ZERO</span> <span class="o">/</span> <span class="n">early0_SrcPlugin_logic_SRC1_CTRL</span> <span class="o">/</span> <span class="n">early0_SrcPlugin_logic_SRC2_CTRL</span> <span class="o">/</span> <span class="n">COMPLETION_AT_3</span> <span class="o">/</span> <span class="n">execute_lane0_logic_completions_onCtrl_2_ENABLE</span>
+  <span class="o">-</span> <span class="n">instruction</span> <span class="p">:</span> <span class="n">Rvi_ECALL</span>
+    <span class="o">-</span> <span class="n">completion</span> <span class="n">stage</span> <span class="mi">0</span>
+    <span class="o">-</span> <span class="n">may</span> <span class="n">flush</span> <span class="n">up</span> <span class="n">to</span> <span class="n">stage</span> <span class="mi">0</span>
+    <span class="o">-</span> <span class="n">decodes</span> <span class="n">early0_EnvPlugin_SEL</span> <span class="o">/</span> <span class="n">early0_EnvPlugin_OP</span> <span class="o">/</span> <span class="n">COMPLETION_AT_2</span> <span class="o">/</span> <span class="n">execute_lane0_logic_completions_onCtrl_0_ENABLE</span>
+<span class="o">...</span>
+</pre></div>
+</div>
 </section>
 <section id="run-a-simulation">
 <span id="simulation"></span><h2>Run a simulation<a class="headerlink" href="#run-a-simulation" title="Permalink to this heading"></a></h2>
@@ -657,7 +684,7 @@ make
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master (HEAD) git~283fc64 2025-01-24
+    Version: master (HEAD) git~45bfeb8 2025-01-24
     </p></div>
     
 

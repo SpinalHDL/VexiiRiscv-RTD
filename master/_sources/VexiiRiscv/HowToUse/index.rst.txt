@@ -218,8 +218,37 @@ Here is a list of the important parameters :
      - Set the number of data cache ways (4KB per way by default)
    * - --with-jtag-tap
      - Enable the RISC-V JTAG debugging.
+   * - --report-model
+     - This is a special arguments. When used, after the hardware generation, the whole execution pipeline model will be printed in the terminal, 
+       aswell as how each instruction integrate itself in it (timings, ressource used, ...)
 
-There is a lot more parameters which can be turned.
+
+There is a lot more parameters which can be turned on.
+
+About the --report-model, here is an example of its output : 
+
+.. code-block::
+
+    Execute lane : lane0
+    - Layer : early0
+      - instruction : Rvi_ADD
+        - read  integer[RS1], stage 0
+        - read  integer[RS2], stage 0
+        - write integer[RD], stage 0
+        - completion stage 0
+        - decodes early0_IntAluPlugin_SEL / early0_IntAluPlugin_ALU_ADD_SUB / early0_IntAluPlugin_ALU_SLTX / early0_IntAluPlugin_ALU_BITWISE_CTRL / SrcStageables_REVERT / SrcStageables_ZERO / early0_SrcPlugin_logic_SRC1_CTRL / early0_SrcPlugin_logic_SRC2_CTRL / lane0_IntFormatPlugin_logic_SIGNED / lane0_IntFormatPlugin_logic_WIDTH_ID / lane0_integer_WriteBackPlugin_SEL / COMPLETION_AT_2 / BYPASSED_AT_2 / BYPASSED_AT_3 / execute_lane0_logic_completions_onCtrl_0_ENABLE
+      - instruction : Rvi_SW
+        - read  integer[RS1], stage 0
+        - read  integer[RS2], stage 0
+        - completion stage 1
+        - may flush up to stage 0
+        - dont flush from stage 1
+        - decodes AguPlugin_SEL / AguPlugin_LOAD / AguPlugin_STORE / AguPlugin_ATOMIC / AguPlugin_FLOAT / SrcStageables_REVERT / SrcStageables_ZERO / early0_SrcPlugin_logic_SRC1_CTRL / early0_SrcPlugin_logic_SRC2_CTRL / COMPLETION_AT_3 / execute_lane0_logic_completions_onCtrl_2_ENABLE
+      - instruction : Rvi_ECALL
+        - completion stage 0
+        - may flush up to stage 0
+        - decodes early0_EnvPlugin_SEL / early0_EnvPlugin_OP / COMPLETION_AT_2 / execute_lane0_logic_completions_onCtrl_0_ENABLE
+    ...
 
 .. _simulation:
 

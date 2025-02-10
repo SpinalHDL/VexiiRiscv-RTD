@@ -107,7 +107,7 @@
 <li class="toctree-l2"><a class="reference internal" href="#assembler">Assembler</a><ul>
 <li class="toctree-l3"><a class="reference internal" href="#looking-at-examples">Looking at examples</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#write-the-assembler-code">Write the assembler code</a></li>
-<li class="toctree-l3"><a class="reference internal" href="#build-the-assembler-code">Build the assembler Code</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#build-the-assembler-code">Build the assembler code</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#initial-run-error">Initial run (Error)</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#fixing-the-error">Fixing the Error</a></li>
 <li class="toctree-l3"><a class="reference internal" href="#the-assembler-hello-world">The assembler &quot;hello world&quot;</a></li>
@@ -340,22 +340,22 @@
 <li><p>Add a bug</p></li>
 <li><p>Run your code in a simulator</p></li>
 <li><p>Debug the bug</p></li>
-<li><p>Learn how to show important signals from the wave</p></li>
+<li><p>Learn how to show important signals from the waveform</p></li>
 <li><p>Fix the bug</p></li>
 </ul>
 <section id="tooling">
 <h2>Tooling<a class="headerlink" href="#tooling" title="Permalink to this heading"></a></h2>
-<p>You have two options for getting start:</p>
+<p>You have two options for getting started:</p>
 <ul class="simple">
-<li><p>You can use the Docker image with all the dependencies preinstalled</p></li>
-<li><p>You can use the How To Use guide on how to install all the stuff you need locally on your machine</p></li>
+<li><p>You can use the Docker image with all the dependencies preinstalled.</p></li>
+<li><p>You can use the How To Use guide on how to install all the stuff you need locally on your machine.</p></li>
 </ul>
 </section>
 <section id="assembler">
 <h2>Assembler<a class="headerlink" href="#assembler" title="Permalink to this heading"></a></h2>
 <section id="looking-at-examples">
 <h3>Looking at examples<a class="headerlink" href="#looking-at-examples" title="Permalink to this heading"></a></h3>
-<p>In case you haven't done so, you should bring your repo up to speed and init+update all the submodules</p>
+<p>In case you haven't done so, you should bring your repo up to speed and init+update all the submodules.</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> VexiiRiscv
 git pull
 git submodule update --init --recursive
@@ -363,20 +363,20 @@ git submodule update --init --recursive
 </div>
 <p>After that you can find many test programs in <cite>ext/NaxSoftware/baremetal</cite>, mostly written in assembly. For instance :</p>
 <ul class="simple">
-<li><p>simdAdd : is used to test a custom instruction which implements 4 bytes adder in a single instruction</p></li>
-<li><p>pmp : is used to test the RISC-V PMP, which allows the machine mode to restrict memory accesses of the supervisor/user mode to specific ranges (Physical Memory Protection)</p></li>
-<li><p>machine_vexii : is used to test most of the RISC-V machine mode privileged spec, as for instance, unaligned memory load exception, ...</p></li>
+<li><p>simdAdd : is used to test a custom instruction which implements 4 bytes adder in a single instruction.</p></li>
+<li><p>pmp : is used to test the RISC-V PMP, which allows the machine mode to restrict memory accesses of the supervisor/user mode to specific ranges (Physical Memory Protection).</p></li>
+<li><p>machine_vexii : is used to test most of the RISC-V machine mode privileged spec, as for instance, unaligned memory load exception.</p></li>
 </ul>
 <p>Writing tests in assembly is often the only viable way to test low level features for a few reasons :</p>
 <ul class="simple">
 <li><p>It avoid all the noise which would come from C/C++ languages.</p></li>
-<li><p>It allows to restrict the features of the CPU being used in the tests, which is very useful for bring up.</p></li>
-<li><p>It allows to create very precise sequences of instructions, allowing you to trigger specific corner cases</p></li>
+<li><p>It allows to restrict the features of the CPU being used in the tests, which is very useful for bring-up.</p></li>
+<li><p>It allows to create very precise sequences of instructions, allowing you to trigger specific corner cases.</p></li>
 </ul>
 </section>
 <section id="write-the-assembler-code">
 <h3>Write the assembler code<a class="headerlink" href="#write-the-assembler-code" title="Permalink to this heading"></a></h3>
-<p>So first of all, create a folder in your repository root (&quot;/work&quot; inside the Docker environment, or otherwise simply VexiiRiscv. The folder you cloned the repository into) called &quot;mytest&quot;... basically</p>
+<p>So first of all, create a folder called &quot;mytest&quot; in your VexiiRiscv repository root (&quot;/work&quot; inside the Docker environment, or &quot;VexiiRiscv&quot; if you cloned the repository).</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> VexiiRiscv
 mkdir -p mytest/src
 <span class="nb">cd</span> mytest
@@ -388,7 +388,7 @@ mkdir -p mytest/src
 <span class="nb">cd</span> mytest
 </pre></div>
 </div>
-<p>then create an assembler file inside the src folder called &quot;crt.S&quot; containing the following code</p>
+<p>then create an assembler file inside the src folder called &quot;crt.S&quot; containing the following code:</p>
 <div class="highlight-nasm notranslate"><div class="highlight"><pre><span></span><span class="nf">.option</span><span class="w"> </span><span class="nv">arch</span><span class="p">,</span><span class="w"> </span><span class="o">+</span><span class="nv">zicsr</span><span class="w"></span>
 
 <span class="nf">.global</span><span class="w"> </span><span class="nv">_start</span><span class="w"></span>
@@ -398,16 +398,16 @@ mkdir -p mytest/src
 </div>
 </section>
 <section id="build-the-assembler-code">
-<h3>Build the assembler Code<a class="headerlink" href="#build-the-assembler-code" title="Permalink to this heading"></a></h3>
+<h3>Build the assembler code<a class="headerlink" href="#build-the-assembler-code" title="Permalink to this heading"></a></h3>
 <p>Now, it's time to create a GNU make file, using the NaxSoftware infrastructure,
-so that we can turn our assembly code.</p>
-<p>In the mytest folder, create a Makefile file containing the following</p>
+so that we can turn our assembly code into a binary.</p>
+<p>In the mytest folder, create a Makefile file containing the following:</p>
 <div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nv">PROJ_NAME</span><span class="o">=</span>mytest
 <span class="nv">STANDALONE</span><span class="o">=</span>../ext/NaxSoftware/baremetal
 <span class="cp">include ../ext/NaxSoftware/baremetal/common/asm.mk</span>
 </pre></div>
 </div>
-<p>After running make in your bash shell respectively Cygwin shell (assuming you have installed everything),
+<p>After running make in your bash or Cygwin shell (assuming you have installed everything),
 you should now be able to find a folder named &quot;build&quot;, containing a bin file, and asm file and most importantly
 the ELF and map file.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">leviathan</span><span class="nd">@harvey</span><span class="p">:</span><span class="o">~/</span><span class="n">VexiiRiscv</span><span class="o">/</span><span class="n">mytest</span><span class="o">&gt;</span> <span class="n">ls</span> <span class="n">build</span><span class="o">/</span>
@@ -416,15 +416,15 @@ the ELF and map file.</p>
 </div>
 <p>In short, here is what those files are for :</p>
 <ul class="simple">
-<li><p>mytest.elf : This is the primary output of the compiler, it contains all the information about our compiled program (instruction, data, symbol locations, ..). If you need to backup a compiled program, backup this file, as all 3 others (bin/asm/map) files are generated from this elf.</p></li>
+<li><p>mytest.elf : This is the primary output of the compiler, it contains all the information about our compiled program such as instructions, data, and symbol locations. If you need to backup a compiled program, backup this file, as all the 3 other (bin/asm/map) files are generated from this elf.</p></li>
 <li><p>mytest.bin : Raw binary file of your program. In our case, if this binary file was directly loaded in the memory at the reset vector of the CPU (0x80000000), we would be good to go.</p></li>
-<li><p>mytest.asm : A text file which tells you the every instructions contained in your compiled program, as well as their location in the memory space, which is quite useful when you debug the CPU itself.</p></li>
-<li><p>mytest.map : Specify the memory location of every section/symbol/variable of your program. Not so useful in general, but can allow to track the access to specific memory variables from a waveform.</p></li>
+<li><p>mytest.asm : A text file which tells you every instruction contained in your compiled program, as well as their location in the memory space, which is quite useful when you debug the CPU itself.</p></li>
+<li><p>mytest.map : Specify the memory location of every section/symbol/variable of your program. Not so useful in general, but can allow tracking the access to specific memory variables from a waveform.</p></li>
 </ul>
 </section>
 <section id="initial-run-error">
 <h3>Initial run (Error)<a class="headerlink" href="#initial-run-error" title="Permalink to this heading"></a></h3>
-<p>In order to run the assembly code we just made, we have to tell sbt to load our ELF file into the VexiiRiscv simulator by running the following command in the root source folder (/work respectively VexiiRiscv)</p>
+<p>In order to run the assembly code we just made, we have to tell sbt to load our ELF file into the VexiiRiscv simulator by running the following command in the root source folder (Whether you use /work or VexiiRiscv paths in the following depends upon your environment):</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ..
 sbt <span class="s2">&quot;Test/runMain vexiiriscv.tester.TestBench --with-rvm --allow-bypass-from=0 --load-elf mytest/build/mytest.elf --trace-all&quot;</span>
 </pre></div>
@@ -439,26 +439,26 @@ Additionally, if the testbench detect that the CPU reached the pass/fail symbols
 <li><p>--trace-all : This will ask the simulation to capture a whole set of simulation traces that you can find in <cite>simWorkspace/VexiiRiscv/test</cite>, including the simulation waveform (wave.fst),
 a representation of the CPU pipeline status (konata.log).</p></li>
 </ul>
-<p>Keep in mind, by default, VexiiRiscv is configured with most of its features disabled. no branch prediction, no cache, no mmu, no ...</p>
-<p>Now it's running</p>
+<p>Keep in mind, by default, VexiiRiscv is configured with most of its features disabled, with no branch prediction, no cache, no mmu, for example.</p>
+<p>Now it's running:</p>
 <img alt="../../_images/Screenshot_20241205_142640.png" src="../../_images/Screenshot_20241205_142640.png" />
 <p>But... ooopsie. It failed.</p>
 <img alt="../../_images/Screenshot_20241205_142659.png" src="../../_images/Screenshot_20241205_142659.png" />
 <p><strong>Question:</strong> Why??</p>
 <p><strong>Answer</strong> The CPU is locked into a <cite>illegal instruction exception</cite> loop of doom.</p>
-<p>Here is the full scénario :</p>
+<p>Here is the full scenario :</p>
 <ul class="simple">
-<li><p>Once the CPU had executed <cite>li x1, 42</cite>, it then reach a portion of memory which isn't loaded with code but instead has a random value (the testbench is designed that way).</p></li>
-<li><p>So it is very likely that the CPU try to execute a portion of memory which isn't recognized as an instruction, which produce a <cite>illegal instruction exception</cite>.</p></li>
-<li><p>This results into the CPU jumping to its trap vector (mtvec).</p></li>
-<li><p>This trap vector being initialized by the CPU reset to 0, will make the CPU jump/trap to PC=0</p></li>
-<li><p>At PC=0 there is as well some random values, which likely will produce another <cite>illegal instruction exception</cite>, again and again, forever.</p></li>
-<li><p>Then, the testbench detect that the CPU isn't doing any <cite>commit</cite> anymore (forward progress) and call it a failure.</p></li>
+<li><p>Once the CPU has executed <cite>li x1, 42</cite>, it will then reach a portion of memory which isn't loaded with code but instead has a random value (the testbench is designed that way).</p></li>
+<li><p>So it is very likely that the CPU will try to execute a portion of memory which isn't recognized as an instruction, which produces a <cite>illegal instruction exception</cite>.</p></li>
+<li><p>This results in the CPU jumping to its trap vector (mtvec).</p></li>
+<li><p>This trap vector will be initialized by the CPU reset to 0, which will make the CPU jump/trap to PC=0</p></li>
+<li><p>At PC=0 there will be some random values, which are likely to produce another <cite>illegal instruction exception</cite>, repeating forever.</p></li>
+<li><p>The testbench should then detect that the CPU is no longer doing any <cite>commit</cite> (forward progress), and call it a failure.</p></li>
 </ul>
 </section>
 <section id="fixing-the-error">
 <h3>Fixing the Error<a class="headerlink" href="#fixing-the-error" title="Permalink to this heading"></a></h3>
-<p>We can fix this error quickly by adding those two additional lines to our assembler file</p>
+<p>We can fix this error quickly by adding these two additional lines to our assembler file:</p>
 <div class="highlight-nasm notranslate"><div class="highlight"><pre><span></span><span class="nl">pass:</span><span class="w"></span>
 <span class="w">  </span><span class="nf">j</span><span class="w"> </span><span class="nv">pass</span><span class="w"></span>
 </pre></div>
@@ -474,14 +474,14 @@ a representation of the CPU pipeline status (konata.log).</p></li>
 </pre></div>
 </div>
 <p>After that we run the make/sbt command again.</p>
-<p>Now the simulation won't fail anymore, and exit gracefully, as the testbench will detect that the CPU reached the <cite>pass</cite> symbol.</p>
+<p>Now the simulation won't fail anymore, and should exit gracefully, as the testbench will detect that the CPU reached the <cite>pass</cite> symbol.</p>
 <p>However, an endless loop which doesn't anything isn't very useful.</p>
-<p>Note, running SBT every time with <cite>sbt &quot;Test/runMain vexiiriscv.tester.TestBench ...</cite> is slow and painful. What you can do instead is just to run the <cite>sbt</cite> command without arguments, which will bring you in the SBT shell, and there you can run your <cite>Test/runMain vexiiriscv.tester.TestBench ...</cite> with much less overhead.</p>
+<p>Note, running SBT every time with <cite>sbt &quot;Test/runMain vexiiriscv.tester.TestBench ...</cite> is slow and painful. What you can do instead is to simply run the <cite>sbt</cite> command without arguments, which will bring you into the SBT shell, from where you can run your <cite>Test/runMain vexiiriscv.tester.TestBench ...</cite> with much less overhead.</p>
 </section>
 <section id="the-assembler-hello-world">
 <h3>The assembler &quot;hello world&quot;<a class="headerlink" href="#the-assembler-hello-world" title="Permalink to this heading"></a></h3>
 <p>Since we can't really print out a &quot;hello world&quot; in this context because we're simulating a CPU
-and the execution of assembler code on it, we go for the next best thing: a &quot;for&quot; loop</p>
+and the execution of assembler code on it, we shall go for the next best thing: a &quot;for&quot; loop:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="kt">uint32_t</span><span class="w"> </span><span class="n">sum</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"></span>
 
 <span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">=</span><span class="w"> </span><span class="mi">0</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="w"> </span><span class="o">&lt;</span><span class="w"> </span><span class="mi">5</span><span class="p">;</span><span class="w"> </span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -489,7 +489,7 @@ and the execution of assembler code on it, we go for the next best thing: a &quo
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-<p>As RISC-V assembly this looks like that:</p>
+<p>As RISC-V assembly this becomes the following:</p>
 <div class="highlight-nasm notranslate"><div class="highlight"><pre><span></span><span class="nf">.option</span><span class="w"> </span><span class="nv">arch</span><span class="p">,</span><span class="w"> </span><span class="o">+</span><span class="nv">zicsr</span><span class="w"></span>
 
 <span class="nf">.global</span><span class="w"> </span><span class="nv">_start</span><span class="w"></span>
@@ -511,38 +511,38 @@ and the execution of assembler code on it, we go for the next best thing: a &quo
 </div>
 <p>Also, note that if you are interested into more C to assembly comparison, you can use the Compiler Explorer tool. Here is an example :</p>
 <p><a class="reference external" href="https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1',fontScale:14,fontUsePx:'0',j:1,lang:___c,selection:(endColumn:2,endLineNumber:7,positionColumn:2,positionLineNumber:7,selectionStartColumn:2,selectionStartLineNumber:7,startColumn:2,startLineNumber:7),source:'int+miaou()%7B%0A++++int+count+%3D+1000%3B%0A++++while(count+!!%3D+0)%7B%0A++++++++asm(%22nop%22)%3B%0A++++++++count--%3B%0A++++%7D%0A%7D'),l:'5',n:'0',o:'C+source+%231',t:'0')),k:44.29215489283432,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:compiler,i:(compiler:rv32-cgcctrunk,filters:(b:'0',binary:'1',binaryObject:'0',commentOnly:'0',debugCalls:'1',demangle:'0',directives:'0',execute:'1',intel:'0',libraryCode:'0',trim:'1',verboseDemangling:'0'),flagsViewOpen:'1',fontScale:14,fontUsePx:'0',j:2,lang:___c,libs:!(),options:'-O3',overrides:!(),selection:(endColumn:5,endLineNumber:10,positionColumn:5,positionLineNumber:10,selectionStartColumn:5,selectionStartLineNumber:10,startColumn:5,startLineNumber:10),source:1),l:'5',n:'0',o:'+RISC-V+(32-bits)+gcc+(trunk)+(Editor+%231)',t:'0')),k:55.707845107165674,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4">https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1',fontScale:14,fontUsePx:'0',j:1,lang:___c,selection:(endColumn:2,endLineNumber:7,positionColumn:2,positionLineNumber:7,selectionStartColumn:2,selectionStartLineNumber:7,startColumn:2,startLineNumber:7),source:'int+miaou()%7B%0A++++int+count+%3D+1000%3B%0A++++while(count+!!%3D+0)%7B%0A++++++++asm(%22nop%22)%3B%0A++++++++count--%3B%0A++++%7D%0A%7D'),l:'5',n:'0',o:'C+source+%231',t:'0')),k:44.29215489283432,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:compiler,i:(compiler:rv32-cgcctrunk,filters:(b:'0',binary:'1',binaryObject:'0',commentOnly:'0',debugCalls:'1',demangle:'0',directives:'0',execute:'1',intel:'0',libraryCode:'0',trim:'1',verboseDemangling:'0'),flagsViewOpen:'1',fontScale:14,fontUsePx:'0',j:2,lang:___c,libs:!(),options:'-O3',overrides:!(),selection:(endColumn:5,endLineNumber:10,positionColumn:5,positionLineNumber:10,selectionStartColumn:5,selectionStartLineNumber:10,startColumn:5,startLineNumber:10),source:1),l:'5',n:'0',o:'+RISC-V+(32-bits)+gcc+(trunk)+(Editor+%231)',t:'0')),k:55.707845107165674,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4</a></p>
-<p>Note, you can see that this assembly example use register names as a0, t1, while the previous example was using x1. RISC-V has two why of naming the registers :</p>
+<p>Note, you can see that this assembly example uses register names as a0, t1, while the previous example was using x1. RISC-V has two ways of naming the registers :</p>
 <ul class="simple">
 <li><p>Via their <cite>raw name</cite> : x0, x1, x2, ..., x31</p></li>
 <li><p>Via their <cite>ABI Mnemonic</cite> : zero, ra, sp, gp, tp, t0-t6, s0-s11, a0-a7</p></li>
 </ul>
 <p>All of this is defined the RISC-V ABI register conventions (<a class="reference external" href="https://github.com/riscv-non-isa/riscv-elf-psabi-doc/blob/master/riscv-cc.adoc#register-convention">https://github.com/riscv-non-isa/riscv-elf-psabi-doc/blob/master/riscv-cc.adoc#register-convention</a>), and GCC supports both.
-So, in general, if you write low level assembly tests, you can go for the <cite>raw name</cite>, else just go with the <cite>ABI Mnemonic</cite> names.</p>
+So, in general, if you write low level assembly tests, you can go for the <cite>raw name</cite>, otherwise just go with the <cite>ABI Mnemonic</cite> names.</p>
 </section>
 <section id="looking-at-the-pipeline">
 <h3>Looking at the pipeline<a class="headerlink" href="#looking-at-the-pipeline" title="Permalink to this heading"></a></h3>
 <p>Opening the pipeline trace (located in simWorkspace/VexiiRiscv/test/konata.log) using Konata , we can see that it goes five times through the loop.</p>
 <img alt="../../_images/Screenshot_20241205_172115.png" src="../../_images/Screenshot_20241205_172115.png" />
-<p>Here are a few explanations how to read those Konata traces :</p>
+<p>Here are a few explanations as to how to read those Konata traces :</p>
 <ul class="simple">
-<li><p>Horizontally, you have the time axes</p></li>
-<li><p>Vertically, you have every instruction that reached the CPU decode stage (and further).</p></li>
-<li><p>If on the left margin, you see some &quot;???&quot;, it mean that you need to compile the ext/riscv-isa-sim and ext/rvls. See ext/rvls/README.md</p></li>
-<li><p>The reset vector of VexiiRiscv being by default 0x80000000, you can see on the top left it is where it starts.</p></li>
-<li><p>the A/F/D/I/E symbols represent when a given instruction is in which part of the FPU</p></li>
-<li><p>A : Address generation of the instruction PC</p></li>
-<li><p>F : Fetch, when the CPU is reading the instruction from the memory (or its cache)</p></li>
-<li><p>D : Decode/dispatch, when the CPU is figuring out what the instruction is about, wait until the time is right to schedule the instruction to the execute pipeline, and read the register file</p></li>
+<li><p>The horizontal axis is the time axis</p></li>
+<li><p>The vertical axis shows every instruction that reached the CPU decode stage (and further).</p></li>
+<li><p>If on the left margin, you see some &quot;???&quot;, it means that you need to compile the ext/riscv-isa-sim and ext/rvls. See ext/rvls/README.md</p></li>
+<li><p>The reset vector of VexiiRiscv being by default 0x80000000, you can see on the top left where it starts.</p></li>
+<li><p>the A/F/D/I/E symbols represent when a given instruction is in the FPU, and in which part.</p></li>
+<li><p>A : Address generation of the instruction PC.</p></li>
+<li><p>F : Fetch, when the CPU is reading the instruction from the memory (or its cache).</p></li>
+<li><p>D : Decode/dispatch, when the CPU is figuring out what the instruction is about, wait until the time is right to schedule the instruction to the execute pipeline, and read the register file.</p></li>
 <li><p>E : Execute, when the instruction is being processed.</p></li>
-<li><p>Instructions in vivid colors are the one which successfully executed (committed instructions)</p></li>
-<li><p>Instructions in dark colors are the one which failed to execute (ex : flushed by an un-predicted/miss-predicted branch/jump)</p></li>
+<li><p>Instructions in vivid colors are the ones which successfully executed (committed instructions).</p></li>
+<li><p>Instructions in dark colors are the ones which failed to execute (for example : flushed by an un-predicted/miss-predicted branch/jump).</p></li>
 </ul>
-<p>There you go. Our i &lt; 5 condition was successfully executed</p>
+<p>Our i &lt; 5 condition should have been successfully executed.</p>
 </section>
 <section id="enabling-branch-prediction">
 <h3>Enabling branch prediction<a class="headerlink" href="#enabling-branch-prediction" title="Permalink to this heading"></a></h3>
 <p>By default, the VexiiRiscv branch prediction feature is disabled. You can turn on a partial version of it on by adding <cite>--with-btb</cite> argument to your simulation command.</p>
-<p>This will enable the Branch Target Buffer (BTB), which allow VexiiRiscv to predict a few things very early in the fetch pipeline, things as :</p>
+<p>This will enable the Branch Target Buffer (BTB), which allows VexiiRiscv to predict a few things very early in the fetch pipeline, such as :</p>
 <ul class="simple">
 <li><p>For a given PC, is the instruction a jump/branch ?</p></li>
 <li><p>If it is, what would be its target PC ?</p></li>
@@ -553,26 +553,26 @@ So, in general, if you write low level assembly tests, you can go for the <cite>
 </section>
 <section id="looking-at-the-waveform">
 <h3>Looking at the waveform<a class="headerlink" href="#looking-at-the-waveform" title="Permalink to this heading"></a></h3>
-<p>Opening the simulation waveform (located in simWorkspace/VexiiRiscv/test/wave.fst) using gtkwave you can visualize every signals of the simulated CPU across the whole simulation.</p>
+<p>Opening the simulation waveform (located in simWorkspace/VexiiRiscv/test/wave.fst) using gtkwave, you can visualize every signal in the simulated CPU across the whole simulation.</p>
 <img alt="../../_images/Screenshot_2024-12-06-10-07-10.png" src="../../_images/Screenshot_2024-12-06-10-07-10.png" />
-<p>So here the difficulty is to know what to look at in this ocean of wires. Here is a few tips about that.</p>
+<p>So here the difficulty comes in knowing what to look at in this ocean of wires. Here is a few tips about that.</p>
 <ul class="simple">
 <li><p>The WhiteboxerPlugin collects many key events from the CPU for debug purposes, in particular its whiteboxerPlugin_logic_commits signals will tell you when the CPU commits an instruction.</p></li>
 <li><p>DispatchPlugin_logic_candidates signals will tell you every instruction currently waiting to be dispatched to the execution pipeline, as well as their context.</p></li>
-<li><p>There is a few pipeline signals as : fetch_logic_ctrl, decode_ctrl execute_ctrl. Note that to know if there is a actual transaction in a given pipeline varies between the pipelines.
-For the fetch, you can probe <cite>fetch.*ctrl.*_valid</cite>, for decode it is <cite>decode.*LANE_SEL_.$</cite>, for execute it is <cite>execute.*LANE_SEL_lane.$</cite>.</p></li>
+<li><p>There are a few pipeline signals as : fetch_logic_ctrl, and decode_ctrl execute_ctrl. Note that how to tell whether there is a transaction in a given pipeline varies between the pipelines.
+For the fetch, you can probe <cite>fetch.*ctrl.*_valid</cite>, while for decode it is <cite>decode.*LANE_SEL_.$</cite>, and for execute it is <cite>execute.*LANE_SEL_lane.$</cite>.</p></li>
 </ul>
 </section>
 <section id="introducing-a-bug">
 <h3>Introducing a bug<a class="headerlink" href="#introducing-a-bug" title="Permalink to this heading"></a></h3>
 <p>Let's say you want to change the way the integer ALU is implemented, the easiest way to do so would be to modify the IntAluPlugin.scala (<a class="reference external" href="https://github.com/SpinalHDL/VexiiRiscv/blob/977633e2866b0ab0ffbfc402b459803e2b6f8a0a/src/main/scala/vexiiriscv/execute/IntAluPlugin.scala#L72">https://github.com/SpinalHDL/VexiiRiscv/blob/977633e2866b0ab0ffbfc402b459803e2b6f8a0a/src/main/scala/vexiiriscv/execute/IntAluPlugin.scala#L72</a>)</p>
-<p>Lets corrupt the XOR instruction to behave like a bitwise OR :</p>
+<p>Let's corrupt the XOR instruction to behave like a bitwise OR :</p>
 <div class="highlight-scala notranslate"><div class="highlight"><pre><span></span><span class="nc">AluBitwiseCtrlEnum</span><span class="p">.</span><span class="nc">XOR</span><span class="w">  </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">srcp</span><span class="p">.</span><span class="nc">SRC1</span><span class="w"> </span><span class="n">^</span><span class="w"> </span><span class="n">srcp</span><span class="p">.</span><span class="nc">SRC2</span><span class="p">),</span><span class="w"></span>
 <span class="c1">//into</span>
 <span class="nc">AluBitwiseCtrlEnum</span><span class="p">.</span><span class="nc">XOR</span><span class="w">  </span><span class="o">-&gt;</span><span class="w"> </span><span class="p">(</span><span class="n">srcp</span><span class="p">.</span><span class="nc">SRC1</span><span class="w"> </span><span class="o">|</span><span class="w"> </span><span class="n">srcp</span><span class="p">.</span><span class="nc">SRC2</span><span class="p">),</span><span class="w"></span>
 </pre></div>
 </div>
-<p>Then lets run this assembly code in the simulation :</p>
+<p>Then let's run this assembly code in the simulation :</p>
 <div class="highlight-nasm notranslate"><div class="highlight"><pre><span></span><span class="nf">.option</span><span class="w"> </span><span class="nv">arch</span><span class="p">,</span><span class="w"> </span><span class="o">+</span><span class="nv">zicsr</span><span class="w"></span>
 
 <span class="nf">.global</span><span class="w"> </span><span class="nv">_start</span><span class="w"></span>
@@ -588,7 +588,7 @@ For the fetch, you can probe <cite>fetch.*ctrl.*_valid</cite>, for decode it is 
 <span class="w">    </span><span class="nf">j</span><span class="w"> </span><span class="nv">fail</span><span class="w"></span>
 </pre></div>
 </div>
-<p>Then you compile the test and run it in the simulator, then, if you have ext/riscv-isa-sim and ext/rvls compiled, you should get the following testbench failure (as it should) :</p>
+<p>You can now compile the test and run it in the simulator, then, if you have ext/riscv-isa-sim and ext/rvls compiled, you should get the following testbench failure (as it should) :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">Progress</span><span class="p">]</span> <span class="n">Start</span> <span class="n">VexiiRiscv</span> <span class="n">test</span> <span class="n">simulation</span> <span class="k">with</span> <span class="n">seed</span> <span class="mi">2</span>
 <span class="p">[</span><span class="n">Error</span><span class="p">]</span> <span class="n">Simulation</span> <span class="n">failed</span> <span class="n">at</span> <span class="n">time</span><span class="o">=</span><span class="mi">600</span>
 <span class="c1">### Stats ###</span>
@@ -604,22 +604,20 @@ For the fetch, you can probe <cite>fetch.*ctrl.*_valid</cite>, for decode it is 
 <span class="n">IPC</span>           <span class="p">:</span>       <span class="mi">6</span> <span class="o">/</span>      <span class="mi">44</span>  <span class="mf">13.6</span><span class="o">%</span>
 
 <span class="ne">Exception</span> <span class="ow">in</span> <span class="n">thread</span> <span class="s2">&quot;main&quot;</span> <span class="n">java</span><span class="o">.</span><span class="n">lang</span><span class="o">.</span><span class="n">Exception</span><span class="p">:</span> <span class="n">INTEGER</span> <span class="n">WRITE</span> <span class="n">MISSMATCH</span> <span class="n">DUT</span><span class="o">=</span><span class="mi">1110</span> <span class="n">REF</span><span class="o">=</span><span class="mi">110</span>
-<span class="o">..</span>
 </pre></div>
 </div>
-<p>So, the interesting thing here, is that the testbench didn't failed because we reached the fail symbol,
-but because the testbench checks what is happening on every instruction committed by the CPU and detected some bad behavior.
-It does that by running RVLS as a golden reference, in a lockstep manner with the simulated VexiiRiscv.
-This way, as soon as any hardware bug appear in VexiiRiscv, it is automatically caught by the testbench, and report it as an error.
+<p>So, the interesting thing here is that the testbench didn't fail because we reached the fail symbol,
+but instead because the testbench checks what is happening on every instruction committed by the CPU, and detected some bad behavior.
+It does this by running RVLS as a golden reference, in a lockstep manner with the simulated VexiiRiscv.
+This way, as soon as any hardware bug appears in VexiiRiscv, it is automatically caught by the testbench, and reported as an error.
 In our case, it detected that the register file was written with 0x1110 by VexiiRiscv (Device Under Test), instead of 0x0110 by RVLS (Reference).</p>
 <p>In other words, you don't need to check that the xor instruction is executing properly by adding assembly code (bne x4, x3, fail), just executing the instruction is enough :D.
-This is very very useful when you run for instance a simulation of VexiiRiscv booting linux. This take a lot of time (~20mn), and if the CPU is doing bad things, without this lock-step checking,
-it would be very very hard to figure out when things went bad for a few reasons :</p>
+This is very very useful when you run for instance a simulation of VexiiRiscv booting linux. This takes a lot of time (~20mn), and if the CPU is misbehaving, without this lock-step checking it would be very very hard to spot when things went bad for a few reasons :</p>
 <ul class="simple">
-<li><p>CPU bugs may not make the software crash instantly, or at all. Symptoms and causes can be very very far apart (in time).</p></li>
-<li><p>Long simulation (ex booting linux) are about 400'000'000 cycles long, you can't save all of it in a wave, as that is way too much data.</p></li>
+<li><p>CPU bugs may not make the software crash instantly, or at all. Symptoms and causes can be very far apart (in time).</p></li>
+<li><p>Long simulation (ex booting linux) are about 400'000'000 cycles long, such that it becomes impossible to save all of it in a wave, as that is way too much data.</p></li>
 </ul>
-<p>Note, if you look into simWorkspace/VexiiRiscv/test/spike.log, you can see the riscv-isa-sim logs, which gives you a better insight about what was expected :</p>
+<p>Note, if you look into simWorkspace/VexiiRiscv/test/spike.log, you can see the riscv-isa-sim logs, which gives a better insight about what was expected :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">core</span>   <span class="mi">0</span><span class="p">:</span> <span class="mh">0x80000000</span> <span class="p">(</span><span class="mh">0x000010b7</span><span class="p">)</span> <span class="n">lui</span>     <span class="n">ra</span><span class="p">,</span> <span class="mh">0x1</span>
 <span class="n">core</span>   <span class="mi">0</span><span class="p">:</span> <span class="mi">3</span> <span class="mh">0x80000000</span> <span class="p">(</span><span class="mh">0x000010b7</span><span class="p">)</span> <span class="n">x</span> <span class="mi">1</span> <span class="mh">0x00001000</span>
 <span class="n">core</span>   <span class="mi">0</span><span class="p">:</span> <span class="mh">0x80000004</span> <span class="p">(</span><span class="mh">0x01008093</span><span class="p">)</span> <span class="n">addi</span>    <span class="n">ra</span><span class="p">,</span> <span class="n">ra</span><span class="p">,</span> <span class="mi">16</span>
@@ -637,75 +635,75 @@ it would be very very hard to figure out when things went bad for a few reasons 
 </section>
 <section id="experimenting-with-privilege-levels">
 <h3>Experimenting with privilege levels<a class="headerlink" href="#experimenting-with-privilege-levels" title="Permalink to this heading"></a></h3>
-<p>The RISC-V privileged specification specify 3 levels in which the CPU can be to execute code :</p>
+<p>The RISC-V privilege specification specifies 3 levels in which the CPU can be when it executes code :</p>
 <ul class="simple">
-<li><p>Machine mode : This is privilege level which can access everything. When the CPU get out of reset, it spawn in machine mode. Typically the machine mode will be used to run bootloaders, bios and baremetal applications.</p></li>
-<li><p>Supervisor mode : This is the privileged mode which would be used to run operating systems/kernels which want to take advantage of the RISC-V MMU.</p></li>
-<li><p>User mode : Operating systems/kernels will typically use the user mode to run applications. You can see user mode as a sandbox to avoid applications to harm things around.</p></li>
+<li><p>Machine mode : This is the privilege level which can access everything. When the CPU comes out of reset, it spawns in machine mode. Typically, machine mode will be used to run bootloaders, bios, and baremetal applications.</p></li>
+<li><p>Supervisor mode : This is the privileged mode which would be used to run operating systems or kernels which want to take advantage of the RISC-V MMU.</p></li>
+<li><p>User mode : Operating systems or kernels will typically use the user mode to run applications. You can see user mode as a sandbox to prevent applications from doing harm.</p></li>
 </ul>
-<p>So, the RISC-V privileged specification is very hard to read if you don't already have some good knowledge about what to expect.
-What this example aims at doing is to show you how you can navigate your CPU between privilege modes.</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="o">.</span><span class="n">option</span> <span class="n">arch</span><span class="p">,</span> <span class="o">+</span><span class="n">zicsr</span>
+<p>So, the RISC-V privilege specification is very hard to read if you don't already have some good knowledge about what to expect.
+What this example aims at is to show you how you can navigate your CPU between privilege modes.</p>
+<div class="highlight-default notranslate"><div class="highlight"><pre><span></span>.option arch, +zicsr
 
-<span class="o">.</span><span class="k">global</span> <span class="n">_start</span>
-<span class="n">_start</span><span class="p">:</span>
-<span class="c1">#define MSTATUS_MPP_SUPERVISOR         0x00000800</span>
-<span class="c1">#define MSTATUS_MPP_USER               0x00000000</span>
-<span class="c1">#define CAUSE_ILLEGAL_INSTRUCTION 2</span>
+.global _start
+_start:
+#define MSTATUS_MPP_SUPERVISOR         0x00000800
+#define MSTATUS_MPP_USER               0x00000000
+#define CAUSE_ILLEGAL_INSTRUCTION 2
 
-    <span class="o">//</span> <span class="n">Specify</span> <span class="n">where</span> <span class="n">the</span> <span class="n">CPU</span> <span class="n">should</span> <span class="n">jump</span> <span class="n">after</span> <span class="n">executing</span> <span class="n">the</span> <span class="n">mret</span> <span class="n">instruction</span>
-    <span class="n">la</span> <span class="n">x1</span><span class="p">,</span> <span class="n">supervisor_entry</span><span class="p">;</span> <span class="n">csrw</span> <span class="n">mepc</span><span class="p">,</span> <span class="n">x1</span>
-    <span class="o">//</span> <span class="n">Specify</span> <span class="n">where</span> <span class="n">the</span> <span class="n">CPU</span> <span class="n">should</span> <span class="n">jump</span> <span class="n">when</span> <span class="n">it</span> <span class="n">got</span> <span class="n">a</span> <span class="n">interruption</span><span class="o">/</span><span class="n">exception</span> <span class="k">for</span> <span class="n">the</span> <span class="n">machine</span> <span class="n">mode</span>
-    <span class="n">la</span> <span class="n">x1</span><span class="p">,</span> <span class="n">supervisor_exit</span><span class="p">;</span> <span class="n">csrw</span> <span class="n">mtvec</span><span class="p">,</span> <span class="n">x1</span>
-    <span class="o">//</span> <span class="n">Specify</span> <span class="n">that</span> <span class="n">the</span> <span class="n">CPU</span> <span class="n">should</span> <span class="n">go</span> <span class="ow">in</span> <span class="n">supervisor</span> <span class="n">mode</span> <span class="n">after</span> <span class="n">executing</span> <span class="n">the</span> <span class="n">mret</span> <span class="n">instruction</span>
-    <span class="n">li</span> <span class="n">x1</span><span class="p">,</span> <span class="n">MSTATUS_MPP_SUPERVISOR</span><span class="p">;</span> <span class="n">csrw</span> <span class="n">mstatus</span><span class="p">,</span> <span class="n">x1</span>
-    <span class="o">//</span> <span class="n">Engage</span> <span class="n">the</span> <span class="n">privilege</span> <span class="n">transition</span><span class="o">.</span>
-    <span class="n">mret</span>
+    // Specify where the CPU should jump after executing the mret instruction
+    la x1, supervisor_entry; csrw mepc, x1
+    // Specify where the CPU should jump when it got a interruption/exception for the machine mode
+    la x1, supervisor_exit; csrw mtvec, x1
+    // Specify that the CPU should go in supervisor mode after executing the mret instruction
+    li x1, MSTATUS_MPP_SUPERVISOR; csrw mstatus, x1
+    // Engage the privilege transition.
+    mret
 
-    <span class="o">//</span> <span class="n">The</span> <span class="n">CPU</span> <span class="n">should</span> <span class="n">never</span> <span class="n">reach</span> <span class="n">this</span> <span class="n">point</span>
-    <span class="n">j</span> <span class="n">fail</span>
+    // The CPU should never reach this point
+    j fail
 
-<span class="n">supervisor_entry</span><span class="p">:</span>
-    <span class="o">//</span><span class="n">Welcome</span> <span class="ow">in</span> <span class="n">supervisor</span> <span class="n">mode</span> <span class="p">:</span><span class="n">D</span>
-    <span class="n">li</span> <span class="n">x1</span><span class="p">,</span> <span class="mi">666</span>
-    <span class="o">//</span> <span class="n">Lets</span> <span class="n">run</span> <span class="n">a</span> <span class="n">illegal</span> <span class="n">instruction</span><span class="p">,</span> <span class="n">we</span> <span class="n">aren</span><span class="s1">&#39;t allowed to access machine mode CSR from supervisor mode !</span>
-    <span class="n">csrr</span> <span class="n">x1</span><span class="p">,</span> <span class="n">mepc</span>
-    <span class="o">//</span> <span class="n">We</span> <span class="n">should</span> <span class="ow">not</span> <span class="n">be</span> <span class="n">able</span> <span class="n">to</span> <span class="n">reach</span> <span class="n">this</span> <span class="n">point</span><span class="p">,</span> <span class="k">as</span> <span class="n">the</span> <span class="n">previous</span> <span class="n">instruction</span> <span class="n">would</span> <span class="n">have</span> <span class="n">produce</span> <span class="n">a</span> <span class="n">illegal</span> <span class="n">instruction</span> <span class="n">exception</span>
-    <span class="n">j</span> <span class="n">fail</span>
+supervisor_entry:
+    //Welcome in supervisor mode :D
+    li x1, 666
+    // let&#39;s run a illegal instruction, we aren&#39;t allowed to access machine mode CSR from supervisor mode !
+    csrr x1, mepc
+    // We should not be able to reach this point, as the previous instruction would have produce a illegal instruction exception
+    j fail
 
-<span class="n">supervisor_exit</span><span class="p">:</span>
-    <span class="o">//</span> <span class="n">Welcome</span> <span class="n">back</span> <span class="ow">in</span> <span class="n">machine</span> <span class="n">mode</span> <span class="p">:</span><span class="n">D</span>
-    <span class="n">li</span> <span class="n">x1</span><span class="p">,</span> <span class="mi">42</span>
-    <span class="o">//</span> <span class="n">Lets</span> <span class="n">read</span> <span class="n">the</span> <span class="n">CSR</span> <span class="n">which</span> <span class="n">indicate</span> <span class="n">the</span> <span class="n">reason</span> <span class="n">why</span> <span class="n">we</span> <span class="n">back</span> <span class="n">to</span> <span class="n">machine</span> <span class="n">mode</span><span class="p">,</span> <span class="ow">and</span> <span class="n">check</span> <span class="n">it</span> <span class="ow">is</span> <span class="n">because</span> <span class="n">of</span> <span class="n">CAUSE_ILLEGAL_INSTRUCTION</span>
-    <span class="n">csrr</span> <span class="n">x1</span><span class="p">,</span> <span class="n">mcause</span>
-    <span class="n">li</span> <span class="n">x2</span><span class="p">,</span> <span class="n">CAUSE_ILLEGAL_INSTRUCTION</span><span class="p">;</span> <span class="n">bne</span> <span class="n">x1</span><span class="p">,</span> <span class="n">x2</span><span class="p">,</span> <span class="n">fail</span>
-    <span class="o">//</span> <span class="n">lets</span> <span class="n">read</span> <span class="n">which</span> <span class="n">instruction</span> <span class="p">(</span><span class="n">PC</span><span class="p">)</span> <span class="n">caused</span> <span class="n">it</span>
-    <span class="n">csrr</span> <span class="n">x1</span><span class="p">,</span> <span class="n">mcause</span>
+supervisor_exit:
+    // Welcome back in machine mode :D
+    li x1, 42
+    // let&#39;s read the CSR which indicate the reason why we back to machine mode, and check it is because of CAUSE_ILLEGAL_INSTRUCTION
+    csrr x1, mcause
+    li x2, CAUSE_ILLEGAL_INSTRUCTION; bne x1, x2, fail
+    // let&#39;s read which instruction (PC) caused it
+    csrr x1, mcause
 
-<span class="k">pass</span><span class="p">:</span>
-    <span class="n">j</span> <span class="k">pass</span>
-<span class="n">fail</span><span class="p">:</span>
-    <span class="n">j</span> <span class="n">fail</span>
+pass:
+    j pass
+fail:
+    j fail
 </pre></div>
 </div>
-<p>Then, compile it, but to run it in the simulation, you will need to add the <cite>--with-supervisor</cite>, as the VexiiRiscv only support machine mode by default.</p>
+<p>Compile it, but to run it in the simulation you will need to add the <cite>--with-supervisor</cite>, as the VexiiRiscv only supports machine mode by default.</p>
 <p>Here is a wave with a few key signals to figure out what the CPU is doing :</p>
 <img alt="../../_images/Screenshot-2024-12-06-20-13-17.png" src="../../_images/Screenshot-2024-12-06-20-13-17.png" />
-<p>Note the TrapPlugin_logic_harts_0_trap_fsm_stateReg_string signal, which is a special state machine in VexiiRiscv which is used to handle a few corner case, as interrupts, exceptions, replay of failed instructions, and a few other things.</p>
-<p>Also, note that ext/NaxSoftware/baremetal/driver/privileged.h contains a bunch of very useful macro to do similar things.</p>
+<p>Note the TrapPlugin_logic_harts_0_trap_fsm_stateReg_string signal, which is a special state machine in VexiiRiscv which is used to handle a few corner cases as interrupts, exceptions, replays of failed instructions, and a few other things.</p>
+<p>Also, note that ext/NaxSoftware/baremetal/driver/privileged.h contains a bunch of very useful macros to do similar things.</p>
 </section>
 <section id="connecting-with-openocd-to-the-simulation">
 <h3>Connecting with openocd to the simulation<a class="headerlink" href="#connecting-with-openocd-to-the-simulation" title="Permalink to this heading"></a></h3>
 <p>Openocd is a tool generally used to connect your PC to a micro-controller and debug/reprogram it through a USB to JTAG dongle.</p>
-<p>One interesting thing is that there is ways to simulate that jtag connection between openocd and the VexiiRiscv simulation by using a TCP connection. Here is how you can do it :</p>
-<p>First, install openocd (a regular version should be fine)</p>
-<p>Then, let a simulation run in one terminal with the following additional arguments <cite>--no-probe --no-rvls-check --debug-privileged --debug-jtag-tap --jtag-remote</cite>. Do not forget to remove the --trace-all, as it will create very big log files if you let it run long as well as slowing down the simulation.</p>
+<p>One interesting thing is that there are ways to simulate that jtag connection between openocd and the VexiiRiscv simulation by using a TCP connection. Here is how you can do it :</p>
+<p>First, install openocd (a regular version should be fine).</p>
+<p>Then, let a simulation run in one terminal with the following additional arguments <cite>--no-probe --no-rvls-check --debug-privileged --debug-jtag-tap --jtag-remote</cite>. Do not forget to remove the --trace-all, as it will create very big log files if you let it run for a long time, as well as slowing down the simulation.</p>
 <ul class="simple">
-<li><p>--no-probe : Will disable the testbench CPU inactivity watchdog (as we can stop the CPU activity totally using the jtag)</p></li>
-<li><p>--no-rvls-check : Will disable the RVLS golden model checking, as it isn't supported with the jtag connection yet</p></li>
-<li><p>--debug-privileged : Will enable the CPU debug interface as well as all the required special CSR (Control Status Register)</p></li>
-<li><p>--debug-jtag-tap : Will add in the CPU all the required logic to drive the CPU debug interface from a JTAG interface</p></li>
-<li><p>--jtag-remote : Will ask the testbench to implement the TCP to simulated JTAG bridge</p></li>
+<li><p>--no-probe : Will disable the testbench CPU inactivity watchdog (as we can stop the CPU activity totally using the jtag).</p></li>
+<li><p>--no-rvls-check : Will disable the RVLS golden model checking, as it isn't supported with the jtag connection yet.</p></li>
+<li><p>--debug-privileged : Will enable the CPU debug interface as well as all the required special CSR (Control Status Register).</p></li>
+<li><p>--debug-jtag-tap : Will add to the CPU all the required logic to drive the CPU debug interface from a JTAG interface.</p></li>
+<li><p>--jtag-remote : Will ask the testbench to implement the TCP to simulated JTAG bridge.</p></li>
 </ul>
 <p>Then you can start openocd via :</p>
 <div class="highlight-shell notranslate"><div class="highlight"><pre><span></span><span class="o">(</span><span class="nb">cd</span> src/main/tcl/openocd/ <span class="o">&amp;&amp;</span> openocd -f vexiiriscv_sim.tcl<span class="o">)</span>
@@ -735,13 +733,13 @@ Info : Listening on port 6666 for tcl connections
 Info : Listening on port 4444 for telnet connections
 </pre></div>
 </div>
-<p>Meaning that the connection is successful !</p>
+<p>Meaning that the connection is successful!</p>
 <p>You can then connect to openocd in a few ways :</p>
 <ul class="simple">
 <li><p>Using GDB, which would allow you to have a fully fledge debugger</p></li>
 <li><p>Using telnet, to ask openocd to execute basic commands.</p></li>
 </ul>
-<p>The issue with GDB, for very low level debugging, is that it often has a lot of overhead/noise, even for simple tasks.
+<p>The issue with GDB, for very low level debugging, is that it often has a lot of overhead/noise even for simple tasks.
 So in general using telnet is a better first step.</p>
 <p>Here is an example of telnet connection to openocd :</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">telnet</span> <span class="n">localhost</span> <span class="mi">4444</span>
@@ -772,15 +770,15 @@ So in general using telnet is a better first step.</p>
 <span class="n">reg</span> <span class="n">a0</span>
 </pre></div>
 </div>
-<p>There is plenty other commands available. For instance you could load the opensbi, device tree, linux, buildroot binary files in the memory from the JTAG, and boot linux, all from the JTAG ! (maybe not in simulation, it would take too long to load the images :D)</p>
+<p>There are plenty of other commands available. For instance you could load the opensbi, device tree, linux, and buildroot binary files in the memory from the JTAG, and boot linux, all from the JTAG! (maybe not in simulation, it would take too long to load the images :D)</p>
 </section>
 </section>
 <section id="c-code-hello-world-literally">
 <h2>C code &quot;hello world&quot; (literally)<a class="headerlink" href="#c-code-hello-world-literally" title="Permalink to this heading"></a></h2>
-<p>Here's a simple example how you can use C and sim_putchar for printing out stuff directly through the simulation environment, allowing you to output debug messages from within the firmware you're developing.</p>
+<p>Here's a simple example how you can use C and sim_putchar for printing out directly through the simulation environment, allowing you to output debug messages from within the firmware you're developing.</p>
 <section id="write-the-c-code">
 <h3>Write the C code<a class="headerlink" href="#write-the-c-code" title="Permalink to this heading"></a></h3>
-<p>So first of all, create a folder in your repository root (&quot;/work&quot; inside the Docker environment, or otherwise simply VexiiRiscv. The folder you cloned the repository into) called &quot;mytest&quot;... basically</p>
+<p>So first of all, create a folder called &quot;mytest&quot; in your VexiiRiscv repository root (&quot;/work&quot; inside the Docker environment, or &quot;VexiiRiscv&quot; if you cloned the repository).</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> VexiiRiscv
 mkdir -p helloworld/src
 <span class="nb">cd</span> helloworld
@@ -793,7 +791,7 @@ mkdir -p helloworld/src
 </pre></div>
 </div>
 <p>Create a file in src, called main.c</p>
-<p>The content of src/main.c should look like that:</p>
+<p>The content of src/main.c should look like this:</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sim.h&gt;</span><span class="cp"></span>
 
 <span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span><span class="w"></span>
@@ -807,9 +805,8 @@ mkdir -p helloworld/src
 </section>
 <section id="compiling-the-code">
 <h3>Compiling the Code<a class="headerlink" href="#compiling-the-code" title="Permalink to this heading"></a></h3>
-<p>Now, it's time to create a GNU make file, using the NaxSoftware infrastructure,
-so that we can turn our C code into an ELF file which we can load in the simulator.</p>
-<p>In the same helloworld folder as above create a Makefile file containing the following</p>
+<p>Now, it's time to create a GNU make file using the NaxSoftware infrastructure, so that we can turn our C code into an ELF file which we can load in the simulator.</p>
+<p>In the same helloworld folder as above, create a Makefile file containing the following:</p>
 <div class="highlight-make notranslate"><div class="highlight"><pre><span></span><span class="nv">PROJ_NAME</span><span class="o">=</span>helloworld
 <span class="nv">STANDALONE</span><span class="o">=</span>../ext/NaxSoftware/baremetal
 <span class="nv">SRCS</span> <span class="o">=</span>  <span class="k">$(</span>wildcard src/*.c<span class="k">)</span> <span class="se">\</span>
@@ -819,9 +816,8 @@ so that we can turn our C code into an ELF file which we can load in the simulat
 <span class="cp">include ../ext/NaxSoftware/baremetal/common/app.mk</span>
 </pre></div>
 </div>
-<p>After running make in your bash shell respectively Cygwin shell (assuming you have installed everything),
-you should now be able to find a folder named &quot;build&quot;, containing a bin file, and asm file and most importantly
-the ELF and map file.</p>
+<p>After running make in your bash shell or Cygwin shell depending upon your environment (assuming you have installed everything),
+you should now be able to find a folder named &quot;build&quot;, containing a bin file, an asm file, and most importantly the ELF and map files.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="n">leviathan</span><span class="nd">@harvey</span><span class="p">:</span><span class="o">~/</span><span class="n">VexiiRiscv</span><span class="o">/</span><span class="n">helloworld</span><span class="o">&gt;</span> <span class="n">make</span>
 <span class="n">CC</span> <span class="n">src</span><span class="o">/</span><span class="n">main</span><span class="o">.</span><span class="n">c</span>
 <span class="n">CC</span> <span class="o">../</span><span class="n">ext</span><span class="o">/</span><span class="n">NaxSoftware</span><span class="o">/</span><span class="n">baremetal</span><span class="o">/</span><span class="n">common</span><span class="o">/</span><span class="n">start</span><span class="o">.</span><span class="n">S</span>
@@ -838,7 +834,7 @@ the ELF and map file.</p>
 </section>
 <section id="compilation-error">
 <h3>Compilation error<a class="headerlink" href="#compilation-error" title="Permalink to this heading"></a></h3>
-<p>There might be a compilation error going somewhat like that</p>
+<p>This might result in a compilation error, somewhat like this:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>leviathan@harvey:~/VexiiRiscv/helloworld&gt; make
 CC src/fix.S
 CC ../ext/NaxSoftware/baremetal/common/start.S
@@ -847,8 +843,8 @@ CC ../ext/NaxSoftware/baremetal/common/start.S
 ../ext/NaxSoftware/baremetal/common/start.S:57: Error: unrecognized opcode `csrs mstatus,x1&#39;, extension `zicsr&#39; required
 </pre></div>
 </div>
-<p>This happens because newer builds of the RISC-V toolchain have this feature disabled by default now and you've got to manually enable it,
-which can easily be achieved by adding the following on line 1 of ext/NaxSoftware/baremetal/common/start.S</p>
+<p>This happens because newer builds of the RISC-V toolchain have this feature disabled by default, thus you will have to manually enable it.
+This can easily be achieved by adding the following on line 1 of ext/NaxSoftware/baremetal/common/start.S .</p>
 <div class="highlight-nasm notranslate"><div class="highlight"><pre><span></span><span class="nf">.option</span><span class="w"> </span><span class="nv">arch</span><span class="p">,</span><span class="w"> </span><span class="o">+</span><span class="nv">zicsr</span><span class="w"></span>
 <span class="nf">...</span><span class="w"></span>
 </pre></div>
@@ -856,12 +852,12 @@ which can easily be achieved by adding the following on line 1 of ext/NaxSoftwar
 </section>
 <section id="running-the-code">
 <h3>Running the code<a class="headerlink" href="#running-the-code" title="Permalink to this heading"></a></h3>
-<p>You can now use SBT in order to run the elf file in your simulation</p>
+<p>You can now use SBT in order to run the elf file in your simulation:</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="nb">cd</span> ..
 sbt <span class="s2">&quot;Test/runMain vexiiriscv.tester.TestBench --with-rvm --allow-bypass-from=0 --load-elf helloworld/build/helloworld.elf --trace-all --no-probe --debug-privileged --no-rvls-check&quot;</span>
 </pre></div>
 </div>
-<p>This should now print 10 times &quot;hello world&quot; on your terminal</p>
+<p>This should now print &quot;hello world&quot; 10 times on your terminal.</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span>leviathan@harvey:~/VexiiRiscv&gt; sbt &quot;Test/runMain vexiiriscv.tester.TestBench --with-rvm --allow-bypass-from=0 --load-elf helloworld/build/helloworld.elf --trace-all --no-probe --debug-privileged --no-rvls-check&quot;
 WARNING: An illegal reflective access operation has occurred
 WARNING: Illegal reflective access by org.jline.terminal.impl.exec.ExecTerminalProvider$ReflectionRedirectPipeCreator (file:/home/leviathan/.sbt/boot/scala-2.12.19/org.scala-sbt/sbt/1.10.0/jline-terminal-3.24.1.jar) to constructor java.lang.ProcessBuilder$RedirectPipeImpl()
@@ -908,9 +904,9 @@ WARNING: All illegal access operations will be denied in a future release
 </section>
 <section id="reading-a-csr">
 <h3>Reading a CSR<a class="headerlink" href="#reading-a-csr" title="Permalink to this heading"></a></h3>
-<p>In the CPU, there is the mcycle CSR which is a hardware counter which increment every clock cycles.
+<p>In the CPU there is the mcycle CSR, which is a hardware counter which increments with every clock cycle.
 Let's say we want to print its value 10 times.</p>
-<p>Reading a CSR (Control Status Register) in assembly is straight forward (ex : csrr x1, mstatus). But to do that in C, you need to wrap it a bit.</p>
+<p>Reading a CSR (Control Status Register) in assembly is straightforward (ex : csrr x1, mstatus). But to do that in C, it's necessary to wrap it a bit.</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sim.h&gt;</span><span class="cp"></span>
 <span class="kt">void</span><span class="w"> </span><span class="nf">main</span><span class="p">(){</span><span class="w"></span>
 <span class="w">    </span><span class="k">for</span><span class="p">(</span><span class="kt">int</span><span class="w"> </span><span class="n">i</span><span class="o">=</span><span class="mi">0</span><span class="p">;</span><span class="n">i</span><span class="o">&lt;</span><span class="mi">10</span><span class="p">;</span><span class="n">i</span><span class="o">++</span><span class="p">)</span><span class="w"> </span><span class="p">{</span><span class="w"></span>
@@ -922,15 +918,15 @@ Let's say we want to print its value 10 times.</p>
 <span class="p">}</span><span class="w"></span>
 </pre></div>
 </div>
-<p>Here are a few explenations :</p>
+<p>Here are a few explanations :</p>
 <ul class="simple">
-<li><p><strong>asm</strong> : To start specifying some assembly inside some C code</p></li>
-<li><p><strong>volatile</strong> : To ensure GCC do not optimize away the given assembly code (not realy necessary in our case)</p></li>
-<li><p><strong>&quot;csrr %0,  mcycle&quot;</strong> :  Read the mcycle CSR and write its value into %0, %0 refering to the value variable</p></li>
-<li><p><strong>&quot;=r&quot; (value)</strong> : Define a write only output operand binded to the C &quot;value&quot; variable</p></li>
+<li><p><strong>asm</strong> : To start specifying some assembly inside some C code.</p></li>
+<li><p><strong>volatile</strong> : To ensure GCC do not optimize away the given assembly code (not realy necessary in our case).</p></li>
+<li><p><strong>&quot;csrr %0,  mcycle&quot;</strong> :  Read the mcycle CSR and write its value into %0, %0 refering to the value variable.</p></li>
+<li><p><strong>&quot;=r&quot; (value)</strong> : Define a write only output operand bound to the C &quot;value&quot; variable.</p></li>
 </ul>
-<p>I will not go more into the details of the GCC asm(&quot;&quot;) syntax, as i'm not good at it and it is quite complicated.</p>
-<p>Hopefully, there is the riscv.h header you can include, which wrap all of those asm(&quot;&quot;) commands into easy to use macros :</p>
+<p>Here is not the place to go more into the details of the GCC asm(&quot;&quot;) syntax, as it is quite complicated.</p>
+<p>Hopefully, there is the riscv.h header you can include, which wraps all of those asm(&quot;&quot;) commands into easy to use macros :</p>
 <div class="highlight-c notranslate"><div class="highlight"><pre><span></span><span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;sim.h&gt;</span><span class="cp"></span>
 <span class="cp">#include</span><span class="w"> </span><span class="cpf">&lt;riscv.h&gt;</span><span class="cp"></span>
 
@@ -944,7 +940,7 @@ Let's say we want to print its value 10 times.</p>
 </div>
 <p>Then, running it via :</p>
 <p>sbt &quot;Test/runMain vexiiriscv.tester.TestBench --with-rvm --allow-bypass-from=0 --load-elf helloworld/build/helloworld.elf --trace-all --no-probe --debug-privileged --no-rvls-check --performance-counters=0&quot;</p>
-<p>Will print the following in the terminal</p>
+<p>Will print the following in the terminal:</p>
 <div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">[</span><span class="n">info</span><span class="p">]</span> <span class="p">[</span><span class="n">Progress</span><span class="p">]</span> <span class="n">Start</span> <span class="n">VexiiRiscv</span> <span class="n">test</span> <span class="n">simulation</span> <span class="k">with</span> <span class="n">seed</span> <span class="mi">2</span>
 <span class="p">[</span><span class="n">info</span><span class="p">]</span> <span class="mi">00000094</span>
 <span class="p">[</span><span class="n">info</span><span class="p">]</span> <span class="mi">000000</span><span class="n">a6</span>
@@ -959,12 +955,12 @@ Let's say we want to print its value 10 times.</p>
 </pre></div>
 </div>
 <p>Note, we added the --performance-counters=0 VexiiRiscv argument, as the mcycle isn't implemented otherwise.
-The RISC-V architecture specifies various 64 bits counters which aren't cheap in FPGA, so VexiiRiscv do not implement them by default.</p>
-<p>Note, there is some cycles overhead to execute a CSR instruction :</p>
+The RISC-V architecture specifies various 64 bit counters which aren't cheap in FPGA, so VexiiRiscv does not implement them by default.</p>
+<p>Note, there are some cycles overhead to execute a CSR instruction :</p>
 <ul class="simple">
-<li><p>In VexiiRiscv, the instruction dispatcher willwait that the execute pipeline is empty before dispatching a CSR access.</p></li>
-<li><p>In VexiiRiscv, the CSR access themself are executed inside a little state machine which takes a few cycle to decode/read/write the CSR instruction.</p></li>
-<li><p>In VexiiRiscv, all the performance counters aswell as mcycle/minstret CSR are implemented using a shared memory (to save area). Accessing that memory takes a few cycles.</p></li>
+<li><p>In VexiiRiscv, the instruction dispatcher will wait until the execute pipeline is empty before dispatching a CSR access.</p></li>
+<li><p>In VexiiRiscv, the CSR access themselves are executed inside a little state machine which takes a few cycles to decode, read, and write the CSR instruction.</p></li>
+<li><p>In VexiiRiscv, all the performance counters as well as mcycle/minstret CSR are implemented using shared memory (to save area). Accessing that memory takes a few cycles.</p></li>
 </ul>
 </section>
 </section>
@@ -999,7 +995,7 @@ The RISC-V architecture specifies various 64 bits counters which aren't cheap in
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master (HEAD) git~45bfeb8 2025-01-24
+    Version: master (HEAD) git~977762f 2025-02-10
     </p></div>
     
 

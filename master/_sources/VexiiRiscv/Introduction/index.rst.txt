@@ -105,6 +105,7 @@ On this date (07/01/2025) the status is :
 - Hardware I$ prefetch supported
 - JTAG debug supported
 - Hardware watchpoint supported
+- Supports AXI4 / Wishbone / Tilelink memory buses (RVA is not available in some configs, see the SoC main page)
 
 Here is a diagram with 2 issue / early+late alu / 6 stages configuration (note that the pipeline structure can vary a lot):
 

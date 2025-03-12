@@ -333,7 +333,33 @@
 
   <section id="soc">
 <h1>SoC<a class="headerlink" href="#soc" title="Permalink to this heading"></a></h1>
-<p>This is currently WIP.</p>
+<p>There is currently 2 reference SoCs. One which is Linux capable and target Litex (a python framework to create SoC),
+aswell as one which target simple micro-controller usages. They are both based on Tilelink for their memory interconnect.</p>
+<p>If you want to integrate VexiiRiscv in your own SoC, VexiiRiscv supports AXI4 and Wishbone interface aswell.</p>
+<p>Those can be enabled via :</p>
+<ul class="simple">
+<li><p>Instruction fetch bus : --fetch-axi4 --fetch-wishbone</p></li>
+<li><p>Uncached load/store bus : --lsu-axi4 --lsu-wishbone</p></li>
+<li><p>Cache load/store bus : --lsu-l1-axi4 --lsu-l1-wishbone</p></li>
+</ul>
+<p>Note that RVA has some restriction in the following configs :</p>
+<ul class="simple">
+<li><p>Without L1 =&gt; RVA unsuported.</p></li>
+<li><p>With L1 =&gt; RVA only supported on cached memory accesses.</p></li>
+<li><p>With L1, without memory coherency =&gt; Single core support.</p></li>
+<li><p>With L1, with memory coherency =&gt; Only supported with tilelink.</p></li>
+</ul>
+<p>Also note that you can customize the static Physical Memory Access (PMA) layout of the CPU to fit your needs.
+The PMA currently specifies :</p>
+<ul class="simple">
+<li><p>Which memory region can be executed (exe)</p></li>
+<li><p>Which memory region can be cached by the LSU (main)</p></li>
+</ul>
+<p>Here is an example how you can specify :</p>
+<ul class="simple">
+<li><p>From 0x80000000 to 0xFFFFFFFF can be cached and executed <code class="docutils literal notranslate"><span class="pre">--region</span> <span class="pre">base=80000000,size=80000000,main=1,exe=1</span></code></p></li>
+<li><p>From 0x10000000 to 0x1FFFFFFF can be only be read by the uncached LSU <code class="docutils literal notranslate"><span class="pre">--region</span> <span class="pre">base=10000000,size=10000000,main=0,exe=0</span></code></p></li>
+</ul>
 <div class="toctree-wrapper compound">
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="microsoc.html">MicroSoc</a><ul>
@@ -379,7 +405,7 @@
     <!-- source/_templates/footer.html -->
     
     <div class="doc-footer-current-version"><p>
-    Version: master (HEAD) git~6d79192 2025-03-10
+    Version: master (HEAD) git~c9e2903 2025-03-12
     </p></div>
     
 

@@ -104,6 +104,7 @@ On this date (07/01/2025) the status is :
 - Hardware/Software D$ prefetch supported
 - Hardware I$ prefetch supported
 - JTAG debug supported
+- Cache-Block Management Instructions (CBM) supported (Allows software based memory coherency via flush, clean, invalidate instructions)
 - Hardware watchpoint supported
 - Supports AXI4 / Wishbone / Tilelink memory buses (RVA is not available in some configs, see the SoC main page)
 

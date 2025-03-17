@@ -32,6 +32,9 @@ Here is an example how you can specify :
 - From 0x80000000 to 0xFFFFFFFF can be cached and executed ``--region base=80000000,size=80000000,main=1,exe=1``
 - From 0x10000000 to 0x1FFFFFFF can be only be read by the uncached LSU ``--region base=10000000,size=10000000,main=0,exe=0``
 
+If you have the data cache enabled, and you want to enable software based memory coherency (data cache clean, flush, invalidate instruction),
+then you can use the ``--with-rvZcbm`` extension (``https://github.com/riscv/riscv-CMOs``).
+
 .. toctree::
    :maxdepth: 2
 

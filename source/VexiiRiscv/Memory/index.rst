@@ -359,7 +359,7 @@ Here are a set of design guideline to keep a memory system lean and efficient (d
   AMBA 5 CHI enforce 64 bytes cache lines, and doesn't support memory transfers with more than 64 bytes.
 - DMA should not reuse the same transaction ID (axi/tilelink) between multiple inflight transactions and should not expect any ordering between inflight transactions. That keep them highly portable and relax the memory system.
 - DMA should access up to 64 aligned bytes per burst, this should be enough to reach peak bandwidth. No need for 4KB Rambo bursts.
-  Asking a system to support bursts bigger than 64 aligned bytes can lead to extra cost, as it create new ordering constraints between the memory block of the burst. 
+  Asking a system to support bursts bigger than 64 aligned bytes can lead to extra cost, as it create new ordering constraints between the memory block of the burst.
   For instance in a L2 cache it can lead to implementation of a reorder buffer to deal between transaction which hit/miss the cache. Adding extra complexity/area/timings to deal with.
   Additionally, big burst can create high latency spike for other agents (CPU/DMA).
 - DMA should only do burst aligned memory accesses (to keep them easily portable to Tilelink)
@@ -368,7 +368,28 @@ Here are a set of design guideline to keep a memory system lean and efficient (d
 - DMA should avoid doing multiple accesses in a 64 byte block if possible, and instead use a single access.
   This can preserve the DRAM controller bandwidth (see DDR3/4/5 comments above),
   but also, L2/L3 cache designs may block any additional memory request targeting a memory block which is already under operation.
-- When a DMA start a write burst, it has to complete as fast as possible. The reason is that the interconnect can lock itself on your burst until you finish it.  
+- When a DMA start a write burst, it has to complete as fast as possible. The reason is that the interconnect can lock itself on your burst until you finish it.
 - When a DMA start a read burst, it should avoid putting backpressure on the read responses. The reason is that the interconnect can lock itself on your burst until you finish it.
 
+Two-stage translation
+=====================
 
+When VexiiRiscv enables Hypervisor (H) extension. The two-stage translation is implemented the following way:
+
+- The first stage translation share the same execute path and TLB of the addresses translation for HS mode.
+- The G-stage translation is implemented by adding a new translation stage to the LSU. It will use a dedicated TLB.
+  Also, other stages of the LSU are adjusted to fit this new stage.
+
+TranslatedDBusAccessPlugin
+--------------------------
+
+VexiiRiscv uses TranslatedDBusAccessPlugin to unify the bus/cache access from the MmuPlugin/ShadowMmuPlugin.
+
+- MmuPlugin gives the guest physical address (virtual-supervisor mode) or physical address (supervisor mode) to the TranslatedDBusAccessPlugin for memory access.
+  ShadowMmuPlugin only gives physical address to the TranslatedDBusAccessPlugin for memory access.
+- The TranslatedDBusAccessPlugin will forward the guest physical address to the ShadowMmuPlugin to do the G-stage translation implictly,
+  then access the bus with the translated address.
+
+Note, the TranslatedDBusAccessPlugin will return the failed physical address to the MMU if the bus access or G-stage translation is failed.
+
+.. image:: /asset/picture/mmu_bus.png

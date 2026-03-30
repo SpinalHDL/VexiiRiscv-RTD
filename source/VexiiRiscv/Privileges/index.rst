@@ -91,17 +91,18 @@ EnvPlugin
 - Implement a few instructions as MRET, SRET, ECALL, EBREAK, FENCE.I, WFI by producing hardware traps
 - Those hardware trap are then handled in the TrapPlugin FSM
 
-MmuPlugin
----------
+MmuPlugin/ShadowMmuPlugin
+-------------------------
 
-- Implements supervisor mode memory protections
+- Implements supervisor/virtual-supervisor mode memory protections (MmuPlugin) and G-stage memory protections (ShadowMmuPlugin)
 - Include a hardware page walker
 - Has a TLB to store the page walker results
 - TLB are stored in multiples directly mapped memories. Typically 2 way x 32 TLB for 4KB pages + 1 way x 32 TLB for mega pages
 - Map very well with FPGA which supports asynchronous read memory (LUT based RAM)
 - Can be configured to work with synchronous read memory (block ram), but will likely be your critical path for timings
 
-This plugin is enabled via `--with-mmu` or `--with-supervisor`
+The MmuPlugin plugin is enabled via `--with-mmu`, `--with-supervisor` or `--with-isa s`.
+And the ShadowMmuPlugin plugin is enabled via `--with-hypervisor` or `--with-isa h`.
 
 PmpPlugin
 ---------

@@ -88,15 +88,16 @@ VexiiRiscv is a from scratch second iteration of VexRiscv, with the following go
 - Proper branch prediction
 - ...
 
-On this date (07/01/2025) the status is :
+On this date (30/03/2026) the status is :
 
-- RISC-V 32/64 IMAFDCSU supported (Multiply / Atomic / Float / Double / Supervisor / User)
+- RISC-V 32/64 IMAFDCSUH supported (Multiply / Atomic / Float / Double / Supervisor / User / Hypervisor)
 - Can run baremetal applications (2.50 dhrystone/MHz, 5.24 coremark/MHz)
 - Can run linux/buildroot/debian on FPGA hardware (via litex)
 - single/dual issue supported
 - early + late alu supported
 - BTB/RAS/GShare branch prediction supported
 - MMU SV32/SV39 supported
+- G-stage MMU SV32x4/SV39x4 supported
 - PMP supported
 - LSU store buffer supported
 - Multi-core memory coherency supported

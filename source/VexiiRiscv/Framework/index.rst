@@ -30,16 +30,21 @@ Here is a simple example of scala/SpinalHDL:
 
     // Lets define a Counter Component/Module, with a "width" parameter
     class Counter(width: Int) extends Component {
-      // Lets define all its inputs/outputs in a io Bundle (Kinda similar to a SystemVerilog interface)
+      // Lets define all its inputs/outputs in a io Bundle (Kinda similar to
+      // a SystemVerilog interface).
       val io = new Bundle {
         val clear = in Bool()
         val value = out UInt(width bits)
       }
 
-      val accumulator = Reg(UInt(width bits)) init(0) // In SpinalHDL registers/flipflop are defined explicitly. Not inferred.
-      accumulator := accumulator + 1 //Each cycle we increment the accumulator
+      // In SpinalHDL registers/flipflop are defined explicitly. Not inferred.
+      val accumulator = Reg(UInt(width bits)) init(0)
+
+      // Each cycle we increment the accumulator.
+      accumulator := accumulator + 1 
       when(io.clear) {
-        accumulator := 0 //But be override its value if io.clear is set (last assignment win)
+        // But be override its value if io.clear is set (last assignment win).
+        accumulator := 0 
       }
 
       // We connect the accumulator to the io.value.
@@ -51,7 +56,7 @@ Here is another simple example, but which use an JtagTap tool built on the top o
 
 .. code-block:: scala
 
-    // Lets define a component which will provide access to a few input/outputs through JTAG
+    // Lets define a component which will provide access to a few input/outputs through JTAG.
     class SimpleJtagTap extends Component {
       val io = new Bundle {
         val jtag    = slave(Jtag())
@@ -60,16 +65,17 @@ Here is another simple example, but which use an JtagTap tool built on the top o
         val leds    = out Bits(8 bits)
       }
 
-      //The JtagTap tool allows to create the mapping between the JTAG bus and the hardware
+      // The JtagTap tool allows to create the mapping between the JTAG bus and the hardware.
       val tap = new JtagTap(io.jtag, 8)
 
-      //JTAG taps need an idcode, lets add it !
+      // JTAG taps need an idcode, lets add it !
       val idcodeArea   = tap.idcode(B"x87654321") (instructionId=4)
 
-      // For instance here we specify that the jtag instruction id 5 will allow it to read the io.switches value
+      // For instance here we specify that the jtag instruction id 5 will allow it
+      // to read the io.switches value.
       val switchesArea = tap.read(io.switches)     (instructionId=5)
 
-      //Lets add a few other jtag instructions to access the keys and leds hardware
+      // Lets add a few other jtag instructions to access the keys and leds hardware
       val keysArea     = tap.read(io.keys)         (instructionId=6)
       val ledsArea     = tap.write(io.leds)        (instructionId=7)
     }
@@ -83,7 +89,7 @@ You can find more documentation about SpinalHDL here :
 - https://spinalhdl.github.io/SpinalDoc-RTD/master/index.html
 
 Plugin / Fiber / Retainer
-----------------------------
+-------------------------
 
 One of the main aspect of VexiiRiscv is that all its hardware is defined inside plugins instead of a big toplevel.
 When you want to instantiate a VexiiRiscv CPU, you "only" need to provide a list of plugins as parameters.
@@ -113,15 +119,15 @@ Here is a simple example :
   import scala.collection.mutable.ArrayBuffer
 
   // Define a new plugin kind
-  class FixedOutputPlugin extends FiberPlugin{
+  class FixedOutputPlugin extends FiberPlugin {
     // Define a build phase elaboration thread
-    val logic = during build new Area{
+    val logic = during build new Area {
       val port = out UInt(8 bits)
       port := 42
     }
   }
 
-  object Gen extends App{
+  object Gen extends App {
     // Generate the verilog
     SpinalVerilog{
       val plugins = ArrayBuffer[FiberPlugin]()
@@ -159,42 +165,55 @@ Here is a example where there a plugin which count the number of hardware event 
   import vexiiriscv._
   import scala.collection.mutable.ArrayBuffer
 
-  class EventCounterPlugin extends FiberPlugin{
-    val retainer = Retainer() // Will allow other plugins to block the elaboration of "logic" thread
-    val events = ArrayBuffer[Bool]() // Will allow other plugins to add event sources
+  class EventCounterPlugin extends FiberPlugin {
+
+    // Will allow other plugins to block the elaboration of "logic" thread
+    val retainer = Retainer()
+    
+    // Will allow other plugins to add event sources
+    val events = ArrayBuffer[Bool]()
+
     val logic = during build new Area {
       // Prevent executing this thread until the retainer is locked by other plugins
       retainer.await()
 
-      // Now that all the other plugins are done adding event sources, we can generate the actual hardware
+      // Now that all the other plugins are done adding event sources,
+      // we can generate the actual hardware
       val counter = Reg(UInt(32 bits)) init(0)
-      counter := counter + CountOne(events) // CountOne will take each bits of events, add sum all them all. ex : 0b1011 => 3
+
+      // CountOne will take each bits of events, add sum all them all.
+      // ex : 0b1011 => 3
+      counter := counter + CountOne(events) 
     }
   }
 
 
-  // For the demo we want to be able to instantiate this plugin multiple times, so we add a prefix parameter to name the specific instance
-  class EventSourcePlugin(prefix : String) extends FiberPlugin{
+  // For the demo we want to be able to instantiate this plugin multiple times, 
+  // so we add a prefix parameter to name the specific instance
+  class EventSourcePlugin(prefix : String) extends FiberPlugin {
     withPrefix(prefix)
 
-    // Create a thread starting from the setup phase (this allow to run some code before the build phase,
-    // this allows to lock some other plugins retainers before their build phase
+    // Create a thread starting from the setup phase (this allow to run some
+    // code before the build phase), this allows to lock some other plugins
+    // retainers before their build phase
     val logic = during setup new Area {
       // Search for the single instance of EventCounterPlugin in the plugin pool
       val ecp = host[EventCounterPlugin]
 
-      // Generate a lock to prevent the EventCounterPlugin elaboration (until we release it).
-      // This will allow us to add our localEvent to the ecp.events list
+      // Generate a lock to prevent the EventCounterPlugin elaboration
+      // (until we release it). This will allow us to add our localEvent to 
+      // the ecp.events list.
       val ecpLocker = ecp.lock()
 
       // Wait for the build phase before generating any hardware
       awaitBuild()
 
-      // Here the local event is a input of the VexiiRiscv toplevel (just for the demo)
+      // Here the local event is an input of the VexiiRiscv toplevel
+      // (just for the demo).
       val localEvent = in Bool()
       ecp.events += localEvent
 
-      // As everything is done, we now allow the ecp to elaborate itself
+      // As everything is done, we now allow the ecp to elaborate itself.
       ecpLocker.release()
     }
   }
@@ -249,15 +268,15 @@ Here is a example where there a plugin which count the number of hardware event 
 Database
 --------
 
-In VexiiRiscv, there is the possibility to define elaboration time variable which are unique to each VexiiRiscv instance while being easily accessible as if they were global variable.
+In VexiiRiscv, there is the possibility to define elaboration time variables which are unique to each VexiiRiscv instance while being easily accessible as if they were global variables.
 For instance XLEN, PC_WIDTH, INSTRUCTION_WIDTH, ...
 
-Those variable are handled through the VexiiRiscv "database".
+Those variables are handled through the VexiiRiscv "database".
 You can see it in the VexRiscv toplevel :
 
 .. code-block:: scala
 
-  class VexiiRiscv extends Component{
+  class VexiiRiscv extends Component {
     val database = new Database
     val host = database on (new PluginHost)
   }
@@ -273,30 +292,32 @@ What it does is that all the plugin thread will run in the context of that datab
   import scala.collection.mutable.ArrayBuffer
 
   // In Scala, an object define a singleton / static thing.
-  object Global extends AreaObject{
+  object Global extends AreaObject {
     // Lets define VIRTUAL_WIDTH as a variable in the data base.
-    // VIRTUAL_WIDTH will act as the "key" to access the variable value in the current context.
-   // If accessed before being set, it will block the current thread execution (until it is set by another thread)
+    // VIRTUAL_WIDTH will act as the "key" to access the variable value in 
+    // the current context. If accessed before being set, it will block the
+    // current thread execution (until it is set by another thread).
     val VIRTUAL_WIDTH = Database.blocking[Int]
   }
 
-  // Lets define a plugin which will use the VIRTUAL_WIDTH value.
-  class LoadStorePlugin extends FiberPlugin{
-    val logic = during build new Area{
+  // Let's define a plugin which will use the VIRTUAL_WIDTH value.
+  class LoadStorePlugin extends FiberPlugin {
+    val logic = during build new Area {
       val address = Reg(UInt(Global.VIRTUAL_WIDTH.get bits))
     }
   }
 
-  // Lets define a plugin which will set the VIRTUAL_WIDTH value
-  class MmuPlugin extends FiberPlugin{
-    val logic = during build new Area{
+  // Let's define a plugin which will set the VIRTUAL_WIDTH value.
+  class MmuPlugin extends FiberPlugin {
+    val logic = during build new Area {
       Global.VIRTUAL_WIDTH.set(39)
     }
   }
 
-  // Lets define the scala application which can generate the VexiiRiscv hardware using those two plugins.
-  object Gen extends App{
-    SpinalVerilog{
+  // Let's define the scala application which can generate the 
+  // VexiiRiscv hardware using those two plugins.
+  object Gen extends App {
+    SpinalVerilog {
       val plugins = ArrayBuffer[FiberPlugin]()
       plugins += new LoadStorePlugin()
       plugins += new MmuPlugin()
@@ -308,7 +329,7 @@ This will generate the following hardware :
 
 .. code-block:: scala
 
-    module VexiiRiscv (
+    module VexiiRiscv(
       input  wire          clk,
       input  wire          reset
     );
@@ -324,7 +345,7 @@ Pipeline API
 In short, the design use a pipeline API in order to :
 
 - Propagate data into the pipeline automatically
-- Allow design space exploration with less paine (retiming, moving around the architecture)
+- Allow design space exploration with less pain (retiming, moving around the architecture)
 - Handle the valid/ready arbitration
 - Reduce boiler plate code
 
@@ -345,35 +366,36 @@ Here is an example which expose a simple usage of the pipelining API (not relate
   import spinal.core._
   import spinal.lib.misc.pipeline._
 
-  class PipelineExample extends Component{
-    // Lets define a few inputs/outputs
+  class PipelineExample extends Component {
+    // Lets define a few inputs/outputs.
     val a,b = in UInt(8 bits)
     val result = out(UInt(16 bits))
 
     // Lets create the pipelining tool.
     val pip = new StagePipeline
 
-    // Lets insert a and b into the pipeline at stage 0
+    // Lets insert a and b into the pipeline at stage 0.
     val A = pip(0).insert(a)
     val B = pip(0).insert(b)
 
-    // Lets insert the sum of A and B into the stage 1 of our pipeline
+    // Lets insert the sum of A and B into the stage 1 of our pipeline.
     val SUM = pip(1).insert(pip(1)(A) + pip(1)(B))
 
     // Clearly, i don't want to say pip(x)(y) on every pipelined thing.
-    // So instead we can create a pip.Area(x) which will provide a scope which work in stage "x"
-    val onSquare = new pip.Area(2){
+    // So instead we can create a pip.Area(x) which will provide a scope which
+    // work in stage "x".
+    val onSquare = new pip.Area(2) {
       val VALUE = insert(SUM * SUM)
     }
 
-    // Lets assign our output result from stage 3
+    // Lets assign our output result from stage 3.
     result := pip(3)(onSquare.VALUE)
 
-    // Now that everything is specified, we can build the pipeline
+    // Now that everything is specified, we can build the pipeline.
     pip.build()
   }
 
-  object PipelineExampleGen extends App{
+  object PipelineExampleGen extends App {
     SpinalVerilog(new PipelineExample)
   }
 
@@ -417,7 +439,7 @@ More documentation about it in :
 - https://spinalhdl.github.io/SpinalDoc-RTD/master/SpinalHDL/Libraries/Pipeline/index.html
 
 VexiiRiscv assumptions
-------------------------------
+----------------------
 
 Here is a list of important design assumptions and things to know about :
 

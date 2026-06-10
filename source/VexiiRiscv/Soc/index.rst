@@ -16,7 +16,7 @@ Those can be enabled via :
 
 Note that RVA has some restriction in the following configs :
 
-- Without L1 => RVA unsuported.
+- Without L1 => RVA unsupported.
 - With L1 => RVA only supported on cached memory accesses.
 - With L1, without memory coherency => Single core support.
 - With L1, with memory coherency => Only supported with tilelink.

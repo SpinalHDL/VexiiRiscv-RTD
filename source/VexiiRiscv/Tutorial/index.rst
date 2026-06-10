@@ -706,8 +706,8 @@ Reading a CSR (Control Status Register) in assembly is straightforward (ex : csr
 Here are a few explanations :
 
 - **asm** : To start specifying some assembly inside some C code.
-- **volatile** : To ensure GCC do not optimize away the given assembly code (not realy necessary in our case).
-- **"csrr %0,  mcycle"** :  Read the mcycle CSR and write its value into %0, %0 refering to the value variable.
+- **volatile** : To ensure GCC do not optimize away the given assembly code (not really necessary in our case).
+- **"csrr %0,  mcycle"** :  Read the mcycle CSR and write its value into %0, %0 referring to the value variable.
 - **"=r" (value)** : Define a write only output operand bound to the C "value" variable.
 
 Here is not the place to go more into the details of the GCC asm("") syntax, as it is quite complicated.

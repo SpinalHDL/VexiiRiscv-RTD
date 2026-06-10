@@ -139,7 +139,7 @@ After installing the dependencies (see above) :
     cd ext/riscv-isa-sim
     mkdir build
     cd build
-    ../configure --prefix=$RISCV --enable-commitlog  --without-boost --without-boost-asio --without-boost-regex
+    ../configure --prefix=/opt/riscv --enable-commitlog  --without-boost --without-boost-asio --without-boost-regex
     make -j$(nproc)
     cd ../../..
 
@@ -220,7 +220,7 @@ Here is a list of the important parameters :
      - Enable the RISC-V JTAG debugging.
    * - --report-model
      - This is a special arguments. When used, after the hardware generation, the whole execution pipeline model will be printed in the terminal, 
-       aswell as how each instruction integrate itself in it (timings, ressource used, ...)
+       as well as how each instruction integrate itself in it (timings, resource used, ...)
 
 
 There is a lot more parameters which can be turned on.

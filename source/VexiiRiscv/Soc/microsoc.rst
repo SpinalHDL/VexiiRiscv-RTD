@@ -93,9 +93,9 @@ Here is how you use it to compile a simple UART example :
     cmake -S . -B build -DSOC=microsoc/default -DDEVICE=microsoc_sim
     make -C build example-uart
 
-Here is a few explenation : 
+Here are a few explanations: 
 
-- -DSOC=microsoc/default specifies that we use the microsoc default configuration (it rever to the soc/microsoc/default folder)
+- -DSOC=microsoc/default specifies that we use the microsoc default configuration (it refers to the soc/microsoc/default folder)
 - -DDEVICE=microsoc_sim specifies that the SoC is running in the simulation "device", which mostly specifies that the clock speed is quite slow. (it refer to the device/microsoc_sim folder)
 
 You can then run a simulation of that software via : 
@@ -118,7 +118,7 @@ It should the produce :
     ...
 
 
-You can also add the --trace-fst --trace-konata arguments if you want to capture some traces, but be carefull to not let it run too long, as it will generate big file traces.
+You can also add the --trace-fst --trace-konata arguments if you want to capture some traces, but be careful to not let it run too long, as it will generate big file traces.
 
 The "WAITING FOR TCP JTAG CONNECTION" is just a notification that you can connect from openocd (see the Simulation chapter above)
 

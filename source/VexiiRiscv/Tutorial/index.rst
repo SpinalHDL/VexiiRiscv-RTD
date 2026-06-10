@@ -219,9 +219,8 @@ As RISC-V assembly this becomes the following:
     pass:
         j pass
         
-Also, note that if you are interested into more C to assembly comparison, you can use the Compiler Explorer tool. Here is an example : 
-
-https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1',fontScale:14,fontUsePx:'0',j:1,lang:___c,selection:(endColumn:2,endLineNumber:7,positionColumn:2,positionLineNumber:7,selectionStartColumn:2,selectionStartLineNumber:7,startColumn:2,startLineNumber:7),source:'int+miaou()%7B%0A++++int+count+%3D+1000%3B%0A++++while(count+!!%3D+0)%7B%0A++++++++asm(%22nop%22)%3B%0A++++++++count--%3B%0A++++%7D%0A%7D'),l:'5',n:'0',o:'C+source+%231',t:'0')),k:44.29215489283432,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:compiler,i:(compiler:rv32-cgcctrunk,filters:(b:'0',binary:'1',binaryObject:'0',commentOnly:'0',debugCalls:'1',demangle:'0',directives:'0',execute:'1',intel:'0',libraryCode:'0',trim:'1',verboseDemangling:'0'),flagsViewOpen:'1',fontScale:14,fontUsePx:'0',j:2,lang:___c,libs:!(),options:'-O3',overrides:!(),selection:(endColumn:5,endLineNumber:10,positionColumn:5,positionLineNumber:10,selectionStartColumn:5,selectionStartLineNumber:10,startColumn:5,startLineNumber:10),source:1),l:'5',n:'0',o:'+RISC-V+(32-bits)+gcc+(trunk)+(Editor+%231)',t:'0')),k:55.707845107165674,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4     
+Also, note that if you are interested into more C to assembly comparison, you can use the Compiler Explorer tool.  
+`Here is an example <https://godbolt.org/#g:!((g:!((g:!((h:codeEditor,i:(filename:'1',fontScale:14,fontUsePx:'0',j:1,lang:___c,selection:(endColumn:2,endLineNumber:7,positionColumn:2,positionLineNumber:7,selectionStartColumn:2,selectionStartLineNumber:7,startColumn:2,startLineNumber:7),source:'int+miaou()%7B%0A++++int+count+%3D+1000%3B%0A++++while(count+!!%3D+0)%7B%0A++++++++asm(%22nop%22)%3B%0A++++++++count--%3B%0A++++%7D%0A%7D'),l:'5',n:'0',o:'C+source+%231',t:'0')),k:44.29215489283432,l:'4',n:'0',o:'',s:0,t:'0'),(g:!((h:compiler,i:(compiler:rv32-cgcctrunk,filters:(b:'0',binary:'1',binaryObject:'0',commentOnly:'0',debugCalls:'1',demangle:'0',directives:'0',execute:'1',intel:'0',libraryCode:'0',trim:'1',verboseDemangling:'0'),flagsViewOpen:'1',fontScale:14,fontUsePx:'0',j:2,lang:___c,libs:!(),options:'-O3',overrides:!(),selection:(endColumn:5,endLineNumber:10,positionColumn:5,positionLineNumber:10,selectionStartColumn:5,selectionStartLineNumber:10,startColumn:5,startLineNumber:10),source:1),l:'5',n:'0',o:'+RISC-V+(32-bits)+gcc+(trunk)+(Editor+%231)',t:'0')),k:55.707845107165674,l:'4',n:'0',o:'',s:0,t:'0')),l:'2',n:'0',o:'',t:'0')),version:4>`_
 
 Note, you can see that this assembly example uses register names as a0, t1, while the previous example was using x1. RISC-V has two ways of naming the registers : 
 
@@ -293,7 +292,7 @@ Let's corrupt the XOR instruction to behave like a bitwise OR :
 .. code-block:: scala
 
     AluBitwiseCtrlEnum.XOR  -> (srcp.SRC1 ^ srcp.SRC2),
-    //into
+    // into
     AluBitwiseCtrlEnum.XOR  -> (srcp.SRC1 | srcp.SRC2),
 
 Then let's run this assembly code in the simulation : 
@@ -399,20 +398,23 @@ What this example aims at is to show you how you can navigate your CPU between p
         j fail
 
     supervisor_entry:
-        //Welcome in supervisor mode :D
+        // Welcome in supervisor mode :D
         li x1, 666
-        // let's run a illegal instruction, we aren't allowed to access machine mode CSR from supervisor mode !
+        // Let's run a illegal instruction, we aren't allowed to access machine mode CSR
+        // from supervisor mode !
         csrr x1, mepc
-        // We should not be able to reach this point, as the previous instruction would have produce a illegal instruction exception
+        // We should not be able to reach this point, as the previous instruction would
+        // have produce a illegal instruction exception.
         j fail
 
     supervisor_exit:
         // Welcome back in machine mode :D
         li x1, 42
-        // let's read the CSR which indicate the reason why we back to machine mode, and check it is because of CAUSE_ILLEGAL_INSTRUCTION
+        // Let's read the CSR which indicate the reason why we back to machine mode,
+        // and check it is because of CAUSE_ILLEGAL_INSTRUCTION.
         csrr x1, mcause
         li x2, CAUSE_ILLEGAL_INSTRUCTION; bne x1, x2, fail
-        // let's read which instruction (PC) caused it
+        // Let's read which instruction (PC) caused it.
         csrr x1, mcause
 
     pass:
@@ -704,8 +706,8 @@ Reading a CSR (Control Status Register) in assembly is straightforward (ex : csr
 Here are a few explanations :
 
 - **asm** : To start specifying some assembly inside some C code.
-- **volatile** : To ensure GCC do not optimize away the given assembly code (not realy necessary in our case).
-- **"csrr %0,  mcycle"** :  Read the mcycle CSR and write its value into %0, %0 refering to the value variable.
+- **volatile** : To ensure GCC do not optimize away the given assembly code (not really necessary in our case).
+- **"csrr %0,  mcycle"** :  Read the mcycle CSR and write its value into %0, %0 referring to the value variable.
 - **"=r" (value)** : Define a write only output operand bound to the C "value" variable.
 
 Here is not the place to go more into the details of the GCC asm("") syntax, as it is quite complicated.

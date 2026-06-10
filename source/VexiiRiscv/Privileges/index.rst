@@ -9,7 +9,7 @@ RISC-V specifies in "Volume 2, Privileged Specification" most of its special reg
 - Memory protections (MMU, PMP)
 - Privilege modes (Machine, Supervisor, User)
 
-A microcontroller will typically only need Machine mode, maybe User mode, while a Linux capable CPU will normaly need them all.
+A microcontroller will typically only need Machine mode, maybe User mode, while a Linux capable CPU will normally need them all.
 
 - Machine mode : Baremetal / Bootloader / BIOS / OpenSBI / RTOS
 - Supervisor mode : Kernel / Linux

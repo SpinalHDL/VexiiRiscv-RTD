@@ -26,7 +26,7 @@ So let's say the debug module want to read some memory, here is what it will do 
 
 - Push instructions to set one register in the register file (let's say x1) to the address whe want to read: `li x1, 0x12345678`
 - Push a memory load instruction: `lw x1, 0(x1)`
-- Push a instruction to write the readed value into the special CSR (0x7B4): `csrw 0x7B4, x1`.
+- Push a instruction to write the read value into the special CSR (0x7B4): `csrw 0x7B4, x1`.
   Writing this CSR will automatically push the value to the debug module
 - Provide that value to the JTAG
 

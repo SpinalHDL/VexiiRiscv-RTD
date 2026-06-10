@@ -80,7 +80,7 @@ Will :
      - Specify the number of sets for the L1 I$ (how many line of cache per way), default=64
    * - --fetch-l1-mem-data-width-min=X
      - Set a lower bound for the L1 I$ data width
-   * - --fetch-l1-hardware-prefetc=nl
+   * - --fetch-l1-hardware-prefetch=nl
      - Enable the L1 I$ hardware prefetcher (prefetch the next line)
    * - --fetch-l1-refill-count=X
      - Specify how many cache line refill the L1 I$ can handle at the same time, default=1

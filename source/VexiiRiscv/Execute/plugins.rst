@@ -134,7 +134,7 @@ CsrAccessPlugin
 See the :ref:`privileges` chapter for more information.
 
 EnvPlugin
-^^^^^^^^^^^^^^^
+^^^^^^^^^
 
 See the :ref:`privileges` chapter for more information.
 

@@ -255,11 +255,11 @@ Here is the hardware interfaces :
   When data need to be written back, it will be done through the write_cmd channel.
 
 Atomic Memory Operation
--------------------------
+-----------------------
 
 AMO stand for Atomic Memory Operations (ex : atomic swap, atomic add, ...)
 
-Typicaly, an AMO execute the following pseudo code (ex : atomic add).
+Typically, an AMO execute the following pseudo code (ex : atomic add).
 
 .. code-block:: c
 
@@ -275,13 +275,13 @@ When memory coherency is enabled, here is how AMO instruction are implemented in
 
 - AMO starts like a regular memory Load
 - Once it reach the last stage of the cache (execute stage 2), if there is a cache miss, or the cache line isn't in a exclusive state, the instruction fail and is retried.
-- If the above condition is successfull, the LSU will lock the given cache line for a few cycles, preventing any writeback.
+- If the above condition is successful, the LSU will lock the given cache line for a few cycles, preventing any writeback.
   The combination of the cache line locking and exclusive state ensure that no other agent can modify the memory block while the atomic operation is done.
-- While the cache line is locked, the atomic ALU will process the readed value, then write the result into the cache and release the cache line lock.
+- While the cache line is locked, the atomic ALU will process the read value, then write the result into the cache and release the cache line lock.
 
 
 Load Reserve / Store Conditional
----------------------------------
+--------------------------------
 
 LR stand for Load Reserve, SC stand for Store Conditional.
 Those two instruction work in pairs and allows to implement atomic memory operations quite differently from the AMO instruction.
@@ -290,7 +290,7 @@ The idea is:
 
 - First, the CPU attempts to load and reserve a given portion of memory via the LR instruction.
 - Then the CPU process the loaded data using regular integer instruction (it has a limited time to do it and a few other restrictions)
-- Finaly, the CPU store a modified value using the SC instruction.
+- Finally, the CPU store a modified value using the SC instruction.
 
 The trick is that the store instruction may fail, and will fail in a few conditions :
 
@@ -313,8 +313,8 @@ So an AMOADD could be emulated via :
 
 In VexiiRiscv, the LR / SC instruction are implemented the following way :
 
-- LR mostly behave like a regular memory load, but will require the cache line to be in a exclusive state to successed.
-  Also, the cache line will be locked for a 32 cycles to ensure other memory agent would not remove the cache line via probes systematicaly.
+- LR mostly behave like a regular memory load, but will require the cache line to be in a exclusive state to succeeded.
+  Also, the cache line will be locked for a 32 cycles to ensure other memory agent would not remove the cache line via probes systematically.
 - SC mostly behave like a regular memory store, but will check that the lock is still active, else it will skip the memory store and notify the CPU of the failure
 
 Also, note that if one CPU pull a memory value using LR in a for loop (this is done in a few place in the linux kernel, ex : spinlock), it shouldn't be able to refresh the lock,

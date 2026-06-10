@@ -1,5 +1,5 @@
 VexiiRiscv
-====================================
+==========
 
 Welcome to VexiiRiscv's documentation!
 

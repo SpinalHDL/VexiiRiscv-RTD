@@ -136,6 +136,7 @@ After installing the dependencies (see above) :
     cd VexiiRiscv
 
     # (optional) Compile riscv-isa-sim (spike), used as a golden model during the sim to check the dut behaviour (lock-step)
+    # assume that the RISCV environment variable is set to the RISC-V tools install path.
     cd ext/riscv-isa-sim
     mkdir build
     cd build
@@ -263,9 +264,8 @@ Here is how you can run a Verilator based simulation, note that Vexiiriscv use m
 
 .. code-block:: bash
 
-    sbt
-    compile
-    Test/runMain vexiiriscv.tester.TestBench --with-mul --with-div --load-elf ext/NaxSoftware/baremetal/dhrystone/build/rv32ima/dhrystone.elf --trace-all
+    sbt compile
+    sbt "Test/runMain vexiiriscv.tester.TestBench --with-mul --with-div --load-elf ext/NaxSoftware/baremetal/dhrystone/build/rv32ima/dhrystone.elf --trace-all"
 
 
 This will generate a simWorkspace/VexiiRiscv/test folder which contains :
